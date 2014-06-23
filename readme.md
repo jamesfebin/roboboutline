@@ -12,8 +12,7 @@
 - [ ] Walkthroughs Setup for @jamesfebin 
 - [ ] Better flow of login for @jamesfebin
 - [ ] Facebook Login for @jamesfebin
-- [ ] Mixpanel Integration for @jamesfebin
-
+- [ ] Mixpanel Integration for ,@jamesfebin
 - [ ] Apprate Integration for @anandsatyan
 
 #### 24 June
