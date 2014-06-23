@@ -1,4 +1,4 @@
 - [x] Project Setup Completed
-- [] DDP Setup
-- [] Facebook Login 
+- [ ] DDP Setup
+- [ ] Facebook Login 
 
