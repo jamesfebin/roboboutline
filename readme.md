@@ -12,7 +12,7 @@
 - [ ] Walkthroughs Setup for @jamesfebin 
 - [ ] Better flow of login for @jamesfebin
 - [ ] Facebook Login for @jamesfebin
-- [ ] Mixpanel Integration for ,@jamesfebin
+- [ ] Mixpanel Integration for @jamesfebin
 - [ ] Apprate Integration for @anandsatyan
 
 #### 24 June
@@ -59,7 +59,6 @@
 - [ ] Blank Slides for @jamesfebin
 - [ ] Infinite Scroll for @jamesfebin
 - [ ] Mixpanel Integration for @jamesfebin
-
 - [ ] Requests to friends for testing devices for @anandsatyan
  
 #### 29 June
@@ -87,8 +86,8 @@
 #### 2 July
 
 - [ ] Testing for @anandsatyan
-
 - [ ] Fix Known Bugs for @jamesfebin
 
 #### 3 July
+
 - [ ] To the store for @jamesfebin
