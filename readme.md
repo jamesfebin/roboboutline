@@ -3,7 +3,8 @@
 
 
 ### Tasks 
-**Please Don't add any tasks after 23rd June 2014 12.00 AM**
+- **Please don't add any tasks after 23rd June 2014 12.00 AM**
+- **Any changes to the below tasks must be marked as bold**
 
 #### 23 June
 
@@ -13,7 +14,7 @@
 - [ ] Better flow of login for @jamesfebin
 - [ ] Facebook Login for @jamesfebin
 - [ ] Mixpanel Integration for @jamesfebin
-- [ ] Apprate Integration for @anandsatyan
+- [ ] AppRate Integration for @anandsatyan
 
 #### 24 June
 
@@ -78,7 +79,7 @@
 - [ ] Notification Management for @jamesfebin
 - [ ] Settings Page for @jamesfebin
 - [ ] Device Id Untagging and logout for @jamesfebin
-- [ ] Muting & Unmiting of Conversation for @jamesfebin
+- [ ] Muting & Unmuting of Conversation for @jamesfebin
 - [ ] Muting of Match Alerts for @jamesfebin
 - [ ] Mixpanel Integration for @jamesfebin
 
