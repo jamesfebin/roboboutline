@@ -3,12 +3,19 @@
 
 
 ### Tasks 
-- **Please don't add any tasks after 23rd June 2014 12.00 AM**
+- **No more tasks can be added for @jamesfebin , Everything is fixed for this version**
+- **@anandsatyan please add yours :)** 
 - **Any changes to the below tasks must be marked as bold**
 
 #### 23 June
 
-- [x] Project Setup Completed for @jamesfebin
+- [x] Eclipse Project Imported To Graddle for @jamesfebin
+- [x] Project setup on git for @jamesfebin
+- [x] Succesfull project sync with @anandsatyan 
+
+
+#### 24 June
+
 - [ ] DDP Setup for @jamesfebin
 - [ ] Walkthroughs Setup for @jamesfebin 
 - [ ] Better flow of login for @jamesfebin
@@ -16,7 +23,7 @@
 - [ ] Mixpanel Integration for @jamesfebin
 - [ ] AppRate Integration for @anandsatyan
 
-#### 24 June
+#### 25 June
 
 - [ ] Choose Sports Backend Setup for @jamesfebin 
 - [ ] Display Choose Sports Only One Time for @jamesfebin
@@ -25,7 +32,7 @@
 - [ ] Choose Tournaments Backend Setup for @jamesfebin
 - [ ] Mixpanel Integration for @jamesfebin
 
-#### 25 June
+#### 26 June
 
 - [ ] Blank Slides for Choose Matches for @jamesfebin
 - [ ] Choose Tournaments Back-End Integration for @jamesfebin
@@ -33,7 +40,7 @@
 - [ ] Seperate properties for Upcoming Matches &  Current Matches for @jamesfebin
 - [ ] Mixpanel Integration  for @jamesfebin
 
-#### 26 June
+#### 27 June
 
 - [ ] Blank Slides For Tweet Board  for @jamesfebin
 - [ ] Tweets Board BackEnd Integration  for @jamesfebin
@@ -44,7 +51,7 @@
 - [ ] Favorite , Retweet Marker for @jamesfebin
 - [ ] Mixpanel Integration for @jamesfebin
 
-#### 27 June
+#### 28 June
 
 - [ ] Conversations page Backend Setup for @jamesfebin
 - [ ] Blank Slide for @jamesfebin
@@ -53,7 +60,11 @@
 - [ ] Last message setup for @jamesfebin
 - [ ] Mixpanel Integration for @jamesfebin
 
-#### 28 June
+#### 29 June
+
+*@jamesfebin won't be available*
+
+#### 01 July
 
 - [ ] Banter Screen Backend Setup for @jamesfebin
 - [ ] Group Notifications like user added for @jamesfebin
@@ -61,19 +72,14 @@
 - [ ] Infinite Scroll for @jamesfebin
 - [ ] Mixpanel Integration for @jamesfebin
 - [ ] Requests to friends for testing devices for @anandsatyan
- 
-#### 29 June
 
-*@jamesfebin won't be available*
-
-
-#### 30 June
+#### 2 July
 
 - [ ] Caching for conversations page for @jamesfebin
 - [ ] Caching for banter screen for @jamesfebin
 
 
-#### 1 July 
+#### 3 July 
 
 - [ ] Invite Friends for @jamesfebin 
 - [ ] Notification Management for @jamesfebin
@@ -84,11 +90,11 @@
 - [ ] Mixpanel Integration for @jamesfebin
 
 
-#### 2 July
+#### 3 July
 
 - [ ] Testing for @anandsatyan
 - [ ] Fix Known Bugs for @jamesfebin
 
-#### 3 July
-
+#### 4 July Morning
+ 
 - [ ] To the store for @jamesfebin
