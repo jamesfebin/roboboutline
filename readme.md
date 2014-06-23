@@ -63,7 +63,7 @@
  
 #### 29 June
 
-* @jamesfebin won't be available *
+*@jamesfebin won't be available*
 
 
 #### 30 June
