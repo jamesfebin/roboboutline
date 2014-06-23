@@ -1,0 +1,52 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/tweetContainer"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:descendantFocusability="blocksDescendants"
+    android:padding="15dp">
+    
+    <ImageView
+        android:contentDescription="@string/dummy"
+	    android:id="@+id/imgTournament"
+	    android:src="@drawable/dummy"
+	    android:layout_width="75dp"
+	    android:layout_height="75dp"
+    />
+    
+    <LinearLayout
+        android:id="@+id/tournamentDetails"
+        android:layout_toRightOf="@id/imgTournament"
+        android:padding="10dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+    
+	    <TextView
+	        android:id="@+id/lblTournamentName"
+	        android:text="@string/cricket"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:textColor="#343D42"
+	        />
+	    
+	    <TextView
+	        android:id="@+id/lblTournamentStartTime"
+	        android:text="@string/dummy"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:textColor="#9AA3A8"
+	        />
+	    
+    </LinearLayout>
+
+    <CheckBox
+        android:id="@+id/chkFollowStatus"
+        style="@style/CustomFollowTheme"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:checked="true"
+        android:layout_alignParentRight="true" />
+    
+ </RelativeLayout>
+

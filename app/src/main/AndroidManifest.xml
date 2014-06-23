@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.boutline.sports" >
+
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="com.google.android.providers.gsf.permission.READ_GSERVICES" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+
+    <application
+        android:allowBackup="true"
+        android:icon="@drawable/ic_launcher"
+        android:label="@string/app_name"
+        android:theme="@style/AppTheme"
+        android:name=".application.MyApplication">
+        <activity
+            android:name=".activities.MainActivity"
+            android:label="@string/app_name" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <activity android:name=".activities.Walkthrough1" android:label="" android:screenOrientation="portrait" ></activity>
+        <activity android:name=".activities.Walkthrough2" android:label="" android:screenOrientation="portrait" ></activity>
+        <activity android:name=".activities.Walkthrough3" android:label="" android:screenOrientation="portrait" ></activity>
+        <activity android:name=".activities.FacebookLogin" android:label="" android:screenOrientation="portrait" ></activity>
+        <activity android:name=".activities.BoardActivity" android:label="" android:screenOrientation="portrait" ></activity>
+        <activity android:name=".activities.BanterActivity" android:label="" android:screenOrientation="portrait" ></activity>
+        <activity android:name=".activities.NewBanterActivity" android:label="" android:screenOrientation="portrait" ></activity>
+        <activity android:name=".activities.ConversationActivity" android:label="" android:screenOrientation="portrait" ></activity>
+        <activity android:name=".activities.ComposeTweetActivity" android:theme="@android:style/Theme.Holo.Light.NoActionBar.Fullscreen" android:windowSoftInputMode="stateVisible" android:label="" android:screenOrientation="portrait" ></activity>
+        <activity android:name=".activities.ChooseSportsActivity" android:label="" android:screenOrientation="portrait" ></activity>
+        <activity android:name=".activities.ChooseTournamentActivity" android:label="" android:screenOrientation="portrait" ></activity>
+        <activity android:name=".activities.ChooseMatchActivity" android:label="" android:screenOrientation="portrait" ></activity>
+        <activity android:name=".activities.TweetDetailsActivity" android:theme="@android:style/Theme.Holo.Light.NoActionBar.Fullscreen" android:label="" android:screenOrientation="portrait" ></activity>
+        <activity android:name=".activities.SettingsActivity" android:theme="@android:style/Theme.Holo.Light.NoActionBar.Fullscreen" android:label="" android:screenOrientation="portrait" ></activity>
+
+    </application>
+
+</manifest>

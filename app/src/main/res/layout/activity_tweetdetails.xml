@@ -1,0 +1,116 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/tweetContainer"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="15dp"
+    android:background="#ffffff">
+    
+    <ImageView
+        android:id="@+id/imgPropic"
+        android:contentDescription="@string/dummy"
+        android:src="@drawable/dummy"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        />
+    
+    <RelativeLayout
+        android:id="@+id/tweeterDetails"
+        android:layout_toRightOf="@id/imgPropic"
+        android:padding="10dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+    
+		    <TextView
+		        android:id="@+id/lblTweetUsername"
+		        android:text=""
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:textColor="#343D42"
+		        />
+		    
+		    <TextView
+		        android:id="@+id/lblTweetHandle"
+		        android:text=""
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:textColor="#9AA3A8"
+		        android:paddingLeft="5dp"
+		        android:layout_below="@id/lblTweetUsername"
+		        />
+	    
+    </RelativeLayout>
+    
+    <TextView
+	    android:id="@+id/lblTweetMessage"
+	    android:text=""
+	    android:layout_width="fill_parent"
+	    android:layout_height="wrap_content"
+	    android:textColor="#9BA4A9"
+	    android:layout_below="@id/tweeterDetails"
+	    />
+	 <TextView
+	    android:id="@+id/lblTweetDateTime"
+	    android:text=""
+	    android:layout_width="fill_parent"
+	    android:layout_height="wrap_content"
+	    android:textColor="#9BA4A9"
+	    android:layout_below="@id/lblTweetMessage"
+	    />
+	
+
+	<LinearLayout
+			android:id="@+id/buttonGroup"
+			android:layout_width="fill_parent"
+			android:layout_height="wrap_content"
+			android:layout_gravity="bottom"
+			android:orientation="horizontal"
+			android:paddingTop="15dp"
+			android:paddingBottom="15dp"			
+			android:layout_below="@id/lblTweetDateTime" >
+
+			<ImageButton
+			    android:contentDescription="@string/dummy"
+				android:id="@+id/reply"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:src="@drawable/reply"
+				android:layout_weight="1"
+				android:background="#ffffff">
+			</ImageButton>
+
+			<ImageButton
+			    android:contentDescription="@string/dummy"
+				android:id="@+id/retweet"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:src="@drawable/retweet"
+				android:background="#ffffff"
+				android:layout_weight="1"
+				 >
+			</ImageButton>
+			
+			<ImageButton
+			    android:contentDescription="@string/dummy"
+				android:id="@+id/favourite"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:src="@drawable/favorite"
+				android:background="#ffffff"
+				android:layout_weight="1">
+			</ImageButton>
+		</LinearLayout>  
+    
+	<ImageView
+	    android:contentDescription="@string/dummy"
+	    android:id="@+id/imgTweetPicUrl"
+	    android:layout_width="fill_parent" 
+	    android:layout_height="wrap_content"
+	    android:src="@drawable/imgplaceholder"
+	    android:layout_below="@id/buttonGroup"
+	    />
+
+ </RelativeLayout>
+
+
+

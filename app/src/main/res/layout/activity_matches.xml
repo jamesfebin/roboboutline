@@ -1,0 +1,75 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/container"
+    android:layout_width="fill_parent"
+    android:layout_height="match_parent"
+    android:background="#ffffff"
+    android:padding="15dp">
+    
+  	<RelativeLayout android:id="@+id/tourDetails"
+  	    android:layout_width="fill_parent"
+  	    android:layout_height="wrap_content">
+	     <ImageView
+	        android:contentDescription="@string/dummy"
+		    android:id="@+id/imgTournament"
+		    android:src="@drawable/dummy"
+		    android:layout_width="75dp"
+		    android:layout_height="75dp"
+	       />
+	    <LinearLayout
+	        android:id="@+id/tournamentDetails"
+	        android:layout_toRightOf="@id/imgTournament"
+	        android:padding="10dp"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:orientation="vertical">
+	    
+		    <TextView
+		        android:id="@+id/lblTournamentName"
+		        android:text="@string/cricket"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:textColor="#343D42"
+		        />
+		    
+		    <TextView
+		        android:id="@+id/lblTournamentStartTime"
+		        android:text="@string/dummy"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:textColor="#9AA3A8"
+		        />
+		    
+	    </LinearLayout>    
+  </RelativeLayout>
+  
+  <TextView 
+      android:layout_width="fill_parent"
+      android:layout_height="wrap_content"
+      android:id="@+id/lblLiveMatches"
+      android:text="@string/liveMatches"
+      android:layout_below="@id/tourDetails"
+     />
+  <ListView
+     android:id="@+id/lvLiveMatches"
+     android:layout_width="fill_parent"
+     android:layout_height="wrap_content"
+     android:layout_below="@id/lblLiveMatches"
+     />
+  <TextView 
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/lblUpcomingMatches"
+        android:text="@string/upcomingMatches"
+        android:layout_below="@id/lvLiveMatches"
+        />
+   <ListView
+     android:id="@+id/lvUpcomingMatches"
+     android:layout_width="fill_parent"
+     android:layout_height="wrap_content"
+     android:layout_below="@id/tourDetails"
+     />
+     
+     
+ </RelativeLayout>
+

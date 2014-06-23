@@ -1,0 +1,77 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/tweetContainer"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="15dp"
+    android:background="#ffffff">
+    
+    <ImageView
+        android:id="@+id/imgPropic"
+        android:contentDescription="@string/board"
+        android:src="@drawable/dummy"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        />
+    
+    <RelativeLayout
+        android:id="@+id/tweeterDetails"
+        android:layout_toRightOf="@id/imgPropic"
+        android:padding="10dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+    
+		    <TextView
+		        android:id="@+id/lblTweetUsername"
+		        android:text=""
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:textColor="#343D42"
+		        />
+		    
+		    <TextView
+		        android:id="@+id/lblTweetHandle"
+		        android:text=""
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:textColor="#9AA3A8"
+		        android:paddingLeft="5dp"
+		        android:layout_below="@id/lblTweetUsername"
+		        />
+	    
+    </RelativeLayout>
+     
+    <Button
+        android:id="@+id/btnPostToTwitter"
+        android:text="@string/posttweet"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="right"
+        android:gravity="right"
+        android:layout_alignParentRight="true"
+        />
+    <TextView
+		android:id="@+id/lblTweetCharCount"
+		android:text="@string/charCount"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"		
+		android:textColor="#9AA3A8"
+		android:padding="15dp"
+		android:layout_toLeftOf="@id/btnPostToTwitter"
+		/>
+    
+    <EditText
+	    android:id="@+id/txtTweetMessage"
+	    android:text=""
+	    android:layout_width="fill_parent"
+	    android:hint="@string/whatshappening"
+	    android:layout_height="wrap_content"
+	    android:minHeight="100dp"
+	    android:textColor="#9BA4A9"
+	    android:layout_below="@id/tweeterDetails"
+	    />
+   
+ </RelativeLayout>
+
+
+

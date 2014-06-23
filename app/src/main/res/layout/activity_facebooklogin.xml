@@ -1,0 +1,92 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/container"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.boutline.sports.activities.Walkthrough3"
+    tools:ignore="MergeRootFrame" >
+    
+    <ImageView android:id="@+id/background"
+        android:contentDescription="@string/dummy"
+        android:src="@drawable/bg"
+        android:scaleType="centerCrop"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        />
+    
+     <ImageView android:id="@+id/whitelogo"
+        android:contentDescription="@string/dummy"
+        android:src="@drawable/whitelogo"
+        android:layout_width="60dp"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_gravity="center"
+        android:layout_centerVertical="true"
+  		android:layout_centerHorizontal="true"
+        />
+
+    <Button 
+        android:id="@+id/btnFacebookLogin"
+        android:layout_width="wrap_content" 
+        android:layout_height="wrap_content"
+        android:text="@string/fbLogin"
+        android:paddingTop="20dp" 
+        android:paddingBottom="20dp"
+        android:paddingLeft="40dp"
+        android:paddingRight="40dp"
+        android:textColor="#ffffff"
+        android:background="@drawable/fbbuttonstates"
+        android:onClick="loginWithFacebook"
+        android:layout_centerInParent="true"
+        android:textSize="12sp"
+        android:layout_marginBottom="75dp"
+        android:layout_alignParentBottom="true" />
+    
+    <TextView
+         android:id="@+id/fbDisclaimer"
+        android:text="@string/fbDisclaimer"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:paddingBottom="40dp"
+        android:textColor="#ffffff"
+        android:layout_alignParentBottom="true"
+        android:textSize="12sp"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:layout_centerInParent="true" />
+    
+    <TextView
+        android:id="@+id/tosnpp"
+        android:text="@string/tosnpp"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:textColor="#ffffff"
+        android:layout_alignParentBottom="true"
+        android:textSize="12sp"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:layout_centerInParent="true" />
+    
+    <com.boutline.sports.helpers.SmoothProgressBar
+	    xmlns:android="http://schemas.android.com/apk/res/android"
+	    xmlns:app="http://schemas.android.com/apk/res-auto"
+	    android:id="@+id/progressBar"
+	    android:layout_width="match_parent"
+	    android:layout_height="4dp"
+	    android:indeterminate="true"
+	    android:layout_alignParentTop="true"
+	    app:spb_sections_count="4"
+	    app:spb_colors="@array/pocket_bar_colors"
+	    app:spb_speed="2.0"
+	    app:spb_stroke_width="4dp"
+	    app:spb_stroke_separator_length="4dp"
+	    app:spb_reversed="false"
+	    app:spb_mirror_mode="false"
+	    android:visibility="invisible"
+	    app:spb_progressiveStart_speed="1.5"
+	    app:spb_progressiveStop_speed="3.4"
+    />
+    
+ </RelativeLayout>
+

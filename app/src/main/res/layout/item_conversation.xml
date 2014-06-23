@@ -1,0 +1,78 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/tweetContainer"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="15dp">
+    
+		    <TextView
+		        android:id="@+id/lblConversationName"
+		        android:text=""
+		        android:layout_width="fill_parent"
+		        android:layout_height="wrap_content"
+		        android:textColor="#343D42"
+		        />
+		    
+		    <TextView
+		        android:id="@+id/lblConversationTopic"
+		        android:text=""
+		        android:layout_width="fill_parent"
+		        android:layout_height="wrap_content"
+		        android:textColor="#9AA3A8"
+		        android:paddingLeft="5dp"
+		        android:layout_below="@id/lblConversationName"
+		        />
+		    
+		     <TextView
+		        android:id="@+id/lblLastMessage"
+		        android:text=""
+		        android:layout_width="fill_parent"
+		        android:layout_height="wrap_content"
+		        android:textColor="#9AA3A8"
+		        android:paddingLeft="5dp"
+		        android:layout_below="@id/lblConversationTopic"
+		        />
+		    		    
+		    <ImageView
+		        android:id="@+id/imgMember1"
+		        android:src="@drawable/dummy"
+		        android:contentDescription="@string/dummy"
+		        android:layout_width="50dp"
+		        android:layout_height="50dp"
+		        android:layout_below="@id/lblLastMessage"
+		        />
+		     <ImageView
+		        android:id="@+id/imgMember2"
+		        android:src="@drawable/dummy"
+		        android:contentDescription="@string/dummy"
+		        android:layout_width="50dp"
+		        android:layout_height="50dp"
+		        android:layout_toRightOf="@id/imgMember1"
+		        />
+		     <ImageView
+		        android:id="@+id/imgMember3"
+		        android:src="@drawable/dummy"
+		        android:contentDescription="@string/dummy"
+		        android:layout_width="50dp"
+		        android:layout_height="50dp"
+		        android:layout_toRightOf="@id/imgMember2"
+		        />
+		      <ImageView
+		        android:id="@+id/imgMember4"
+		        android:src="@drawable/dummy"
+		        android:contentDescription="@string/dummy"
+		        android:layout_width="50dp"
+		        android:layout_height="50dp"
+		        android:layout_toRightOf="@id/imgMember3"
+		        />
+		      <ImageView
+		        android:id="@+id/imgMember5"
+		        android:src="@drawable/dummy"
+		        android:contentDescription="@string/dummy"
+		        android:layout_width="50dp"
+		        android:layout_height="50dp"
+		        android:layout_toRightOf="@id/imgMember4"
+		        />
+		    
+</RelativeLayout>
+

@@ -1,0 +1,28 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/container"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.boutline.sports.activities.MainActivity"
+    tools:ignore="MergeRootFrame"
+    android:background="#FFFFFF" >
+    <com.boutline.sports.helpers.SmoothProgressBar
+	    xmlns:android="http://schemas.android.com/apk/res/android"
+	    xmlns:app="http://schemas.android.com/apk/res-auto"
+	    android:id="@+id/progressBar"
+	    android:layout_width="match_parent"
+	    android:layout_height="4dp"
+	    android:indeterminate="true"
+	    android:layout_alignParentTop="true"
+	    app:spb_sections_count="4"
+	    app:spb_colors="@array/pocket_bar_colors"
+	    app:spb_speed="2.0"
+	    app:spb_stroke_width="4dp"
+	    app:spb_stroke_separator_length="4dp"
+	    app:spb_reversed="false"
+	    app:spb_mirror_mode="false"
+	    app:spb_progressiveStart_speed="1.5"
+	    app:spb_progressiveStop_speed="3.4"
+    />
+</RelativeLayout>
+
