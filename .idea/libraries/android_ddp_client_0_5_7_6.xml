@@ -1,8 +1,8 @@
 <component name="libraryTable">
   <library name="android-ddp-client-0.5.7.6">
     <CLASSES>
-      <root url="jar://$PROJECT_DIR$/app/build/exploded-aar/com.keysolutions/android-ddp-client/0.5.7.6/classes.jar!/" />
-      <root url="file://$PROJECT_DIR$/app/build/exploded-aar/com.keysolutions/android-ddp-client/0.5.7.6/res" />
+      <root url="jar://$PROJECT_DIR$/build/intermediates/exploded-aar/com.keysolutions/android-ddp-client/0.5.7.6/classes.jar!/" />
+      <root url="file://$PROJECT_DIR$/build/intermediates/exploded-aar/com.keysolutions/android-ddp-client/0.5.7.6/res" />
     </CLASSES>
     <JAVADOC />
     <SOURCES />

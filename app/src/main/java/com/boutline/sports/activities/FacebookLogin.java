@@ -28,6 +28,7 @@ import android.graphics.Typeface;
 import android.os.Bundle;
 import android.text.Html;
 import android.text.method.LinkMovementMethod;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.animation.Animation;
@@ -40,6 +41,14 @@ import com.boutline.sports.helpers.Mayday;
 import com.boutline.sports.helpers.OnSwipeTouchListener;
 import com.boutline.sports.helpers.SmoothProgressBar;
 import com.boutline.sports.R;
+import com.facebook.Session;
+import com.facebook.SessionState;
+import com.facebook.UiLifecycleHelper;
+import com.facebook.android.Facebook;
+import com.facebook.widget.LoginButton;
+
+import java.util.Arrays;
+
 
 public class FacebookLogin extends Activity {
 	
@@ -47,15 +56,27 @@ public class FacebookLogin extends Activity {
 	public Typeface tf;
 	public String boldFontPath = "fonts/proxinovabold.otf";
 	public Typeface btf;
-	Animation mouseAnim;	
+    private Facebook facebook;
+    private String TAG = "FacebookLogin";
+    Animation mouseAnim;
 	SmoothProgressBar mProgressBar;
-	
-	@Override
+
+    private UiLifecycleHelper uiHelper;
+    private Session.StatusCallback statusCallback =
+            new SessionStatusCallback();
+
+    @Override
 	protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        uiHelper = new UiLifecycleHelper(this, callback);
+        uiHelper.onCreate(savedInstanceState);
+
+        // Set up Facebook
+
+
+        // Set up UI
 		
-		// Set up UI
-		
-		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_facebooklogin);
 		tf = Typeface.createFromAsset(getAssets(), fontPath);
 		btf = Typeface.createFromAsset(getAssets(), boldFontPath);
@@ -118,7 +139,17 @@ public class FacebookLogin extends Activity {
 		}
 		
 		//TODO Do all the login work here
-		
+
+        Session session = Session.getActiveSession();
+        if (!session.isOpened() && !session.isClosed()) {
+            session.openForRead(new Session.OpenRequest(this)
+                    .setPermissions(Arrays.asList("public_profile"))
+                    .setCallback(statusCallback));
+        } else {
+            Session.openActiveSession(this, true, statusCallback);
+        }
+
+		/*
 		if(!error)
 		{
 			Intent mainIntent = new Intent(FacebookLogin.this,ChooseSportsActivity.class);
@@ -128,7 +159,7 @@ public class FacebookLogin extends Activity {
 		else
 		{
 			loginError(btnFacebookLogin, errMessage);
-		}
+		}*/
 	}
 	
 	protected void loginError(Button btnFacebookLogin, String msg){
@@ -146,16 +177,60 @@ public class FacebookLogin extends Activity {
 	@Override
 	protected void onResume() {
 		super.onResume();
-		Button btnFacebookLogin = (Button) findViewById(R.id.btnFacebookLogin);
+
+        LoginButton btnFacebookLogin = (LoginButton) findViewById(R.id.btnFacebookLogin);
 		btnFacebookLogin.setText("LOGIN WITH FACEBOOK");
+        btnFacebookLogin.setReadPermissions(Arrays.asList("email", "public_profile", "user_friends"));
 		mProgressBar = (SmoothProgressBar) findViewById(R.id.progressBar);
 		mProgressBar.setVisibility(View.INVISIBLE);
 		mProgressBar.progressiveStop();
-	}
+
+        Session session = Session.getActiveSession();
+        if (session != null &&
+                (session.isOpened() || session.isClosed()) ) {
+            onSessionStateChange(session, session.getState(), null);
+        }
+        uiHelper.onResume();
+
+    }
 	
 	@Override
 	public void onBackPressed() {
 		super.onBackPressed();
 		goToPrev();		
 	}
+
+    private Session.StatusCallback callback = new Session.StatusCallback() {
+        @Override
+        public void call(Session session, SessionState state, Exception exception) {
+            onSessionStateChange(session, state, exception);
+        }
+    };
+
+    private void onSessionStateChange(Session session, SessionState state, Exception exception) {
+        if (state.isOpened()) {
+            Log.i(TAG, "Logged in...");
+        } else if (state.isClosed()) {
+            Log.i(TAG, "Logged out...");
+        }
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        uiHelper.onActivityResult(requestCode, resultCode, data);
+    }
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        uiHelper.onSaveInstanceState(outState);
+    }
+
+    private class SessionStatusCallback implements Session.StatusCallback {
+        @Override
+        public void call(Session session, SessionState state, Exception exception) {
+            // Respond to session state changes, ex: updating the view
+        }
+    }
+
 }

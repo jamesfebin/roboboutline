@@ -3,18 +3,19 @@ apply plugin: 'android'
 android {
     compileSdkVersion 19
     buildToolsVersion '19.1.0'
-
     defaultConfig {
         minSdkVersion 15
         targetSdkVersion 19
         versionCode 1
-        versionName "1.0"
+        versionName '1.0'
     }
     buildTypes {
         release {
             runProguard false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.txt'
         }
+    }
+    productFlavors {
     }
 }
 
@@ -25,11 +26,11 @@ dependencies {
     compile 'com.google.code.gson:gson:2.1@jar'
     compile 'com.keysolutions:java-ddp-client:0.5.7.6@jar'
     compile 'org.apache.directory.studio:org.slf4j.log4j12:1.7.2@jar'
-    compile "commons-collections:commons-collections:[3.2,4.0)"
-    compile "org.java-websocket:Java-WebSocket:1.3.0"
-    compile "com.google.code.gson:gson:2.2.4"
-    compile "org.slf4j:slf4j-api:[1.7,1.8)"
-    compile "org.slf4j:slf4j-simple:[1.7,1.8)"
-    compile "com.nimbusds:srp6a:[1.4,1.5)"
-
+    compile 'commons-collections:commons-collections:[3.2,4.0)'
+    compile 'org.java-websocket:Java-WebSocket:1.3.0'
+    compile 'com.google.code.gson:gson:2.2.4'
+    compile 'org.slf4j:slf4j-api:[1.7,1.8)'
+    compile 'org.slf4j:slf4j-simple:[1.7,1.8)'
+    compile 'com.nimbusds:srp6a:[1.4,1.5)'
+    compile project(':libraries:facebook')
 }

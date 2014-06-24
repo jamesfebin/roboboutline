@@ -3,6 +3,7 @@
 
     <string name="app_name">Boutline</string>
     <string name="action_settings">Settings</string>
+    <string name="APP_ID">449682818488626</string>
     <string name="fbLogin">LOGIN WITH FACEBOOK</string>
     <string name="walkthrough1">See what people are saying about the game. Be the first to know when something\'s going viral.</string>
 	<string name="walkthrough2">You will never again be the loser at the water cooler. Get the fastest notifications when a game gets interesting. </string>

@@ -1,0 +1,8 @@
+<!-- From: file:/F:/work/Eclipse.workspace/android-ddp-client/AndroidManifest.xml --><manifest xmlns:android="http://schemas.android.com/apk/res/android" android:versionCode="10" android:versionName="1.0" package="com.keysolutions.android.ddpclient">
+
+    <uses-sdk android:minSdkVersion="10" android:targetSdkVersion="19"/>
+
+    <application>
+    </application>
+
+</manifest>

@@ -28,6 +28,14 @@ import com.keysolutions.ddpclient.android.DDPStateSingleton;
 import android.content.Intent;
 import android.content.IntentFilter;
 
+import com.facebook.model.GraphObject;
+import com.facebook.model.GraphUser;
+import com.facebook.widget.FacebookDialog;
+import com.facebook.widget.LoginButton;
+import com.facebook.widget.WebDialog;
+import com.facebook.widget.WebDialog.OnCompleteListener;
+
+
 public class MainActivity extends Activity {
 
     private BroadcastReceiver mReceiver;

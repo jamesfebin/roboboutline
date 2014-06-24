@@ -8,9 +8,10 @@
 - **Any changes to the below tasks must be marked as bold**
 
 #### Untimed Tasks
-*Please assign alot a timeslot for the below tasks*
+*Please assign alot a timeslot for the below tasks (Can be assigned only by respective developer)*
 - [ ] Show progress bar on application for @anandsatyan
 - [ ] AppRate Integration for @anandsatyan
+- [ ] Hide Actionbar of com.facebook.login.activity for @anandsatyan
 
 #### 23 June
 
@@ -102,3 +103,9 @@
 #### 4 July Morning
  
 - [ ] To the store for @jamesfebin
+
+#### If Time Permits
+
+- [ ] SSL Connections for @jamesfebin
+
+
