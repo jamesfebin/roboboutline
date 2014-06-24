@@ -17,7 +17,11 @@
          <item name="android:actionBarStyle">@style/MyActionBar</item>
          <item name="android:windowContentOverlay">@null</item>
     </style>
- 	
+
+    <style name="BlankTheme" parent="AppBaseTheme">
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowFullscreen">true</item>
+    </style>
 
     <!-- ActionBar styles -->
     <style name="MyActionBar" parent="@android:style/Widget.Holo.Light.ActionBar.Solid.Inverse">

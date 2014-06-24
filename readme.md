@@ -7,6 +7,11 @@
 - **@anandsatyan please add yours :)** 
 - **Any changes to the below tasks must be marked as bold**
 
+#### Untimed Tasks
+*Please assign alot a timeslot for the below tasks*
+- [ ] Show progress bar on application for @anandsatyan
+- [ ] AppRate Integration for @anandsatyan
+
 #### 23 June
 
 - [x] Eclipse Project Imported To Graddle for @jamesfebin
@@ -16,12 +21,11 @@
 
 #### 24 June
 
-- [ ] DDP Setup for @jamesfebin
-- [ ] Walkthroughs Setup for @jamesfebin 
+- [X] DDP Setup for @jamesfebin
+- [X] Walkthroughs Setup for @jamesfebin 
 - [ ] Better flow of login for @jamesfebin
 - [ ] Facebook Login for @jamesfebin
 - [ ] Mixpanel Integration for @jamesfebin
-- [ ] AppRate Integration for @anandsatyan
 
 #### 25 June
 

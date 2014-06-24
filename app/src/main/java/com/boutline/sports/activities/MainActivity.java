@@ -16,13 +16,24 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
-
 import com.boutline.sports.helpers.SmoothProgressBar;
 import com.boutline.sports.R;
+import android.content.BroadcastReceiver;
 
+import android.support.v4.content.LocalBroadcastManager;
+import com.boutline.sports.application.MyDDPState;
+
+import com.keysolutions.ddpclient.android.DDPBroadcastReceiver;
+import com.keysolutions.ddpclient.android.DDPStateSingleton;
+import android.content.Intent;
+import android.content.IntentFilter;
 
 public class MainActivity extends Activity {
 
+    private BroadcastReceiver mReceiver;
+
+
+    // TODO Declare Shared Preferences Check for User Details
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -35,20 +46,12 @@ public class MainActivity extends Activity {
 		mProgressBar.setVisibility(View.VISIBLE);
 		mProgressBar.progressiveStart();
 				
-		final Boolean isUserLoggedIn = false;
 		getActionBar().hide();
 		//TODO Do the background connection to server and check if user logged in
-		new Handler().postDelayed(new Runnable(){
-            @Override
-            public void run(){
-            	if(!isUserLoggedIn){
-            		goToWalkthrough1(); 
-            	}
-            	else{
-            		goToChooseTournament();
-            	}
-            }
-        }, 4000);
+
+
+
+
 	}
 
 
@@ -65,4 +68,36 @@ public class MainActivity extends Activity {
         finish();
         overridePendingTransition(R.anim.pushleftin, R.anim.pushleftout);
 	}
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        mReceiver = new DDPBroadcastReceiver(MyDDPState.getInstance(), this) {
+            @Override
+            protected void onDDPConnect(DDPStateSingleton ddp) {
+                super.onDDPConnect(ddp);
+
+                final Boolean isUserLoggedIn = false;
+
+                if(!isUserLoggedIn){
+                   goToWalkthrough1();
+                }
+                else{
+                    goToChooseTournament();
+                }
+
+            }
+
+        };
+
+        // we want error messages
+        LocalBroadcastManager.getInstance(this).registerReceiver(mReceiver,
+                new IntentFilter(MyDDPState.MESSAGE_ERROR));
+        // we want connection state change messages so we know we're logged in
+        LocalBroadcastManager.getInstance(this).registerReceiver(mReceiver,
+                new IntentFilter(MyDDPState.MESSAGE_CONNECTION));
+
+
+
+    }
 }

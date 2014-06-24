@@ -5,6 +5,8 @@ import android.content.Context;
 import android.content.res.Configuration;
 import android.util.Log;
 
+import com.boutline.sports.R;
+
 /**
  * Created by user on 21/06/14.
  */
@@ -23,6 +25,7 @@ public class MyApplication extends Application {
     public void onCreate() {
         super.onCreate();
         MyApplication.sContext = getApplicationContext();
+
         // Initialize the singletons so their instances
         // are bound to the application process.
         initSingletons();
@@ -40,6 +43,7 @@ public class MyApplication extends Application {
     protected void initSingletons() {
         // Initialize App DDP State Singleton
         MyDDPState.initInstance(MyApplication.sContext);
+        MyDDPState.getInstance().connectIfNeeded();
     }
 
     public static Context getAppContext() {
