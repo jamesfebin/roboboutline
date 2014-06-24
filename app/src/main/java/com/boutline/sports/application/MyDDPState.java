@@ -34,6 +34,7 @@ public class MyDDPState extends DDPStateSingleton {
             // Create the instance
             mInstance = new MyDDPState(context);
         }
+
     }
 
     public static MyDDPState getInstance() {

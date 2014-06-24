@@ -72,9 +72,6 @@ public class FacebookLogin extends Activity {
         uiHelper = new UiLifecycleHelper(this, callback);
         uiHelper.onCreate(savedInstanceState);
 
-        // Set up Facebook
-
-
         // Set up UI
 		
 		setContentView(R.layout.activity_facebooklogin);
@@ -209,7 +206,12 @@ public class FacebookLogin extends Activity {
 
     private void onSessionStateChange(Session session, SessionState state, Exception exception) {
         if (state.isOpened()) {
-            Log.i(TAG, "Logged in...");
+
+            Intent mainIntent = new Intent(FacebookLogin.this,ChooseSportsActivity.class);
+            startActivity(mainIntent);
+            overridePendingTransition(R.anim.pushleftin, R.anim.pushleftout);
+            finish();
+
         } else if (state.isClosed()) {
             Log.i(TAG, "Logged out...");
         }
