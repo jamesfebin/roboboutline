@@ -7,6 +7,11 @@
 - **@anandsatyan please add yours :)** 
 - **Any changes to the below tasks must be marked as bold**
 
+
+
+#Please don't add anything to the tasks lists ....
+
+
 #### Untimed Tasks
 *Please assign alot a timeslot for the below tasks (Can be assigned only by respective developer)*
 - [ ] Show progress bar on application for @anandsatyan
