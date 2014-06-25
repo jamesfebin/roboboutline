@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.boutline.sports.models.Sport;
@@ -25,6 +26,7 @@ public class SportsAdapter extends ArrayAdapter<Sport> {
         TextView lblSportName;
         TextView lblSportDescription;
         CheckBox chkFollowStatus;
+        ImageView imgSport;
     }
 
     public SportsAdapter(Context context, ArrayList<Sport> sports) {
@@ -46,6 +48,8 @@ public class SportsAdapter extends ArrayAdapter<Sport> {
           viewHolder.lblSportName = (TextView) convertView.findViewById(R.id.lblSportName);
           viewHolder.lblSportDescription = (TextView) convertView.findViewById(R.id.lblSportDescription);
           viewHolder.chkFollowStatus = (CheckBox) convertView.findViewById(R.id.chkFollowStatus);
+          viewHolder.imgSport = (ImageView) convertView.findViewById(R.id.imgSport);
+
           convertView.setTag(viewHolder);
           	
        } 
@@ -54,10 +58,11 @@ public class SportsAdapter extends ArrayAdapter<Sport> {
        }
        
        // Populate the data into the template view using the data object
-       
+       int iconid = getContext().getResources().getIdentifier("com.boutline.sports:drawable/sport_" + sport.getSportName(), null, null);
        viewHolder.lblSportName.setText(sport.getSportName());
        viewHolder.lblSportDescription.setText(sport.getSportDescription());
        viewHolder.chkFollowStatus.setChecked(sport.getSportFollow());
+       viewHolder.imgSport.setImageDrawable(getContext().getResources().getDrawable(R.drawable.sport_cricket));
        tf = Typeface.createFromAsset(getContext().getAssets(), fontPath);
        btf = Typeface.createFromAsset(getContext().getAssets(), boldFontPath);
        viewHolder.lblSportName.setTypeface(btf);

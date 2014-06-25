@@ -24,10 +24,11 @@
     <Button 
         android:id="@+id/btnSubmitSportsSelection"
         android:text="@string/save"
-        android:background="@drawable/fbbuttonstates"
+        android:background="@drawable/bluebuttonstates"
         android:layout_width="fill_parent" 
         android:layout_height="wrap_content"
-        android:padding="10dp" 
+        android:padding="10dp"
+        android:textColor="#FFFFFF"
         android:layout_alignParentBottom="true"
         />
     
