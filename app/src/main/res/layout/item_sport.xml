@@ -9,15 +9,15 @@
         android:contentDescription="@string/dummy"
 	    android:id="@+id/imgSport"
 	    android:src="@drawable/dummy"
-	    android:layout_width="75dp"
-	    android:layout_height="75dp"
+	    android:layout_width="50dp"
+	    android:layout_height="50dp"
 	    android:layout_alignParentLeft="true"
     />
     
     <LinearLayout
         android:id="@+id/sportDetails"
         android:layout_toRightOf="@id/imgSport"
-        android:padding="10dp"
+        android:padding="15dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical">
@@ -42,9 +42,9 @@
 
     <CheckBox
         android:id="@+id/chkFollowStatus"
-        style="@style/CustomFollowTheme"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        style="@style/CustomCheckTheme"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
         android:checked="true"
         android:layout_alignParentRight="true" />
     

@@ -25,7 +25,7 @@
 
     <!-- ActionBar styles -->
     <style name="MyActionBar" parent="@android:style/Widget.Holo.Light.ActionBar.Solid.Inverse">
-        <item name="android:background">@drawable/actionbar_background</item>
+        <item name="android:background">@color/white</item>
     </style>
     
     <!-- Two way view -->
@@ -56,5 +56,9 @@
     <style name="CustomFollowTheme" parent="@android:style/Widget.CompoundButton.CheckBox">  
     	<item name="android:button">@drawable/followbtn_style</item>  
 	</style>
+    <!-- Custom checkbox style -->
+    <style name="CustomCheckTheme" parent="@android:style/Widget.CompoundButton.CheckBox">
+        <item name="android:button">@drawable/checkbtn_style</item>
+    </style>
     
    </resources>
