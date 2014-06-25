@@ -2,9 +2,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/tweetContainer"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:padding="15dp">
-    
+    android:layout_height="match_parent">
+
     <ImageView
         android:contentDescription="@string/dummy"
 	    android:id="@+id/imgSport"
@@ -13,15 +12,15 @@
 	    android:layout_height="50dp"
 	    android:layout_alignParentLeft="true"
     />
-    
+
     <LinearLayout
         android:id="@+id/sportDetails"
         android:layout_toRightOf="@id/imgSport"
-        android:padding="15dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
-    
+        android:orientation="vertical"
+        android:padding="10dp">
+
 	    <TextView
 	        android:id="@+id/lblSportName"
 	        android:text="@string/cricket"
@@ -29,7 +28,7 @@
 	        android:layout_height="wrap_content"
 	        android:textColor="#343D42"
 	        />
-	    
+
 	    <TextView
 	        android:id="@+id/lblSportDescription"
 	        android:text="@string/dummy"
@@ -37,16 +36,18 @@
 	        android:layout_height="wrap_content"
 	        android:textColor="#9AA3A8"
 	        />
-	    
+
     </LinearLayout>
 
     <CheckBox
         android:id="@+id/chkFollowStatus"
         style="@style/CustomCheckTheme"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:checked="true"
-        android:layout_alignParentRight="true" />
-    
+        android:layout_alignParentRight="true"
+        android:paddingRight="20dp"
+        android:gravity="top"/>
+
  </RelativeLayout>
 

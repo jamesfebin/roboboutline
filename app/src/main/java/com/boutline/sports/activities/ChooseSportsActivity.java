@@ -47,9 +47,9 @@ import java.util.ArrayList;
 
 public class ChooseSportsActivity extends Activity {
 	
-	public String fontPath = "fonts/proxinova.ttf";
+	public String fontPath = "fonts/museo.otf";
 	public Typeface tf;
-	public String boldFontPath = "fonts/proxinovabold.otf";
+	public String boldFontPath = "fonts/museobold.otf";
 	public Typeface btf;
 	ActionBar actionBar;
 	
