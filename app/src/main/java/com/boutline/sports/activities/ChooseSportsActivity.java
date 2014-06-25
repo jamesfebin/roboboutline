@@ -53,8 +53,10 @@ public class ChooseSportsActivity extends Activity {
 		
 		ArrayList<Sport> arrayOfSports = new ArrayList<Sport>();
 		//TODO populate the arraylist with all sports and details
-		Sport sport = new Sport("1","Cricket","5601 followers", true);
+		Sport sport = new Sport("1","Cricket","5601 followers", false);
 		arrayOfSports.add(sport);
+        Sport sport2 = new Sport("1","Football","6801 followers", true);
+        arrayOfSports.add(sport2);
 		SportsAdapter adapter = new SportsAdapter(this, arrayOfSports);
 		ListView listView = (ListView) findViewById(R.id.lvSports);
 		listView.setAdapter(adapter);
