@@ -14,7 +14,7 @@
         android:layout_height="wrap_content"
         android:gravity="center_horizontal"
         android:text="@string/chooseSport"
-        android:paddingBottom="30dp"
+        android:paddingBottom="20dp"
         android:textSize="14sp"
         />
     
