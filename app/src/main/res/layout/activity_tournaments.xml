@@ -3,21 +3,34 @@
     android:id="@+id/container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#ffffff"
-    android:padding="15dp">
-    
-     <TextView
+    android:background="#ffffff">
+
+    <ImageView
+        android:id="@+id/actionBarBG"
+        android:layout_width="match_parent"
+        android:layout_height="5dp"
+        android:scaleType="fitXY"
+        android:src="@drawable/actionbarbg"
+        />
+
+    <TextView
         android:id="@+id/lblChooseTournament"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
+        android:layout_below="@id/actionBarBG"
+        android:gravity="center_horizontal"
         android:text="@string/chooseTournament"
-      />
+        android:padding="15dp"
+        android:textSize="14sp"
+        android:textColor="@color/darkgray"
+        />
     
      <ListView
         android:id="@+id/lvTournaments"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/lblChooseTournament"
+         android:divider="@color/white"
       />
      
      <TextView
