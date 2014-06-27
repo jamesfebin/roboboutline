@@ -9,6 +9,7 @@
 **28th June**
 
 *Application Backend*
+
 [ ] Async DDP Connect for @jamesfebin (1)
 [ ] Email users on signup for @jamesfebin (1)
 [ ] Error Toasts for @jamesfebin (1)
