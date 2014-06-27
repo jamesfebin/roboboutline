@@ -27,12 +27,14 @@ import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.util.TypedValue;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -45,9 +47,9 @@ import java.util.ArrayList;
 
 public class ChooseTournamentActivity extends Activity {
 
-	public String fontPath = "fonts/proxinova.ttf";
+	public String fontPath = "fonts/museo.otf";
 	public Typeface tf;
-	public String boldFontPath = "fonts/proxinovabold.otf";
+	public String boldFontPath = "fonts/museobold.otf";
 	public Typeface btf;
 	ActionBar actionBar;
 	
@@ -56,7 +58,18 @@ public class ChooseTournamentActivity extends Activity {
 		requestWindowFeature(Window.FEATURE_ACTION_BAR);
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_tournaments);
+
+        //set up the action bar
 		actionBar = getActionBar();
+        int actionBarHeight=0;
+        TypedValue tv = new TypedValue();
+        if (getTheme().resolveAttribute(android.R.attr.actionBarSize, tv, true)){
+            actionBarHeight = TypedValue.complexToDimensionPixelSize(tv.data,getResources().getDisplayMetrics());
+        }
+        ImageView actionBg = (ImageView) findViewById(R.id.actionBarBG);
+        actionBg.getLayoutParams().height = actionBarHeight + 10;
+        actionBg.requestLayout();
+
 		TextView lblChooseTournament = (TextView)findViewById(R.id.lblChooseTournament);
 		TextView lblBlankSlate = (TextView)findViewById(R.id.lblBlankSlate);
 		tf = Typeface.createFromAsset(getAssets(), fontPath);
@@ -67,8 +80,10 @@ public class ChooseTournamentActivity extends Activity {
 		// Populate the List View
 		
 		ArrayList<Tournament> arrayOfTournaments = new ArrayList<Tournament>();
-		Tournament tournament = new Tournament("123","123","123","123","123", 2, true);
+		Tournament tournament = new Tournament("123","Indian Premier League","30th June","6th July","#PepsiIPL", 2, true);
 		arrayOfTournaments.add(tournament);
+        Tournament tournament2 = new Tournament("124","FIFA World Cup","30th June","6th July","#PepsiIPL", 2, true);
+        arrayOfTournaments.add(tournament2);
 		if(arrayOfTournaments.size()==0){
 			lblChooseTournament.setVisibility(View.INVISIBLE);
 			lblBlankSlate.setVisibility(View.VISIBLE);
@@ -124,7 +139,7 @@ public class ChooseTournamentActivity extends Activity {
 		        overridePendingTransition(R.anim.pushleftin, R.anim.pushleftout);
 		        return true;
 		    case R.id.settings:
-		       	Intent settingsIntent = new Intent(ChooseTournamentActivity.this, SettingsActivity.class);
+		       	Intent settingsIntent = new Intent(ChooseTournamentActivity.this, DummyDesignActivity.class);
 		        startActivity(settingsIntent);
 		        overridePendingTransition(R.anim.pushleftin, R.anim.pushleftout);
 		        return true;

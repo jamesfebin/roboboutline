@@ -3,8 +3,6 @@
     android:id="@+id/container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.boutline.sports.activities.Walkthrough3"
-    tools:ignore="MergeRootFrame"
     android:background="#ffffff"
     android:padding="15dp">
     
@@ -14,8 +12,9 @@
         android:layout_height="wrap_content"
         android:gravity="center_horizontal"
         android:text="@string/chooseSport"
-        android:paddingBottom="30dp"
+        android:paddingBottom="20dp"
         android:textSize="14sp"
+        android:textColor="@color/darkgray"
         />
     
     <ListView
@@ -24,6 +23,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/lblChooseSport"
         android:paddingTop="20dp"
+        android:divider="@color/white"
         />
     
     <Button 

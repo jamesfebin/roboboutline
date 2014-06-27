@@ -1,25 +1,4 @@
-/** 
- * Tests:
- *   Activity slides in from the right -
- *   Ensure activity loads within 3 seconds -
- *  Loading bar is displayed till the view is populated?
- *   Heading label exists to direct user about call to action -
- *   Each sport has sportname, sportdesc, pic, follow buttons -
- *   ActionBar exists with icons for banter, settings -
- *   Each sport when clicked toggles the checkbox selection - 
- *   Back button does not do anything, does not go back to fblogins or walkthroughs -
- *   Correct attributes of Sport class exist -
- *   Correct error message toast is displayed if no internet on submit - 
- *  Drawer menu opens and is visible for updating (2nd time visit) with caret
- *  All links in drawer menu lead to correct pages
- *  Take a screenshot of the activity with and without drawer  
- *  Cache sports and keep in local storage
- *   Submit button shows click animation with change in label -
- *   Fonts are defined and assigned  -
- *  Appropriate icons shown for the sport
- *   Follow sport checkbox toggle works - 
- *   Show toast if no sport selected and do not update db -
- */
+
 
 package com.boutline.sports.activities;
 
@@ -74,8 +53,10 @@ public class ChooseSportsActivity extends Activity {
 		
 		ArrayList<Sport> arrayOfSports = new ArrayList<Sport>();
 		//TODO populate the arraylist with all sports and details
-		Sport sport = new Sport("1","Cricket","5601 followers", true);
+		Sport sport = new Sport("1","Cricket","5601 followers", false);
 		arrayOfSports.add(sport);
+        Sport sport2 = new Sport("1","Football","6801 followers", true);
+        arrayOfSports.add(sport2);
 		SportsAdapter adapter = new SportsAdapter(this, arrayOfSports);
 		ListView listView = (ListView) findViewById(R.id.lvSports);
 		listView.setAdapter(adapter);

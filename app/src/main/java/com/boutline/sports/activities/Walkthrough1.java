@@ -28,6 +28,7 @@ import android.widget.TextView;
 
 import com.boutline.sports.helpers.OnSwipeTouchListener;
 import com.boutline.sports.R;
+import com.boutline.sports.helpers.SmoothProgressBar;
 
 public class Walkthrough1 extends Activity implements OnTouchListener {
 
@@ -44,7 +45,14 @@ public class Walkthrough1 extends Activity implements OnTouchListener {
 		super.onCreate(savedInstanceState);
 		//TODO set activity to fullscreen mode
 		setContentView(R.layout.activity_walkthrough1);
-		
+
+        // Setup Progress Bar
+
+        SmoothProgressBar mProgressBar;
+        mProgressBar = (SmoothProgressBar) findViewById(R.id.progressBar);
+        mProgressBar.setVisibility(View.VISIBLE);
+        mProgressBar.progressiveStart();
+
 		//Set up fonts		
 		
 		tf = Typeface.createFromAsset(getAssets(), fontPath);

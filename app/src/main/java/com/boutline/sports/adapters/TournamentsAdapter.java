@@ -18,9 +18,9 @@ import java.util.ArrayList;
 
 public class TournamentsAdapter extends ArrayAdapter<Tournament> {
     
-	public String fontPath = "fonts/proxinova.ttf";
+	public String fontPath = "fonts/museo.otf";
 	public Typeface tf;
-	public String boldFontPath = "fonts/proxinovabold.otf";
+	public String boldFontPath = "fonts/museobold.otf";
 	public Typeface btf;
 	
     private static class ViewHolder {
@@ -71,7 +71,7 @@ public class TournamentsAdapter extends ArrayAdapter<Tournament> {
        // Populate the data into the template view using the data object
        
        viewHolder.lblTournamentName.setText(tournament.getTournamentName());
-       viewHolder.lblTournamentStartTime.setText(tournament.getTournamentStarttime());
+       viewHolder.lblTournamentStartTime.setText(tournament.getTournamentStarttime() + " to " + tournament.getTournamentEndtime());
        viewHolder.chkFollowStatus.setChecked(tournament.getTournamentFollow());
        tf = Typeface.createFromAsset(getContext().getAssets(), fontPath);
        btf = Typeface.createFromAsset(getContext().getAssets(), boldFontPath);

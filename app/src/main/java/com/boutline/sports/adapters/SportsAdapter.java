@@ -8,11 +8,11 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.boutline.sports.models.Sport;
 import com.boutline.sports.R;
-
 import java.util.ArrayList;
 
 public class SportsAdapter extends ArrayAdapter<Sport> {
@@ -27,6 +27,7 @@ public class SportsAdapter extends ArrayAdapter<Sport> {
         TextView lblSportDescription;
         CheckBox chkFollowStatus;
         ImageView imgSport;
+        RelativeLayout sportContainer;
     }
 
     public SportsAdapter(Context context, ArrayList<Sport> sports) {
@@ -40,7 +41,7 @@ public class SportsAdapter extends ArrayAdapter<Sport> {
        // Check if an existing view is being reused, otherwise inflate the view
        
        Sport sport = getItem(position);    
-       ViewHolder viewHolder; // view lookup cache stored in tag
+       final ViewHolder viewHolder; // view lookup cache stored in tag
        if (convertView == null) {
           viewHolder = new ViewHolder();
           LayoutInflater inflater = LayoutInflater.from(getContext());
@@ -49,6 +50,7 @@ public class SportsAdapter extends ArrayAdapter<Sport> {
           viewHolder.lblSportDescription = (TextView) convertView.findViewById(R.id.lblSportDescription);
           viewHolder.chkFollowStatus = (CheckBox) convertView.findViewById(R.id.chkFollowStatus);
           viewHolder.imgSport = (ImageView) convertView.findViewById(R.id.imgSport);
+          viewHolder.sportContainer = (RelativeLayout) convertView.findViewById(R.id.sportContainer);
 
           convertView.setTag(viewHolder);
           	
@@ -56,20 +58,42 @@ public class SportsAdapter extends ArrayAdapter<Sport> {
        else {
            viewHolder = (ViewHolder) convertView.getTag();
        }
-       
-       // Populate the data into the template view using the data object
-       int iconid = getContext().getResources().getIdentifier("com.boutline.sports:drawable/sport_" + sport.getSportName(), null, null);
-       viewHolder.lblSportName.setText(sport.getSportName());
-       viewHolder.lblSportDescription.setText(sport.getSportDescription());
-       viewHolder.chkFollowStatus.setChecked(sport.getSportFollow());
-       viewHolder.imgSport.setImageDrawable(getContext().getResources().getDrawable(R.drawable.sport_cricket));
-       tf = Typeface.createFromAsset(getContext().getAssets(), fontPath);
-       btf = Typeface.createFromAsset(getContext().getAssets(), boldFontPath);
-       viewHolder.lblSportName.setTypeface(btf);
-       viewHolder.lblSportDescription.setTypeface(tf);
-       
+
+        /* Following code is to get image from a url, IMPORTANT: Do this in background thread
+            try {
+                URL newurl = new URL("http://boutline.com/" + sport.sportName() + ".png");
+                Bitmap mIcon_val = BitmapFactory.decodeStream(newurl.openConnection().getInputStream());
+                viewHolder.imgSport.setImageBitmap(mIcon_val);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        */
+
+        viewHolder.lblSportName.setText(sport.getSportName());
+        viewHolder.lblSportDescription.setText(sport.getSportDescription());
+        viewHolder.chkFollowStatus.setChecked(sport.getSportFollow());
+        //Remove the following
+        if(sport.getSportName().equals("Cricket")) {
+            viewHolder.imgSport.setImageDrawable(getContext().getResources().getDrawable(R.drawable.sport_cricket));
+        }
+        else{
+            viewHolder.imgSport.setImageDrawable(getContext().getResources().getDrawable(R.drawable.sport_football));
+        }
+
+        tf = Typeface.createFromAsset(getContext().getAssets(), fontPath);
+        btf = Typeface.createFromAsset(getContext().getAssets(), boldFontPath);
+        viewHolder.lblSportName.setTypeface(btf);
+        viewHolder.lblSportDescription.setTypeface(tf);
+
+        viewHolder.sportContainer.setOnClickListener(new View.OnClickListener() {
+           @Override
+           public void onClick(View arg0) {
+               viewHolder.chkFollowStatus.setChecked(!(viewHolder.chkFollowStatus.isChecked()));
+           }
+        });
+
        // Return the completed view to render on screen
        
-       return convertView;
+        return convertView;
    }
 }

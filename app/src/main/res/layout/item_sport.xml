@@ -1,8 +1,10 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/tweetContainer"
+    android:id="@+id/sportContainer"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:paddingTop="15dp"
+    android:paddingBottom="15dp">
 
     <ImageView
         android:contentDescription="@string/dummy"
@@ -26,7 +28,7 @@
 	        android:text="@string/cricket"
 	        android:layout_width="wrap_content"
 	        android:layout_height="wrap_content"
-	        android:textColor="#343D42"
+	        android:textColor="@color/darkgray"
 	        />
 
 	    <TextView
@@ -34,7 +36,7 @@
 	        android:text="@string/dummy"
 	        android:layout_width="wrap_content"
 	        android:layout_height="wrap_content"
-	        android:textColor="#9AA3A8"
+	        android:textColor="@color/darkgray"
 	        />
 
     </LinearLayout>
