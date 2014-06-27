@@ -88,7 +88,7 @@
 - [ ] Mixpanel call for @jamesfebin (5)
 
 
-**8th July**
+**9th July**
 
 *Choose Tournaments*
 - [ ] Queuing tournaments follow preferences on no connection for @jamesfebin (5)
@@ -97,7 +97,7 @@
 - [ ] Blank Slate for @jamesfebin (5)
 
 
-**9th July**
+**10th July**
 
 *Choose Matches*
 - [ ] Async call to get data for @jamesfebin (6)
@@ -106,7 +106,7 @@
 - [ ] Caching Tests for @jamesfebin (6)
 
 
-**10th July**
+**11th July**
 
 *Choose Matches*
 - [ ] Separate list for Upcoming Matches and Current Matches for @jamesfebin (6)
@@ -116,7 +116,7 @@
 - [ ] Redirection to tweets board for @jamesfebin (6)
 
 
-**11th July**
+**12th July**
 
 Tweets Board
 - [ ] Fragments Setup for Popular , Media & Fan Voice for @jamesfebin (7)
@@ -125,7 +125,7 @@ Tweets Board
 - [ ] Async update cache and UI on data reception for @jamesfebin (7)
 - [ ] Caching tests for @jamesfebin (7)
 
-**12th July**
+**13th July**
 
 *Tweets Board*
 - [ ] Play Pause for @jamesfebin (7)
@@ -134,7 +134,7 @@ Tweets Board
 - [ ] Compose Tweet for @jamesfebin (7)
 - [ ] Caching Requests for @jamesfebin (7)
 
-**13th July**
+**14th July**
 
 *Tweets Board & Tweet Details*
 - [ ] Maker on tweets with images for @jamesfebin (7)
@@ -143,7 +143,7 @@ Tweets Board
 - [ ] Mixpanel Call for @jamesfebin (8)
 - [ ] Reply Retweet Favorite @jamesfebin (8)
 
-**14th July**
+**15th July**
 
 *Tweet Details & Conversation Page*
 - [ ] Caching user requests on connection for @jamesfebin (8)
@@ -153,7 +153,7 @@ Tweets Board
 - [ ] Facebook Session Check & Refresh Token for @jamesfebin (9)
 
 
-**15th July**
+**16th July**
 
 *Conversation Page*
 - [ ] Async request to check in fb for app requests for @jamesfebin (9)
@@ -163,7 +163,7 @@ Tweets Board
 - [ ] Infinite Scroll for @jamesfebin (9)
 - [ ] Caching Tests
 
-**16th July**
+**17th July**
 
 *Conversation page & messages page*
 - [ ] Conversation Page for @jamesfebin (9)
@@ -174,7 +174,7 @@ Tweets Board
 - [ ] Async update on cache and UI on data reception for @jamesfebin (10)
 - [ ] FB Friend Invite for @jamesfebin (10)
 
-**17th July**
+**18th July**
 
 *Messages Page*
 - [ ] Blank Slate for @jamesfebin (10)
@@ -185,7 +185,11 @@ Tweets Board
 - [ ] Caching Tests
 - [ ] Backend Setup for Admin Actions for @jamesfebin (11)
 
-**18th July**
+**19th July**
+
+**20th July**
+
+**21st July**
 
 *Banter Details Page*
 - [ ] Async call to get data (List of People & Info) for @jamesfebin (11)
@@ -195,12 +199,8 @@ Tweets Board
 - [ ] Mixpanel Calls for @jamesfebin (11)
 - [ ] Delete Users for @jamesfebin (11)
 
-**19th July**
 
-**20th July**
-
-
-**21st July**
+**22nd July**
 
 *Setting Page & Drawer Menu*
 - [ ] Profile Information for @jamesfebin (12)
@@ -211,7 +211,7 @@ Tweets Board
 - [ ] Logout , Clearing Data ,Device Id Untagging for @jamesfebin (12)
 
 
-**22nd July**
+**23rd July**
 
 *Notification*
 - [ ] Notification Broadcast for @jamesfebin (13)
@@ -220,29 +220,29 @@ Tweets Board
 - [ ] Auto remove of notification for @jamesfebin (13)
 - [ ] Piling up Notifications Instead of overwriting for @jamesfebin (13)
 
-**23rd July**
+**24th July**
 
 *Notification*
 - [ ] Notification algorithm refinement for @jamesfebin (13)
 
-**24th July**
+**25th July**
 
 *Testing*
 - [ ] Async Reconnect on Disconnect for @jamesfebin (1)
 - [ ] Handling Queued requests for @jamesfebin (1)
 - [ ] Clearing old cached data for @jamesfebin (1)
 
-**25th July**
+**26th July**
 
 - [ ] Android Testing for @jamesfebin (14)
 - [ ] Fixing known bugs for @jamesfebin (14)
 
 
-**26th July**
+**27th July**
 
 - [ ] Fixing known bugs for @jamesfebin (14)
 
-**27th July**
+**28th July**
 
 - [ ] Fixing known bugs for @jamesfebin (14)
 - [ ] Pushing to the store for @jamesfebin (14)
