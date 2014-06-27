@@ -3,7 +3,6 @@
 
 
 ### Tasks
-- **Any changes to the below tasks must be marked as bold**
 
 
 **28th June**
