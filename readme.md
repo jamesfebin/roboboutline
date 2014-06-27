@@ -10,10 +10,10 @@
 
 *Application Backend*
 
-[ ] Async DDP Connect for @jamesfebin (1)
-[ ] Email users on signup for @jamesfebin (1)
-[ ] Error Toasts for @jamesfebin (1)
-[ ] Smooth Error Handling for @jamesfebin (1)
+[ ] Async DDP Connect for @jamesfebin
+[ ] Email users on signup for @jamesfebin
+[ ] Error Toasts for @jamesfebin
+[ ] Smooth Error Handling for @jamesfebin 
 
 
 29th June
