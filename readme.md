@@ -8,7 +8,7 @@
 
 28th June
 
-Application Backend
+*Application Backend*
 [ ] Async DDP Connect for @jamesfebin (1)
 [ ] Email users on signup for @jamesfebin (1)
 [ ] Error Toasts for @jamesfebin (1)
@@ -22,7 +22,7 @@ Application Backend
 
 30th June
 
-Facebook Login
+*Facebook Login*
 [ ] Facebook Login for @jamesfebin (3)
 [ ] Store FB Credentials for @jamesfebin (3)
 [ ] Mixpanel Call on Login Success or Fail (3)
@@ -32,7 +32,7 @@ Facebook Login
 
 1st July
 
-Splash Screen
+*Splash Screen*
 [ ] Meteor Login for @jamesfebin (2)
 [ ] Mixpanel Call on Success or failure for @jamesfebin (2)
 [ ] Redirection Handling for @jamesfebin (2)
@@ -42,7 +42,7 @@ Splash Screen
 
 2nd July
 
-Choose Sports
+*Choose Sports*
 [ ] First time must login check for @jamesfebin (4)
 [ ] Async call to get data for @jamesfebin (4)
 [ ] Define Caching Rules for @jamesfebin (4)
@@ -50,14 +50,14 @@ Choose Sports
 
 3rd July
 
-Choose Sports
+*Choose Sports*
 [ ] Caching & Updating UI
 [ ] Caching tests
 [ ] Research on Caching user Requests for @jamesfebin (4)
 
 4th July
 
-Choose Sports
+*Choose Sports*
 [ ] Queuing sports preferences on no connection for @jamesfebin (4)
 [ ] Backend setup on custom sport images for @jamesfebin (4)
 [ ] Mixpanel Calls for @jamesfebin (4)
@@ -66,7 +66,7 @@ Choose Sports
 
 5th July
 
-Choose Tournaments
+*Choose Tournaments*
 [ ] Async call to get data for @jamesfebin (5)
 [ ] Define Caching Rules for @jamesfebin (5)
 [ ] Followers Number for Tournaments for @jamesfebin (5)
@@ -82,7 +82,7 @@ Choose Tournaments
 
 8th July
 
-Choose Tournaments
+*Choose Tournaments*
 [ ] Caching & Updating UI for @jamesfebin (5)
 [ ] Caching Tests for @jamesfebin (5)
 [ ] Mixpanel call for @jamesfebin (5)
@@ -90,7 +90,7 @@ Choose Tournaments
 
 8th July
 
-Choose Tournaments
+*Choose Tournaments*
 [ ] Queuing tournaments follow preferences on no connection for @jamesfebin (5)
 [ ] Backend Setup for for custom tournament images for @jamesfebin (5)
 [ ] Redirection to matches page for @jamesfebin (5)
@@ -99,7 +99,7 @@ Choose Tournaments
 
 9th July
 
-Choose Matches
+*Choose Matches*
 [ ] Async call to get data for @jamesfebin (6)
 [ ] Define Caching Rules for @jamesfebin (6)
 [ ] Caching & Updating UI for @jamesfebin (6)
@@ -108,7 +108,7 @@ Choose Matches
 
 10th July
 
-Choose Matches
+*Choose Matches*
 [ ] Separate list for Upcoming Matches and Current Matches for @jamesfebin (6)
 [ ] Time based match updates @jamesfebin (6)
 [ ] Backend Setup for custom team images for @jamesfebin (6)
@@ -127,7 +127,7 @@ Tweets Board
 
 12th July
 
-Tweets Board
+*Tweets Board*
 [ ] Play Pause for @jamesfebin (7)
 [ ] Mixpanel Call for @jamesfebin (7)
 [ ] Twitter Auth Integration for @jamesfebin (7)
@@ -136,7 +136,7 @@ Tweets Board
 
 13th July
 
-Tweets Board & Tweet Details
+*Tweets Board & Tweet Details*
 [ ] Maker on tweets with images for @jamesfebin (7)
 [ ] Async call of tweet details data for @jamesfebin (8)
 [ ] Update cache & UI on data updation for @jamesfebin (8)
@@ -145,7 +145,7 @@ Tweets Board & Tweet Details
 
 14th July
 
-Tweet Details & Conversation Page
+*Tweet Details & Conversation Page*
 [ ] Caching user requests on connection for @jamesfebin (8)
 [ ] Swipable Photos Backend Support for @jamesfebin (9)
 [ ] Async call to get data for conversations for @jamesfebin (9)
@@ -155,7 +155,7 @@ Tweet Details & Conversation Page
 
 15th July
 
-Conversation Page
+*Conversation Page*
 [ ] Async request to check in fb for app requests for @jamesfebin (9)
 [ ] Async update cache and UI on data reception for @jamesfebin (9)
 [ ] Mixpanel Call for @jamesfebin (9)
@@ -165,7 +165,7 @@ Conversation Page
 
 16th July
 
-Conversation page & messages page
+*Conversation page & messages page*
 [ ] Conversation Page for @jamesfebin (9)
 [ ] Muting Groups (Simple Mute) for @jamesfebin (9)
 [ ] Unread Messages Number  for @jamesfebin (10)
@@ -176,7 +176,7 @@ Conversation page & messages page
 
 17th July
 
-Messages Page
+*Messages Page*
 [ ] Blank Slate for @jamesfebin (10)
 [ ] Message Templates for @jamesfebin (10)
 [ ] Group Alerts for @jamesfebin (10)
@@ -187,7 +187,7 @@ Messages Page
 
 18th July
 
-Banter Details Page
+*Banter Details Page*
 [ ] Async call to get data (List of People & Info) for @jamesfebin (11)
 [ ] Define Caching Rules for @jamesfebin (11)
 [ ] Async update cache and UI on data reception for @jamesfebin (11)
@@ -202,7 +202,7 @@ Banter Details Page
 
 21st July
 
-Setting Page & Drawer Menu
+*Setting Page & Drawer Menu*
 [ ] Profile Information for @jamesfebin (12)
 [ ] Match Alerts Muting (Simple Mute) for @jamesfebin (12)
 [ ] Banter Muting (Simple Mute) for @jamesfebin (12)
@@ -213,7 +213,7 @@ Setting Page & Drawer Menu
 
 22nd July
 
-Notification
+*Notification*
 [ ] Notification Broadcast for @jamesfebin (13)
 [ ] Notification Broadcast for @jamesfebin (13)
 [ ] Notification Redirect for @jamesfebin (13)
@@ -222,12 +222,12 @@ Notification
 
 23rd July
 
-Notification
+*Notification*
 [ ] Notification algorithm refinement for @jamesfebin (13)
 
 24th July
 
-Testing
+*Testing*
 [ ] Async Reconnect on Disconnect for @jamesfebin (1)
 [ ] Handling Queued requests for @jamesfebin (1)
 [ ] Clearing old cached data for @jamesfebin (1)
