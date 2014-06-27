@@ -6,7 +6,7 @@
 - **Any changes to the below tasks must be marked as bold**
 
 
-28th June
+**28th June**
 
 *Application Backend*
 [ ] Async DDP Connect for @jamesfebin (1)
