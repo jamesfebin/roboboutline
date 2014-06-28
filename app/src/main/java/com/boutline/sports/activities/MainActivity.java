@@ -12,9 +12,11 @@
 package com.boutline.sports.activities;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 import android.view.View;
 import com.boutline.sports.helpers.SmoothProgressBar;
 import com.boutline.sports.R;
@@ -27,6 +29,9 @@ import com.keysolutions.ddpclient.android.DDPBroadcastReceiver;
 import com.keysolutions.ddpclient.android.DDPStateSingleton;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
+import android.widget.Toast;
 
 import com.facebook.model.GraphObject;
 import com.facebook.model.GraphUser;
@@ -80,6 +85,7 @@ public class MainActivity extends Activity {
     @Override
     protected void onResume() {
         super.onResume();
+
         mReceiver = new DDPBroadcastReceiver(MyDDPState.getInstance(), this) {
             @Override
             protected void onDDPConnect(DDPStateSingleton ddp) {
@@ -96,14 +102,19 @@ public class MainActivity extends Activity {
 
             }
 
+            @Override
+            public void onReceive(Context context, Intent intent) {
+                super.onReceive(context, intent);
+                Log.i("MAIN ACTIVITY","Unable to connect to internet");
+
+
+
+            }
+
+
         };
 
-        // we want error messages
-        LocalBroadcastManager.getInstance(this).registerReceiver(mReceiver,
-                new IntentFilter(MyDDPState.MESSAGE_ERROR));
-        // we want connection state change messages so we know we're logged in
-        LocalBroadcastManager.getInstance(this).registerReceiver(mReceiver,
-                new IntentFilter(MyDDPState.MESSAGE_CONNECTION));
+
 
 
 
