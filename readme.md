@@ -11,8 +11,8 @@
 
 - [X] Async DDP Connect for @jamesfebin (1)
 - [X] Email users on signup for @jamesfebin (1)
-- [ ] Error Toasts for @jamesfebin {Research Needed} (1)
-- [ ] Smooth Error Handling for @jamesfebin {Research Needed} (1)
+- [X] Error Toasts for @jamesfebin  (1)
+- [X] Smooth Error Handling for @jamesfebin (1)
 
 
 **29th June**

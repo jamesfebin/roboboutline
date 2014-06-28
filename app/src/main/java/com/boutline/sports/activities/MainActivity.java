@@ -102,21 +102,25 @@ public class MainActivity extends Activity {
 
             }
 
-            @Override
-            public void onReceive(Context context, Intent intent) {
-                super.onReceive(context, intent);
-                Log.i("MAIN ACTIVITY","Unable to connect to internet");
-
-
-
-            }
-
-
         };
 
 
+        if (MyDDPState.getInstance().getState() == MyDDPState.DDPSTATE.Closed) {
+            showError( "Internet connection not available");
+        }
+
+        }
+
+    private void showError(String msg) {
+
+
+        Toast.makeText(getApplicationContext(),msg,Toast.LENGTH_SHORT).show();
 
 
 
     }
+
+
+
+
 }
