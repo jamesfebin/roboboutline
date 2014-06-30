@@ -52,13 +52,13 @@ public class Walkthrough3 extends Activity {
 		// Assign the font types
 		
 		hdrWalkthrough3.setTypeface(btf);
-		lblWalkthrough3.setTypeface(tf);
+		lblWalkthrough3.setTypeface(btf);
 
         // Animations
 
         ImageView imgWalkthrough3 = (ImageView) findViewById(R.id.imgWalkthrough3);
-        Animation walkthroughAnim = AnimationUtils.loadAnimation(this, R.anim.walkthroughanim);
-        walkthroughAnim.setDuration(500);
+        Animation walkthroughAnim = AnimationUtils.loadAnimation(this, R.anim.fadein);
+        walkthroughAnim.setDuration(1000);
         walkthroughAnim.setRepeatCount(1);
         walkthroughAnim.setRepeatMode(1);
         walkthroughAnim.setZAdjustment(1);
