@@ -62,9 +62,6 @@ public class MainActivity extends Activity {
 		getActionBar().hide();
 		//TODO Do the background connection to server and check if user logged in
 
-
-
-
 	}
 
 

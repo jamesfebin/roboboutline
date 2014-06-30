@@ -17,6 +17,9 @@ import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -50,8 +53,19 @@ public class Walkthrough2 extends Activity {
 		
 		hdrWalkthrough2.setTypeface(btf);
 		lblWalkthrough2.setTypeface(tf);
-		
-		// Declare the function for swipe left action
+
+        // Animations
+
+        ImageView imgWalkthrough2 = (ImageView) findViewById(R.id.imgWalkthrough2);
+        Animation walkthroughAnim = AnimationUtils.loadAnimation(this, R.anim.walkthroughanim);
+        walkthroughAnim.setDuration(500);
+        walkthroughAnim.setRepeatCount(1);
+        walkthroughAnim.setRepeatMode(1);
+        walkthroughAnim.setZAdjustment(1);
+        imgWalkthrough2.startAnimation(walkthroughAnim);
+
+
+        // Declare the function for swipe left action
 		
 		container.setOnTouchListener(new OnSwipeTouchListener(Walkthrough2.this) {
 		    @Override
