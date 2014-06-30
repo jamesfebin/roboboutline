@@ -2,10 +2,18 @@ package com.boutline.sports.application;
 
 import com.boutline.sports.models.Tweet;
 import com.keysolutions.ddpclient.android.DDPStateSingleton;
+
+import android.app.AlertDialog;
 import android.content.Context;
 
 import com.keysolutions.ddpclient.DDPClient;
+
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.support.v4.content.LocalBroadcastManager;
 import android.util.Log;
+import android.widget.Toast;
+
 import java.net.URISyntaxException;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
@@ -21,10 +29,12 @@ public class MyDDPState extends DDPStateSingleton {
     private Map<String, Tweet> tweets;
     public String TAG="MY DDP State";
     private DDPSTATE mDDPState;
+    private Context mContext;
 
     private MyDDPState(Context context) {
         // Constructor hidden because this is a singleton
         super(context);
+        this.mContext = context;
         tweets = new ConcurrentHashMap<String, Tweet>();
     }
 
@@ -35,7 +45,26 @@ public class MyDDPState extends DDPStateSingleton {
             mInstance = new MyDDPState(context);
         }
 
+
     }
+
+    @Override
+    public void broadcastDDPError(String errorMsg) {
+       super.broadcastDDPError(errorMsg);
+        Log.e(TAG, "Unable to connect to internet");
+
+
+        Intent broadcastIntent = new Intent();
+        broadcastIntent.setAction(MESSAGE_ERROR);
+        broadcastIntent.putExtra(MESSAGE_EXTRA_MSG, "Unable to connect");
+        LocalBroadcastManager.getInstance(mContext)
+                .sendBroadcast(broadcastIntent);
+
+
+
+
+    }
+
 
     public static MyDDPState getInstance() {
         // Return the instance

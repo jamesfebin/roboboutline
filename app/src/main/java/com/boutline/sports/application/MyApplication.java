@@ -43,7 +43,19 @@ public class MyApplication extends Application {
     protected void initSingletons() {
         // Initialize App DDP State Singleton
         MyDDPState.initInstance(MyApplication.sContext);
-        MyDDPState.getInstance().connectIfNeeded();
+
+
+
+        Runnable runnable = new Runnable() {
+            @Override
+            public void run() {
+
+                MyDDPState.getInstance().connectIfNeeded();
+
+
+            }
+        }; new Thread(runnable).start();
+
     }
 
     public static Context getAppContext() {
