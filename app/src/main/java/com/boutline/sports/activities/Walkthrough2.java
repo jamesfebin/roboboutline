@@ -64,6 +64,13 @@ public class Walkthrough2 extends Activity {
         walkthroughAnim.setZAdjustment(1);
         imgWalkthrough2.startAnimation(walkthroughAnim);
 
+        Animation walkthroughAnim2 = AnimationUtils.loadAnimation(this, R.anim.fadein);
+        walkthroughAnim2.setDuration(1000);
+        walkthroughAnim2.setRepeatCount(1);
+        walkthroughAnim2.setRepeatMode(1);
+        lblWalkthrough2.startAnimation(walkthroughAnim2);
+        hdrWalkthrough2.startAnimation(walkthroughAnim2);
+
 
         // Declare the function for swipe left action
 		

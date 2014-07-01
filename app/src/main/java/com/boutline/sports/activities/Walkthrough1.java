@@ -70,6 +70,13 @@ public class Walkthrough1 extends Activity implements OnTouchListener {
         walkthroughAnim.setZAdjustment(1);
         imgWalkthrough1.startAnimation(walkthroughAnim);
 
+        Animation walkthroughAnim2 = AnimationUtils.loadAnimation(this, R.anim.fadein);
+        walkthroughAnim2.setDuration(1000);
+        walkthroughAnim2.setRepeatCount(1);
+        walkthroughAnim2.setRepeatMode(1);
+        lblWalkthrough1.startAnimation(walkthroughAnim2);
+        hdrWalkthrough1.startAnimation(walkthroughAnim2);
+
 		// Declare the function for gestures
 
 		container.setOnTouchListener(new OnSwipeTouchListener(Walkthrough1.this) {
@@ -77,8 +84,20 @@ public class Walkthrough1 extends Activity implements OnTouchListener {
 		    public void onSwipeLeft() {
 		       goToNext();		        
 		    }
+            @Override
+            public void onSwipeRight() {
+                goToPrev();
+
+            }
 		});
 	}
+
+    protected void goToPrev(){
+        Intent mainIntent = new Intent(Walkthrough1.this,Walkthrough0.class);
+        startActivity(mainIntent);
+        finish();
+        overridePendingTransition(R.anim.pushrightin, R.anim.pushrightout);
+    }
 
 	protected void goToNext(){
 		  Intent mainIntent = new Intent(Walkthrough1.this,Walkthrough2.class);

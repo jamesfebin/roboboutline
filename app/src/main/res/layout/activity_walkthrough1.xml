@@ -5,6 +5,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="#ffffff">
+
     <LinearLayout
         android:id="@+id/pageindicator"
         android:layout_width="fill_parent"
@@ -14,7 +15,14 @@
         android:layout_alignParentBottom="true"
         android:orientation="horizontal"
         android:padding="15dp">
-
+        <ImageView
+            android:id="@+id/imgInactivePage0"
+            android:layout_width="20dp"
+            android:layout_height="wrap_content"
+            android:src="@drawable/inactive_page"
+            android:contentDescription="@string/walkthrough1"
+            android:padding="2dp"
+            />
         <ImageView
             android:id="@+id/imgActivePage"
             android:layout_width="20dp"
