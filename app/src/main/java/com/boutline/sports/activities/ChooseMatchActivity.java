@@ -25,6 +25,7 @@ package com.boutline.sports.activities;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -32,6 +33,7 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.boutline.sports.adapters.LiveMatchesAdapter;
 import com.boutline.sports.models.Match;
@@ -42,11 +44,25 @@ import java.util.ArrayList;
 
 public class ChooseMatchActivity extends Activity {
 
+    public String fontPath = "fonts/proxinova.ttf";
+    public Typeface tf;
+    public String boldFontPath = "fonts/proxinovabold.otf";
+    public Typeface btf;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 			
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_matches);
+
+        //Declare the controls
+        TextView lblTournamentName = (TextView) findViewById(R.id.lblTournamentName);
+        TextView lblTournamentStartTime = (TextView) findViewById(R.id.lblTournamentStartTime);
+
+        //Set up fonts
+
+        tf = Typeface.createFromAsset(getAssets(), fontPath);
+        btf = Typeface.createFromAsset(getAssets(), boldFontPath);
 
 		// Populate the List View
 		
@@ -64,8 +80,13 @@ public class ChooseMatchActivity extends Activity {
 		arrayOfUpcomingMatches.add(match2);
 		LiveMatchesAdapter upcomingMatchesAdapter = new LiveMatchesAdapter(this, arrayOfMatches);
 		lvLiveMatches.setAdapter(upcomingMatchesAdapter);
-				
-		// Set all the listeners
+
+        // Assign the font types
+
+        lblTournamentName.setTypeface(btf);
+        lblTournamentStartTime.setTypeface(btf);
+
+        // Set all the listeners
 		
 		tourDetails.setOnClickListener(new OnClickListener() {
 			@Override

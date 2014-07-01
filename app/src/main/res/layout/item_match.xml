@@ -4,13 +4,13 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="horizontal"
-    android:padding="15dp">
+    android:padding="10dp">
         
 	    <ImageView
 	        android:id="@+id/imgTeamA"
 	        android:src="@drawable/dummy"
-	        android:layout_width="40dp"
-	        android:layout_height="40dp"
+	        android:layout_width="50dp"
+	        android:layout_height="50dp"
 	        android:layout_alignParentLeft="true"
 	        />
 	    
@@ -52,8 +52,8 @@
 	        android:id="@+id/imgTeamB"
 	        android:layout_alignRight="@id/matchDetails"
 	        android:src="@drawable/dummy"
-	        android:layout_width="40dp"
-	        android:layout_height="40dp"
+	        android:layout_width="50dp"
+	        android:layout_height="50dp"
 	        android:layout_alignParentRight="true"
 	        />
 	    
