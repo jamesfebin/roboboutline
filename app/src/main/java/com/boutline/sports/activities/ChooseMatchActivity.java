@@ -58,6 +58,8 @@ public class ChooseMatchActivity extends Activity {
         //Declare the controls
         TextView lblTournamentName = (TextView) findViewById(R.id.lblTournamentName);
         TextView lblTournamentStartTime = (TextView) findViewById(R.id.lblTournamentStartTime);
+        TextView lblLiveMatches = (TextView) findViewById(R.id.lblLiveMatches);
+        TextView lblUpcomingMatches = (TextView) findViewById(R.id.lblUpcomingMatches);
 
         //Set up fonts
 
@@ -85,6 +87,8 @@ public class ChooseMatchActivity extends Activity {
 
         lblTournamentName.setTypeface(btf);
         lblTournamentStartTime.setTypeface(btf);
+        lblLiveMatches.setTypeface(btf);
+        lblUpcomingMatches.setTypeface(btf);
 
         // Set all the listeners
 		

@@ -49,6 +49,7 @@
       android:id="@+id/lblLiveMatches"
       android:text="@string/liveMatches"
       android:layout_below="@id/tourDetails"
+      android:padding="10dp"
      />
   <ListView
      android:id="@+id/lvLiveMatches"
@@ -62,6 +63,7 @@
         android:id="@+id/lblUpcomingMatches"
         android:text="@string/upcomingMatches"
         android:layout_below="@id/lvLiveMatches"
+        android:padding="10dp"
         />
    <ListView
      android:id="@+id/lvUpcomingMatches"

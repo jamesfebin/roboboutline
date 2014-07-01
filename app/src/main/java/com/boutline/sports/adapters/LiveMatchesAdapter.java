@@ -60,8 +60,8 @@ public class LiveMatchesAdapter extends ArrayAdapter<Match> {
 
         //Set up fonts
 
-        tf = Typeface.createFromAsset(getAssets(), fontPath);
-        btf = Typeface.createFromAsset(getAssets(), boldFontPath);
+        tf = Typeface.createFromAsset(getContext().getAssets(), fontPath);
+        btf = Typeface.createFromAsset(getContext().getAssets(), boldFontPath);
 
         // Assign the font types
 

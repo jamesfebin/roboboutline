@@ -57,8 +57,20 @@ public class UpcomingMatchesAdapter extends ArrayAdapter<Match> {
        viewHolder.lblMatchName.setText(match.getMatchName());
        viewHolder.lblMatchStartTime.setText(match.getMatchStartTime());
        viewHolder.lblMatchVenue.setText(match.getMatchVenue());
-       
-       // Return the completed view to render on screen
+
+        //Set up fonts
+
+        tf = Typeface.createFromAsset(getContext().getAssets(), fontPath);
+        btf = Typeface.createFromAsset(getContext().getAssets(), boldFontPath);
+
+        // Assign the font types
+
+        viewHolder.lblMatchName.setTypeface(btf);
+        viewHolder.lblMatchStartTime.setTypeface(btf);
+        viewHolder.lblMatchVenue.setTypeface(btf);
+
+
+        // Return the completed view to render on screen
        
        return convertView;
    }
