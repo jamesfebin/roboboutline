@@ -87,7 +87,6 @@ public class Walkthrough1 extends Activity implements OnTouchListener {
             @Override
             public void onSwipeRight() {
                 goToPrev();
-
             }
 		});
 	}

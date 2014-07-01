@@ -22,6 +22,7 @@ import android.view.View;
 import android.view.View.OnTouchListener;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.view.animation.ScaleAnimation;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -29,7 +30,7 @@ import android.widget.TextView;
 import com.boutline.sports.R;
 import com.boutline.sports.helpers.OnSwipeTouchListener;
 
-public class Walkthrough0 extends Activity implements OnTouchListener {
+public class Walkthrough0 extends Activity {
 
 	public String fontPath = "fonts/proxinova.ttf";
 	public Typeface tf;
@@ -38,53 +39,57 @@ public class Walkthrough0 extends Activity implements OnTouchListener {
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
-		 
-		// Set up UI
-		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_walkthrough0);
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_walkthrough0);
 
-		//Set up fonts		
-		
-		tf = Typeface.createFromAsset(getAssets(), fontPath);
-		btf = Typeface.createFromAsset(getAssets(), boldFontPath);
-		getActionBar().hide();
-		
-		// Define the controls
-		
-		RelativeLayout container =(RelativeLayout) findViewById(R.id.container);
-		TextView hdrWalkthrough1 = (TextView) findViewById(R.id.hdrWalkthrough1);
-		TextView lblWalkthrough1 = (TextView) findViewById(R.id.lblWalkthrough1);
-		
-		// Assign the font types
-		
-		hdrWalkthrough1.setTypeface(btf);
-		lblWalkthrough1.setTypeface(btf);
-		
-		// Animations
+        //Set up fonts
 
-        ImageView imgWalkthrough1 = (ImageView) findViewById(R.id.imgWalkthrough1);
-        Animation walkthroughAnim = AnimationUtils.loadAnimation(this, R.anim.walkthroughanim);
-        walkthroughAnim.setDuration(500);
+        tf = Typeface.createFromAsset(getAssets(), fontPath);
+        btf = Typeface.createFromAsset(getAssets(), boldFontPath);
+        getActionBar().hide();
+
+        // Define the controls
+
+        RelativeLayout container =(RelativeLayout) findViewById(R.id.container);
+        TextView hdrWalkthrough0 = (TextView) findViewById(R.id.hdrWalkthrough0);
+        TextView swiper = (TextView) findViewById(R.id.swiper);
+        TextView lblWalkthrough0 = (TextView) findViewById(R.id.lblWalkthrough0);
+        TextView subhdrWalkthrough0 = (TextView) findViewById(R.id.subhdrWalkthrough0);
+        ImageView imgWalkthrough0 = (ImageView) findViewById(R.id.imgWalkthrough0);
+
+        // Assign the font types
+        swiper.setTypeface(tf);
+        subhdrWalkthrough0.setTypeface(btf);
+        hdrWalkthrough0.setTypeface(btf);
+        lblWalkthrough0.setTypeface(btf);
+
+        // Animations
+
+
+        Animation walkthroughAnim = AnimationUtils.loadAnimation(this, R.anim.scalein);
+        walkthroughAnim.setDuration(1000);
         walkthroughAnim.setRepeatCount(1);
         walkthroughAnim.setRepeatMode(1);
-        walkthroughAnim.setZAdjustment(1);
-        imgWalkthrough1.startAnimation(walkthroughAnim);
+        imgWalkthrough0.startAnimation(walkthroughAnim);
 
         Animation walkthroughAnim2 = AnimationUtils.loadAnimation(this, R.anim.fadein);
-        walkthroughAnim2.setDuration(1000);
+        walkthroughAnim2.setDuration(500);
         walkthroughAnim2.setRepeatCount(1);
         walkthroughAnim2.setRepeatMode(1);
-        lblWalkthrough1.startAnimation(walkthroughAnim2);
-        hdrWalkthrough1.startAnimation(walkthroughAnim2);
+        lblWalkthrough0.startAnimation(walkthroughAnim2);
+        hdrWalkthrough0.startAnimation(walkthroughAnim2);
 
-		// Declare the function for gestures
+        // Declare the function for gestures
 
-		container.setOnTouchListener(new OnSwipeTouchListener(Walkthrough0.this) {
-		    @Override
-		    public void onSwipeLeft() {
-		       goToNext();		        
-		    }
-		});
+        container.setOnTouchListener(new OnSwipeTouchListener(Walkthrough0.this) {
+            @Override
+            public void onSwipeLeft() {
+                goToNext();
+            }
+            @Override
+            public void onSwipeRight() {
+            }
+        });
 	}
 
 	protected void goToNext(){
@@ -92,12 +97,6 @@ public class Walkthrough0 extends Activity implements OnTouchListener {
           startActivity(mainIntent);
           finish();
           overridePendingTransition(R.anim.pushleftin, R.anim.pushleftout);
-	}
-
-
-	@Override
-	public boolean onTouch(View v, MotionEvent event) {
-		return false;
 	}
 
 	@Override

@@ -15,13 +15,20 @@
         android:layout_alignParentBottom="true"
         android:orientation="horizontal"
         android:padding="15dp">
-
+        <ImageView
+            android:id="@+id/imgInactivePage0"
+            android:layout_width="20dp"
+            android:layout_height="wrap_content"
+            android:src="@drawable/active_page"
+            android:contentDescription="@string/app_name"
+            android:padding="2dp"
+            />
         <ImageView
             android:id="@+id/imgActivePage"
             android:layout_width="20dp"
             android:layout_height="wrap_content"
-            android:src="@drawable/active_page"
-            android:contentDescription="@string/walkthrough1"
+            android:src="@drawable/inactive_page"
+            android:contentDescription="@string/app_name"
             android:padding="2dp"
             />
         <ImageView
@@ -29,15 +36,7 @@
             android:layout_width="20dp"
             android:layout_height="wrap_content"
             android:src="@drawable/inactive_page"
-            android:contentDescription="@string/walkthrough1"
-            android:padding="2dp"
-            />
-        <ImageView
-            android:id="@+id/imgInactivePage1"
-            android:layout_width="20dp"
-            android:layout_height="wrap_content"
-            android:src="@drawable/inactive_page"
-            android:contentDescription="@string/walkthrough1"
+            android:contentDescription="@string/app_name"
             android:padding="2dp"
             />
         <ImageView
@@ -45,15 +44,16 @@
             android:layout_width="20dp"
             android:layout_height="wrap_content"
             android:src="@drawable/inactive_page"
-            android:contentDescription="@string/walkthrough1"
+            android:contentDescription="@string/app_name"
             android:padding="2dp"
             />
     </LinearLayout>
+
     <TextView
-        android:id="@+id/lblWalkthrough1"
+        android:id="@+id/swiper"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:text="@string/walkthrough1"
+        android:text="@string/swipeleft"
         android:layout_above="@id/pageindicator"
         android:textSize="16sp"
         android:gravity="center_horizontal"
@@ -62,32 +62,57 @@
         android:paddingBottom="10dp" />
 
     <TextView
-        android:id="@+id/hdrWalkthrough1"
+        android:id="@+id/lblWalkthrough0"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_above="@id/lblWalkthrough1"
-        android:text="@string/board"
+        android:text="@string/welcomemessage"
+        android:layout_above="@id/swiper"
+        android:textSize="16sp"
+        android:gravity="center_horizontal"
+        android:padding="20dp"
+        android:textColor="#999999"
+        android:paddingBottom="10dp" />
+
+    <TextView
+        android:id="@+id/subhdrWalkthrough0"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/lblWalkthrough0"
+        android:text="@string/saythankyou"
         android:textSize="24sp"
         android:textStyle="bold"
         android:textColor="#111111"
         android:gravity="center_horizontal"
         android:paddingTop="15dp"/>
-    <LinearLayout
+
+    <TextView
+        android:id="@+id/hdrWalkthrough0"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
+        android:layout_above="@id/subhdrWalkthrough0"
+        android:text="@string/sayhello"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        android:textColor="#111111"
+        android:gravity="center_horizontal"
+        android:paddingTop="15dp"/>
+
+
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
         android:orientation="vertical"
-        android:background="#CCCCCC"
-        android:layout_above="@id/hdrWalkthrough1">
+        android:gravity="center_horizontal|center_vertical"
+        android:background="#ffffff"
+        android:layout_above="@id/hdrWalkthrough0">
         <ImageView
-            android:id="@+id/imgWalkthrough1"
-            android:layout_width="fill_parent"
+            android:id="@+id/imgWalkthrough0"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/iframe"
-            android:contentDescription="@string/walkthrough1"
-            android:scaleType="centerCrop"
-            android:paddingRight="50dp"
-            android:paddingTop="50dp"
-            android:paddingLeft="50dp"/>
+            android:src="@drawable/grayscalelogo"
+            android:contentDescription="@string/app_name"
+            android:scaleType="centerCrop"/>
     </LinearLayout>
 
 
