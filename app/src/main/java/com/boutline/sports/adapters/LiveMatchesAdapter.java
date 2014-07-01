@@ -59,9 +59,10 @@ public class LiveMatchesAdapter extends ArrayAdapter<Match> {
        viewHolder.lblMatchVenue.setText(match.getMatchVenue());
 
         //Set up fonts
+        Context context = parent.getContext();
 
-        tf = Typeface.createFromAsset(getAssets(), fontPath);
-        btf = Typeface.createFromAsset(getAssets(), boldFontPath);
+        tf = Typeface.createFromAsset(context.getAssets(), fontPath);
+        btf = Typeface.createFromAsset(context.getAssets(), boldFontPath);
 
         // Assign the font types
 

@@ -110,7 +110,6 @@ public class FacebookLogin extends Activity {
 		getActionBar().hide();
 
 		// Define the controls
-        MixpanelAPI.getInstance(getApplicationContext(), Constants.MIXPANEL_TOKEN);
 		RelativeLayout container = (RelativeLayout) findViewById(R.id.container);
 		final Button btnFacebookLogin = (Button) findViewById(R.id.btnFacebookLogin);
 		TextView tosnpp = (TextView) findViewById(R.id.tosnpp);
@@ -192,13 +191,22 @@ public class FacebookLogin extends Activity {
         overridePendingTransition(R.anim.pushrightin, R.anim.pushrightout);
 	}
 
+    @Override
+    protected void onDestroy() {
 
-	@Override
+        if(mixpanel!=null)
+            mixpanel.flush();
+        super.onDestroy();
+
+    }
+
+    @Override
 	protected void onResume() {
 		super.onResume();
 
 
 
+     mixpanel=MixpanelAPI.getInstance(getApplicationContext(), Constants.MIXPANEL_TOKEN);
 
         mReceiver = new BroadcastReceiver() {
 
@@ -224,7 +232,8 @@ public class FacebookLogin extends Activity {
 
                         Intent mainIntent = new Intent(FacebookLogin.this,ChooseSportsActivity.class);
                         startActivity(mainIntent);
-                      overridePendingTransition(R.anim.pushleftin, R.anim.pushleftout);
+                        overridePendingTransition(R.anim.pushleftin, R.anim.pushleftout);
+                        finish();
 
 
                     }
@@ -261,9 +270,6 @@ public class FacebookLogin extends Activity {
                 new IntentFilter(MyDDPState.MESSAGE_ERROR));
 
 
-        // we want error messages
-        LocalBroadcastManager.getInstance(this).registerReceiver(mReceiver,
-                new IntentFilter(MyDDPState.MESSAGE_ERROR));
         // we want connection state change messages so we know we're logged in
         LocalBroadcastManager.getInstance(this).registerReceiver(mReceiver,
                 new IntentFilter(MyDDPState.MESSAGE_CONNECTION));
