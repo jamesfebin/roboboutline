@@ -15,15 +15,13 @@
     <!-- Application theme. -->
     <style name="AppTheme" parent="AppBaseTheme">
          <item name="android:actionBarStyle">@style/MyActionBar</item>
-         <item name="android:windowContentOverlay">@drawable/abshadow</item>
         <item name="android:windowFullscreen">true</item>
-        <item name="android:windowActionBarOverlay">true</item>
+        <item name="android:windowContentOverlay">@null</item>
     </style>
 
     <!-- ActionBar styles -->
     <style name="MyActionBar" parent="@android:style/Widget.Holo.Light.ActionBar.Solid.Inverse">
-        <item name="android:background">@drawable/blurbg</item>
-        <item name="android:windowActionBarOverlay">true</item>
+        <item name="android:background">@drawable/whitesemitransbg</item>
     </style>
     
     <!-- Two way view -->

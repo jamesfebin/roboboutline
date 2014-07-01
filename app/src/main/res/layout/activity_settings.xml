@@ -50,15 +50,15 @@
 	    
 		<ImageView
 		    android:id="@+id/imgActivePage"
-		    android:layout_width="30dp" 
+		    android:layout_width="20dp"
 		    android:layout_height="wrap_content"
-		    android:src="@drawable/curr_page"
+		    android:src="@drawable/active_page"
 		    android:contentDescription="@string/walkthrough1"
 		    android:padding="2dp"
 		     />
 		<ImageView
 		    android:id="@+id/imgInactivePage"
-		    android:layout_width="30dp" 
+		    android:layout_width="20dp"
 		    android:layout_height="wrap_content"
 		    android:src="@drawable/inactive_page"
 		    android:contentDescription="@string/walkthrough1"
@@ -66,7 +66,7 @@
 		     />
 		<ImageView
 		    android:id="@+id/imgInactivePage2"
-		    android:layout_width="30dp" 
+		    android:layout_width="20dp"
 		    android:layout_height="wrap_content"
 		    android:src="@drawable/inactive_page"
 		    android:contentDescription="@string/walkthrough1"

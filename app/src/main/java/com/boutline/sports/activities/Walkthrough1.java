@@ -21,14 +21,13 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnTouchListener;
 import android.view.animation.Animation;
-import android.view.animation.TranslateAnimation;
+import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.boutline.sports.helpers.OnSwipeTouchListener;
 import com.boutline.sports.R;
-import com.boutline.sports.helpers.SmoothProgressBar;
 
 public class Walkthrough1 extends Activity implements OnTouchListener {
 
@@ -36,22 +35,13 @@ public class Walkthrough1 extends Activity implements OnTouchListener {
 	public Typeface tf;
 	public String boldFontPath = "fonts/proxinovabold.otf";
 	public Typeface btf;
-	Animation mouseAnim;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		 
 		// Set up UI
 		super.onCreate(savedInstanceState);
-		//TODO set activity to fullscreen mode
 		setContentView(R.layout.activity_walkthrough1);
-
-        // Setup Progress Bar
-
-        SmoothProgressBar mProgressBar;
-        mProgressBar = (SmoothProgressBar) findViewById(R.id.progressBar);
-        mProgressBar.setVisibility(View.VISIBLE);
-        mProgressBar.progressiveStart();
 
 		//Set up fonts		
 		
@@ -61,38 +51,52 @@ public class Walkthrough1 extends Activity implements OnTouchListener {
 		
 		// Define the controls
 		
-		RelativeLayout container = (RelativeLayout) findViewById(R.id.container);
+		RelativeLayout container =(RelativeLayout) findViewById(R.id.container);
 		TextView hdrWalkthrough1 = (TextView) findViewById(R.id.hdrWalkthrough1);
 		TextView lblWalkthrough1 = (TextView) findViewById(R.id.lblWalkthrough1);
-		final ImageView imgMouseImage = (ImageView) findViewById(R.id.imgMouseImage);
-		
 		
 		// Assign the font types
 		
 		hdrWalkthrough1.setTypeface(btf);
-		lblWalkthrough1.setTypeface(tf);
+		lblWalkthrough1.setTypeface(btf);
 		
-		// Animation of user's call to action
-		
-		TranslateAnimation animation = new TranslateAnimation(300.0f , 0.0f, 0.0f, 0.0f);
-		animation.setDuration(1000);
-		animation.setRepeatCount(2);
-		animation.setRepeatMode(1);
-		animation.setFillAfter(true);		
-		imgMouseImage.startAnimation(animation);
-				
-		// Declare the function for gestures
-		
+		// Animations
 
-		
+        ImageView imgWalkthrough1 = (ImageView) findViewById(R.id.imgWalkthrough1);
+        Animation walkthroughAnim = AnimationUtils.loadAnimation(this, R.anim.walkthroughanim);
+        walkthroughAnim.setDuration(500);
+        walkthroughAnim.setRepeatCount(1);
+        walkthroughAnim.setRepeatMode(1);
+        walkthroughAnim.setZAdjustment(1);
+        imgWalkthrough1.startAnimation(walkthroughAnim);
+
+        Animation walkthroughAnim2 = AnimationUtils.loadAnimation(this, R.anim.fadein);
+        walkthroughAnim2.setDuration(1000);
+        walkthroughAnim2.setRepeatCount(1);
+        walkthroughAnim2.setRepeatMode(1);
+        lblWalkthrough1.startAnimation(walkthroughAnim2);
+        hdrWalkthrough1.startAnimation(walkthroughAnim2);
+
+		// Declare the function for gestures
+
 		container.setOnTouchListener(new OnSwipeTouchListener(Walkthrough1.this) {
 		    @Override
 		    public void onSwipeLeft() {
 		       goToNext();		        
 		    }
+            @Override
+            public void onSwipeRight() {
+                goToPrev();
+            }
 		});
-
 	}
+
+    protected void goToPrev(){
+        Intent mainIntent = new Intent(Walkthrough1.this,Walkthrough0.class);
+        startActivity(mainIntent);
+        finish();
+        overridePendingTransition(R.anim.pushrightin, R.anim.pushrightout);
+    }
 
 	protected void goToNext(){
 		  Intent mainIntent = new Intent(Walkthrough1.this,Walkthrough2.class);

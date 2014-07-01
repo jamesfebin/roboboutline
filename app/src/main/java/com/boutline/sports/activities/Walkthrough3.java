@@ -17,6 +17,9 @@ import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -49,9 +52,26 @@ public class Walkthrough3 extends Activity {
 		// Assign the font types
 		
 		hdrWalkthrough3.setTypeface(btf);
-		lblWalkthrough3.setTypeface(tf);
-		
-		// Declare the function for swipe left action
+		lblWalkthrough3.setTypeface(btf);
+
+        // Animations
+
+        ImageView imgWalkthrough3 = (ImageView) findViewById(R.id.imgWalkthrough3);
+        Animation walkthroughAnim = AnimationUtils.loadAnimation(this, R.anim.fadein);
+        walkthroughAnim.setDuration(1000);
+        walkthroughAnim.setRepeatCount(1);
+        walkthroughAnim.setRepeatMode(1);
+        walkthroughAnim.setZAdjustment(1);
+        imgWalkthrough3.startAnimation(walkthroughAnim);
+
+        Animation walkthroughAnim2 = AnimationUtils.loadAnimation(this, R.anim.fadein);
+        walkthroughAnim2.setDuration(1000);
+        walkthroughAnim2.setRepeatCount(1);
+        walkthroughAnim2.setRepeatMode(1);
+        lblWalkthrough3.startAnimation(walkthroughAnim2);
+        hdrWalkthrough3.startAnimation(walkthroughAnim2);
+
+        // Declare the function for swipe left action
 		
 		container.setOnTouchListener(new OnSwipeTouchListener(Walkthrough3.this) {
 		    @Override

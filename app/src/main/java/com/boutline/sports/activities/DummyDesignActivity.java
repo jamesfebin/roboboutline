@@ -24,25 +24,18 @@ package com.boutline.sports.activities;
 
 import android.app.ActionBar;
 import android.app.Activity;
-import android.content.Intent;
+import android.graphics.Point;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.util.TypedValue;
+import android.view.Display;
 import android.view.Menu;
-import android.view.MenuItem;
-import android.view.View;
 import android.view.Window;
-import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemClickListener;
+import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
-import android.widget.ListView;
 import android.widget.TextView;
 
 import com.boutline.sports.R;
-import com.boutline.sports.adapters.TournamentsAdapter;
-import com.boutline.sports.models.Tournament;
-
-import java.util.ArrayList;
 
 //import com.tjeannin.apprate.AppRate;
 
@@ -50,7 +43,7 @@ public class DummyDesignActivity extends Activity {
 
 	public String fontPath = "fonts/museo.otf";
 	public Typeface tf;
-	public String boldFontPath = "fonts/museobold.otf";
+	public String boldFontPath = "fonts/proxinovabold.otf";
 	public Typeface btf;
 	ActionBar actionBar;
 	
@@ -59,23 +52,18 @@ public class DummyDesignActivity extends Activity {
 		requestWindowFeature(Window.FEATURE_ACTION_BAR);
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_dummydesign);
+        setupActionBar();
 
-        //set up the action bar
-		actionBar = getActionBar();
-        int actionBarHeight=0;
-        TypedValue tv = new TypedValue();
-        if (getTheme().resolveAttribute(android.R.attr.actionBarSize, tv, true)){
-            actionBarHeight = TypedValue.complexToDimensionPixelSize(tv.data,getResources().getDisplayMetrics());
-        }
-        ImageView actionBg = (ImageView) findViewById(R.id.actionBarBG);
-        actionBg.getLayoutParams().height = actionBarHeight + 10;
-        actionBg.requestLayout();
-
-		tf = Typeface.createFromAsset(getAssets(), fontPath);
+        tf = Typeface.createFromAsset(getAssets(), fontPath);
         btf = Typeface.createFromAsset(getAssets(), boldFontPath);
-		
-			
 
+        TextView lblTweetUsername = (TextView)findViewById(R.id.lblTweetUsername);
+        TextView lblTweetHandle = (TextView)findViewById(R.id.lblTweetHandle);
+        TextView lblTweetMessage = (TextView)findViewById(R.id.lblTweetMessage);
+
+        lblTweetUsername.setTypeface(btf);
+        lblTweetHandle.setTypeface(btf);
+        lblTweetMessage.setTypeface(btf);
 		
 	}	
 	
@@ -85,10 +73,25 @@ public class DummyDesignActivity extends Activity {
 		finish();
 		overridePendingTransition(R.anim.pushrightin, R.anim.pushrightout);
 	}
-	
-	// inflate the menu assigned for this page and set click listeners
 
-    @Override
+    //set up action bar
+    public void setupActionBar(){
+        actionBar = getActionBar();
+        int actionBarHeight=0;
+        TypedValue tv = new TypedValue();
+        if (getTheme().resolveAttribute(android.R.attr.actionBarSize, tv, true)){
+            actionBarHeight = TypedValue.complexToDimensionPixelSize(tv.data,getResources().getDisplayMetrics());
+        }
+        /*ImageView actionBg = (ImageView) findViewById(R.id.actionBarBG);
+        actionBg.getLayoutParams().height = actionBarHeight + 10;
+        actionBg.requestLayout();
+        */
+        //actionBg.startAnimation(AnimationUtils.loadAnimation(this,R.anim.progressanim));
+        }
+
+                // inflate the menu assigned for this page and set click listeners
+
+        @Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 	     getMenuInflater().inflate(R.menu.main, menu);
 	     return true;

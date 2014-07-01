@@ -66,10 +66,12 @@ public class ChooseTournamentActivity extends Activity {
         if (getTheme().resolveAttribute(android.R.attr.actionBarSize, tv, true)){
             actionBarHeight = TypedValue.complexToDimensionPixelSize(tv.data,getResources().getDisplayMetrics());
         }
+
+        /*
         ImageView actionBg = (ImageView) findViewById(R.id.actionBarBG);
         actionBg.getLayoutParams().height = actionBarHeight + 10;
         actionBg.requestLayout();
-
+        */
 		TextView lblChooseTournament = (TextView)findViewById(R.id.lblChooseTournament);
 		TextView lblBlankSlate = (TextView)findViewById(R.id.lblBlankSlate);
 		tf = Typeface.createFromAsset(getAssets(), fontPath);

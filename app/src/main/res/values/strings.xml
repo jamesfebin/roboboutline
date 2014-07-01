@@ -29,4 +29,8 @@
 	<string name="noTours">Doh! The apocalypse is coming. There are no tournaments happening at this time.</string>
 	<string name="liveMatches">Live Matches</string>
 	<string name="upcomingMatches">Upcoming Matches</string>
+    <string name="sayhello">Hello!</string>
+    <string name="saythankyou">Thanks for downloading Boutline!</string>
+    <string name="swipeleft">Swipe left to find out what\'s in store. </string>
+    <string name="welcomemessage">You are now a part of an elite community of sports fans. Here you can learn about, connect with and stay updated about your favorite sports and their fans. </string>
 </resources>

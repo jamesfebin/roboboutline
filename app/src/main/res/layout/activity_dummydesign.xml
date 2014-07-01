@@ -5,13 +5,78 @@
     android:layout_height="match_parent"
     android:background="#ffffff">
 
-    <ImageView
-        android:id="@+id/actionBarBG"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="5dp"
-        android:scaleType="fitXY"
-        android:src="@drawable/actionbarbg"
+        android:layout_height="match_parent"
+        android:background="#ffffff">
+    <ImageView
+        android:id="@+id/imgPropic"
+        android:src="@drawable/dummy"
+        android:layout_width="75dp"
+        android:layout_height="75dp"
+        android:contentDescription="@string/dummy"
+        android:paddingTop="15dp"
+        android:paddingLeft="10dp"
+        android:paddingBottom="10dp"
         />
-     
- </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_toRightOf="@id/imgPropic"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingRight="10dp"
+        android:paddingTop="15dp"
+        android:paddingLeft="5dp"
+        android:paddingBottom="15dp">
+
+        <TextView
+            android:id="@+id/lblTweetUsername"
+            android:text="Anand Satyan"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/black"
+            android:textSize="14sp"
+            android:lineSpacingExtra="3dp"
+            />
+
+        <TextView
+            android:id="@+id/lblTweetHandle"
+            android:text="anandsatyan"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/darkgray"
+            android:paddingLeft="5dp"
+            android:textSize="14sp"
+            android:gravity="bottom"
+            android:layout_toRightOf="@id/lblTweetUsername"
+            android:lineSpacingExtra="3dp"
+            />
+
+        <TextView
+            android:id="@+id/lblTweetMessage"
+            android:text="A good designer is judged by how good the error page is designed! #designgyaan"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="14sp"
+            android:textColor="@color/darkgray"
+            android:layout_below="@id/lblTweetUsername"
+            android:lineSpacingExtra="3dp"
+            />
+
+    </RelativeLayout>
+
+    <ImageView
+        android:id="@+id/imgExists"
+        android:src="@drawable/imgexists"
+        android:layout_width="16dp"
+        android:layout_height="16dp"
+        android:contentDescription="@string/dummy"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:gravity="top"
+        android:layout_gravity="top"
+        />
+
+</RelativeLayout>
+</RelativeLayout>
 
