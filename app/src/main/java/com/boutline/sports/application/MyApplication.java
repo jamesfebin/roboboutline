@@ -45,16 +45,8 @@ public class MyApplication extends Application {
         MyDDPState.initInstance(MyApplication.sContext);
 
 
+        MyDDPState.getInstance().connectIfNeeded();
 
-        Runnable runnable = new Runnable() {
-            @Override
-            public void run() {
-
-                MyDDPState.getInstance().connectIfNeeded();
-
-
-            }
-        }; new Thread(runnable).start();
 
     }
 

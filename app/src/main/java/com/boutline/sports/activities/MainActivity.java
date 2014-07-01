@@ -95,9 +95,12 @@ public class MainActivity extends Activity {
 
                 if(!isUserLoggedIn){
                    goToWalkthrough1();
+                    finish();
                 }
                 else{
                     goToChooseTournament();
+                    finish();
+
                 }
 
             }
@@ -111,12 +114,21 @@ public class MainActivity extends Activity {
 
         }
 
+    @Override
+    protected void onPause() {
+        super.onPause();
+
+        if (mReceiver != null) {
+
+            LocalBroadcastManager.getInstance(this).unregisterReceiver(mReceiver);
+            mReceiver = null;
+        }
+    }
+
     private void showError(String msg) {
 
 
         Toast.makeText(getApplicationContext(),msg,Toast.LENGTH_SHORT).show();
-
-
 
     }
 

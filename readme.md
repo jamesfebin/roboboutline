@@ -23,12 +23,12 @@
 **30th June**
 
 *Facebook Login*
-- [ ] Facebook Login for @jamesfebin (3)
-- [ ] Store FB Credentials for @jamesfebin (3)
-- [ ] Mixpanel Call on Login Success or Fail (3)
-- [ ] Meteor login for @jamesfebin (3)
-- [ ] Error Toasts for @jamesfebin (3)
-- [ ] Mixpanel User tagging for @jamesfebin (3)
+- [X] Facebook Login for @jamesfebin (3)
+- [X] Store FB Credentials for @jamesfebin (3)
+- [X] Mixpanel Call on Login Success or Fail (3)
+- [X] Meteor login for @jamesfebin (3)
+- [X] Error Toasts for @jamesfebin (3)
+- [X] Mixpanel User tagging for @jamesfebin (3)
 
 **1st July**
 

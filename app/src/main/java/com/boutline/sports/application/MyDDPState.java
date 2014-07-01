@@ -1,6 +1,8 @@
 package com.boutline.sports.application;
 
+import com.boutline.sports.models.FacebookUserInfo;
 import com.boutline.sports.models.Tweet;
+import com.keysolutions.ddpclient.DDPListener;
 import com.keysolutions.ddpclient.android.DDPStateSingleton;
 
 import android.app.AlertDialog;
@@ -20,6 +22,7 @@ import java.util.concurrent.ConcurrentHashMap;
 
 import com.keysolutions.ddpclient.DDPClient.DdpMessageField;
 import com.keysolutions.ddpclient.DDPClient.DdpMessageType;
+import com.keysolutions.ddpclient.DDPListener;
 
 /**
  * Created by Febin John James on 21/06/14.
@@ -51,16 +54,19 @@ public class MyDDPState extends DDPStateSingleton {
     @Override
     public void broadcastDDPError(String errorMsg) {
        super.broadcastDDPError(errorMsg);
-        Log.e(TAG, "Unable to connect to internet");
 
 
+
+        Log.e("ERROR IS",errorMsg);
         Intent broadcastIntent = new Intent();
         broadcastIntent.setAction(MESSAGE_ERROR);
         broadcastIntent.putExtra(MESSAGE_EXTRA_MSG, "Unable to connect");
-        LocalBroadcastManager.getInstance(mContext)
-                .sendBroadcast(broadcastIntent);
 
 
+
+        LocalBroadcastManager.getInstance(
+                MyApplication.getAppContext()).sendBroadcast(
+                broadcastIntent);
 
 
     }
@@ -86,6 +92,56 @@ public class MyDDPState extends DDPStateSingleton {
         mDDPState = DDPSTATE.NotLoggedIn;
 
     }
+
+    public void meteorLogin(FacebookUserInfo fbUser)
+    {
+        Object[] parameters = new Object[1];
+        parameters[0]=fbUser;
+
+        mDDP.call("connectFacebookUser",parameters,new DDPListener(){
+
+            @Override
+            public void onResult(Map<String, Object> resultFields) {
+                super.onResult(resultFields);
+                if (resultFields.containsKey("result")) {
+
+                    Map<String, Object> result = (Map<String, Object>) resultFields
+                            .get(DdpMessageField.RESULT);
+
+                    if(result.containsKey("userId")) {
+
+                        Intent broadcastIntent = new Intent();
+                        broadcastIntent.setAction("LOGINSUCCESS");
+                        broadcastIntent.putExtra("userId",
+                                result.get("userId").toString());
+                        LocalBroadcastManager.getInstance(
+                                MyApplication.getAppContext()).sendBroadcast(
+                                broadcastIntent);
+                    }
+                    else
+                    {
+                        Intent broadcastIntent = new Intent();
+                        broadcastIntent.setAction("LOGINFAILED");
+                        broadcastIntent.putExtra("Error",
+                               "Unable to Login");
+                        LocalBroadcastManager.getInstance(
+                                MyApplication.getAppContext()).sendBroadcast(
+                                broadcastIntent);
+
+                    }
+
+
+                }
+
+
+            }
+
+
+        });
+
+
+    }
+
 
 
     @Override
