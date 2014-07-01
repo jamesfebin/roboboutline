@@ -17,9 +17,9 @@ import java.util.ArrayList;
 
 public class SportsAdapter extends ArrayAdapter<Sport> {
 	
-	public String fontPath = "fonts/museo.otf";
+	public String fontPath = "fonts/proxinova.ttf";
 	public Typeface tf;
-	public String boldFontPath = "fonts/museobold.otf";
+	public String boldFontPath = "fonts/proxinovabold.otf";
 	public Typeface btf;
 	
     private static class ViewHolder {
@@ -83,7 +83,7 @@ public class SportsAdapter extends ArrayAdapter<Sport> {
         tf = Typeface.createFromAsset(getContext().getAssets(), fontPath);
         btf = Typeface.createFromAsset(getContext().getAssets(), boldFontPath);
         viewHolder.lblSportName.setTypeface(btf);
-        viewHolder.lblSportDescription.setTypeface(tf);
+        viewHolder.lblSportDescription.setTypeface(btf);
 
         viewHolder.sportContainer.setOnClickListener(new View.OnClickListener() {
            @Override

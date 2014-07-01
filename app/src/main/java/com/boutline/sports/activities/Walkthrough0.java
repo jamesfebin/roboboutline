@@ -66,7 +66,7 @@ public class Walkthrough0 extends Activity {
         // Animations
 
 
-        Animation walkthroughAnim = AnimationUtils.loadAnimation(this, R.anim.scalein);
+        Animation walkthroughAnim = AnimationUtils.loadAnimation(this, R.anim.fadein);
         walkthroughAnim.setDuration(1000);
         walkthroughAnim.setRepeatCount(1);
         walkthroughAnim.setRepeatMode(1);

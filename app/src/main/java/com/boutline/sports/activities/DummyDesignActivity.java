@@ -82,9 +82,10 @@ public class DummyDesignActivity extends Activity {
         if (getTheme().resolveAttribute(android.R.attr.actionBarSize, tv, true)){
             actionBarHeight = TypedValue.complexToDimensionPixelSize(tv.data,getResources().getDisplayMetrics());
         }
-        ImageView actionBg = (ImageView) findViewById(R.id.actionBarBG);
+        /*ImageView actionBg = (ImageView) findViewById(R.id.actionBarBG);
         actionBg.getLayoutParams().height = actionBarHeight + 10;
         actionBg.requestLayout();
+        */
         //actionBg.startAnimation(AnimationUtils.loadAnimation(this,R.anim.progressanim));
         }
 
