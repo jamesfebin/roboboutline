@@ -14,6 +14,7 @@ package com.boutline.sports.activities;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.content.LocalBroadcastManager;
 import android.view.View;
 import com.boutline.sports.helpers.SmoothProgressBar;
 import com.boutline.sports.R;
@@ -74,10 +75,14 @@ public class MainActivity extends Activity {
                 final Boolean isUserLoggedIn = false;
 
                 if(!isUserLoggedIn){
+
                    goToWalkthrough0();
+                    finish();
                 }
                 else{
                     goToChooseTournament();
+                    finish();
+
                 }
 
             }
@@ -91,12 +96,21 @@ public class MainActivity extends Activity {
 
         }
 
+    @Override
+    protected void onPause() {
+        super.onPause();
+
+        if (mReceiver != null) {
+
+            LocalBroadcastManager.getInstance(this).unregisterReceiver(mReceiver);
+            mReceiver = null;
+        }
+    }
+
     private void showError(String msg) {
 
 
         Toast.makeText(getApplicationContext(),msg,Toast.LENGTH_SHORT).show();
-
-
 
     }
 

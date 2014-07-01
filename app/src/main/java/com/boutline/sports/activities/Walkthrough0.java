@@ -41,7 +41,6 @@ public class Walkthrough0 extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_walkthrough0);
-
         //Set up fonts
 
         tf = Typeface.createFromAsset(getAssets(), fontPath);

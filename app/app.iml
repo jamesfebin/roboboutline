@@ -83,7 +83,12 @@
     <orderEntry type="library" exported="" name="gson-2.2.4" level="project" />
     <orderEntry type="library" exported="" name="android-ddp-client-0.5.7.6" level="project" />
     <orderEntry type="library" exported="" name="java-ddp-client-0.5.7.6" level="project" />
+<<<<<<< HEAD
+    <orderEntry type="library" exported="" name="mixpanel-android-4.2.1" level="project" />
+    <orderEntry type="library" exported="" name="support-v4-19.1.0" level="project" />
+=======
     <orderEntry type="library" exported="" name="support-v4-19.0.1" level="project" />
+>>>>>>> 203d6a3f40c593e1086d04a7d9c1559e24e20d0b
     <orderEntry type="library" exported="" name="commons-collections-3.2.1" level="project" />
     <orderEntry type="library" exported="" name="org.slf4j.log4j12-1.7.2" level="project" />
     <orderEntry type="library" exported="" name="bolts" level="project" />
