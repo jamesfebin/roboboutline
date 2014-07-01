@@ -18,9 +18,9 @@ import java.util.ArrayList;
 
 public class TournamentsAdapter extends ArrayAdapter<Tournament> {
     
-	public String fontPath = "fonts/museo.otf";
+	public String fontPath = "fonts/proxinova.ttf";
 	public Typeface tf;
-	public String boldFontPath = "fonts/museobold.otf";
+	public String boldFontPath = "fonts/proxinovabold.otf";
 	public Typeface btf;
 	
     private static class ViewHolder {
@@ -76,7 +76,7 @@ public class TournamentsAdapter extends ArrayAdapter<Tournament> {
        tf = Typeface.createFromAsset(getContext().getAssets(), fontPath);
        btf = Typeface.createFromAsset(getContext().getAssets(), boldFontPath);
        viewHolder.lblTournamentName.setTypeface(btf);
-       viewHolder.lblTournamentStartTime.setTypeface(tf);
+       viewHolder.lblTournamentStartTime.setTypeface(btf);
 
        // Return the completed view to render on screen
        

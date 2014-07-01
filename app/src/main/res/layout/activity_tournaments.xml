@@ -10,10 +10,9 @@
         android:id="@+id/lblChooseTournament"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:gravity="center_horizontal"
         android:text="@string/chooseTournament"
         android:padding="15dp"
-        android:textSize="14sp"
+        android:textSize="16sp"
         android:textColor="@color/darkgray"
         />
     
@@ -22,7 +21,7 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/lblChooseTournament"
-         android:divider="@color/white"
+        android:divider="@color/white"
       />
      
      <TextView

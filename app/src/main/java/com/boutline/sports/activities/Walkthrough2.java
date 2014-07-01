@@ -57,8 +57,8 @@ public class Walkthrough2 extends Activity {
         // Animations
 
         ImageView imgWalkthrough2 = (ImageView) findViewById(R.id.imgWalkthrough2);
-        Animation walkthroughAnim = AnimationUtils.loadAnimation(this, R.anim.fadein);
-        walkthroughAnim.setDuration(1000);
+        Animation walkthroughAnim = AnimationUtils.loadAnimation(this, R.anim.walkthroughanim);
+        walkthroughAnim.setDuration(400);
         walkthroughAnim.setRepeatCount(1);
         walkthroughAnim.setRepeatMode(1);
         walkthroughAnim.setZAdjustment(1);

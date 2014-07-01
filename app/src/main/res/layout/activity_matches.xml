@@ -3,18 +3,18 @@
     android:id="@+id/container"
     android:layout_width="fill_parent"
     android:layout_height="match_parent"
-    android:background="#ffffff"
-    android:padding="15dp">
+    android:background="#ffffff">
     
   	<RelativeLayout android:id="@+id/tourDetails"
   	    android:layout_width="fill_parent"
-  	    android:layout_height="wrap_content">
+  	    android:layout_height="wrap_content"
+        android:padding="10dp">
 	     <ImageView
 	        android:contentDescription="@string/dummy"
 		    android:id="@+id/imgTournament"
 		    android:src="@drawable/dummy"
-		    android:layout_width="75dp"
-		    android:layout_height="75dp"
+		    android:layout_width="50dp"
+		    android:layout_height="50dp"
 	       />
 	    <LinearLayout
 	        android:id="@+id/tournamentDetails"

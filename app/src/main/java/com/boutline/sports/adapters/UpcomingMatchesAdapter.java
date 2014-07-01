@@ -1,6 +1,7 @@
 package com.boutline.sports.adapters;
 
 import android.content.Context;
+import android.graphics.Typeface;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,8 +14,13 @@ import com.boutline.sports.R;
 import java.util.ArrayList;
 
 public class UpcomingMatchesAdapter extends ArrayAdapter<Match> {
-    
-	// View lookup cache
+
+    public String fontPath = "fonts/proxinova.ttf";
+    public Typeface tf;
+    public String boldFontPath = "fonts/proxinovabold.otf";
+    public Typeface btf;
+
+    // View lookup cache
     private static class ViewHolder {
         TextView lblMatchName;
         TextView lblMatchStartTime;

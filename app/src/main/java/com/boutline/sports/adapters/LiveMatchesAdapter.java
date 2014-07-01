@@ -1,6 +1,7 @@
 package com.boutline.sports.adapters;
 
 import android.content.Context;
+import android.graphics.Typeface;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,8 +14,13 @@ import com.boutline.sports.R;
 import java.util.ArrayList;
 
 public class LiveMatchesAdapter extends ArrayAdapter<Match> {
-    
-	// View lookup cache
+
+    public String fontPath = "fonts/proxinova.ttf";
+    public Typeface tf;
+    public String boldFontPath = "fonts/proxinovabold.otf";
+    public Typeface btf;
+
+    // View lookup cache
     private static class ViewHolder {
         TextView lblMatchName;
         TextView lblMatchStartTime;
@@ -51,8 +57,19 @@ public class LiveMatchesAdapter extends ArrayAdapter<Match> {
        viewHolder.lblMatchName.setText(match.getMatchName());
        viewHolder.lblMatchStartTime.setText(match.getMatchStartTime());
        viewHolder.lblMatchVenue.setText(match.getMatchVenue());
-       
-       // Return the completed view to render on screen
+
+        //Set up fonts
+
+        tf = Typeface.createFromAsset(getAssets(), fontPath);
+        btf = Typeface.createFromAsset(getAssets(), boldFontPath);
+
+        // Assign the font types
+
+        viewHolder.lblMatchName.setTypeface(btf);
+        viewHolder.lblMatchStartTime.setTypeface(btf);
+        viewHolder.lblMatchVenue.setTypeface(btf);
+
+        // Return the completed view to render on screen
        
        return convertView;
    }
