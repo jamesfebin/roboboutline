@@ -29,6 +29,8 @@ import android.graphics.Typeface;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
@@ -60,6 +62,15 @@ public class ChooseMatchActivity extends Activity {
         TextView lblTournamentStartTime = (TextView) findViewById(R.id.lblTournamentStartTime);
         TextView lblLiveMatches = (TextView) findViewById(R.id.lblLiveMatches);
         TextView lblUpcomingMatches = (TextView) findViewById(R.id.lblUpcomingMatches);
+        RelativeLayout container = (RelativeLayout) findViewById(R.id.container);
+
+        // Set up the animations
+
+        Animation fadeinAnim = AnimationUtils.loadAnimation(this, R.anim.fadein);
+        fadeinAnim.setDuration(1000);
+        fadeinAnim.setRepeatCount(1);
+        fadeinAnim.setRepeatMode(1);
+        container.startAnimation(fadeinAnim);
 
         //Set up fonts
 
@@ -69,7 +80,7 @@ public class ChooseMatchActivity extends Activity {
 		// Populate the List View
 		
 		ArrayList<Match> arrayOfMatches = new ArrayList<Match>();
-		Match match = new Match("123","123","123","123","123","123","123","123","123");
+		Match match = new Match("123","GER vs POR","4th July 9:30PM","4th July 11:30PM","Emirates Stadium","GERvsPOR","Salvador","123","123");
 		arrayOfMatches.add(match);
 		LiveMatchesAdapter liveMatchesAdapter = new LiveMatchesAdapter(this, arrayOfMatches);
 		ListView lvLiveMatches = (ListView) findViewById(R.id.lvLiveMatches);

@@ -12,7 +12,7 @@
         android:contentDescription="@string/dummy"
         android:paddingTop="15dp"
         android:paddingLeft="10dp"
-        android:paddingBottom="15dp"
+        android:paddingBottom="10dp"
         />
     
     <RelativeLayout

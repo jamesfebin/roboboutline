@@ -12,8 +12,11 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.Window;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -39,9 +42,20 @@ public class ChooseSportsActivity extends Activity {
 		setContentView(R.layout.activity_sports);
 		actionBar = getActionBar();
 		final Button btnSubmitSportsSelection = (Button) findViewById(R.id.btnSubmitSportsSelection);
+
+        // define the controls
+
 		TextView lblChooseSport = (TextView)findViewById(R.id.lblChooseSport);
-		
-		
+		RelativeLayout container = (RelativeLayout) findViewById(R.id.container);
+
+        // Set up the animations
+
+        Animation fadeinAnim = AnimationUtils.loadAnimation(this, R.anim.fadein);
+        fadeinAnim.setDuration(1000);
+        fadeinAnim.setRepeatCount(1);
+        fadeinAnim.setRepeatMode(1);
+        container.startAnimation(fadeinAnim);
+
 		//Set up fonts
 		
 		tf = Typeface.createFromAsset(getAssets(), fontPath);
