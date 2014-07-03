@@ -32,10 +32,13 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.boutline.sports.adapters.TournamentsAdapter;
@@ -74,7 +77,19 @@ public class ChooseTournamentActivity extends Activity {
         */
 		TextView lblChooseTournament = (TextView)findViewById(R.id.lblChooseTournament);
 		TextView lblBlankSlate = (TextView)findViewById(R.id.lblBlankSlate);
-		tf = Typeface.createFromAsset(getAssets(), fontPath);
+        RelativeLayout container = (RelativeLayout) findViewById(R.id.container);
+
+        // Set up the animations
+
+        Animation fadeinAnim = AnimationUtils.loadAnimation(this, R.anim.fadein);
+        fadeinAnim.setDuration(1000);
+        fadeinAnim.setRepeatCount(1);
+        fadeinAnim.setRepeatMode(1);
+        container.startAnimation(fadeinAnim);
+
+        // Set up the fonts
+
+        tf = Typeface.createFromAsset(getAssets(), fontPath);
         btf = Typeface.createFromAsset(getAssets(), boldFontPath);
 		lblChooseTournament.setTypeface(btf);
 		

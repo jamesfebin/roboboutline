@@ -43,6 +43,8 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.Window;
 import android.view.animation.Animation;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 
 import com.boutline.sports.adapters.TabPagerAdapter;
@@ -73,7 +75,9 @@ public class BoardActivity extends FragmentActivity implements ActionBar.TabList
 
 		ViewPager vpPager = (ViewPager) findViewById(R.id.pager);
 		LinearLayout composeLink = (LinearLayout) findViewById(R.id.composeLink);
-		actionBar.setHomeButtonEnabled(false);
+        Button btnComposeDummy = (Button)findViewById(R.id.btnComposeDummy);
+        EditText txtComposeDummy = (EditText)findViewById(R.id.txtComposeDummy);
+        actionBar.setHomeButtonEnabled(false);
 		actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
 		
 		//Set up the tabs
@@ -102,8 +106,15 @@ public class BoardActivity extends FragmentActivity implements ActionBar.TabList
 			public void onPageScrollStateChanged(int arg0) {
 			}
 		});
+
+        // Set up the fonts
+
+        tf = Typeface.createFromAsset(getAssets(), fontPath);
+        btf = Typeface.createFromAsset(getAssets(), boldFontPath);
+        btnComposeDummy.setTypeface(btf);
+        txtComposeDummy.setTypeface(btf);
 	     
-	     //Set up the click listeners
+	     // Set up the click listeners
 	     
 	     composeLink.setOnClickListener(new OnClickListener() {
 				@Override
@@ -147,6 +158,11 @@ public class BoardActivity extends FragmentActivity implements ActionBar.TabList
 	 @Override
 	 public boolean onOptionsItemSelected(MenuItem item) {
 		 switch (item.getItemId()) {
+            case R.id.schedule:
+                 Intent scheduleIntent = new Intent(BoardActivity.this, ChooseMatchActivity.class);
+                 startActivity(scheduleIntent);
+                 overridePendingTransition(R.anim.pushrightin, R.anim.pushrightout);
+                 return true;
 	        case R.id.banter:
 	        	Intent mainIntent = new Intent(BoardActivity.this, BanterActivity.class);
 		        startActivity(mainIntent);

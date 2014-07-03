@@ -26,6 +26,8 @@
 		        android:padding="5dp"
 		        android:layout_margin="5dp"
 		        android:layout_weight="1"
+                android:textSize="14sp"
+                android:clickable="false"
 		        android:hint="@string/whatshappening"		        
 		        />
 	    <Button
@@ -34,8 +36,10 @@
 	        android:layout_height="wrap_content"
 	        android:layout_gravity="right"
 	        android:padding="5dp"
-	        android:text=""
-	        android:background="#EFEFEF"
+            android:textSize="14sp"
+	        android:text="@string/dummy"
+            android:clickable="false"
+	        android:background="@drawable/send"
 	        />
     </LinearLayout>
     

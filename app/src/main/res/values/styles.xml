@@ -14,20 +14,20 @@
 
     <!-- Application theme. -->
     <style name="AppTheme" parent="AppBaseTheme">
-         <item name="android:actionBarStyle">@style/MyActionBar</item>
+        <item name="android:actionBarStyle">@style/MyActionBar</item>
         <item name="android:windowFullscreen">true</item>
         <item name="android:windowContentOverlay">@null</item>
     </style>
 
     <!-- ActionBar styles -->
-    <style name="MyActionBar" parent="@android:style/Widget.Holo.Light.ActionBar.Solid.Inverse">
-        <item name="android:background">@drawable/whitesemitransbg</item>
+    <style name="MyActionBar" parent="@android:style/Widget.Holo.Light.ActionBar.Solid">
+        <item name="android:background">@drawable/actionbar_background</item>
     </style>
-    
+
     <!-- Two way view -->
     <style name="TwoWayView">
         <item name="android:orientation">vertical</item>
-    </style>
+    </style>ou
     
     <!--  Smooth Progress Bar -->
     <style name="Theme.SmoothProgressBarDefaults" parent="android:Theme">

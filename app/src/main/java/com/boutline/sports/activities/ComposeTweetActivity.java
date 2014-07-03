@@ -27,6 +27,7 @@ import android.app.ActionBar;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -43,6 +44,10 @@ import com.boutline.sports.R;
 public class ComposeTweetActivity extends Activity {
 	
 	ActionBar actionBar;
+    public String fontPath = "fonts/proxinova.ttf";
+    public Typeface tf;
+    public String boldFontPath = "fonts/proxinovabold.otf";
+    public Typeface btf;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -50,12 +55,27 @@ public class ComposeTweetActivity extends Activity {
 		// Set up the UI
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_compose_tweet);
+
+        // Declare the controls
 		Button btnPostTweet = (Button) findViewById(R.id.btnPostToTwitter);
 		final EditText txtTweetMessage = (EditText) findViewById(R.id.txtTweetMessage);
+        TextView lblTweetCharCount = (TextView)findViewById(R.id.lblTweetCharCount);
+        TextView lblTweetUsername = (TextView)findViewById(R.id.lblTweetUsername);
+        TextView lblTweetHandle = (TextView)findViewById(R.id.lblTweetHandle);
+
+        // Set up controls
 		txtTweetMessage.setText(getMatchHashTag());
-		TextView lblTweetCharCount = (TextView) findViewById(R.id.lblTweetCharCount);
 		lblTweetCharCount.setText(String.valueOf(140-getMatchHashTag().length()));
-		
+
+        // Set up the fonts
+        tf = Typeface.createFromAsset(getAssets(), fontPath);
+        btf = Typeface.createFromAsset(getAssets(), boldFontPath);
+        btnPostTweet.setTypeface(btf);
+        txtTweetMessage.setTypeface(btf);
+        lblTweetCharCount.setTypeface(tf);
+        lblTweetUsername.setTypeface(btf);
+        lblTweetHandle.setTypeface(btf);
+
 		//Set up the listeners
 		
 		txtTweetMessage.addTextChangedListener(mTextEditorWatcher);
