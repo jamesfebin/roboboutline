@@ -23,6 +23,7 @@
 	<string name="dummy"></string>
 	<string name="save">Save</string>
 	<string name="charCount">140</string>
+    <string name="hdrConversations">Banters</string>
 	<string name="givebantername">Give your group a name:</string>
 	<string name="choosetourforbanter">Choose a tournament to banter about from the list below:</string>
 	<string name="chooseSport">Choose the sports of your interest</string>

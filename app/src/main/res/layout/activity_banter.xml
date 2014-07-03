@@ -4,12 +4,24 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.boutline.sports.activities.Walkthrough3"
-    tools:ignore="MergeRootFrame" >
+    tools:ignore="MergeRootFrame"
+    android:background="#ffffff">
+
+    <TextView
+        android:id="@+id/hdrConversations"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/hdrConversations"
+        android:padding="15dp"
+        android:textSize="16sp"
+        android:textColor="@color/darkgray"
+        />
        
      <ListView
          android:id="@+id/lvConversations"
          android:layout_width="match_parent"
          android:layout_height="wrap_content"
+         android:layout_below="@id/hdrConversations"
          />
     
  </RelativeLayout>

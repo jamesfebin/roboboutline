@@ -28,6 +28,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.boutline.sports.adapters.ConversationsAdapter;
@@ -49,20 +50,23 @@ public class BanterActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_banter);
 		checkInternetConnected();
-		
+        TextView hdrConversations = (TextView)findViewById(R.id.hdrConversations);
+
 		// Declare and Assign the fonts
 		
 		tf = Typeface.createFromAsset(getAssets(), fontPath);
     	btf = Typeface.createFromAsset(getAssets(), boldFontPath);
-    	
+    	hdrConversations.setTypeface(btf);
 
 		// Populate the List View
 		
 		ArrayList<Conversation> arrayOfConversations = new ArrayList<Conversation>();
 		ArrayList<String> abc = new ArrayList<String>();
 		abc.add("123");
-		Conversation conversation = new Conversation("123","123","123",abc,"123");
+		Conversation conversation = new Conversation("123","CC Boys Group","FIFA World Cup",abc,"Dude they won! They actually won!");
 		arrayOfConversations.add(conversation);
+        Conversation conversation2 = new Conversation("123","Messi Fans Club","FIFA World Cup",abc,"Messi didnt even score a single goal");
+        arrayOfConversations.add(conversation2);
 		ConversationsAdapter adapter = new ConversationsAdapter(this, arrayOfConversations);
 		ListView listView = (ListView) findViewById(R.id.lvConversations);
 		listView.setAdapter(adapter);

@@ -38,7 +38,6 @@
 		        android:paddingLeft="5dp"
 		        android:layout_below="@id/lblTweetUsername"
 		        />
-	    
     </RelativeLayout>
     
     <TextView
@@ -47,6 +46,9 @@
 	    android:layout_width="fill_parent"
 	    android:layout_height="wrap_content"
 	    android:textColor="#9BA4A9"
+        android:paddingTop="20dp"
+        android:paddingBottom="10dp"
+        android:textSize="18sp"
 	    android:layout_below="@id/tweeterDetails"
 	    />
 	 <TextView
@@ -55,9 +57,11 @@
 	    android:layout_width="fill_parent"
 	    android:layout_height="wrap_content"
 	    android:textColor="#9BA4A9"
+        android:textSize="16sp"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
 	    android:layout_below="@id/lblTweetMessage"
 	    />
-	
 
 	<LinearLayout
 			android:id="@+id/buttonGroup"
