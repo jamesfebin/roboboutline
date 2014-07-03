@@ -24,9 +24,18 @@ package com.boutline.sports.activities;
 
 import android.app.ActionBar;
 import android.app.Activity;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
+import android.content.SharedPreferences;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
 import android.graphics.Typeface;
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.v4.content.LocalBroadcastManager;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -42,10 +51,18 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.boutline.sports.adapters.TournamentsAdapter;
+import com.boutline.sports.application.MyDDPState;
+import com.boutline.sports.helpers.Mayday;
 import com.boutline.sports.models.Tournament;
 import com.boutline.sports.R;
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.GooglePlayServicesUtil;
+import com.google.android.gms.gcm.GoogleCloudMessaging;
+import com.keysolutions.ddpclient.android.DDPBroadcastReceiver;
+import com.keysolutions.ddpclient.android.DDPStateSingleton;
 //import com.tjeannin.apprate.AppRate;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class ChooseTournamentActivity extends Activity {
@@ -55,8 +72,20 @@ public class ChooseTournamentActivity extends Activity {
 	public String boldFontPath = "fonts/proxinovabold.otf";
 	public Typeface btf;
 	ActionBar actionBar;
-	
-	@Override
+    String SENDER_ID = "265718256788";
+    private final static int PLAY_SERVICES_RESOLUTION_REQUEST = 9000;
+    public static final String EXTRA_MESSAGE = "message";
+    public static final String PROPERTY_REG_ID = "registration_id";
+    private static final String PROPERTY_APP_VERSION = "appVersion";
+    GoogleCloudMessaging gcm;
+    private String TAG ="Choose Tournaments";
+    Context context;
+    private BroadcastReceiver mReceiver;
+    private Mayday mayday;
+
+
+
+    @Override
 	protected void onCreate(Bundle savedInstanceState) {
 		requestWindowFeature(Window.FEATURE_ACTION_BAR);
 		super.onCreate(savedInstanceState);
@@ -136,8 +165,172 @@ public class ChooseTournamentActivity extends Activity {
 		finish();
 		overridePendingTransition(R.anim.pushrightin, R.anim.pushrightout);
 	}
-	
-	// inflate the menu assigned for this page and set click listeners
+
+
+    private boolean checkPlayServices() {
+        int resultCode = GooglePlayServicesUtil.isGooglePlayServicesAvailable(this);
+        if (resultCode != ConnectionResult.SUCCESS) {
+            if (GooglePlayServicesUtil.isUserRecoverableError(resultCode)) {
+                GooglePlayServicesUtil.getErrorDialog(resultCode, this,
+                        PLAY_SERVICES_RESOLUTION_REQUEST).show();
+            } else {
+                Log.i("GCM", "This device is not supported.");
+                finish();
+            }
+            return false;
+        }
+        return true;
+    }
+
+    private SharedPreferences getGCMPreferences(Context context) {
+        // This sample app persists the registration ID in shared preferences, but
+        // how you store the regID in your app is up to you.
+        return getSharedPreferences("BoutlineData",
+                Context.MODE_PRIVATE);
+    }
+
+    private void storeRegistrationId(Context context, String regId) {
+        final SharedPreferences prefs = getGCMPreferences(context);
+        int appVersion = getAppVersion(context);
+        Log.i(TAG, "Saving regId on app version " + appVersion);
+        SharedPreferences.Editor editor = prefs.edit();
+        editor.putString(PROPERTY_REG_ID, regId);
+        editor.putInt(PROPERTY_APP_VERSION, appVersion);
+        editor.commit();
+    }
+
+
+    private void registerInBackground() {
+
+
+
+
+        new AsyncTask<Void, Void, String>() {
+            @Override
+            protected String doInBackground(Void... params) {
+                String msg = "";
+                try {
+                    if (gcm == null) {
+                        gcm = GoogleCloudMessaging.getInstance(context);
+                    }
+
+                    String regid = gcm.register(SENDER_ID);
+                    msg = "Device registered, registration ID=" + regid;
+                    storeRegistrationId(getApplicationContext(), regid);
+                    MyDDPState.getInstance().tagDevideId(regid);
+
+                    Log.i("Registered",msg.toString());
+                    // You should send the registration ID to your server over HTTP, so it
+                    // can use GCM/HTTP or CCS to send messages to your app.
+
+                    // For this demo: we don't need to send it because the device will send
+                    // upstream messages to a server that echo back the message using the
+                    // 'from' address in the message.
+
+                    // Persist the regID - no need to register again.
+                } catch (IOException ex) {
+                    msg = "Error :" + ex.getMessage();
+                    // If there is an error, don't just keep trying to register.
+                    // Require the user to click a button again, or perform
+                    // exponential back-off.
+                }
+                return msg;
+            }
+
+            @Override
+            protected void onPostExecute(String msg) {
+            }
+        }.execute(null, null, null);
+    }
+
+    private static int getAppVersion(Context context) {
+        try {
+            PackageInfo packageInfo = context.getPackageManager()
+                    .getPackageInfo(context.getPackageName(), 0);
+            return packageInfo.versionCode;
+        } catch (PackageManager.NameNotFoundException e) {
+            // should never happen
+            throw new RuntimeException("Could not get package name: " + e);
+        }
+    }
+    private String getRegistrationId(Context context) {
+        final SharedPreferences prefs = getGCMPreferences(context);
+        String registrationId = prefs.getString(PROPERTY_REG_ID, "");
+        if (registrationId.isEmpty()) {
+            Log.i(TAG, "Registration not found.");
+            registerInBackground();
+            return "";
+        }
+        // Check if app was updated; if so, it must clear the registration ID
+        // since the existing regID is not guaranteed to work with the new
+        // app version.
+        int registeredVersion = prefs.getInt(PROPERTY_APP_VERSION, Integer.MIN_VALUE);
+        int currentVersion = getAppVersion(context);
+        if (registeredVersion != currentVersion) {
+            Log.i(TAG, "App version changed.");
+            return "";
+        }
+        return registrationId;
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        context = getApplicationContext();
+
+        mReceiver = new DDPBroadcastReceiver(MyDDPState.getInstance(), this) {
+
+            @Override
+            protected void onDDPConnect(DDPStateSingleton ddp) {
+                super.onDDPConnect(ddp);
+
+                String regid = getRegistrationId(context);
+
+                if(regid.matches("")==false)
+                {
+
+                    MyDDPState.getInstance().tagDevideId(regid);
+
+
+                }
+
+
+
+            }
+
+            @Override
+            public void onReceive(Context context, Intent intent) {
+
+                super.onReceive(context, intent);
+                Bundle bundle = intent.getExtras();
+
+                if(intent.getAction().equals(MyDDPState.MESSAGE_ERROR))
+                {
+                    mayday.showError(context,"Internet connection not available");
+                }
+
+
+            }
+        };
+
+        LocalBroadcastManager.getInstance(this).registerReceiver(mReceiver,
+                new IntentFilter(MyDDPState.MESSAGE_ERROR));
+
+
+        // we want connection state change messages so we know we're logged in
+        LocalBroadcastManager.getInstance(this).registerReceiver(mReceiver,
+                new IntentFilter(MyDDPState.MESSAGE_CONNECTION));
+
+        if (MyDDPState.getInstance().getState() == MyDDPState.DDPSTATE.Closed) {
+            mayday.showError(context,"Internet connection not available");
+        }
+
+
+
+    }
+
+    // inflate the menu assigned for this page and set click listeners
 
     @Override
 	public boolean onCreateOptionsMenu(Menu menu) {

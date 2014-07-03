@@ -33,12 +33,12 @@
 **1st July**
 
 *Splash Screen*
-- [ ] Meteor Login for @jamesfebin (2)
-- [ ] Mixpanel Call on Success or failure for @jamesfebin (2)
-- [ ] Redirection Handling for @jamesfebin (2)
-- [ ] Store user information from Meteor Response for @jamesfebin (2)
-- [ ] Mixpanel User Tagging for @jamesfebin (2)
-- [ ] Device Id Tagging for @jamesfebin (2)
+- [X] Meteor Login for @jamesfebin (2)
+- [X] Mixpanel Call on Success or failure for @jamesfebin (2)
+- [X] Redirection Handling for @jamesfebin (2)
+- [X] Store user information from Meteor Response for @jamesfebin (2)
+- [X] Mixpanel User Tagging for @jamesfebin (2)
+- [X] Device Id Tagging for @jamesfebin (2)
 
 **2nd July**
 

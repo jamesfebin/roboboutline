@@ -21,6 +21,7 @@ import android.support.v4.content.LocalBroadcastManager;
 import android.view.View;
 
 import com.boutline.sports.application.Constants;
+import com.boutline.sports.helpers.Mayday;
 import com.boutline.sports.helpers.SmoothProgressBar;
 import com.boutline.sports.R;
 import android.content.BroadcastReceiver;
@@ -30,10 +31,10 @@ import com.boutline.sports.application.MyDDPState;
 
 import com.boutline.sports.models.FacebookUserInfo;
 import com.google.gson.Gson;
+import com.keysolutions.ddpclient.DDPClient;
 import com.keysolutions.ddpclient.android.DDPBroadcastReceiver;
 import com.keysolutions.ddpclient.android.DDPStateSingleton;
 import com.mixpanel.android.mpmetrics.MixpanelAPI;
-
 import android.widget.Toast;
 
 
@@ -45,8 +46,9 @@ public class MainActivity extends Activity {
     SharedPreferences preferences;
     public FacebookUserInfo fbUser=null;
     public MixpanelAPI mixpanel = null ;
+    private  Mayday mayday;
 
-
+    private Context context;
 
     @Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -95,7 +97,7 @@ public class MainActivity extends Activity {
 
         super.onResume();
 
-
+    context = getApplicationContext();
 
 
         mixpanel=MixpanelAPI.getInstance(getApplicationContext(), Constants.MIXPANEL_TOKEN);
@@ -163,7 +165,7 @@ public class MainActivity extends Activity {
                     else if(intent.getAction().equals("LOGINFAILED"))
                     {
 
-                        showError("Unable to login via Facebook");
+                        mayday.showError(context,"Unable to login via Facebook");
 
                         if(mixpanel!=null) {
                             mixpanel.track("Boutline Login Failed on SplashScreen", Constants.info);
@@ -172,7 +174,7 @@ public class MainActivity extends Activity {
 
                     else if(intent.getAction().equals(MyDDPState.MESSAGE_ERROR))
                     {
-                        showError("Internet connection not available");
+                        mayday.showError(context,"Internet connection not available");
                     }
 
                 }
@@ -193,7 +195,7 @@ public class MainActivity extends Activity {
                 new IntentFilter(MyDDPState.MESSAGE_CONNECTION));
 
         if (MyDDPState.getInstance().getState() == MyDDPState.DDPSTATE.Closed) {
-            showError( "Internet connection not available");
+            mayday.showError(context,"Internet connection not available");
         }
 
         }
@@ -209,12 +211,7 @@ public class MainActivity extends Activity {
         }
     }
 
-    private void showError(String msg) {
 
-
-        Toast.makeText(getApplicationContext(),msg,Toast.LENGTH_SHORT).show();
-
-    }
 
 
 
