@@ -46,6 +46,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.boutline.sports.application.Constants;
+import com.boutline.sports.helpers.Mayday;
 import com.boutline.sports.helpers.OnSwipeTouchListener;
 import com.boutline.sports.helpers.SmoothProgressBar;
 import com.boutline.sports.R;
@@ -94,6 +95,9 @@ public class FacebookLogin extends Activity {
     SharedPreferences preferences;
     private BroadcastReceiver mReceiver;
 
+    private Mayday mayday;
+    private Context context;
+
     public MixpanelAPI mixpanel = null ;
     @Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -131,6 +135,7 @@ public class FacebookLogin extends Activity {
 		       goToPrev();
 		    }
 		});
+
 		btnFacebookLogin.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View arg0) {
@@ -195,7 +200,7 @@ public class FacebookLogin extends Activity {
 		super.onResume();
 
 
-
+context = getApplicationContext();
      mixpanel=MixpanelAPI.getInstance(getApplicationContext(), Constants.MIXPANEL_TOKEN);
 
         mReceiver = new BroadcastReceiver() {
@@ -231,7 +236,7 @@ public class FacebookLogin extends Activity {
                 else if(intent.getAction().equals("LOGINFAILED"))
                 {
 
-                    showError("Unable to login via Facebook");
+                    mayday.showError(getApplicationContext(),"Unable to login via Facebook");
 
                     if(mixpanel!=null) {
                         mixpanel.track("Boutline Login Failed on FB Login Screen", Constants.info);
@@ -240,7 +245,7 @@ public class FacebookLogin extends Activity {
 
                 else if(intent.getAction().equals(MyDDPState.MESSAGE_ERROR))
                 {
-                    showError("Internet connection not available");
+                    mayday.showError(getApplicationContext(),"Internet connection not available");
                 }
 
 
@@ -458,7 +463,7 @@ public class FacebookLogin extends Activity {
                             }
                             if (response.getError() != null) {
 
-                                Toast.makeText(getApplicationContext(),"Facebook connectione error, Please try again later",Toast.LENGTH_SHORT);
+                              mayday.showError(getApplicationContext(),"Facebook connectione error, Please try again later");
 
                             }
                         }
@@ -489,12 +494,6 @@ public class FacebookLogin extends Activity {
 
     }
 
-    private void showError(String msg) {
-
-
-        Toast.makeText(getApplicationContext(),msg,Toast.LENGTH_SHORT).show();
-
-    }
 
 
 }
