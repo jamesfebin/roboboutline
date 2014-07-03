@@ -10,6 +10,7 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.boutline.sports.models.Tweet;
@@ -26,6 +27,7 @@ public class TweetsAdapter extends ArrayAdapter<Tweet> {
     
 	// View lookup cache
     private static class ViewHolder {
+        RelativeLayout tweetContainer;
         TextView lblTweetUsername;
         TextView lblTweetHandle;
         TextView lblTweetMessage;
@@ -50,6 +52,7 @@ public class TweetsAdapter extends ArrayAdapter<Tweet> {
           viewHolder = new ViewHolder();
           LayoutInflater inflater = LayoutInflater.from(getContext());
           convertView = inflater.inflate(R.layout.item_tweet, parent, false);
+          viewHolder.tweetContainer = (RelativeLayout) convertView.findViewById(R.id.tweetContainer);
           viewHolder.lblTweetUsername = (TextView) convertView.findViewById(R.id.lblTweetUsername);
           viewHolder.lblTweetHandle = (TextView) convertView.findViewById(R.id.lblTweetHandle);
           viewHolder.lblTweetMessage = (TextView) convertView.findViewById(R.id.lblTweetMessage);
