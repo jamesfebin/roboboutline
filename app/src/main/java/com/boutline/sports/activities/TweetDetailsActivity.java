@@ -24,6 +24,7 @@
 package com.boutline.sports.activities;
 
 import android.app.Activity;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
@@ -34,6 +35,11 @@ import com.boutline.sports.R;
 
 public class TweetDetailsActivity extends Activity {
 
+    public String fontPath = "fonts/proxinova.ttf";
+    public Typeface tf;
+    public String boldFontPath = "fonts/proxinovabold.otf";
+    public Typeface btf;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		
@@ -43,7 +49,7 @@ public class TweetDetailsActivity extends Activity {
 		setContentView(R.layout.activity_tweetdetails);
 		ImageView tweetPhoto = (ImageView)findViewById(R.id.imgTweetPicUrl);
 		tweetPhoto.setVisibility(View.INVISIBLE);  //By default image doesnt exist in the tweet
-		Tweet tweet = new Tweet(null,null,null,null,null,null,null,null);
+		Tweet tweet = new Tweet("123",null,"Anand Satyan",null,"@anandsatyan","This is a tweet","30th July, 4:30 PM","123");
 		TextView lblTweetUsername = (TextView)findViewById(R.id.lblTweetUsername);
 		TextView lblTweetHandle = (TextView)findViewById(R.id.lblTweetHandle);
 		TextView lblTweetMessage = (TextView)findViewById(R.id.lblTweetMessage);
@@ -58,7 +64,15 @@ public class TweetDetailsActivity extends Activity {
 			// Set src of tweetphoto to the url given by getTweetPhoto() 
 			tweetPhoto.setVisibility(View.VISIBLE);
 		}
-				
+
+        // Set up the fonts
+
+        tf = Typeface.createFromAsset(getAssets(), fontPath);
+        btf = Typeface.createFromAsset(getAssets(), boldFontPath);
+        lblTweetUsername.setTypeface(btf);
+        lblTweetHandle.setTypeface(tf);
+        lblTweetMessage.setTypeface(btf);
+        lblTweetDateTime.setTypeface(tf);
 		
 	}	
 	

@@ -8,6 +8,7 @@
 		    <TextView
 		        android:id="@+id/lblConversationName"
 		        android:text=""
+                android:paddingBottom="5dp"
 		        android:layout_width="fill_parent"
 		        android:layout_height="wrap_content"
 		        android:textColor="#343D42"
@@ -16,10 +17,10 @@
 		    <TextView
 		        android:id="@+id/lblConversationTopic"
 		        android:text=""
-		        android:layout_width="fill_parent"
+                android:layout_width="fill_parent"
 		        android:layout_height="wrap_content"
 		        android:textColor="#9AA3A8"
-		        android:paddingLeft="5dp"
+		        android:paddingBottom="5dp"
 		        android:layout_below="@id/lblConversationName"
 		        />
 		    
@@ -29,50 +30,56 @@
 		        android:layout_width="fill_parent"
 		        android:layout_height="wrap_content"
 		        android:textColor="#9AA3A8"
-		        android:paddingLeft="5dp"
+		        android:paddingBottom="5dp"
 		        android:layout_below="@id/lblConversationTopic"
 		        />
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_below="@id/lblLastMessage">
 		    		    
 		    <ImageView
 		        android:id="@+id/imgMember1"
 		        android:src="@drawable/dummy"
 		        android:contentDescription="@string/dummy"
+                android:paddingRight="5dp"
 		        android:layout_width="50dp"
 		        android:layout_height="50dp"
-		        android:layout_below="@id/lblLastMessage"
 		        />
 		     <ImageView
 		        android:id="@+id/imgMember2"
 		        android:src="@drawable/dummy"
+                 android:paddingRight="5dp"
 		        android:contentDescription="@string/dummy"
 		        android:layout_width="50dp"
 		        android:layout_height="50dp"
-		        android:layout_toRightOf="@id/imgMember1"
 		        />
 		     <ImageView
 		        android:id="@+id/imgMember3"
 		        android:src="@drawable/dummy"
+                 android:paddingRight="5dp"
 		        android:contentDescription="@string/dummy"
 		        android:layout_width="50dp"
 		        android:layout_height="50dp"
-		        android:layout_toRightOf="@id/imgMember2"
 		        />
 		      <ImageView
 		        android:id="@+id/imgMember4"
 		        android:src="@drawable/dummy"
+                  android:paddingRight="5dp"
 		        android:contentDescription="@string/dummy"
 		        android:layout_width="50dp"
 		        android:layout_height="50dp"
-		        android:layout_toRightOf="@id/imgMember3"
 		        />
 		      <ImageView
 		        android:id="@+id/imgMember5"
 		        android:src="@drawable/dummy"
+                  android:paddingRight="5dp"
 		        android:contentDescription="@string/dummy"
 		        android:layout_width="50dp"
 		        android:layout_height="50dp"
-		        android:layout_toRightOf="@id/imgMember4"
 		        />
-		    
+        </LinearLayout>
 </RelativeLayout>
 

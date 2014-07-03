@@ -23,7 +23,7 @@
     
 		    <TextView
 		        android:id="@+id/lblTweetUsername"
-		        android:text="Anand Satyan"
+		        android:text=""
 		        android:layout_width="wrap_content"
 		        android:layout_height="wrap_content"
 		        android:textColor="#343D42"
@@ -31,33 +31,37 @@
 		    
 		    <TextView
 		        android:id="@+id/lblTweetHandle"
-		        android:text="anandsatyan"
+		        android:text=""
 		        android:layout_width="wrap_content"
 		        android:layout_height="wrap_content"
 		        android:textColor="#9AA3A8"
 		        android:paddingLeft="5dp"
 		        android:layout_below="@id/lblTweetUsername"
 		        />
-	    
     </RelativeLayout>
     
     <TextView
 	    android:id="@+id/lblTweetMessage"
-	    android:text="My name is Antony Gonsalves."
+	    android:text=""
 	    android:layout_width="fill_parent"
 	    android:layout_height="wrap_content"
 	    android:textColor="#9BA4A9"
+        android:paddingTop="20dp"
+        android:paddingBottom="10dp"
+        android:textSize="18sp"
 	    android:layout_below="@id/tweeterDetails"
 	    />
 	 <TextView
 	    android:id="@+id/lblTweetDateTime"
-	    android:text="16th Aug 2014, 4:30 PM"
+	    android:text=""
 	    android:layout_width="fill_parent"
 	    android:layout_height="wrap_content"
 	    android:textColor="#9BA4A9"
+        android:textSize="16sp"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
 	    android:layout_below="@id/lblTweetMessage"
 	    />
-	
 
 	<LinearLayout
 			android:id="@+id/buttonGroup"
