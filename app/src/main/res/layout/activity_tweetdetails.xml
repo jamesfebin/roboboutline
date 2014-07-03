@@ -23,7 +23,7 @@
     
 		    <TextView
 		        android:id="@+id/lblTweetUsername"
-		        android:text=""
+		        android:text="Anand Satyan"
 		        android:layout_width="wrap_content"
 		        android:layout_height="wrap_content"
 		        android:textColor="#343D42"
@@ -31,7 +31,7 @@
 		    
 		    <TextView
 		        android:id="@+id/lblTweetHandle"
-		        android:text=""
+		        android:text="anandsatyan"
 		        android:layout_width="wrap_content"
 		        android:layout_height="wrap_content"
 		        android:textColor="#9AA3A8"
@@ -43,7 +43,7 @@
     
     <TextView
 	    android:id="@+id/lblTweetMessage"
-	    android:text=""
+	    android:text="My name is Antony Gonsalves."
 	    android:layout_width="fill_parent"
 	    android:layout_height="wrap_content"
 	    android:textColor="#9BA4A9"
@@ -51,7 +51,7 @@
 	    />
 	 <TextView
 	    android:id="@+id/lblTweetDateTime"
-	    android:text=""
+	    android:text="16th Aug 2014, 4:30 PM"
 	    android:layout_width="fill_parent"
 	    android:layout_height="wrap_content"
 	    android:textColor="#9BA4A9"

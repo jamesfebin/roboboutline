@@ -1,13 +1,18 @@
 package com.boutline.sports.fragments;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ListView;
 
+import com.boutline.sports.activities.ChooseMatchActivity;
+import com.boutline.sports.activities.TweetDetailsActivity;
 import com.boutline.sports.adapters.TweetsAdapter;
+import com.boutline.sports.models.Tournament;
 import com.boutline.sports.models.Tweet;
 import com.boutline.sports.R;
 
@@ -68,6 +73,18 @@ public class FanVoiceFragment extends Fragment {
         TweetsAdapter dataAdapter = new TweetsAdapter(getActivity(), arrayOfTweets2);
 		ListView fanTweetsListView= (ListView) rootView.findViewById(R.id.lvTweets);
 		fanTweetsListView.setAdapter(dataAdapter);
+        fanTweetsListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                // When clicked, show a toast with the TextView text
+                Tweet tweet = (Tweet) parent.getItemAtPosition(position);
+
+                Intent intent = new Intent(getActivity(),TweetDetailsActivity.class);
+                intent.putExtra("tweetId", tweet.getTweetId());
+                startActivity(intent);
+                getActivity().overridePendingTransition(R.anim.pushleftin, R.anim.pushleftout);
+            }
+        });
+
 		return rootView;
 	} 
     
