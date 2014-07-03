@@ -4,9 +4,13 @@ package com.boutline.sports.activities;
 
 import android.app.ActionBar;
 import android.app.Activity;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.support.v4.content.LocalBroadcastManager;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -21,9 +25,12 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.boutline.sports.adapters.SportsAdapter;
+import com.boutline.sports.application.MyDDPState;
 import com.boutline.sports.helpers.Mayday;
 import com.boutline.sports.models.Sport;
 import com.boutline.sports.R;
+import com.keysolutions.ddpclient.android.DDPBroadcastReceiver;
+import com.keysolutions.ddpclient.android.DDPStateSingleton;
 
 import java.util.ArrayList;
 
@@ -34,6 +41,8 @@ public class ChooseSportsActivity extends Activity {
 	public String boldFontPath = "fonts/proxinovabold.otf";
 	public Typeface btf;
 	ActionBar actionBar;
+    BroadcastReceiver mReceiver;
+
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -134,11 +143,59 @@ public class ChooseSportsActivity extends Activity {
 	
 	@Override
 	protected void onResume() {
-		super.onResume();
-		final Button btnSubmitSportsSelection = (Button) findViewById(R.id.btnSubmitSportsSelection);
-		btnSubmitSportsSelection.setText("Save");
-	}
-	
+        super.onResume();
+        final Button btnSubmitSportsSelection = (Button) findViewById(R.id.btnSubmitSportsSelection);
+        btnSubmitSportsSelection.setText("Save");
+
+
+        mReceiver = new DDPBroadcastReceiver(MyDDPState.getInstance(), this) {
+
+            @Override
+            protected void onDDPConnect(DDPStateSingleton ddp) {
+                super.onDDPConnect(ddp);
+                Object[] parameters = new Object[1];
+                parameters[0] = 100;
+                ddp.subscribe("userSportPreferences",parameters);
+
+
+            }
+
+            @Override
+            public void onReceive(Context context, Intent intent) {
+                super.onReceive(context, intent);
+
+                if(intent.getAction().equals(MyDDPState.MESSAGE_ERROR))
+                {
+                    Toast.makeText(getApplicationContext(),"Internet connection not avaialable",Toast.LENGTH_SHORT);
+                }
+
+
+
+            }
+
+            @Override
+            protected void onSubscriptionUpdate(String changeType, String subscriptionName, String docId) {
+                super.onSubscriptionUpdate(changeType, subscriptionName, docId);
+
+
+
+
+            }
+        };
+
+
+        LocalBroadcastManager.getInstance(this).registerReceiver(mReceiver,
+                new IntentFilter(MyDDPState.MESSAGE_ERROR));
+
+        // we want connection state change messages so we know we're logged in
+        LocalBroadcastManager.getInstance(this).registerReceiver(mReceiver,
+                new IntentFilter(MyDDPState.MESSAGE_CONNECTION));
+
+
+
+
+
+    }
 	public void showError(String msg){
 		Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
 	}

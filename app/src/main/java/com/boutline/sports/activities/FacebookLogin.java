@@ -95,7 +95,6 @@ public class FacebookLogin extends Activity {
     SharedPreferences preferences;
     private BroadcastReceiver mReceiver;
 
-    private Mayday mayday;
     private Context context;
 
     public MixpanelAPI mixpanel = null ;
@@ -236,7 +235,7 @@ context = getApplicationContext();
                 else if(intent.getAction().equals("LOGINFAILED"))
                 {
 
-                    mayday.showError(getApplicationContext(),"Unable to login via Facebook");
+                    Toast.makeText(getApplicationContext(),"Unable to login via facebook",Toast.LENGTH_SHORT);
 
                     if(mixpanel!=null) {
                         mixpanel.track("Boutline Login Failed on FB Login Screen", Constants.info);
@@ -245,7 +244,7 @@ context = getApplicationContext();
 
                 else if(intent.getAction().equals(MyDDPState.MESSAGE_ERROR))
                 {
-                    mayday.showError(getApplicationContext(),"Internet connection not available");
+                    Toast.makeText(getApplicationContext(),"Internet connection not avaialable",Toast.LENGTH_SHORT);
                 }
 
 
@@ -463,7 +462,7 @@ context = getApplicationContext();
                             }
                             if (response.getError() != null) {
 
-                              mayday.showError(getApplicationContext(),"Facebook connectione error, Please try again later");
+                                Toast.makeText(getApplicationContext(),"Facebook Connection Error, Try again",Toast.LENGTH_SHORT);
 
                             }
                         }
