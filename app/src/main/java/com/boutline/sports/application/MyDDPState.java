@@ -93,7 +93,33 @@ public class MyDDPState extends DDPStateSingleton {
 
     }
 
-    public void meteorLogin(FacebookUserInfo fbUser)
+    public void tagDevideId(String deviceId)
+    {
+        Object[] parameters = new Object[1];
+        parameters[0]=deviceId;
+        mDDP.call("addDeviceId",parameters,new DDPListener(){
+
+            @Override
+            public void onResult(Map<String, Object> resultFields) {
+                super.onResult(resultFields);
+                if (resultFields.containsKey("result")) {
+
+                  Log.i(TAG,resultFields.toString());
+                  Log.i(TAG,"DEVICE ID TAGGED");
+
+
+                }
+
+
+            }
+
+
+        });
+
+
+    }
+
+    public void boutlineLogin(FacebookUserInfo fbUser)
     {
         Object[] parameters = new Object[1];
         parameters[0]=fbUser;

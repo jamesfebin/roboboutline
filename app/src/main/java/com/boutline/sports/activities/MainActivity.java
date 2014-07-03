@@ -12,27 +12,43 @@
 package com.boutline.sports.activities;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.content.LocalBroadcastManager;
 import android.view.View;
+
+import com.boutline.sports.application.Constants;
 import com.boutline.sports.helpers.SmoothProgressBar;
 import com.boutline.sports.R;
 import android.content.BroadcastReceiver;
+import android.content.SharedPreferences.Editor;
 
 import com.boutline.sports.application.MyDDPState;
 
+import com.boutline.sports.models.FacebookUserInfo;
+import com.google.gson.Gson;
 import com.keysolutions.ddpclient.android.DDPBroadcastReceiver;
 import com.keysolutions.ddpclient.android.DDPStateSingleton;
+import com.mixpanel.android.mpmetrics.MixpanelAPI;
+
 import android.widget.Toast;
+
 
 
 public class MainActivity extends Activity {
 
+    private static final String TAG = "Splash Screen";
     private BroadcastReceiver mReceiver;
+    SharedPreferences preferences;
+    public FacebookUserInfo fbUser=null;
+    public MixpanelAPI mixpanel = null ;
 
 
-	@Override
+
+    @Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
@@ -64,31 +80,117 @@ public class MainActivity extends Activity {
 	}
 
     @Override
+    protected void onDestroy() {
+
+        if(mixpanel!=null)
+            mixpanel.flush();
+        super.onDestroy();
+
+    }
+
+
+    @Override
     protected void onResume() {
+
+
         super.onResume();
 
-        mReceiver = new DDPBroadcastReceiver(MyDDPState.getInstance(), this) {
+
+
+
+        mixpanel=MixpanelAPI.getInstance(getApplicationContext(), Constants.MIXPANEL_TOKEN);
+
+        preferences = this.getSharedPreferences("boutlineData", Context.MODE_PRIVATE);
+
+
+        String storedFbInfoString = preferences.getString("fbUserInfo", null);
+        Gson gson = new Gson();
+
+       if(storedFbInfoString!=null) {
+
+            fbUser = gson.fromJson(storedFbInfoString, FacebookUserInfo.class);
+
+       }
+
+            mReceiver = new DDPBroadcastReceiver(MyDDPState.getInstance(), this) {
+
             @Override
             protected void onDDPConnect(DDPStateSingleton ddp) {
                 super.onDDPConnect(ddp);
 
-                final Boolean isUserLoggedIn = false;
 
-                if(!isUserLoggedIn){
+                if(fbUser==null){
 
                    goToWalkthrough0();
                     finish();
                 }
                 else{
-                    goToChooseTournament();
-                    finish();
+
+                    MyDDPState.getInstance().boutlineLogin(fbUser);
 
                 }
 
             }
 
-        };
+                @Override
+                public void onReceive(Context context, Intent intent) {
+                    super.onReceive(context, intent);
 
+                    Bundle bundle = intent.getExtras();
+                    if (intent.getAction().equals("LOGINSUCCESS"))
+                    {
+
+                        if(intent.hasExtra("userId")==true) {
+
+                            Editor editor = preferences.edit();
+                            editor.putString("boutlineUserId", intent.getStringExtra("userId"));
+                            editor.commit();
+
+
+                            if(mixpanel!=null) {
+                                mixpanel.identify(intent.getStringExtra("userId"));
+                                mixpanel.track("Boutline Login Success on SplashScreen", Constants.info);
+                            }
+
+                            Intent mainIntent = new Intent(MainActivity.this,ChooseTournamentActivity.class);
+                            startActivity(mainIntent);
+                            overridePendingTransition(R.anim.pushleftin, R.anim.pushleftout);
+                            finish();
+
+
+                        }
+                    }
+                    else if(intent.getAction().equals("LOGINFAILED"))
+                    {
+
+                        showError("Unable to login via Facebook");
+
+                        if(mixpanel!=null) {
+                            mixpanel.track("Boutline Login Failed on SplashScreen", Constants.info);
+                        }
+                    }
+
+                    else if(intent.getAction().equals(MyDDPState.MESSAGE_ERROR))
+                    {
+                        showError("Internet connection not available");
+                    }
+
+                }
+            };
+
+
+
+        LocalBroadcastManager.getInstance(this).registerReceiver(mReceiver,
+                new IntentFilter("LOGINSUCCESS"));
+        LocalBroadcastManager.getInstance(this).registerReceiver(mReceiver,
+                new IntentFilter("LOGINFAILED"));
+        LocalBroadcastManager.getInstance(this).registerReceiver(mReceiver,
+                new IntentFilter(MyDDPState.MESSAGE_ERROR));
+
+
+        // we want connection state change messages so we know we're logged in
+        LocalBroadcastManager.getInstance(this).registerReceiver(mReceiver,
+                new IntentFilter(MyDDPState.MESSAGE_CONNECTION));
 
         if (MyDDPState.getInstance().getState() == MyDDPState.DDPSTATE.Closed) {
             showError( "Internet connection not available");

@@ -14,30 +14,6 @@
         revision="19.1.0"
         sha1="521ef1984fc5592eafc4e948306ca30ed435e122"/>
     <item
-        dex="/Users/user/Documents/Development-Tools/ADT/sdk/extras/google/BoutlineSports/app/build/intermediates/pre-dexed/debug/Java-WebSocket-1.3.0-dbabc8678be0712852a51aab3577f41f62ad9bf3.jar"
-        jar="/Users/user/.gradle/caches/modules-2/files-2.1/org.java-websocket/Java-WebSocket/1.3.0/db2658f013fb163de4a99274c2eb9e17efe535d2/Java-WebSocket-1.3.0.jar"
-        jumboMode="false"
-        revision="19.1.0"
-        sha1="db2658f013fb163de4a99274c2eb9e17efe535d2"/>
-    <item
-        dex="/Users/user/Documents/Development-Tools/ADT/sdk/extras/google/BoutlineSports/app/build/intermediates/pre-dexed/debug/org.slf4j.log4j12-1.7.2-b949c9bd182972b5c4ec197b1e407e2348e2a1d2.jar"
-        jar="/Users/user/.gradle/caches/modules-2/files-2.1/org.apache.directory.studio/org.slf4j.log4j12/1.7.2/2d93b66bfca74ac208ffa4ff27a3343b1f18ea62/org.slf4j.log4j12-1.7.2.jar"
-        jumboMode="false"
-        revision="19.1.0"
-        sha1="2d93b66bfca74ac208ffa4ff27a3343b1f18ea62"/>
-    <item
-        dex="/Users/user/Documents/Development-Tools/ADT/sdk/extras/google/BoutlineSports/app/build/intermediates/pre-dexed/debug/srp6a-1.4.1-76b916471f302113e2115e9c8828fc0eb747a762.jar"
-        jar="/Users/user/.gradle/caches/modules-2/files-2.1/com.nimbusds/srp6a/1.4.1/16322ce07c725cc66e178916ebc3c0c8db6a3145/srp6a-1.4.1.jar"
-        jumboMode="false"
-        revision="19.1.0"
-        sha1="16322ce07c725cc66e178916ebc3c0c8db6a3145"/>
-    <item
-        dex="/Users/user/Documents/Development-Tools/ADT/sdk/extras/google/BoutlineSports/app/build/intermediates/pre-dexed/debug/commons-collections-3.2.1-f679c423670f4c7d9c797426421b891a899c4a47.jar"
-        jar="/Users/user/.gradle/caches/modules-2/files-2.1/commons-collections/commons-collections/3.2.1/761ea405b9b37ced573d2df0d1e3a4e0f9edc668/commons-collections-3.2.1.jar"
-        jumboMode="false"
-        revision="19.1.0"
-        sha1="761ea405b9b37ced573d2df0d1e3a4e0f9edc668"/>
-    <item
         dex="/Users/user/Documents/Development-Tools/ADT/sdk/extras/google/BoutlineSports/app/build/intermediates/pre-dexed/debug/classes-c989fa30fd3d1983750fbb43a1c3a99546ba0c08.jar"
         jar="/Users/user/Documents/Development-Tools/ADT/sdk/extras/google/BoutlineSports/build/intermediates/exploded-aar/BoutlineSports.libraries/facebook/unspecified/classes.jar"
         jumboMode="false"
@@ -56,17 +32,29 @@
         revision="19.1.0"
         sha1="1e5ba33c837d05dcca9dc40a0ab458f8599d7aef"/>
     <item
+        dex="/Users/user/Documents/Development-Tools/ADT/sdk/extras/google/BoutlineSports/app/build/intermediates/pre-dexed/debug/gson-2.2.4-e72d0771c2bf57abeef3cdd8d438764c9f438295.jar"
+        jar="/Users/user/.gradle/caches/modules-2/files-2.1/com.google.code.gson/gson/2.2.4/a60a5e993c98c864010053cb901b7eab25306568/gson-2.2.4.jar"
+        jumboMode="false"
+        revision="19.1.0"
+        sha1="a60a5e993c98c864010053cb901b7eab25306568"/>
+    <item
         dex="/Users/user/Documents/Development-Tools/ADT/sdk/extras/google/BoutlineSports/app/build/intermediates/pre-dexed/debug/java-ddp-client-0.5.7.6-bb534d00556749fb7fbb59597cb0a688781af368.jar"
         jar="/Users/user/.gradle/caches/modules-2/files-2.1/com.keysolutions/java-ddp-client/0.5.7.6/b8255e838012d62397a17ea3fe8e0250f24ce4ff/java-ddp-client-0.5.7.6.jar"
         jumboMode="false"
         revision="19.1.0"
         sha1="b8255e838012d62397a17ea3fe8e0250f24ce4ff"/>
     <item
-        dex="/Users/user/Documents/Development-Tools/ADT/sdk/extras/google/BoutlineSports/app/build/intermediates/pre-dexed/debug/gson-2.2.4-e72d0771c2bf57abeef3cdd8d438764c9f438295.jar"
-        jar="/Users/user/.gradle/caches/modules-2/files-2.1/com.google.code.gson/gson/2.2.4/a60a5e993c98c864010053cb901b7eab25306568/gson-2.2.4.jar"
+        dex="/Users/user/Documents/Development-Tools/ADT/sdk/extras/google/BoutlineSports/app/build/intermediates/pre-dexed/debug/Java-WebSocket-1.3.0-dbabc8678be0712852a51aab3577f41f62ad9bf3.jar"
+        jar="/Users/user/.gradle/caches/modules-2/files-2.1/org.java-websocket/Java-WebSocket/1.3.0/db2658f013fb163de4a99274c2eb9e17efe535d2/Java-WebSocket-1.3.0.jar"
         jumboMode="false"
         revision="19.1.0"
-        sha1="a60a5e993c98c864010053cb901b7eab25306568"/>
+        sha1="db2658f013fb163de4a99274c2eb9e17efe535d2"/>
+    <item
+        dex="/Users/user/Documents/Development-Tools/ADT/sdk/extras/google/BoutlineSports/app/build/intermediates/pre-dexed/debug/org.slf4j.log4j12-1.7.2-b949c9bd182972b5c4ec197b1e407e2348e2a1d2.jar"
+        jar="/Users/user/.gradle/caches/modules-2/files-2.1/org.apache.directory.studio/org.slf4j.log4j12/1.7.2/2d93b66bfca74ac208ffa4ff27a3343b1f18ea62/org.slf4j.log4j12-1.7.2.jar"
+        jumboMode="false"
+        revision="19.1.0"
+        sha1="2d93b66bfca74ac208ffa4ff27a3343b1f18ea62"/>
     <item
         dex="/Users/user/Documents/Development-Tools/ADT/sdk/extras/google/BoutlineSports/app/build/intermediates/pre-dexed/debug/slf4j-api-1.7.7-9647823535cffedca626af1df7debd4a2c21d5e9.jar"
         jar="/Users/user/.gradle/caches/modules-2/files-2.1/org.slf4j/slf4j-api/1.7.7/2b8019b6249bb05d81d3a3094e468753e2b21311/slf4j-api-1.7.7.jar"
@@ -74,10 +62,28 @@
         revision="19.1.0"
         sha1="2b8019b6249bb05d81d3a3094e468753e2b21311"/>
     <item
+        dex="/Users/user/Documents/Development-Tools/ADT/sdk/extras/google/BoutlineSports/app/build/intermediates/pre-dexed/debug/srp6a-1.4.1-76b916471f302113e2115e9c8828fc0eb747a762.jar"
+        jar="/Users/user/.gradle/caches/modules-2/files-2.1/com.nimbusds/srp6a/1.4.1/16322ce07c725cc66e178916ebc3c0c8db6a3145/srp6a-1.4.1.jar"
+        jumboMode="false"
+        revision="19.1.0"
+        sha1="16322ce07c725cc66e178916ebc3c0c8db6a3145"/>
+    <item
         dex="/Users/user/Documents/Development-Tools/ADT/sdk/extras/google/BoutlineSports/app/build/intermediates/pre-dexed/debug/classes-b7127b67aa2ce3d8cbcd378db668b6f2b480a66f.jar"
         jar="/Users/user/Documents/Development-Tools/ADT/sdk/extras/google/BoutlineSports/build/intermediates/exploded-aar/com.keysolutions/android-ddp-client/0.5.7.6/classes.jar"
         jumboMode="false"
         revision="19.1.0"
         sha1="e5aaa9c1d47d7fb40e7075d5cafa7ffdd690c55e"/>
+    <item
+        dex="/Users/user/Documents/Development-Tools/ADT/sdk/extras/google/BoutlineSports/app/build/intermediates/pre-dexed/debug/commons-collections-3.2.1-f679c423670f4c7d9c797426421b891a899c4a47.jar"
+        jar="/Users/user/.gradle/caches/modules-2/files-2.1/commons-collections/commons-collections/3.2.1/761ea405b9b37ced573d2df0d1e3a4e0f9edc668/commons-collections-3.2.1.jar"
+        jumboMode="false"
+        revision="19.1.0"
+        sha1="761ea405b9b37ced573d2df0d1e3a4e0f9edc668"/>
+    <item
+        dex="/Users/user/Documents/Development-Tools/ADT/sdk/extras/google/BoutlineSports/app/build/intermediates/pre-dexed/debug/google-play-services-5bf029e117ad28f37fda6a83ea3539d730e50319.jar"
+        jar="/Users/user/Documents/Development-Tools/ADT/sdk/extras/google/BoutlineSports/app/libs/google-play-services.jar"
+        jumboMode="false"
+        revision="19.1.0"
+        sha1="7676c0cb230efa6ac41c47867d372ed5913029d4"/>
 
 </pre-dex-items>

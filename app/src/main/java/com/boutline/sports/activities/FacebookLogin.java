@@ -166,17 +166,7 @@ public class FacebookLogin extends Activity {
             Session.openActiveSession(this, true, statusCallback);
         }
 
-		/*
-		if(!error)
-		{
-			Intent mainIntent = new Intent(FacebookLogin.this,ChooseSportsActivity.class);
-	        startActivity(mainIntent);
-	        overridePendingTransition(R.anim.pushleftin, R.anim.pushleftout);
-		}
-		else
-		{
-			loginError(btnFacebookLogin, errMessage);
-		}*/
+
 	}
 
 	protected void loginError(Button btnFacebookLogin, String msg){
@@ -227,7 +217,7 @@ public class FacebookLogin extends Activity {
 
                         if(mixpanel!=null) {
                             mixpanel.identify(intent.getStringExtra("userId"));
-                            mixpanel.track("Login Success", Constants.info);
+                            mixpanel.track("Boutline Login Success on FB Login Screen", Constants.info);
                         }
 
                         Intent mainIntent = new Intent(FacebookLogin.this,ChooseSportsActivity.class);
@@ -244,7 +234,7 @@ public class FacebookLogin extends Activity {
                     showError("Unable to login via Facebook");
 
                     if(mixpanel!=null) {
-                        mixpanel.track("Login Failed", Constants.info);
+                        mixpanel.track("Boutline Login Failed on FB Login Screen", Constants.info);
                     }
                 }
 
@@ -321,19 +311,14 @@ public class FacebookLogin extends Activity {
             fbUser.accessToken = session.getAccessToken();
             fbUser.expiresIn  = session.getExpirationDate().getTime() / 1000L -currentUnixTime;
             LoginButton btnFacebookLogin = (LoginButton) findViewById(R.id.btnFacebookLogin);
-            btnFacebookLogin.setText("Logout");
 
-            // TODO add progress bar starts here
+            btnFacebookLogin.setText("Please wait , logging in");
+
 
             makeFacebookRequests(session);
 
 
-            /*
-            Intent mainIntent = new Intent(FacebookLogin.this,ChooseSportsActivity.class);
-            startActivity(mainIntent);
-            overridePendingTransition(R.anim.pushleftin, R.anim.pushleftout);
-            finish();
-*/
+
 
         } else if (state.isClosed()) {
             Log.i(TAG, "Logged out...");
@@ -487,7 +472,7 @@ public class FacebookLogin extends Activity {
         requestBatch.executeAsync();
 
 
-        MyDDPState.getInstance().meteorLogin(fbUser);
+        MyDDPState.getInstance().boutlineLogin(fbUser);
 
     }
 
