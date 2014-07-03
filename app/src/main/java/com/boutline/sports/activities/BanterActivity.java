@@ -27,6 +27,8 @@ import android.graphics.Typeface;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -35,6 +37,7 @@ import com.boutline.sports.adapters.ConversationsAdapter;
 import com.boutline.sports.helpers.Mayday;
 import com.boutline.sports.models.Conversation;
 import com.boutline.sports.R;
+import com.boutline.sports.models.Match;
 
 import java.util.ArrayList;
 
@@ -63,13 +66,25 @@ public class BanterActivity extends Activity {
 		ArrayList<Conversation> arrayOfConversations = new ArrayList<Conversation>();
 		ArrayList<String> abc = new ArrayList<String>();
 		abc.add("123");
-		Conversation conversation = new Conversation("123","CC Boys Group","FIFA World Cup",abc,"Dude they won! They actually won!");
+		Conversation conversation = new Conversation("123","CC Boys Group","FIFA World Cup",abc,"Sharath:Dude they won! They actually won!");
 		arrayOfConversations.add(conversation);
-        Conversation conversation2 = new Conversation("123","Messi Fans Club","FIFA World Cup",abc,"Messi didnt even score a single goal");
+        Conversation conversation2 = new Conversation("123","Messi Fans Club","FIFA World Cup",abc,"Febin:Messi didnt even score a single goal");
         arrayOfConversations.add(conversation2);
 		ConversationsAdapter adapter = new ConversationsAdapter(this, arrayOfConversations);
 		ListView listView = (ListView) findViewById(R.id.lvConversations);
 		listView.setAdapter(adapter);
+
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                // When clicked, show a toast with the TextView text
+                Conversation conversation = (Conversation) parent.getItemAtPosition(position);
+                Intent intent = new Intent(BanterActivity.this,ConversationActivity.class);
+                intent.putExtra("conversationId", conversation.getConversationId());
+                startActivity(intent);
+                overridePendingTransition(R.anim.pushleftin, R.anim.pushleftout);
+
+            }
+        });
 		
 	}
 	

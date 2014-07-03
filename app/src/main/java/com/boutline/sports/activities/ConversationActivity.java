@@ -53,7 +53,7 @@ public class ConversationActivity extends Activity {
 		ArrayList<Message> arrayOfMessages = new ArrayList<Message>();
 		ArrayList<String> abc = new ArrayList<String>();
 		abc.add("123");
-		Message message = new Message("123","123","123","123","123","123","123");
+		Message message = new Message("123","123","Anand Satyan","123","My name is Antony Gonsalves. Mein duniya mein akhela hoon! Goli number Goli number Goli number chaar sow bhees! Excuse me please!","4:30 PM","123");
 		arrayOfMessages.add(message);
 		MessagesAdapter adapter = new MessagesAdapter(this, arrayOfMessages);
 		ListView listView = (ListView) findViewById(R.id.lvMessages);

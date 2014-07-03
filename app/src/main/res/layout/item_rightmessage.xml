@@ -1,0 +1,53 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/tweetContainer"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="15dp">
+    
+    <ImageView
+        android:id="@+id/imgPropic"
+        android:src="@drawable/dummy"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:contentDescription="@string/dummy"
+        android:layout_alignParentRight="true"
+        />
+    
+    <RelativeLayout
+        android:layout_toLeftOf="@id/imgPropic"
+        android:padding="10dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+    
+		    <TextView
+		        android:id="@+id/lblMessage"
+		        android:text=""
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:textColor="#343D42"
+		        />
+		    
+		    <TextView
+		        android:id="@+id/lblSenderName"
+		        android:text=""
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:textColor="#9AA3A8"
+		        android:paddingLeft="5dp"
+		        android:layout_below="@id/lblMessage"
+		        />
+		    
+		    <TextView
+		        android:id="@+id/lblMessageTime"
+		        android:text=""
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:textColor="#9BA4A9"
+		        android:layout_toRightOf="@id/lblSenderName"
+		        />
+	    
+    </RelativeLayout>
+
+ </RelativeLayout>
+

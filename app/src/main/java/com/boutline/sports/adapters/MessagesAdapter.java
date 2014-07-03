@@ -26,10 +26,11 @@ public class MessagesAdapter extends ArrayAdapter<Message> {
         TextView lblMessage;
         TextView lblSenderName;
         TextView lblMessageTime;
+        TextView lblConjunction;
     }
 
     public MessagesAdapter(Context context, ArrayList<Message> messages) {
-       super(context, R.layout.item_message, messages);
+       super(context, R.layout.item_leftmessage, messages);
     }
 
     @Override
@@ -49,10 +50,11 @@ public class MessagesAdapter extends ArrayAdapter<Message> {
         if (convertView == null) {
           viewHolder = new ViewHolder();
           LayoutInflater inflater = LayoutInflater.from(getContext());
-          convertView = inflater.inflate(R.layout.item_message, parent, false);
+          convertView = inflater.inflate(R.layout.item_leftmessage, parent, false);
           viewHolder.lblMessage = (TextView) convertView.findViewById(R.id.lblMessage);
           viewHolder.lblSenderName = (TextView) convertView.findViewById(R.id.lblSenderName);
           viewHolder.lblMessageTime = (TextView) convertView.findViewById(R.id.lblMessageTime);
+          viewHolder.lblConjunction = (TextView) convertView.findViewById(R.id.lblConjunction);
           convertView.setTag(viewHolder);
           
           // Assign the fonts
@@ -60,6 +62,7 @@ public class MessagesAdapter extends ArrayAdapter<Message> {
           viewHolder.lblMessage.setTypeface(btf);
           viewHolder.lblSenderName.setTypeface(tf);
           viewHolder.lblMessageTime.setTypeface(tf);
+          viewHolder.lblConjunction.setTypeface(tf);
           
         } else {
            viewHolder = (ViewHolder) convertView.getTag();
