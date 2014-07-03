@@ -49,6 +49,7 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.boutline.sports.adapters.TournamentsAdapter;
 import com.boutline.sports.application.MyDDPState;
@@ -81,7 +82,7 @@ public class ChooseTournamentActivity extends Activity {
     private String TAG ="Choose Tournaments";
     Context context;
     private BroadcastReceiver mReceiver;
-    private Mayday mayday;
+
 
 
 
@@ -303,11 +304,14 @@ public class ChooseTournamentActivity extends Activity {
             public void onReceive(Context context, Intent intent) {
 
                 super.onReceive(context, intent);
+
                 Bundle bundle = intent.getExtras();
 
                 if(intent.getAction().equals(MyDDPState.MESSAGE_ERROR))
                 {
-                    mayday.showError(context,"Internet connection not available");
+
+                    Toast.makeText(getApplicationContext(),"Internet connection not avaialable",Toast.LENGTH_SHORT);
+
                 }
 
 
@@ -323,13 +327,24 @@ public class ChooseTournamentActivity extends Activity {
                 new IntentFilter(MyDDPState.MESSAGE_CONNECTION));
 
         if (MyDDPState.getInstance().getState() == MyDDPState.DDPSTATE.Closed) {
-            mayday.showError(context,"Internet connection not available");
+            Toast.makeText(getApplicationContext(),"Internet connection not avaialable",Toast.LENGTH_SHORT);
         }
 
 
 
     }
 
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+
+        if (mReceiver != null) {
+
+            LocalBroadcastManager.getInstance(this).unregisterReceiver(mReceiver);
+            mReceiver = null;
+        }
+    }
     // inflate the menu assigned for this page and set click listeners
 
     @Override

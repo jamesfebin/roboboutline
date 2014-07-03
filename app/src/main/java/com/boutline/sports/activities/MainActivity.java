@@ -46,7 +46,6 @@ public class MainActivity extends Activity {
     SharedPreferences preferences;
     public FacebookUserInfo fbUser=null;
     public MixpanelAPI mixpanel = null ;
-    private  Mayday mayday;
 
     private Context context;
 
@@ -154,10 +153,24 @@ public class MainActivity extends Activity {
                                 mixpanel.track("Boutline Login Success on SplashScreen", Constants.info);
                             }
 
-                            Intent mainIntent = new Intent(MainActivity.this,ChooseTournamentActivity.class);
-                            startActivity(mainIntent);
-                            overridePendingTransition(R.anim.pushleftin, R.anim.pushleftout);
-                            finish();
+                            boolean hasChoseSport=false;
+
+                            if(!hasChoseSport)
+                            {
+
+                                Intent mainIntent = new Intent(MainActivity.this, ChooseSportsActivity.class);
+                                startActivity(mainIntent);
+                                overridePendingTransition(R.anim.pushleftin, R.anim.pushleftout);
+                                finish();
+
+                            }
+                            else {
+
+                                Intent mainIntent = new Intent(MainActivity.this, ChooseTournamentActivity.class);
+                                startActivity(mainIntent);
+                                overridePendingTransition(R.anim.pushleftin, R.anim.pushleftout);
+                                finish();
+                            }
 
 
                         }
@@ -165,7 +178,7 @@ public class MainActivity extends Activity {
                     else if(intent.getAction().equals("LOGINFAILED"))
                     {
 
-                        mayday.showError(context,"Unable to login via Facebook");
+                        Toast.makeText(getApplicationContext(),"Unable to connect to facebook",Toast.LENGTH_SHORT);
 
                         if(mixpanel!=null) {
                             mixpanel.track("Boutline Login Failed on SplashScreen", Constants.info);
@@ -174,7 +187,7 @@ public class MainActivity extends Activity {
 
                     else if(intent.getAction().equals(MyDDPState.MESSAGE_ERROR))
                     {
-                        mayday.showError(context,"Internet connection not available");
+                        Toast.makeText(getApplicationContext(),"Internet connection not avaialable",Toast.LENGTH_SHORT);
                     }
 
                 }
@@ -195,7 +208,7 @@ public class MainActivity extends Activity {
                 new IntentFilter(MyDDPState.MESSAGE_CONNECTION));
 
         if (MyDDPState.getInstance().getState() == MyDDPState.DDPSTATE.Closed) {
-            mayday.showError(context,"Internet connection not available");
+            Toast.makeText(getApplicationContext(),"Internet connection not avaialable",Toast.LENGTH_SHORT);
         }
 
         }

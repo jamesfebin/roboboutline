@@ -43,8 +43,8 @@
 **2nd July**
 
 *Choose Sports*
-- [ ] First time must login check for @jamesfebin (4)
-- [ ] Async call to get data for @jamesfebin (4)
+- [X] First time must login check for @jamesfebin (4)
+- [X] Async call to get data for @jamesfebin (4)
 - [ ] Define Caching Rules for @jamesfebin (4)
 - [ ] Research on Caching for @jamesfebin (4)
 
@@ -66,18 +66,15 @@
 
 **5th July**
 
-*Choose Tournaments*
-- [ ] Async call to get data for @jamesfebin (5)
-- [ ] Define Caching Rules for @jamesfebin (5)
-- [ ] Followers Number for Tournaments for @jamesfebin (5)
-
-
-
 **6th July**
 
 
 **7th July**
 
+*Choose Tournames*
+- [ ] Async call to get data for @jamesfebin (5)
+- [ ] Define Caching Rules for @jamesfebin (5)
+- [ ] Followers Number for Tournaments for @jamesfebin (5)
 
 
 **8th July**

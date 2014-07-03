@@ -11,11 +11,6 @@ public class Mayday {
         this.context = context;
     }
 
-    public void showError(Context context,String msg)
-    {
-
-        Toast.makeText(context,msg,Toast.LENGTH_SHORT).show();
-    }
 
     public boolean isConnectingToInternet() {
         ConnectivityManager connectivity = (ConnectivityManager) context
