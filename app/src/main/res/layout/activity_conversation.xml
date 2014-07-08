@@ -16,7 +16,41 @@
          android:layout_below="@id/lblConversationName"
          android:layout_width="match_parent"
          android:layout_height="wrap_content"
+         android:divider="#ffffff"
          />
+
+    <LinearLayout
+        android:id="@+id/composeLink"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:orientation="horizontal"
+        android:descendantFocusability="blocksDescendants"
+        android:background="#EFEFEF">
+
+        <EditText
+            android:id="@+id/txtCompose"
+            android:layout_width="0dip"
+            android:layout_height="wrap_content"
+            android:padding="5dp"
+            android:layout_margin="5dp"
+            android:layout_weight="1"
+            android:textSize="14sp"
+            android:clickable="false"
+            android:hint="@string/whatshappening"
+            />
+        <Button
+            android:id="@+id/btnCompose"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right"
+            android:padding="5dp"
+            android:textSize="14sp"
+            android:text="@string/dummy"
+            android:clickable="false"
+            android:background="@drawable/send"
+            />
+    </LinearLayout>
     
  </RelativeLayout>
 

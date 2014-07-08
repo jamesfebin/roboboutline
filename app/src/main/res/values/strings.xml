@@ -22,6 +22,7 @@
 	<string name="posttweet">Post</string>
 	<string name="dummy"></string>
     <string name="createbantergroup">Create</string>
+    <string name="at"> at </string>
     <string name="save">Save</string>
 	<string name="charCount">140</string>
     <string name="hdrConversations">Banters</string>

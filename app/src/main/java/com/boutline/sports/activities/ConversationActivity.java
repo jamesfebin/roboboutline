@@ -32,7 +32,9 @@
 package com.boutline.sports.activities;
 
 import android.app.Activity;
+import android.graphics.Typeface;
 import android.os.Bundle;
+import android.widget.EditText;
 import android.widget.ListView;
 
 import com.boutline.sports.adapters.MessagesAdapter;
@@ -43,18 +45,31 @@ import java.util.ArrayList;
 
 public class ConversationActivity extends Activity {
 
+    public String fontPath = "fonts/proxinova.ttf";
+    public Typeface tf;
+    public String boldFontPath = "fonts/proxinovabold.otf";
+    public Typeface btf;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_conversation);
-		
+
+        tf = Typeface.createFromAsset(getAssets(), fontPath);
+        btf = Typeface.createFromAsset(getAssets(), boldFontPath);
+        EditText txtCompose = (EditText) findViewById(R.id.txtCompose);
+		txtCompose.setTypeface(tf);
+
 		// Populate the List View
 		
 		ArrayList<Message> arrayOfMessages = new ArrayList<Message>();
 		ArrayList<String> abc = new ArrayList<String>();
-		abc.add("123");
-		Message message = new Message("123","123","Anand Satyan","123","My name is Antony Gonsalves. Mein duniya mein akhela hoon! Goli number Goli number Goli number chaar sow bhees! Excuse me please!","4:30 PM","123");
+		Message message = new Message("123","123","Anand Satyan","123","My name is Antony Gonsalves. Mein duniya mein akhela hoon! Goli number Goli number Goli number chaar sow bhees!","4:30 PM","123");
 		arrayOfMessages.add(message);
+        Message message2 = new Message("124","124","Febin John James","124","Excuse me please!","4:31 PM","124");
+        arrayOfMessages.add(message2);
+        Message message3 = new Message("125","125","Boutbot","125","Sharath Acharya joined the conversation","4:31 PM","125");
+        arrayOfMessages.add(message3);
 		MessagesAdapter adapter = new MessagesAdapter(this, arrayOfMessages);
 		ListView listView = (ListView) findViewById(R.id.lvMessages);
 		listView.setAdapter(adapter);
