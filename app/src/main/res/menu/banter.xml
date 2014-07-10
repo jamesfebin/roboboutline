@@ -9,12 +9,12 @@
         android:title="@string/action_settings"/>
     <item
         android:id="@+id/board"
-        android:icon="@drawable/boardicon"
+        android:icon="@drawable/ic_board"
         android:showAsAction="ifRoom"
         android:title="@string/action_settings"/>
     <item
         android:id="@+id/newconvo"
-        android:icon="@drawable/newconvoicon"
+        android:icon="@drawable/ic_newconvo"
         android:showAsAction="ifRoom"
         android:title="@string/action_settings"/>
 

@@ -172,12 +172,12 @@ public class BoardActivity extends FragmentActivity implements ActionBar.TabList
 	        	MenuItem menuItem = (MenuItem)findViewById(R.id.playpause);
 	        	if(isPlay){	        	
 	        		isPlay = false;
-		        	menuItem.setIcon(getResources().getDrawable(R.drawable.playicon));
+		        	menuItem.setIcon(getResources().getDrawable(R.drawable.ic_play));
 		        	doPlay();
 	        	}
 	        	else{
 	        		isPlay = true;
-	        		menuItem.setIcon(getResources().getDrawable(R.drawable.pauseicon));
+	        		menuItem.setIcon(getResources().getDrawable(R.drawable.ic_pause));
 		        	doPause();
 	        	}	        	
 	            return true;

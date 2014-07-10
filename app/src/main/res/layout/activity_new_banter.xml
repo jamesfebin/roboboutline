@@ -3,14 +3,26 @@
     android:id="@+id/container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.boutline.sports.activities.Walkthrough3"
-    tools:ignore="MergeRootFrame" >
+    android:background="#ffffff">
+
+    <TextView
+        android:id="@+id/hdrNewBanter"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/hdrNewBanter"
+        android:gravity="center_horizontal"
+        android:padding="15dp"
+        android:textSize="16sp"
+        android:textColor="@color/darkgray"
+        />
     
     <TextView 
         android:id="@+id/lblGiveName"
         android:text="@string/givebantername"
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:padding="15dp"
+        android:layout_below="@id/hdrNewBanter"/>
     
     <EditText
         android:id="@+id/txtBanterName"
@@ -19,14 +31,25 @@
         android:layout_width="fill_parent" 
         android:layout_height="wrap_content"
         android:layout_below="@id/lblGiveName"
+        android:layout_margin="10dp"
         />
+
+    <View
+        android:id="@+id/hr"
+        android:layout_width="fill_parent"
+        android:layout_height="1dip"
+        android:background="#CCCCCC"
+        android:layout_below="@id/txtBanterName"
+        android:paddingTop="15dp"
+        android:paddingBottom="15dp"/>
     
     <TextView 
         android:id="@+id/lblChooseTopic"
         android:text="@string/choosetourforbanter"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/txtBanterName" />
+        android:layout_below="@id/hr"
+        android:padding="10dp"/>
     
      <ListView
         android:id="@+id/lvSports"
@@ -34,6 +57,14 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/lblChooseTopic"
         />
+
+    <Button
+        android:id="@+id/btnCreateBanter"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="20dp"
+        android:layout_below="@id/lvSports"
+        android:text="@string/createbantergroup"/>
     
 </RelativeLayout>
 

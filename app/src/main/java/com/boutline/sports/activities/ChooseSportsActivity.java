@@ -94,17 +94,7 @@ public class ChooseSportsActivity extends Activity implements LoaderManager.Load
 		
 		// Populate the List View
 
-
-        dbController = new SQLController(this);
-        try {
-            dbController.open();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-
-
         loadermanager = getLoaderManager();
-
         populateListViewFromDb();
         loadermanager.initLoader(1,null,this);
 
@@ -114,16 +104,12 @@ public class ChooseSportsActivity extends Activity implements LoaderManager.Load
 			@Override
 			public void onClick(View arg0) {
 
-                dbController.clearSportsList();
-                c = dbController.getSportsData();
-                sportAdapter.swapCursor(c);
-                sportAdapter.notifyDataSetChanged();
-                listView.invalidate();
 
 				String errorMessage = "Something went wrong. Try again.";
 				Boolean noSportSelected = false;
 				Boolean isSportsCollectionUpdated = true; //Change this to false later
 				btnSubmitSportsSelection.setText("Saving...");
+				btnSubmitSportsSelection.setText("Please Wait......");
 				Mayday chk = new Mayday(ChooseSportsActivity.this);
 				
 				//TODO find out if atleast one sport is selected and assign it to noSportSelected
@@ -134,7 +120,7 @@ public class ChooseSportsActivity extends Activity implements LoaderManager.Load
 				{
 					errorMessage ="No internet connection. Try again.";
 					isSportsCollectionUpdated = false;
-					btnSubmitSportsSelection.setText("Save");
+					btnSubmitSportsSelection.setText("Continue");
 				}
 				
 				//Check if atleast one sport is selected
@@ -143,7 +129,7 @@ public class ChooseSportsActivity extends Activity implements LoaderManager.Load
 					isSportsCollectionUpdated = false;
 					errorMessage = "Select atleast one sport to continue.";
 					isSportsCollectionUpdated = false;
-					btnSubmitSportsSelection.setText("Save");
+					btnSubmitSportsSelection.setText("Continue");
 				}
 				
 				try {
@@ -156,14 +142,14 @@ public class ChooseSportsActivity extends Activity implements LoaderManager.Load
 				//Success:go to next activity, else show errorMessage
 			
 				if(isSportsCollectionUpdated){
-					btnSubmitSportsSelection.setText("Saved!");
+					btnSubmitSportsSelection.setText("Great!");
 					Intent mainIntent = new Intent(ChooseSportsActivity.this,ChooseTournamentActivity.class);
-			//        startActivity(mainIntent);
+			        startActivity(mainIntent);
 			        overridePendingTransition(R.anim.pushleftin, R.anim.pushleftout);
 				}
 				else{
 					showError(errorMessage);
-					btnSubmitSportsSelection.setText("Save");
+					btnSubmitSportsSelection.setText("Continue");
 				}
 			}
  
@@ -221,7 +207,7 @@ public class ChooseSportsActivity extends Activity implements LoaderManager.Load
 	protected void onResume() {
         super.onResume();
         final Button btnSubmitSportsSelection = (Button) findViewById(R.id.btnSubmitSportsSelection);
-        btnSubmitSportsSelection.setText("Save");
+        btnSubmitSportsSelection.setText("Continue");
 
 
         mReceiver = new DDPBroadcastReceiver(MyDDPState.getInstance(), this) {

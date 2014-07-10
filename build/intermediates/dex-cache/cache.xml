@@ -2,10 +2,10 @@
 <pre-dex-items>
 
     <item
-        dex="C:\Users\user\Documents\GitHub\roboboutline\app\build\intermediates\pre-dexed\debug\google-play-services-42fe563ca1dcae3061776a01a48e381c602bb0db.jar"
-        jar="C:\Users\user\Documents\GitHub\roboboutline\app\libs\google-play-services.jar"
+        dex="/Users/user/Documents/Development-Tools/ADT/sdk/extras/google/BoutlineSports/app/build/intermediates/pre-dexed/debug/classes-2314d72685b09be2624ef6b6bd6e0ff19040c782.jar"
+        jar="/Users/user/Documents/Development-Tools/ADT/sdk/extras/google/BoutlineSports/build/intermediates/exploded-aar/com.makeramen/roundedimageview/1.3.0/classes.jar"
         jumboMode="false"
         revision="19.1.0"
-        sha1="7676c0cb230efa6ac41c47867d372ed5913029d4"/>
+        sha1="3812f89e64ae0e865df72574ffe7c5a516e1cc91"/>
 
 </pre-dex-items>

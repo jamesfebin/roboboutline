@@ -26,10 +26,11 @@ public class MessagesAdapter extends ArrayAdapter<Message> {
         TextView lblMessage;
         TextView lblSenderName;
         TextView lblMessageTime;
+        TextView lblConjunction;
     }
 
     public MessagesAdapter(Context context, ArrayList<Message> messages) {
-       super(context, R.layout.item_message, messages);
+       super(context, R.layout.item_leftmessage, messages);
     }
 
     @Override
@@ -41,36 +42,53 @@ public class MessagesAdapter extends ArrayAdapter<Message> {
     			
         // Get the data item for this position
         
-    	Message message = getItem(position);    
-        
+    	Message message = getItem(position);
+        String botId = "125";
+        String currUserId ="123";
     	// Check if an existing view is being reused, otherwise inflate the view
         
     	ViewHolder viewHolder; // view lookup cache stored in tag
         if (convertView == null) {
+
           viewHolder = new ViewHolder();
           LayoutInflater inflater = LayoutInflater.from(getContext());
-          convertView = inflater.inflate(R.layout.item_message, parent, false);
-          viewHolder.lblMessage = (TextView) convertView.findViewById(R.id.lblMessage);
-          viewHolder.lblSenderName = (TextView) convertView.findViewById(R.id.lblSenderName);
-          viewHolder.lblMessageTime = (TextView) convertView.findViewById(R.id.lblMessageTime);
-          convertView.setTag(viewHolder);
-          
-          // Assign the fonts
-          
-          viewHolder.lblMessage.setTypeface(btf);
-          viewHolder.lblSenderName.setTypeface(tf);
-          viewHolder.lblMessageTime.setTypeface(tf);
-          
+
+            if(message.getSenderId()==currUserId) {
+                convertView = inflater.inflate(R.layout.item_leftmessage, parent, false);
+            }
+            else if(message.getSenderId()== botId){
+                convertView = inflater.inflate(R.layout.item_botmessage, parent, false);
+            }
+            else{
+                convertView = inflater.inflate(R.layout.item_rightmessage, parent, false);
+            }
+
+            if(message.getSenderId()!=botId) {
+
+                viewHolder.lblSenderName = (TextView) convertView.findViewById(R.id.lblSenderName);
+                viewHolder.lblMessageTime = (TextView) convertView.findViewById(R.id.lblMessageTime);
+                viewHolder.lblConjunction = (TextView) convertView.findViewById(R.id.lblConjunction);
+                convertView.setTag(viewHolder);
+
+                // Assign the fonts
+
+                viewHolder.lblSenderName.setTypeface(tf);
+                viewHolder.lblMessageTime.setTypeface(tf);
+                viewHolder.lblConjunction.setTypeface(tf);
+            }
+            viewHolder.lblMessage = (TextView) convertView.findViewById(R.id.lblMessage);
+            viewHolder.lblMessage.setTypeface(btf);
+
         } else {
            viewHolder = (ViewHolder) convertView.getTag();
         }
         
         // Populate the data into the template view using the data object
-       
+        if(message.getSenderId()!=botId) {
+            viewHolder.lblSenderName.setText(message.getUsername());
+            viewHolder.lblMessageTime.setText(message.getUnixtime());
+        }
         viewHolder.lblMessage.setText(message.getMessage());
-        viewHolder.lblSenderName.setText(message.getUsername());
-        viewHolder.lblMessageTime.setText(message.getUnixtime());
-        
         // Return the completed view to render on screen
         
         return convertView;

@@ -92,6 +92,7 @@ public class SportsAdapter extends SimpleCursorAdapter{
             viewHolder.imgSport.setImageDrawable(context.getResources().getDrawable(R.drawable.sport_football));
         }
 
+
         tf = Typeface.createFromAsset(context.getAssets(), fontPath);
         btf = Typeface.createFromAsset(context.getAssets(), boldFontPath);
         viewHolder.lblSportName.setTypeface(btf);

@@ -28,7 +28,7 @@
     
     <Button 
         android:id="@+id/btnSubmitSportsSelection"
-        android:text="@string/save"
+        android:text="@string/moveon"
         android:background="@drawable/bluebuttonstates"
         android:layout_width="fill_parent" 
         android:layout_height="wrap_content"

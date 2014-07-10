@@ -9,13 +9,18 @@
   	    android:layout_width="fill_parent"
   	    android:layout_height="wrap_content"
         android:padding="10dp">
-	     <ImageView
-	        android:contentDescription="@string/dummy"
-		    android:id="@+id/imgTournament"
-		    android:src="@drawable/dummy"
-		    android:layout_width="50dp"
-		    android:layout_height="50dp"
-	       />
+        <com.makeramen.RoundedImageView
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/imgTournament"
+            android:src="@drawable/dummy"
+            android:scaleType="centerCrop"
+            app:corner_radius="35dip"
+            app:oval="true"
+            app:mutate_background="true"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:padding="5dp"
+            />
 	    <LinearLayout
 	        android:id="@+id/tournamentDetails"
 	        android:layout_toRightOf="@id/imgTournament"

@@ -53,12 +53,10 @@ public class Walkthrough0 extends Activity {
         TextView hdrWalkthrough0 = (TextView) findViewById(R.id.hdrWalkthrough0);
         TextView swiper = (TextView) findViewById(R.id.swiper);
         TextView lblWalkthrough0 = (TextView) findViewById(R.id.lblWalkthrough0);
-        TextView subhdrWalkthrough0 = (TextView) findViewById(R.id.subhdrWalkthrough0);
         ImageView imgWalkthrough0 = (ImageView) findViewById(R.id.imgWalkthrough0);
 
         // Assign the font types
         swiper.setTypeface(tf);
-        subhdrWalkthrough0.setTypeface(btf);
         hdrWalkthrough0.setTypeface(btf);
         lblWalkthrough0.setTypeface(btf);
 

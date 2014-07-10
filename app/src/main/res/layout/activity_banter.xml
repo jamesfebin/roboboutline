@@ -12,6 +12,7 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:text="@string/hdrConversations"
+        android:gravity="center_horizontal"
         android:padding="15dp"
         android:textSize="16sp"
         android:textColor="@color/darkgray"
