@@ -1,6 +1,9 @@
 package com.boutline.sports.application;
 
+import com.boutline.sports.database.BoutDBHelper;
+import com.boutline.sports.database.SQLController;
 import com.boutline.sports.models.FacebookUserInfo;
+import com.boutline.sports.models.Sport;
 import com.boutline.sports.models.Tweet;
 import com.keysolutions.ddpclient.DDPListener;
 import com.keysolutions.ddpclient.android.DDPStateSingleton;
@@ -12,11 +15,14 @@ import com.keysolutions.ddpclient.DDPClient;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
 import android.support.v4.content.LocalBroadcastManager;
 import android.util.Log;
 import android.widget.Toast;
 
 import java.net.URISyntaxException;
+import java.sql.SQLException;
+import java.util.Collection;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -29,23 +35,38 @@ import com.keysolutions.ddpclient.DDPListener;
  */
 public class MyDDPState extends DDPStateSingleton {
 
-    private Map<String, Tweet> tweets;
+    private Map<String, Sport> sports;
     public String TAG="MY DDP State";
     private DDPSTATE mDDPState;
-    private Context mContext;
+    private static Context mContext;
+
+    SQLiteDatabase boutdb;
+    static SQLController dbController;
+    BoutDBHelper dbHelper;
 
     private MyDDPState(Context context) {
         // Constructor hidden because this is a singleton
         super(context);
         this.mContext = context;
-        tweets = new ConcurrentHashMap<String, Tweet>();
+        sports = new ConcurrentHashMap<String, Sport>();
+
+
     }
 
-    public static void initInstance(Context context) {
+    public static void initInstance(Context context)  {
         // only called by MyApplication
         if (mInstance == null) {
             // Create the instance
             mInstance = new MyDDPState(context);
+            dbController = new SQLController(context);
+             mContext = context;
+
+                try {
+                    dbController.open();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+
         }
 
 
@@ -173,18 +194,22 @@ public class MyDDPState extends DDPStateSingleton {
     @Override
     public void broadcastSubscriptionChanged(String collectionName,
                                              String changetype, String docId) {
-/*
-        try {
-            if (collectionName.equals("tweets")) {
-                if (changetype.equals(DdpMessageType.ADDED)) {
-                 //Tweet newTweet=new Tweet(docId,(Map<String, Object>) getCollection(collectionName).get(docId));
 
-                tweets.put(docId, new Tweet(docId, (Map<String, Object>) getCollection(collectionName).get(docId)));
+
+
+        try {
+            if (collectionName.equals("sports")) {
+                if (changetype.equals(DdpMessageType.ADDED)) {
+
+                    Sport sport = new Sport(docId,getCollection(collectionName).get(docId));
+
+
+                dbHelper.getInstance(mContext).putSport(sport);
 
                 } else if (changetype.equals(DdpMessageType.REMOVED)) {
-                   tweets.remove(docId);
+
                 } else if (changetype.equals(DdpMessageType.UPDATED)) {
-                    tweets.get(docId).refreshFields();
+
                 }
             }
        }
@@ -192,7 +217,7 @@ public class MyDDPState extends DDPStateSingleton {
         {
            E.printStackTrace();
         }
-*/
+
         // do the broadcast after we've taken care of our parties wrapper
         super.broadcastSubscriptionChanged(collectionName, changetype, docId);
     }

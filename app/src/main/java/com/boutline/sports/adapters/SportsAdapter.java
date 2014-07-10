@@ -1,7 +1,9 @@
 package com.boutline.sports.adapters;
 
 import android.content.Context;
+import android.database.Cursor;
 import android.graphics.Typeface;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,19 +11,19 @@ import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
+import android.widget.SimpleCursorAdapter;
 import android.widget.TextView;
 
 import com.boutline.sports.models.Sport;
 import com.boutline.sports.R;
 import java.util.ArrayList;
 
-public class SportsAdapter extends ArrayAdapter<Sport> {
+public class SportsAdapter extends SimpleCursorAdapter{
 	
 	public String fontPath = "fonts/proxinova.ttf";
 	public Typeface tf;
 	public String boldFontPath = "fonts/proxinovabold.otf";
 	public Typeface btf;
-	
     private static class ViewHolder {
         TextView lblSportName;
         TextView lblSportDescription;
@@ -29,22 +31,34 @@ public class SportsAdapter extends ArrayAdapter<Sport> {
         ImageView imgSport;
         RelativeLayout sportContainer;
     }
+    private Context context;
+    private int layout;
 
-    public SportsAdapter(Context context, ArrayList<Sport> sports) {
-       super(context, R.layout.item_sport, sports);
+
+
+    public SportsAdapter(Context context, int layout, Cursor c,
+                         String[] from, int[] to, int flags) {
+        super(context, layout, c, from, to, flags);
+        this.context = context;
+        this.layout = layout;
+
+
     }
+
+
+
+
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {  
-    	
-       
+
+        Cursor c = getCursor();
+
        // Check if an existing view is being reused, otherwise inflate the view
-       
-       Sport sport = getItem(position);    
        final ViewHolder viewHolder; // view lookup cache stored in tag
        if (convertView == null) {
           viewHolder = new ViewHolder();
-          LayoutInflater inflater = LayoutInflater.from(getContext());
+          LayoutInflater inflater = LayoutInflater.from(context);
           convertView = inflater.inflate(R.layout.item_sport, parent, false);
           viewHolder.lblSportName = (TextView) convertView.findViewById(R.id.lblSportName);
           viewHolder.lblSportDescription = (TextView) convertView.findViewById(R.id.lblSportDescription);
@@ -59,29 +73,27 @@ public class SportsAdapter extends ArrayAdapter<Sport> {
            viewHolder = (ViewHolder) convertView.getTag();
        }
 
-        /* Following code is to get image from a url, IMPORTANT: Do this in background thread
-            try {
-                URL newurl = new URL("http://boutline.com/" + sport.sportName() + ".png");
-                Bitmap mIcon_val = BitmapFactory.decodeStream(newurl.openConnection().getInputStream());
-                viewHolder.imgSport.setImageBitmap(mIcon_val);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        */
 
-        viewHolder.lblSportName.setText(sport.getSportName());
-        viewHolder.lblSportDescription.setText(sport.getSportDescription());
-        viewHolder.chkFollowStatus.setChecked(sport.getSportFollow());
+        Log.e("BOOLEAN",c.getString(c.getColumnIndex("followed")));
+
+        viewHolder.lblSportName.setText(c.getString(c.getColumnIndex("name")));
+        viewHolder.lblSportDescription.setText("sup");
+
+        if(c.getInt(c.getColumnIndex("followed"))==1)
+        viewHolder.chkFollowStatus.setChecked(true);
+        else
+        viewHolder.chkFollowStatus.setChecked(false);
+
         //Remove the following
-        if(sport.getSportName().equals("Cricket")) {
-            viewHolder.imgSport.setImageDrawable(getContext().getResources().getDrawable(R.drawable.sport_cricket));
+        if(c.getString(1).equals("Cricket")) {
+            viewHolder.imgSport.setImageDrawable(context.getResources().getDrawable(R.drawable.sport_cricket));
         }
         else{
-            viewHolder.imgSport.setImageDrawable(getContext().getResources().getDrawable(R.drawable.sport_football));
+            viewHolder.imgSport.setImageDrawable(context.getResources().getDrawable(R.drawable.sport_football));
         }
 
-        tf = Typeface.createFromAsset(getContext().getAssets(), fontPath);
-        btf = Typeface.createFromAsset(getContext().getAssets(), boldFontPath);
+        tf = Typeface.createFromAsset(context.getAssets(), fontPath);
+        btf = Typeface.createFromAsset(context.getAssets(), boldFontPath);
         viewHolder.lblSportName.setTypeface(btf);
         viewHolder.lblSportDescription.setTypeface(btf);
 

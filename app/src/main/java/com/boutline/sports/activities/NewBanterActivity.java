@@ -45,9 +45,9 @@ public class NewBanterActivity extends Activity {
 		// Populate the List View
 		
 		ArrayList<Sport> arrayOfSports = new ArrayList<Sport>();
-		Sport sport = new Sport("123","123","123", true);
-		arrayOfSports.add(sport);
-		SportsAdapter adapter = new SportsAdapter(this, arrayOfSports);
+		//Sport sport = new Sport("123","123","123", true);
+		//arrayOfSports.add(sport);
+		SportsAdapter adapter = null; // = new SportsAdapter(this, arrayOfSports);
 		ListView listView = (ListView) findViewById(R.id.lvSports);
 		listView.setAdapter(adapter);
 	}	

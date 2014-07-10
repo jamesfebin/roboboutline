@@ -124,6 +124,7 @@ public class MainActivity extends Activity {
 
                    goToWalkthrough0();
                     finish();
+
                 }
                 else{
 
@@ -189,6 +190,7 @@ public class MainActivity extends Activity {
                     {
                         Toast.makeText(getApplicationContext(),"Internet connection not avaialable",Toast.LENGTH_SHORT);
                     }
+
 
                 }
             };

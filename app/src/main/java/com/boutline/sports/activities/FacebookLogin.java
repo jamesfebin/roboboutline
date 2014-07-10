@@ -458,6 +458,7 @@ context = getApplicationContext();
 
                                     getFbUserInfo(user);
                                     storeFbInfo();
+
                                 }
                             }
                             if (response.getError() != null) {
@@ -476,7 +477,6 @@ context = getApplicationContext();
         requestBatch.executeAsync();
 
 
-        MyDDPState.getInstance().boutlineLogin(fbUser);
 
     }
 
@@ -489,6 +489,8 @@ context = getApplicationContext();
         String json = gson.toJson(fbUser);
         editor.putString("fbUserInfo",json);
         editor.commit();
+
+        MyDDPState.getInstance().boutlineLogin(fbUser);
 
 
     }

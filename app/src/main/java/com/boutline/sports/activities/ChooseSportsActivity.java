@@ -4,13 +4,18 @@ package com.boutline.sports.activities;
 
 import android.app.ActionBar;
 import android.app.Activity;
+import android.app.LoaderManager;
 import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.CursorLoader;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.database.Cursor;
+import android.database.DataSetObserver;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v4.content.LocalBroadcastManager;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -19,22 +24,28 @@ import android.view.Window;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
+import android.widget.CursorAdapter;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
+import android.widget.SimpleCursorAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
-
+import android.content.CursorLoader;
+import android.content.Loader;
+import com.boutline.sports.ContentProviders.SportProvider;
 import com.boutline.sports.adapters.SportsAdapter;
 import com.boutline.sports.application.MyDDPState;
+import com.boutline.sports.database.SQLController;
 import com.boutline.sports.helpers.Mayday;
 import com.boutline.sports.models.Sport;
 import com.boutline.sports.R;
 import com.keysolutions.ddpclient.android.DDPBroadcastReceiver;
 import com.keysolutions.ddpclient.android.DDPStateSingleton;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 
-public class ChooseSportsActivity extends Activity {
+public class ChooseSportsActivity extends Activity implements LoaderManager.LoaderCallbacks<Cursor>  {
 	
 	public String fontPath = "fonts/proxinova.ttf";
 	public Typeface tf;
@@ -42,9 +53,18 @@ public class ChooseSportsActivity extends Activity {
 	public Typeface btf;
 	ActionBar actionBar;
     BroadcastReceiver mReceiver;
+    SimpleCursorAdapter sportAdapter;
+    ListView listView;
+    Cursor c;
+    SQLController dbController;
+    DataSetObserver mDataSetObserver;
 
-	
-	@Override
+    LoaderManager loadermanager;
+
+
+
+
+    @Override
 	protected void onCreate(Bundle savedInstanceState) {
 		requestWindowFeature(Window.FEATURE_ACTION_BAR);
 		super.onCreate(savedInstanceState);
@@ -73,27 +93,37 @@ public class ChooseSportsActivity extends Activity {
 		btnSubmitSportsSelection.setTypeface(btf);
 		
 		// Populate the List View
-		
-		ArrayList<Sport> arrayOfSports = new ArrayList<Sport>();
-		//TODO populate the arraylist with all sports and details
-		Sport sport = new Sport("1","Cricket","5601 followers", false);
-		arrayOfSports.add(sport);
-        Sport sport2 = new Sport("1","Football","6801 followers", true);
-        arrayOfSports.add(sport2);
-		SportsAdapter adapter = new SportsAdapter(this, arrayOfSports);
-		ListView listView = (ListView) findViewById(R.id.lvSports);
-		listView.setAdapter(adapter);
-						
-		// Set all the listeners
+
+
+        dbController = new SQLController(this);
+        try {
+            dbController.open();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+
+        loadermanager = getLoaderManager();
+
+        populateListViewFromDb();
+        loadermanager.initLoader(1,null,this);
+
+        // Set all the listeners
 		
 		btnSubmitSportsSelection.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View arg0) {
-				
+
+                dbController.clearSportsList();
+                c = dbController.getSportsData();
+                sportAdapter.swapCursor(c);
+                sportAdapter.notifyDataSetChanged();
+                listView.invalidate();
+
 				String errorMessage = "Something went wrong. Try again.";
 				Boolean noSportSelected = false;
 				Boolean isSportsCollectionUpdated = true; //Change this to false later
-				btnSubmitSportsSelection.setText("Saving...");				
+				btnSubmitSportsSelection.setText("Saving...");
 				Mayday chk = new Mayday(ChooseSportsActivity.this);
 				
 				//TODO find out if atleast one sport is selected and assign it to noSportSelected
@@ -128,7 +158,7 @@ public class ChooseSportsActivity extends Activity {
 				if(isSportsCollectionUpdated){
 					btnSubmitSportsSelection.setText("Saved!");
 					Intent mainIntent = new Intent(ChooseSportsActivity.this,ChooseTournamentActivity.class);
-			        startActivity(mainIntent);
+			//        startActivity(mainIntent);
 			        overridePendingTransition(R.anim.pushleftin, R.anim.pushleftout);
 				}
 				else{
@@ -139,8 +169,54 @@ public class ChooseSportsActivity extends Activity {
  
 		});
 		
-	}	
-	
+	}
+
+
+	public void populateListViewFromDb()
+    {
+
+      //  c = dbController.getSportsData();
+
+
+
+        String[] fromFieldNames = new String[] {"name","followed"};
+
+        int[] toViewIDs = new int[]
+                {R.id.lblSportName,R.id.chkFollowStatus};
+
+        sportAdapter = new SportsAdapter(this,R.layout.item_sport,c,fromFieldNames,toViewIDs, 0);
+        listView = (ListView) findViewById(R.id.lvSports);
+        listView.setAdapter(sportAdapter);
+
+
+
+
+    }
+
+    @Override
+    public void onLoadFinished(Loader<Cursor> cursorLoader, Cursor cursor) {
+
+        sportAdapter.swapCursor(cursor);
+
+
+    }
+
+    @Override
+    public Loader<Cursor> onCreateLoader(int i, Bundle bundle) {
+
+        return new CursorLoader(this,
+                SportProvider.URI_SPORTS, Sport.FIELDS, null, null,
+                null);
+
+    }
+
+    @Override
+    public void onLoaderReset(Loader<Cursor> cursorLoader) {
+
+        sportAdapter.swapCursor(null);
+
+        }
+
 	@Override
 	protected void onResume() {
         super.onResume();
@@ -176,8 +252,6 @@ public class ChooseSportsActivity extends Activity {
             @Override
             protected void onSubscriptionUpdate(String changeType, String subscriptionName, String docId) {
                 super.onSubscriptionUpdate(changeType, subscriptionName, docId);
-
-
 
 
             }

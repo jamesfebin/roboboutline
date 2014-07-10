@@ -42,9 +42,8 @@ public class MyApplication extends Application {
      */
     protected void initSingletons() {
         // Initialize App DDP State Singleton
+
         MyDDPState.initInstance(MyApplication.sContext);
-
-
         MyDDPState.getInstance().connectIfNeeded();
 
 

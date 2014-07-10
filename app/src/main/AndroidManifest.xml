@@ -2,10 +2,9 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.boutline.sports" >
 
-
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="com.google.android.providers.gsf.permission.READ_GSERVICES" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
@@ -17,24 +16,24 @@
     <uses-permission android:name="com.boutline.gcm.permission.C2D_MESSAGE" />
 
     <!-- This app has permission to register and receive data message. -->
-    <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE"/>
-
+    <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
 
     <!-- Permission to vibrate -->
     <uses-permission android:name="android.permission.VIBRATE" />
 
     <application
+        android:name=".application.MyApplication"
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
-        android:logo="@drawable/logo"
         android:label="@string/app_name"
-        android:theme="@style/AppTheme"
-        android:name=".application.MyApplication">
+        android:logo="@drawable/logo"
+        android:theme="@style/AppTheme" >
         <activity
             android:name=".activities.MainActivity"
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -43,25 +42,88 @@
             android:name="com.facebook.sdk.ApplicationId"
             android:value="@string/APP_ID" />
 
-        <activity android:name=".activities.DummyDesignActivity" android:label="" android:screenOrientation="portrait" />
-        <activity android:name=".activities.Walkthrough0" android:label="" android:screenOrientation="portrait" />
-        <activity android:name=".activities.Walkthrough1" android:label="" android:screenOrientation="portrait" />
-        <activity android:name=".activities.Walkthrough2" android:label="" android:screenOrientation="portrait" />
-        <activity android:name=".activities.Walkthrough3" android:label="" android:screenOrientation="portrait" />
-        <activity android:name=".activities.FacebookLogin" android:label="" android:screenOrientation="portrait"> </activity>
+        <activity
+            android:name=".activities.DummyDesignActivity"
+            android:label=""
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activities.Walkthrough0"
+            android:label=""
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activities.Walkthrough1"
+            android:label=""
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activities.Walkthrough2"
+            android:label=""
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activities.Walkthrough3"
+            android:label=""
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activities.FacebookLogin"
+            android:label=""
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
+            android:name="com.facebook.LoginActivity"
+            android:label=""
+            android:theme="@android:style/Theme.Holo.Light.NoActionBar.Fullscreen" />
+        <activity
+            android:name=".activities.BoardActivity"
+            android:label=""
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activities.BanterActivity"
+            android:label=""
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activities.NewBanterActivity"
+            android:label=""
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activities.ConversationActivity"
+            android:label=""
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activities.ComposeTweetActivity"
+            android:label=""
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Holo.Light.NoActionBar.Fullscreen"
+            android:windowSoftInputMode="stateVisible" />
+        <activity
+            android:name=".activities.ChooseSportsActivity"
+            android:label=""
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Holo.Light.NoActionBar.Fullscreen" />
+        <activity
+            android:name=".activities.ChooseTournamentActivity"
+            android:label=""
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activities.ChooseMatchActivity"
+            android:label=""
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activities.TweetDetailsActivity"
+            android:label=""
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Holo.Light.NoActionBar.Fullscreen" />
+        <activity
+            android:name=".activities.SettingsActivity"
+            android:label=""
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Holo.Light.NoActionBar.Fullscreen" />
 
-        <activity android:name="com.facebook.LoginActivity"  android:theme="@android:style/Theme.Holo.Light.NoActionBar.Fullscreen" android:label=""/>
-        <activity android:name=".activities.BoardActivity" android:label="" android:screenOrientation="portrait" />
-        <activity android:name=".activities.BanterActivity" android:label="" android:screenOrientation="portrait" />
-        <activity android:name=".activities.NewBanterActivity" android:label="" android:screenOrientation="portrait" />
-        <activity android:name=".activities.ConversationActivity" android:label="" android:screenOrientation="portrait" />
-        <activity android:name=".activities.ComposeTweetActivity" android:theme="@android:style/Theme.Holo.Light.NoActionBar.Fullscreen" android:windowSoftInputMode="stateVisible" android:label="" android:screenOrientation="portrait" />
-        <activity android:name=".activities.ChooseSportsActivity" android:label="" android:screenOrientation="portrait" android:theme="@android:style/Theme.Holo.Light.NoActionBar.Fullscreen"/>
-        <activity android:name=".activities.ChooseTournamentActivity" android:label="" android:screenOrientation="portrait" />
-        <activity android:name=".activities.ChooseMatchActivity" android:label="" android:screenOrientation="portrait" />
-        <activity android:name=".activities.TweetDetailsActivity" android:theme="@android:style/Theme.Holo.Light.NoActionBar.Fullscreen" android:label="" android:screenOrientation="portrait" />
-        <activity android:name=".activities.SettingsActivity" android:theme="@android:style/Theme.Holo.Light.NoActionBar.Fullscreen" android:label="" android:screenOrientation="portrait" />
-
+        <provider
+            android:name="com.boutline.sports.ContentProviders.SportProvider"
+            android:authorities="com.boutline.sports.provider"
+            android:multiprocess="true"
+            android:enabled="true"
+            android:exported="true" >
+        </provider>
     </application>
 
 </manifest>
