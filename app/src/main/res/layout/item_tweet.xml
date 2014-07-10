@@ -1,5 +1,4 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/tweetContainer"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
@@ -50,6 +49,15 @@
 		        android:textColor="#9BA4A9"
 		        android:layout_below="@id/lblTweetUsername"
 		        />
+
+            <TextView
+                android:id="@+id/lblTweetTime"
+                android:text="@string/justnow"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="#9BA4A9"
+                android:layout_below="@id/lblTweetMessage"
+                />
 	    
     </RelativeLayout>
 
@@ -62,6 +70,7 @@
         android:layout_alignParentRight="true"
         android:layout_alignParentTop="true"
         android:gravity="top"
+        android:padding="10dp"
         android:layout_gravity="top"
         />
     

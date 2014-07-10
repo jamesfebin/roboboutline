@@ -31,6 +31,7 @@ public class TweetsAdapter extends ArrayAdapter<Tweet> {
         TextView lblTweetUsername;
         TextView lblTweetHandle;
         TextView lblTweetMessage;
+        TextView lblTweetTime;
         ImageView imgImageExists;
     }
 
@@ -56,6 +57,7 @@ public class TweetsAdapter extends ArrayAdapter<Tweet> {
           viewHolder.lblTweetUsername = (TextView) convertView.findViewById(R.id.lblTweetUsername);
           viewHolder.lblTweetHandle = (TextView) convertView.findViewById(R.id.lblTweetHandle);
           viewHolder.lblTweetMessage = (TextView) convertView.findViewById(R.id.lblTweetMessage);
+           viewHolder.lblTweetTime = (TextView) convertView.findViewById(R.id.lblTweetTime);
           viewHolder.imgImageExists = (ImageView) convertView.findViewById(R.id.imgExists);
           convertView.setTag(viewHolder);
        } else {
@@ -74,6 +76,7 @@ public class TweetsAdapter extends ArrayAdapter<Tweet> {
        btf = Typeface.createFromAsset(getContext().getAssets(), boldFontPath);
        viewHolder.lblTweetUsername.setTypeface(btf);
        viewHolder.lblTweetHandle.setTypeface(tf);
+       viewHolder.lblTweetTime.setTypeface(tf);
        viewHolder.lblTweetMessage.setTypeface(btf);
 
        if(tweet.getTweetPhotoUrl()==null){

@@ -23,7 +23,7 @@
 	<string name="dummy"></string>
     <string name="createbantergroup">Create</string>
     <string name="at"> at </string>
-    <string name="save">Save</string>
+    <string name="moveon">Continue</string>
 	<string name="charCount">140</string>
     <string name="hdrConversations">Banters</string>
     <string name="hdrNewBanter">Create your new group for bantering</string>
@@ -35,7 +35,7 @@
 	<string name="liveMatches">Live Matches</string>
 	<string name="upcomingMatches">Upcoming Matches</string>
     <string name="sayhello">Hello!</string>
-    <string name="saythankyou">Thanks for downloading Boutline!</string>
+    <string name="justnow">Just now</string>
     <string name="swipeleft">Swipe left to find out what\'s in store. </string>
     <string name="welcomemessage">You are now a part of an elite community of sports fans. Here you can learn about, connect with and stay updated about your favorite sports and their fans. </string>
 </resources>

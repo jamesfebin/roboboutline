@@ -81,6 +81,6 @@ public class NewBanterActivity extends Activity {
 	public void onBackPressed() {
 		super.onBackPressed();
 		finish();
-		overridePendingTransition(R.anim.pushrightin, R.anim.pushrightout);
+		overridePendingTransition(R.anim.pushdownin, R.anim.pushdownout);
 	}
 }
