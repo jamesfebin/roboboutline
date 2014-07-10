@@ -3,8 +3,8 @@
     android:id="@+id/sportContainer"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingTop="15dp"
-    android:paddingBottom="15dp">
+    android:paddingTop="10dp"
+    android:paddingBottom="10dp">
 
     <ImageView
         android:contentDescription="@string/dummy"

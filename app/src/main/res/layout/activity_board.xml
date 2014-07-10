@@ -28,7 +28,7 @@
 		        android:layout_weight="1"
                 android:textSize="14sp"
                 android:clickable="false"
-		        android:hint="@string/whatshappening"		        
+		        android:hint="Tweet with #BRAvsARG"
 		        />
 	    <Button
 	        android:id="@+id/btnComposeDummy"

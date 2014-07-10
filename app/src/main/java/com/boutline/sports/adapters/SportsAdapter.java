@@ -72,13 +72,6 @@ public class SportsAdapter extends ArrayAdapter<Sport> {
         viewHolder.lblSportName.setText(sport.getSportName());
         viewHolder.lblSportDescription.setText(sport.getSportDescription());
         viewHolder.chkFollowStatus.setChecked(sport.getSportFollow());
-        //Remove the following
-        if(sport.getSportName().equals("Cricket")) {
-            viewHolder.imgSport.setImageDrawable(getContext().getResources().getDrawable(R.drawable.sport_cricket));
-        }
-        else{
-            viewHolder.imgSport.setImageDrawable(getContext().getResources().getDrawable(R.drawable.sport_football));
-        }
 
         tf = Typeface.createFromAsset(getContext().getAssets(), fontPath);
         btf = Typeface.createFromAsset(getContext().getAssets(), boldFontPath);
