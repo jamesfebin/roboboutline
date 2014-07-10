@@ -63,6 +63,12 @@ public class ChooseMatchActivity extends Activity {
         TextView lblLiveMatches = (TextView) findViewById(R.id.lblLiveMatches);
         TextView lblUpcomingMatches = (TextView) findViewById(R.id.lblUpcomingMatches);
         RelativeLayout container = (RelativeLayout) findViewById(R.id.container);
+        TextView lblLeftSports = (TextView) findViewById(R.id.lblLeftSports);
+        TextView lblLeftTournaments = (TextView) findViewById(R.id.lblLeftTournaments);
+        TextView lblLeftSchedule = (TextView) findViewById(R.id.lblLeftSchedule);
+        TextView lblLeftProfile = (TextView) findViewById(R.id.lblLeftProfile);
+        TextView lblLeftLogout = (TextView) findViewById(R.id.lblLeftLogout);
+        TextView lblProfileName = (TextView) findViewById(R.id.lblProfileName);
 
         // Set up the animations
 
@@ -99,6 +105,12 @@ public class ChooseMatchActivity extends Activity {
         lblTournamentName.setTypeface(btf);
         lblTournamentStartTime.setTypeface(btf);
         lblLiveMatches.setTypeface(btf);
+        lblLeftSports.setTypeface(btf);
+        lblLeftTournaments.setTypeface(btf);
+        lblLeftSchedule.setTypeface(btf);
+        lblLeftProfile.setTypeface(btf);
+        lblLeftLogout.setTypeface(btf);
+        lblProfileName.setTypeface(btf);
         lblUpcomingMatches.setTypeface(btf);
 
         // Set all the listeners

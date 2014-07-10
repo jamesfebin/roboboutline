@@ -116,7 +116,7 @@
                 android:gravity="center"
                 android:layout_gravity="center_horizontal"/>
             <TextView
-                android:id="@+id/profileName"
+                android:id="@+id/lblProfileName"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:text="Anand Satyan"
@@ -136,7 +136,7 @@
             android:orientation="vertical"
             android:paddingTop="40dp">
             <TextView
-                android:id="@+id/leftSports"
+                android:id="@+id/lblLeftSports"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="My Sports"
@@ -151,7 +151,7 @@
                 android:paddingRight="10dp"
                 android:background="#2C2D2D"/>
             <TextView
-                android:id="@+id/leftTournaments"
+                android:id="@+id/lblLeftTournaments"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Live Tournaments"
@@ -166,7 +166,7 @@
                 android:paddingRight="10dp"
                 android:background="#2C2D2D"/>
             <TextView
-                android:id="@+id/leftSchedule"
+                android:id="@+id/lblLeftSchedule"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Schedule"
@@ -181,7 +181,7 @@
                 android:paddingRight="10dp"
                 android:background="#2C2D2D"/>
             <TextView
-                android:id="@+id/leftProfile"
+                android:id="@+id/lblLeftProfile"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Profile"
@@ -196,7 +196,7 @@
                 android:paddingRight="10dp"
                 android:background="#2C2D2D"/>
             <TextView
-                android:id="@+id/leftLogout"
+                android:id="@+id/lblLeftLogout"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Logout"
