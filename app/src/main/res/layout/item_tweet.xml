@@ -2,25 +2,28 @@
     android:id="@+id/tweetContainer"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-    
-    <ImageView
-        android:id="@+id/imgPropic"
+
+    <com.makeramen.RoundedImageView
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/imgProPic"
         android:src="@drawable/dummy"
-        android:layout_width="75dp"
-        android:layout_height="75dp"
-        android:contentDescription="@string/dummy"
-        android:paddingTop="15dp"
-        android:paddingLeft="10dp"
-        android:paddingBottom="10dp"
-        />
+        android:scaleType="centerCrop"
+        app:corner_radius="40dip"
+        app:oval="true"
+        app:mutate_background="true"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:padding="10dp"
+         />
+
     
     <RelativeLayout
         android:layout_toRightOf="@id/imgPropic"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:paddingRight="10dp"
-         android:paddingTop="15dp"
-        android:paddingLeft="5dp"
+        android:paddingTop="10dp"
+        android:paddingLeft="70dp"
         android:paddingBottom="15dp">
     
 		    <TextView

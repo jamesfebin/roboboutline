@@ -5,40 +5,49 @@
     android:layout_height="match_parent"
     android:padding="15dp">
     <RelativeLayout
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/messagedetails">
-        <ImageView
-            android:id="@+id/imgPropic"
+        android:layout_width="wrap_content"
+        android:layout_height="fill_parent"
+        android:id="@+id/proPicContainer"
+        android:paddingLeft="5dp"
+        android:paddingBottom="10dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true">
+
+        <com.makeramen.RoundedImageView
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/imgProPic"
             android:src="@drawable/dummy"
+            android:scaleType="centerCrop"
+            app:corner_radius="30dip"
+            app:oval="true"
+            app:mutate_background="true"
             android:layout_width="50dp"
             android:layout_height="50dp"
-            android:paddingBottom="2dp"
-            android:contentDescription="@string/dummy"
             android:layout_alignParentBottom="true"
-            android:layout_alignParentRight="true"
             />
 
-        <TextView
-            android:id="@+id/lblMessage"
-            android:text=""
-            android:layout_toLeftOf="@id/imgPropic"
-            android:paddingTop="15dp"
-            android:paddingBottom="15dp"
-            android:paddingLeft="15dp"
-            android:paddingRight="25dp"
-            android:background="@drawable/rightbubble"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="#343D42"
-            />
+
     </RelativeLayout>
+
+    <TextView
+        android:id="@+id/lblMessage"
+        android:text=""
+        android:layout_toLeftOf="@id/proPicContainer"
+        android:paddingTop="15dp"
+        android:paddingBottom="15dp"
+        android:paddingLeft="15dp"
+        android:paddingRight="25dp"
+        android:background="@drawable/rightbubble"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="#343D42"
+        />
 
     <RelativeLayout
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/messagedetails"
-        android:paddingRight="64dp"
+        android:layout_below="@id/lblMessage"
+        android:paddingRight="75dp"
         android:gravity="right"
         >
         <TextView

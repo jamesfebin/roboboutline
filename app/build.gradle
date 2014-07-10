@@ -19,6 +19,11 @@ android {
     }
 }
 
+repositories {
+    mavenCentral()
+}
+
+
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     compile 'com.keysolutions:android-ddp-client:0.5.7.6@aar'
@@ -35,4 +40,5 @@ dependencies {
     compile 'com.mixpanel.android:mixpanel-android:4.2.1@aar'
     compile project(':libraries:facebook')
     compile files('libs/google-play-services.jar')
+    compile 'com.makeramen:roundedimageview:1.3.0'
 }

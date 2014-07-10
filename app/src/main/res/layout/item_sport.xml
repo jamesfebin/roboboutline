@@ -2,18 +2,20 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/sportContainer"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:paddingTop="10dp"
-    android:paddingBottom="10dp">
+    android:layout_height="match_parent">
 
-    <ImageView
-        android:contentDescription="@string/dummy"
-	    android:id="@+id/imgSport"
-	    android:src="@drawable/dummy"
-	    android:layout_width="50dp"
-	    android:layout_height="50dp"
-	    android:layout_alignParentLeft="true"
-    />
+    <com.makeramen.RoundedImageView
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/imgSport"
+        android:src="@drawable/dummy"
+        android:scaleType="centerCrop"
+        app:corner_radius="35dip"
+        app:oval="true"
+        app:mutate_background="true"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:padding="10dp"
+        />
 
     <LinearLayout
         android:id="@+id/sportDetails"
@@ -21,6 +23,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
+        android:gravity="center_vertical"
+        android:layout_centerVertical="true"
         android:padding="10dp">
 
 	    <TextView
@@ -48,8 +52,8 @@
         android:layout_height="wrap_content"
         android:checked="true"
         android:layout_alignParentRight="true"
-        android:paddingRight="20dp"
-        android:gravity="top"/>
+        android:layout_centerVertical="true"
+        android:paddingRight="20dp"/>
 
  </RelativeLayout>
 

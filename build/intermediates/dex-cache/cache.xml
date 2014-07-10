@@ -8,17 +8,17 @@
         revision="19.1.0"
         sha1="db2658f013fb163de4a99274c2eb9e17efe535d2"/>
     <item
-        dex="C:\Users\user\Documents\GitHub\roboboutline\app\build\intermediates\pre-dexed\debug\classes-9150479025a875d35ce7f029d3bc5a6b8f7679d8.jar"
-        jar="C:\Users\user\Documents\GitHub\roboboutline\build\intermediates\exploded-aar\com.mixpanel.android\mixpanel-android\4.2.1\classes.jar"
-        jumboMode="false"
-        revision="19.1.0"
-        sha1="521ef1984fc5592eafc4e948306ca30ed435e122"/>
-    <item
         dex="C:\Users\user\Documents\GitHub\roboboutline\app\build\intermediates\pre-dexed\debug\java-ddp-client-0.5.7.6-d63363b98543c9e66fa9be216d73c285f4b6a2ee.jar"
         jar="C:\Users\user\.gradle\caches\modules-2\files-2.1\com.keysolutions\java-ddp-client\0.5.7.6\b8255e838012d62397a17ea3fe8e0250f24ce4ff\java-ddp-client-0.5.7.6.jar"
         jumboMode="false"
         revision="19.1.0"
         sha1="b8255e838012d62397a17ea3fe8e0250f24ce4ff"/>
+    <item
+        dex="C:\Users\user\Documents\GitHub\roboboutline\app\build\intermediates\pre-dexed\debug\classes-9150479025a875d35ce7f029d3bc5a6b8f7679d8.jar"
+        jar="C:\Users\user\Documents\GitHub\roboboutline\build\intermediates\exploded-aar\com.mixpanel.android\mixpanel-android\4.2.1\classes.jar"
+        jumboMode="false"
+        revision="19.1.0"
+        sha1="521ef1984fc5592eafc4e948306ca30ed435e122"/>
     <item
         dex="C:\Users\user\Documents\GitHub\roboboutline\app\build\intermediates\pre-dexed\debug\classes-6fd443dd28970f26f9aa4ee9a053a6ac6413f028.jar"
         jar="C:\Users\user\Documents\GitHub\roboboutline\build\intermediates\exploded-aar\com.keysolutions\android-ddp-client\0.5.7.6\classes.jar"
@@ -44,17 +44,17 @@
         revision="19.1.0"
         sha1="1e5ba33c837d05dcca9dc40a0ab458f8599d7aef"/>
     <item
-        dex="C:\Users\user\Documents\GitHub\roboboutline\app\build\intermediates\pre-dexed\debug\commons-collections-3.2.1-b81b4b513ad8a25cb29c017213828c180a5a35ee.jar"
-        jar="C:\Users\user\.gradle\caches\modules-2\files-2.1\commons-collections\commons-collections\3.2.1\761ea405b9b37ced573d2df0d1e3a4e0f9edc668\commons-collections-3.2.1.jar"
-        jumboMode="false"
-        revision="19.1.0"
-        sha1="761ea405b9b37ced573d2df0d1e3a4e0f9edc668"/>
-    <item
         dex="C:\Users\user\Documents\GitHub\roboboutline\app\build\intermediates\pre-dexed\debug\classes-400968dff8bf2be44bd56f509994cdc9b0f86bd9.jar"
         jar="C:\Users\user\Documents\GitHub\roboboutline\build\intermediates\exploded-aar\roboboutline.libraries\facebook\unspecified\classes.jar"
         jumboMode="false"
         revision="19.1.0"
         sha1="97f311b41a8c25764182a3bc4a142165f79c1270"/>
+    <item
+        dex="C:\Users\user\Documents\GitHub\roboboutline\app\build\intermediates\pre-dexed\debug\commons-collections-3.2.1-b81b4b513ad8a25cb29c017213828c180a5a35ee.jar"
+        jar="C:\Users\user\.gradle\caches\modules-2\files-2.1\commons-collections\commons-collections\3.2.1\761ea405b9b37ced573d2df0d1e3a4e0f9edc668\commons-collections-3.2.1.jar"
+        jumboMode="false"
+        revision="19.1.0"
+        sha1="761ea405b9b37ced573d2df0d1e3a4e0f9edc668"/>
     <item
         dex="C:\Users\user\Documents\GitHub\roboboutline\app\build\intermediates\pre-dexed\debug\srp6a-1.4.1-bb4f5ed961a8fcbca604d350ac2d2e1fcb91a8fa.jar"
         jar="C:\Users\user\.gradle\caches\modules-2\files-2.1\com.nimbusds\srp6a\1.4.1\16322ce07c725cc66e178916ebc3c0c8db6a3145\srp6a-1.4.1.jar"
@@ -85,5 +85,11 @@
         jumboMode="false"
         revision="19.1.0"
         sha1="7676c0cb230efa6ac41c47867d372ed5913029d4"/>
+    <item
+        dex="C:\Users\user\Documents\GitHub\roboboutline\app\build\intermediates\pre-dexed\debug\classes-21cdba272366a59742a170761dce895dfb76c5e0.jar"
+        jar="C:\Users\user\Documents\GitHub\roboboutline\build\intermediates\exploded-aar\com.makeramen\roundedimageview\1.3.0\classes.jar"
+        jumboMode="false"
+        revision="19.1.0"
+        sha1="3812f89e64ae0e865df72574ffe7c5a516e1cc91"/>
 
 </pre-dex-items>
