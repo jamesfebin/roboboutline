@@ -238,8 +238,11 @@ context = getApplicationContext();
                     Toast.makeText(getApplicationContext(),"Unable to login via facebook",Toast.LENGTH_SHORT);
 
                     if(mixpanel!=null) {
+
                         mixpanel.track("Boutline Login Failed on FB Login Screen", Constants.info);
+
                     }
+
                 }
 
                 else if(intent.getAction().equals(MyDDPState.MESSAGE_ERROR))

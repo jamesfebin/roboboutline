@@ -12,26 +12,25 @@
 package com.boutline.sports.activities;
 
 import android.app.Activity;
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.content.LocalBroadcastManager;
+import android.util.Log;
 import android.view.View;
 
 import com.boutline.sports.application.Constants;
-import com.boutline.sports.helpers.Mayday;
 import com.boutline.sports.helpers.SmoothProgressBar;
 import com.boutline.sports.R;
-import android.content.BroadcastReceiver;
 import android.content.SharedPreferences.Editor;
-
 import com.boutline.sports.application.MyDDPState;
 
 import com.boutline.sports.models.FacebookUserInfo;
 import com.google.gson.Gson;
-import com.keysolutions.ddpclient.DDPClient;
+
 import com.keysolutions.ddpclient.android.DDPBroadcastReceiver;
 import com.keysolutions.ddpclient.android.DDPStateSingleton;
 import com.mixpanel.android.mpmetrics.MixpanelAPI;
@@ -42,7 +41,7 @@ import android.widget.Toast;
 public class MainActivity extends Activity {
 
     private static final String TAG = "Splash Screen";
-    private BroadcastReceiver mReceiver;
+    private BroadcastReceiver mReceiver = null;
     SharedPreferences preferences;
     public FacebookUserInfo fbUser=null;
     public MixpanelAPI mixpanel = null ;
@@ -63,7 +62,13 @@ public class MainActivity extends Activity {
 				
 		getActionBar().hide();
 
-	}
+
+
+
+
+    }
+
+
 
 
 	protected void goToWalkthrough0(){
@@ -90,8 +95,13 @@ public class MainActivity extends Activity {
     }
 
 
+
+
     @Override
     protected void onResume() {
+
+
+
 
 
         super.onResume();
@@ -113,11 +123,16 @@ public class MainActivity extends Activity {
 
        }
 
+
+
+
             mReceiver = new DDPBroadcastReceiver(MyDDPState.getInstance(), this) {
+
 
             @Override
             protected void onDDPConnect(DDPStateSingleton ddp) {
                 super.onDDPConnect(ddp);
+
 
 
                 if(fbUser==null){
@@ -134,11 +149,23 @@ public class MainActivity extends Activity {
 
             }
 
+
+                @Override
+                protected void onError(String title, String msg) {
+                    // Do Nothing
+                }
+
                 @Override
                 public void onReceive(Context context, Intent intent) {
-                    super.onReceive(context, intent);
+                  super.onReceive(context, intent);
+
 
                     Bundle bundle = intent.getExtras();
+
+                    Toast.makeText(getApplicationContext(),"GOT ACTION"+intent.getAction().toString(),Toast.LENGTH_SHORT).show();
+
+                    Log.e("This is what i got", intent.getAction().toString());
+
                     if (intent.getAction().equals("LOGINSUCCESS"))
                     {
 
@@ -184,17 +211,28 @@ public class MainActivity extends Activity {
                         if(mixpanel!=null) {
                             mixpanel.track("Boutline Login Failed on SplashScreen", Constants.info);
                         }
+
+
                     }
 
                     else if(intent.getAction().equals(MyDDPState.MESSAGE_ERROR))
                     {
-                        Toast.makeText(getApplicationContext(),"Internet connection not avaialable",Toast.LENGTH_SHORT);
+
+
+                        Intent mainIntent = new Intent(MainActivity.this, ChooseSportsActivity.class);
+                        startActivity(mainIntent);
+                        overridePendingTransition(R.anim.pushleftin, R.anim.pushleftout);
+                        finish();
+
+
+                        Toast.makeText(getApplicationContext(),"Internet connection not avaialable",Toast.LENGTH_SHORT).show();
+
                     }
-
-
                 }
             };
 
+
+        MyDDPState.getInstance().connectIfNeeded();
 
 
         LocalBroadcastManager.getInstance(this).registerReceiver(mReceiver,
@@ -209,15 +247,29 @@ public class MainActivity extends Activity {
         LocalBroadcastManager.getInstance(this).registerReceiver(mReceiver,
                 new IntentFilter(MyDDPState.MESSAGE_CONNECTION));
 
+
+
+
+
+
         if (MyDDPState.getInstance().getState() == MyDDPState.DDPSTATE.Closed) {
-            Toast.makeText(getApplicationContext(),"Internet connection not avaialable",Toast.LENGTH_SHORT);
-        }
+
+           // Toast.makeText(getApplicationContext(),"Internet connection not avaialable",Toast.LENGTH_SHORT).show();
+
+
+
+
 
         }
+
+
+
+    }
 
     @Override
     protected void onPause() {
         super.onPause();
+
 
         if (mReceiver != null) {
 

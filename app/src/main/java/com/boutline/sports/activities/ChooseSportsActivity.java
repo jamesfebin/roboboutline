@@ -243,6 +243,9 @@ public class ChooseSportsActivity extends Activity implements LoaderManager.Load
             }
         };
 
+        LocalBroadcastManager.getInstance(this).registerReceiver(mReceiver,
+                new IntentFilter("LOGINFAILED"));
+
 
         LocalBroadcastManager.getInstance(this).registerReceiver(mReceiver,
                 new IntentFilter(MyDDPState.MESSAGE_ERROR));

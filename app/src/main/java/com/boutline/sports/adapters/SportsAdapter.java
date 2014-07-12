@@ -14,6 +14,8 @@ import android.widget.RelativeLayout;
 import android.widget.SimpleCursorAdapter;
 import android.widget.TextView;
 
+import com.androidquery.AQuery;
+import com.androidquery.callback.ImageOptions;
 import com.boutline.sports.models.Sport;
 import com.boutline.sports.R;
 import java.util.ArrayList;
@@ -47,8 +49,6 @@ public class SportsAdapter extends SimpleCursorAdapter{
 
 
 
-
-
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {  
 
@@ -74,7 +74,6 @@ public class SportsAdapter extends SimpleCursorAdapter{
        }
 
 
-        Log.e("BOOLEAN",c.getString(c.getColumnIndex("followed")));
 
         viewHolder.lblSportName.setText(c.getString(c.getColumnIndex("name")));
         viewHolder.lblSportDescription.setText("sup");
@@ -85,12 +84,16 @@ public class SportsAdapter extends SimpleCursorAdapter{
         viewHolder.chkFollowStatus.setChecked(false);
 
         //Remove the following
-        if(c.getString(1).equals("Cricket")) {
-            viewHolder.imgSport.setImageDrawable(context.getResources().getDrawable(R.drawable.sport_cricket));
-        }
-        else{
-            viewHolder.imgSport.setImageDrawable(context.getResources().getDrawable(R.drawable.sport_football));
-        }
+
+
+            AQuery aq = new AQuery(context);
+            ImageOptions options = new ImageOptions();
+
+            String image_url = "https://boutline.com/"+c.getString(c.getColumnIndex("icon"));
+            Log.i("Image Url is ",image_url);
+        options.round = 35;
+
+        aq.id(viewHolder.imgSport).image(image_url,options);
 
 
         tf = Typeface.createFromAsset(context.getAssets(), fontPath);
@@ -108,5 +111,6 @@ public class SportsAdapter extends SimpleCursorAdapter{
        // Return the completed view to render on screen
        
         return convertView;
+
    }
 }

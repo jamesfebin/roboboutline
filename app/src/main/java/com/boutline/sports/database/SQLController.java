@@ -73,20 +73,6 @@ public class SQLController {
 
     }
 
-    public Cursor getSportsData()
-    {
-        String[] ALL_KEYS = new String[] {"_id","name","icon","followed"};
-        Cursor c=null;
-
-      c = database.query("SPORTS",ALL_KEYS,null,null,null,null,null);
-
-        if (c != null) {
-            c.moveToFirst();
-        }
-
-       return  c;
-
-    }
 
     public void clearSportsList()
     {
