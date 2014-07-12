@@ -5,17 +5,19 @@ import com.boutline.sports.database.SQLController;
 import com.boutline.sports.models.FacebookUserInfo;
 import com.boutline.sports.models.Sport;
 import com.boutline.sports.models.Tweet;
-import com.keysolutions.ddpclient.DDPListener;
-import com.keysolutions.ddpclient.android.DDPStateSingleton;
 
+import com.keysolutions.ddpclient.DDPListener;
+import com.keysolutions.ddpclient.DDPClient.DdpMessageField;
+import com.keysolutions.ddpclient.DDPClient.DdpMessageType;
+import com.keysolutions.ddpclient.android.DDPStateSingleton;
 import android.app.AlertDialog;
 import android.content.Context;
-
 import com.keysolutions.ddpclient.DDPClient;
 
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
+import android.os.Looper;
 import android.support.v4.content.LocalBroadcastManager;
 import android.util.Log;
 import android.widget.Toast;
@@ -24,11 +26,11 @@ import java.net.URISyntaxException;
 import java.sql.SQLException;
 import java.util.Collection;
 import java.util.Map;
+import java.util.Observable;
 import java.util.concurrent.ConcurrentHashMap;
 
-import com.keysolutions.ddpclient.DDPClient.DdpMessageField;
-import com.keysolutions.ddpclient.DDPClient.DdpMessageType;
-import com.keysolutions.ddpclient.DDPListener;
+import de.greenrobot.event.EventBus;
+
 
 /**
  * Created by Febin John James on 21/06/14.
@@ -43,12 +45,13 @@ public class MyDDPState extends DDPStateSingleton {
     SQLiteDatabase boutdb;
     static SQLController dbController;
     BoutDBHelper dbHelper;
+    EventBus eventBus;
+
 
     private MyDDPState(Context context) {
         // Constructor hidden because this is a singleton
         super(context);
         this.mContext = context;
-        sports = new ConcurrentHashMap<String, Sport>();
 
 
     }
@@ -58,39 +61,10 @@ public class MyDDPState extends DDPStateSingleton {
         if (mInstance == null) {
             // Create the instance
             mInstance = new MyDDPState(context);
-            dbController = new SQLController(context);
-             mContext = context;
-
-                try {
-                    dbController.open();
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                }
-
         }
-
-
     }
 
-    @Override
-    public void broadcastDDPError(String errorMsg) {
-       super.broadcastDDPError(errorMsg);
 
-
-
-        Log.e("ERROR IS",errorMsg);
-        Intent broadcastIntent = new Intent();
-        broadcastIntent.setAction(MESSAGE_ERROR);
-        broadcastIntent.putExtra(MESSAGE_EXTRA_MSG, "Unable to connect");
-
-
-
-        LocalBroadcastManager.getInstance(
-                MyApplication.getAppContext()).sendBroadcast(
-                broadcastIntent);
-
-
-    }
 
 
     public static MyDDPState getInstance() {
@@ -113,6 +87,7 @@ public class MyDDPState extends DDPStateSingleton {
         mDDPState = DDPSTATE.NotLoggedIn;
 
     }
+
 
     public void tagDevideId(String deviceId)
     {
