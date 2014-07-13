@@ -2,20 +2,14 @@
 <pre-dex-items>
 
     <item
-        dex="/Users/user/Documents/Development-Tools/ADT/sdk/extras/google/BoutlineSports/app/build/intermediates/pre-dexed/debug/eventbus-2.2.0-5cd43a712907533eb83090ce0c4cce627b42ff1a.jar"
-        jar="/Users/user/.gradle/caches/modules-2/files-2.1/de.greenrobot/eventbus/2.2.0/8957e80562a7e6ac5d9421e46e0898336c06c307/eventbus-2.2.0.jar"
+        dex="C:\Users\user\Documents\GitHub\roboboutline\app\build\intermediates\pre-dexed\debug\eventbus-2.2.0-806cc0b6af65af9fab879108aa25fd93bec4246b.jar"
+        jar="C:\Users\user\.gradle\caches\modules-2\files-2.1\de.greenrobot\eventbus\2.2.0\8957e80562a7e6ac5d9421e46e0898336c06c307\eventbus-2.2.0.jar"
         jumboMode="false"
         revision="19.1.0"
         sha1="8957e80562a7e6ac5d9421e46e0898336c06c307"/>
     <item
-        dex="/Users/user/Documents/Development-Tools/ADT/sdk/extras/google/BoutlineSports/app/build/intermediates/pre-dexed/debug/classes-2314d72685b09be2624ef6b6bd6e0ff19040c782.jar"
-        jar="/Users/user/Documents/Development-Tools/ADT/sdk/extras/google/BoutlineSports/build/intermediates/exploded-aar/com.makeramen/roundedimageview/1.3.0/classes.jar"
-        jumboMode="false"
-        revision="19.1.0"
-        sha1="3812f89e64ae0e865df72574ffe7c5a516e1cc91"/>
-    <item
-        dex="/Users/user/Documents/Development-Tools/ADT/sdk/extras/google/BoutlineSports/app/build/intermediates/pre-dexed/debug/android-query-full.0.26.7-316739f4b7c652ff3ceb04472b29ab5b2804a08b.jar"
-        jar="/Users/user/Documents/Development-Tools/ADT/sdk/extras/google/BoutlineSports/app/libs/android-query-full.0.26.7.jar"
+        dex="C:\Users\user\Documents\GitHub\roboboutline\app\build\intermediates\pre-dexed\debug\android-query-full.0.26.7-259d963f8c07f377fe9cc54a5f0dde8511e0757e.jar"
+        jar="C:\Users\user\Documents\GitHub\roboboutline\app\libs\android-query-full.0.26.7.jar"
         jumboMode="false"
         revision="19.1.0"
         sha1="4055bed8ed6f6aa573fa3e7d979c66101c48e182"/>
