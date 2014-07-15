@@ -42,6 +42,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.Window;
+import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.widget.Button;
 import android.widget.EditText;
@@ -65,7 +66,7 @@ public class BoardActivity extends FragmentActivity implements ActionBar.TabList
 	protected void onCreate(Bundle savedInstanceState) {
 		
 		// Set up the UI
-		
+
 		requestWindowFeature(Window.FEATURE_ACTION_BAR);
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_board);
