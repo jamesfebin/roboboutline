@@ -5,14 +5,17 @@
     android:layout_height="match_parent"
     tools:context="com.boutline.sports.activities.MainActivity"
     tools:ignore="MergeRootFrame"
-    android:background="#FFFFFF" >
+    android:background="#1c1c1c" >
 
     <ImageView
         android:id="@+id/splashimage"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
         android:scaleType="centerCrop"
-        android:src="@drawable/splashimage"/>
+        android:src="@drawable/whitelogo"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true"/>
+
     <com.boutline.sports.helpers.SmoothProgressBar
 	    xmlns:android="http://schemas.android.com/apk/res/android"
 	    xmlns:app="http://schemas.android.com/apk/res-auto"
