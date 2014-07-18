@@ -3,8 +3,7 @@
     android:id="@+id/container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#ffffff"
-    android:paddingTop="96dp">
+    android:background="#ffffff">
 
     <android.support.v4.view.ViewPager
         android:id="@+id/pager"
@@ -17,26 +16,31 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:orientation="horizontal"
-        android:padding="15dp"
         android:descendantFocusability="blocksDescendants"
-        android:background="@drawable/border">
+        android:background="#EFEFEF">
         
-		<TextView
-		        android:id="@+id/lblComposeDummy"
+		<EditText
+		        android:id="@+id/txtComposeDummy"
 		        android:layout_width="0dip"
 		        android:layout_height="wrap_content"
+		        android:padding="5dp"
+		        android:layout_margin="5dp"
 		        android:layout_weight="1"
                 android:textSize="14sp"
-                android:hint="Tweet with #BRAvsARG"
+                android:clickable="false"
+		        android:hint="Tweet with #BRAvsARG"
 		        />
-	    <TextView
-	        android:id="@+id/lblPostTweetDummy"
+	    <Button
+	        android:id="@+id/btnComposeDummy"
 	        android:layout_width="wrap_content"
 	        android:layout_height="wrap_content"
 	        android:layout_gravity="right"
+	        android:padding="5dp"
             android:textSize="14sp"
-	        android:text="Post"
-            />
+	        android:text="@string/dummy"
+            android:clickable="false"
+	        android:background="@drawable/send"
+	        />
     </LinearLayout>
     
 </RelativeLayout>

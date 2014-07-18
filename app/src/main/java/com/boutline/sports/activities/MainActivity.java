@@ -34,10 +34,6 @@ import com.google.gson.Gson;
 import com.keysolutions.ddpclient.android.DDPBroadcastReceiver;
 import com.keysolutions.ddpclient.android.DDPStateSingleton;
 import com.mixpanel.android.mpmetrics.MixpanelAPI;
-
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
-import android.widget.ImageView;
 import android.widget.Toast;
 
 
@@ -56,7 +52,7 @@ public class MainActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
-		ImageView splashimage = (ImageView)findViewById(R.id.splashimage);
+		
 		// Setup Progress Bar
 		
 		SmoothProgressBar mProgressBar;
@@ -65,11 +61,11 @@ public class MainActivity extends Activity {
 		mProgressBar.progressiveStart();
 				
 		getActionBar().hide();
-        Animation fadeinAnim = AnimationUtils.loadAnimation(this, R.anim.fadein);
-        fadeinAnim.setDuration(1000);
-        fadeinAnim.setRepeatCount(1);
-        fadeinAnim.setRepeatMode(1);
-        splashimage.startAnimation(fadeinAnim);
+
+
+
+
+
     }
 
 
