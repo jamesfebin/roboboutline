@@ -74,15 +74,6 @@ public class ChooseSportsActivity extends Activity implements LoaderManager.Load
         // define the controls
 
 		TextView lblChooseSport = (TextView)findViewById(R.id.lblChooseSport);
-		RelativeLayout container = (RelativeLayout) findViewById(R.id.container);
-
-        // Set up the animations
-
-        Animation fadeinAnim = AnimationUtils.loadAnimation(this, R.anim.fadein);
-        fadeinAnim.setDuration(1000);
-        fadeinAnim.setRepeatCount(1);
-        fadeinAnim.setRepeatMode(1);
-        container.startAnimation(fadeinAnim);
 
 		//Set up fonts
 		
@@ -96,6 +87,15 @@ public class ChooseSportsActivity extends Activity implements LoaderManager.Load
         loadermanager = getLoaderManager();
         populateListViewFromDb();
         loadermanager.initLoader(1,null,this);
+
+        // Set up the animations
+
+        RelativeLayout container = (RelativeLayout) findViewById(R.id.container);
+        Animation fadeinAnim = AnimationUtils.loadAnimation(this, R.anim.fadein);
+        fadeinAnim.setDuration(1000);
+        fadeinAnim.setRepeatCount(1);
+        fadeinAnim.setRepeatMode(1);
+        container.startAnimation(fadeinAnim);
 
         // Set all the listeners
 		
@@ -138,6 +138,53 @@ public class ChooseSportsActivity extends Activity implements LoaderManager.Load
                     Toast.makeText(getApplicationContext(),"Please choose atleast one sport to continue",Toast.LENGTH_SHORT).show();
 
                 }
+				String errorMessage = "Something went wrong. Try again.";
+				Boolean noSportSelected = false;
+				Boolean isSportsCollectionUpdated = true; //Change this to false later
+				btnSubmitSportsSelection.setText("Saving...");
+				btnSubmitSportsSelection.setText("Please Wait......");
+				Mayday chk = new Mayday(ChooseSportsActivity.this);
+				
+				//TODO find out if atleast one sport is selected and assign it to noSportSelected
+				
+				// Check if theres internet connection to update
+				
+				if(!chk.isConnectingToInternet()) 
+				{
+					errorMessage ="No internet connection. Try again.";
+					isSportsCollectionUpdated = false;
+					btnSubmitSportsSelection.setText("Continue");
+				}
+				
+				//Check if atleast one sport is selected
+				
+				if(noSportSelected){
+					isSportsCollectionUpdated = false;
+					errorMessage = "Select atleast one sport to continue.";
+					isSportsCollectionUpdated = false;
+					btnSubmitSportsSelection.setText("Continue");
+				}
+				
+				try {
+					//TODO store sports selections in the database and update sportsCollectionUpdated
+				}
+				catch(Exception e) {
+					isSportsCollectionUpdated = false;
+				}
+				
+				//Success:go to next activity, else show errorMessage
+			
+				if(isSportsCollectionUpdated){
+					btnSubmitSportsSelection.setText("Great!");
+					Intent mainIntent = new Intent(ChooseSportsActivity.this,ChooseTournamentActivity.class);
+			        startActivity(mainIntent);
+			        overridePendingTransition(R.anim.pushleftin, R.anim.pushleftout);
+				}
+				else{
+
+                    Toast.makeText(getApplicationContext(),errorMessage,Toast.LENGTH_SHORT).show();
+					btnSubmitSportsSelection.setText("Continue");
+				}
 			}
  
 		});
@@ -147,36 +194,22 @@ public class ChooseSportsActivity extends Activity implements LoaderManager.Load
 
 	public void populateListViewFromDb()
     {
-
       //  c = dbController.getSportsData();
-
-
-
         String[] fromFieldNames = new String[] {"name","followed"};
-
         int[] toViewIDs = new int[]
                 {R.id.lblSportName,R.id.chkFollowStatus};
-
         sportAdapter = new SportsAdapter(this,R.layout.item_sport,c,fromFieldNames,toViewIDs, 0);
         listView = (ListView) findViewById(R.id.lvSports);
         listView.setAdapter(sportAdapter);
-
-
-
-
     }
 
     @Override
     public void onLoadFinished(Loader<Cursor> cursorLoader, Cursor cursor) {
-
         sportAdapter.swapCursor(cursor);
-
-
     }
 
     @Override
     public Loader<Cursor> onCreateLoader(int i, Bundle bundle) {
-
         return new CursorLoader(this,
                 SportProvider.URI_SPORTS, Sport.FIELDS, null, null,
                 null);
@@ -185,9 +218,7 @@ public class ChooseSportsActivity extends Activity implements LoaderManager.Load
 
     @Override
     public void onLoaderReset(Loader<Cursor> cursorLoader) {
-
         sportAdapter.swapCursor(null);
-
         }
 
 	@Override
@@ -195,8 +226,6 @@ public class ChooseSportsActivity extends Activity implements LoaderManager.Load
         super.onResume();
         final Button btnSubmitSportsSelection = (Button) findViewById(R.id.btnSubmitSportsSelection);
         btnSubmitSportsSelection.setText("Continue");
-
-
         mReceiver = new DDPBroadcastReceiver(MyDDPState.getInstance(), this) {
 
             @Override
@@ -220,21 +249,15 @@ public class ChooseSportsActivity extends Activity implements LoaderManager.Load
             public void onReceive(Context context, Intent intent) {
 
                 super.onReceive(context, intent);
-
                 if(intent.getAction().equals(MyDDPState.MESSAGE_ERROR))
                 {
                     Toast.makeText(getApplicationContext(),"Internet connection not avaialable",Toast.LENGTH_SHORT);
                 }
-
-
-
             }
 
             @Override
             protected void onSubscriptionUpdate(String changeType, String subscriptionName, String docId) {
                 super.onSubscriptionUpdate(changeType, subscriptionName, docId);
-
-
             }
         };
 
@@ -261,6 +284,9 @@ public class ChooseSportsActivity extends Activity implements LoaderManager.Load
         mReceiver = null;
         }
         }
+
+
+
 
 	@Override
 	public void onBackPressed() {

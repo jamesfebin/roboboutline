@@ -2,8 +2,8 @@
 <pre-dex-items>
 
     <item
-        dex="/Users/user/Documents/Development-Tools/ADT/sdk/extras/google/BoutlineSports/app/build/intermediates/pre-dexed/debug/eventbus-2.2.0-5cd43a712907533eb83090ce0c4cce627b42ff1a.jar"
-        jar="/Users/user/.gradle/caches/modules-2/files-2.1/de.greenrobot/eventbus/2.2.0/8957e80562a7e6ac5d9421e46e0898336c06c307/eventbus-2.2.0.jar"
+        dex="C:\Users\user\Documents\GitHub\roboboutline\app\build\intermediates\pre-dexed\debug\eventbus-2.2.0-806cc0b6af65af9fab879108aa25fd93bec4246b.jar"
+        jar="C:\Users\user\.gradle\caches\modules-2\files-2.1\de.greenrobot\eventbus\2.2.0\8957e80562a7e6ac5d9421e46e0898336c06c307\eventbus-2.2.0.jar"
         jumboMode="false"
         revision="19.1.0"
         sha1="8957e80562a7e6ac5d9421e46e0898336c06c307"/>

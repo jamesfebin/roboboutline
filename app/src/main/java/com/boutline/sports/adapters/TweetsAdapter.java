@@ -32,7 +32,7 @@ public class TweetsAdapter extends ArrayAdapter<Tweet> {
         TextView lblTweetHandle;
         TextView lblTweetMessage;
         TextView lblTweetTime;
-        ImageView imgImageExists;
+        ImageView imgTweetImage;
     }
 
     public TweetsAdapter(Context context, ArrayList<Tweet> tweets) {
@@ -58,7 +58,7 @@ public class TweetsAdapter extends ArrayAdapter<Tweet> {
           viewHolder.lblTweetHandle = (TextView) convertView.findViewById(R.id.lblTweetHandle);
           viewHolder.lblTweetMessage = (TextView) convertView.findViewById(R.id.lblTweetMessage);
            viewHolder.lblTweetTime = (TextView) convertView.findViewById(R.id.lblTweetTime);
-          viewHolder.imgImageExists = (ImageView) convertView.findViewById(R.id.imgExists);
+          viewHolder.imgTweetImage = (ImageView) convertView.findViewById(R.id.imgTweetImage);
           convertView.setTag(viewHolder);
        } else {
            viewHolder = (ViewHolder) convertView.getTag();
@@ -77,20 +77,20 @@ public class TweetsAdapter extends ArrayAdapter<Tweet> {
        viewHolder.lblTweetUsername.setTypeface(btf);
        viewHolder.lblTweetHandle.setTypeface(tf);
        viewHolder.lblTweetTime.setTypeface(tf);
-       viewHolder.lblTweetMessage.setTypeface(btf);
+       viewHolder.lblTweetMessage.setTypeface(tf);
 
        if(tweet.getTweetPhotoUrl()==null){
-    	   viewHolder.imgImageExists.setVisibility(View.INVISIBLE);
+    	   viewHolder.imgTweetImage.setVisibility(View.GONE);
        }
        else{
-    	   viewHolder.imgImageExists.setVisibility(View.VISIBLE);
+    	   viewHolder.imgTweetImage.setVisibility(View.VISIBLE);
        }
-        Animation walkthroughAnim = AnimationUtils.loadAnimation(this.getContext(), R.anim.pushdownin);
+       /* Animation walkthroughAnim = AnimationUtils.loadAnimation(this.getContext(), R.anim.pushdownin);
         walkthroughAnim.setDuration(1000);
         walkthroughAnim.setRepeatCount(1);
         walkthroughAnim.setRepeatMode(1);
         walkthroughAnim.setZAdjustment(1);
-        convertView.startAnimation(walkthroughAnim);
+        convertView.startAnimation(walkthroughAnim);*/
        return convertView;
    }
 }

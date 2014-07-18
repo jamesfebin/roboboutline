@@ -42,10 +42,12 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.Window;
+import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.boutline.sports.adapters.TabPagerAdapter;
 import com.boutline.sports.R;
@@ -65,7 +67,7 @@ public class BoardActivity extends FragmentActivity implements ActionBar.TabList
 	protected void onCreate(Bundle savedInstanceState) {
 		
 		// Set up the UI
-		
+
 		requestWindowFeature(Window.FEATURE_ACTION_BAR);
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_board);
@@ -75,8 +77,8 @@ public class BoardActivity extends FragmentActivity implements ActionBar.TabList
 
 		ViewPager vpPager = (ViewPager) findViewById(R.id.pager);
 		LinearLayout composeLink = (LinearLayout) findViewById(R.id.composeLink);
-        Button btnComposeDummy = (Button)findViewById(R.id.btnComposeDummy);
-        EditText txtComposeDummy = (EditText)findViewById(R.id.txtComposeDummy);
+        TextView lblPostTweetDummy = (TextView)findViewById(R.id.lblPostTweetDummy);
+        TextView lblComposeDummy = (TextView)findViewById(R.id.lblComposeDummy);
         actionBar.setHomeButtonEnabled(false);
 		actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
 		
@@ -111,8 +113,8 @@ public class BoardActivity extends FragmentActivity implements ActionBar.TabList
 
         tf = Typeface.createFromAsset(getAssets(), fontPath);
         btf = Typeface.createFromAsset(getAssets(), boldFontPath);
-        btnComposeDummy.setTypeface(btf);
-        txtComposeDummy.setTypeface(btf);
+        lblPostTweetDummy.setTypeface(btf);
+        lblComposeDummy.setTypeface(btf);
 	     
 	     // Set up the click listeners
 	     
