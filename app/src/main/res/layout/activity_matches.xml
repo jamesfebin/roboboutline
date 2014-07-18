@@ -4,19 +4,17 @@
     android:layout_width="fill_parent"
     android:layout_height="match_parent"
     android:background="#ffffff">
-    
+
   	<RelativeLayout android:id="@+id/tourDetails"
   	    android:layout_width="fill_parent"
   	    android:layout_height="wrap_content"
         android:padding="10dp">
-        <com.makeramen.RoundedImageView
+
+        <ImageView
             xmlns:app="http://schemas.android.com/apk/res-auto"
             android:id="@+id/imgTournament"
             android:src="@drawable/dummy"
             android:scaleType="centerCrop"
-            app:corner_radius="35dip"
-            app:oval="true"
-            app:mutate_background="true"
             android:layout_width="70dp"
             android:layout_height="70dp"
             android:padding="5dp"
@@ -28,7 +26,7 @@
 	        android:layout_width="wrap_content"
 	        android:layout_height="wrap_content"
 	        android:orientation="vertical">
-	    
+
 		    <TextView
 		        android:id="@+id/lblTournamentName"
 		        android:text="FIFA World Cup"
@@ -36,7 +34,7 @@
 		        android:layout_height="wrap_content"
 		        android:textColor="#343D42"
 		        />
-		    
+
 		    <TextView
 		        android:id="@+id/lblTournamentStartTime"
 		        android:text="@string/dummy"
@@ -44,39 +42,49 @@
 		        android:layout_height="wrap_content"
 		        android:textColor="#9AA3A8"
 		        />
-		    
-	    </LinearLayout>    
+
+	    </LinearLayout>
   </RelativeLayout>
-  
-  <TextView 
-      android:layout_width="fill_parent"
-      android:layout_height="wrap_content"
-      android:id="@+id/lblLiveMatches"
-      android:text="@string/liveMatches"
-      android:layout_below="@id/tourDetails"
-      android:padding="10dp"
-     />
-  <ListView
-     android:id="@+id/lvLiveMatches"
-     android:layout_width="fill_parent"
-     android:layout_height="wrap_content"
-     android:layout_below="@id/lblLiveMatches"
-     />
-  <TextView 
-        android:layout_width="fill_parent"
+
+    <TextView
+        android:id="@+id/lblLiveMatches"
+        android:text="@string/lblLiveMatches"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/lblUpcomingMatches"
-        android:text="@string/upcomingMatches"
-        android:layout_below="@id/lvLiveMatches"
-        android:padding="10dp"
+        android:textColor="#9AA3A8"
+        android:layout_below="@id/tourDetails"
         />
-   <ListView
-     android:id="@+id/lvUpcomingMatches"
-     android:layout_width="fill_parent"
-     android:layout_height="wrap_content"
-     android:layout_below="@id/tourDetails"
-     />
-     
-     
+
+    <fragment xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/live_matches_fragment"
+        android:name="com.boutline.sports.fragments.LiveMatchesFragment"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/lblLiveMatches"
+        tools:context=".ChooseMatchesActivity"
+        tools:layout="@layout/fragment_live_matches"
+        />
+    <TextView
+        android:id="@+id/lblUpcomingMatches"
+        android:text="@string/lblUpcomingMatches"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="#9AA3A8"
+        android:layout_below="@id/live_matches_fragment"
+        />
+
+    <fragment xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/upcoming_matches_fragment"
+        android:name="com.boutline.sports.fragments.UpcomingMatchesFragment"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/lblUpcomingMatches"
+        tools:context=".ChooseMatchesActivity"
+        tools:layout="@layout/fragment_upcoming_matches"
+        />
+
+
  </RelativeLayout>
 

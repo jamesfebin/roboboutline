@@ -15,7 +15,8 @@
         android:textSize="16sp"
         android:textColor="@color/darkgray"
         />
-    
+
+
      <ListView
         android:id="@+id/lvTournaments"
         android:layout_width="fill_parent"
@@ -23,7 +24,7 @@
         android:layout_below="@id/lblChooseTournament"
         android:divider="@color/white"
       />
-     
+
      <TextView
          android:id="@+id/lblBlankSlate"
          android:layout_width="fill_parent" 

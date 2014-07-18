@@ -73,12 +73,12 @@ public class NewBanterActivity extends Activity {
 		//Sport sport = new Sport("123","123","123", true);
 		//arrayOfSports.add(sport);
 		//SportsAdapter adapter = null; // = new SportsAdapter(this, arrayOfSports);
-		ArrayList<Tournament> arrayOfTournaments = new ArrayList<Tournament>();
-		Tournament tournament = new Tournament("123","FIFA World Cup","May 13th, 4:30 PM","May 13th, 7:30 PM","#WorldCup", 1, true);
-		arrayOfTournaments.add(tournament);
-	    BanterTopicsAdapter adapter = new BanterTopicsAdapter(this, arrayOfTournaments);
-		ListView listView = (ListView) findViewById(R.id.lvSports);
-		listView.setAdapter(adapter);
+	//	ArrayList<Tournament> arrayOfTournaments = new ArrayList<Tournament>();
+	//	Tournament tournament = new Tournament("123","FIFA World Cup","May 13th, 4:30 PM","May 13th, 7:30 PM","#WorldCup", 1, true);
+	//	arrayOfTournaments.add(tournament);
+	  //  BanterTopicsAdapter adapter = new BanterTopicsAdapter(this, arrayOfTournaments);
+		//ListView listView = (ListView) findViewById(R.id.lvSports);
+		//listView.setAdapter(adapter);
 	}	
 	
 	@Override

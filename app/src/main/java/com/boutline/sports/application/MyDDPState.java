@@ -2,32 +2,37 @@ package com.boutline.sports.application;
 
 import com.boutline.sports.database.BoutDBHelper;
 import com.boutline.sports.database.SQLController;
+import com.boutline.sports.exceptions.NotConnectedToBoutline;
+import com.boutline.sports.exceptions.NotLoggedIn;
+import com.boutline.sports.jobs.Connect;
+import com.boutline.sports.jobs.Login;
+import com.boutline.sports.jobs.SendSportPreferences;
+import com.boutline.sports.jobs.SendTournamentPreferences;
 import com.boutline.sports.models.FacebookUserInfo;
+import com.boutline.sports.models.Match;
 import com.boutline.sports.models.Sport;
-import com.boutline.sports.models.Tweet;
 
+import com.boutline.sports.models.Tournament;
+import com.facebook.SharedPreferencesTokenCachingStrategy;
+import com.google.gson.Gson;
 import com.keysolutions.ddpclient.DDPListener;
 import com.keysolutions.ddpclient.DDPClient.DdpMessageField;
 import com.keysolutions.ddpclient.DDPClient.DdpMessageType;
 import com.keysolutions.ddpclient.android.DDPStateSingleton;
-import android.app.AlertDialog;
+
 import android.content.Context;
 import com.keysolutions.ddpclient.DDPClient;
+import com.path.android.jobqueue.JobManager;
 
-import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.sqlite.SQLiteDatabase;
-import android.os.Looper;
 import android.support.v4.content.LocalBroadcastManager;
 import android.util.Log;
-import android.widget.Toast;
 
 import java.net.URISyntaxException;
-import java.sql.SQLException;
-import java.util.Collection;
 import java.util.Map;
 import java.util.Observable;
-import java.util.concurrent.ConcurrentHashMap;
 
 import de.greenrobot.event.EventBus;
 
@@ -46,13 +51,14 @@ public class MyDDPState extends DDPStateSingleton {
     static SQLController dbController;
     BoutDBHelper dbHelper;
     EventBus eventBus;
+    SharedPreferences preferences;
+    JobManager jobManager;
 
 
     private MyDDPState(Context context) {
         // Constructor hidden because this is a singleton
         super(context);
         this.mContext = context;
-
 
     }
 
@@ -61,6 +67,7 @@ public class MyDDPState extends DDPStateSingleton {
         if (mInstance == null) {
             // Create the instance
             mInstance = new MyDDPState(context);
+
         }
     }
 
@@ -74,7 +81,7 @@ public class MyDDPState extends DDPStateSingleton {
     @Override
     public void createDDPCLient()
     {
-        String sMeteorServer = "boutline.com";
+        String sMeteorServer = "boutrep.cloudapp.net";
         Integer sMeteorPort = 80;
         try {
             mDDP = new DDPClient(sMeteorServer, sMeteorPort);
@@ -84,10 +91,85 @@ public class MyDDPState extends DDPStateSingleton {
                     + ":" + sMeteorPort);
         }
         getDDP().addObserver(this);
-        mDDPState = DDPSTATE.NotLoggedIn;
+        mDDPState = mDDPState.NotLoggedIn;
 
     }
 
+    @Override
+    public void update(Observable client, Object msg) {
+        super.update(client, msg);
+
+
+        if (msg instanceof Map<?, ?>) {
+            Map<String, Object> jsonFields = (Map<String, Object>) msg;
+            // handle msg types for DDP server->client msgs:
+            // https://github.com/meteor/meteor/blob/master/packages/livedata/DDP.md
+            String msgtype = (String) jsonFields
+                    .get(DDPClient.DdpMessageField.MSG);
+
+            String errormsg="";
+            if(jsonFields.containsKey("errormsg"))
+            {
+                errormsg = (String) jsonFields.get("errormsg");
+            }
+
+            if (msgtype == null) {
+                Log.i("NULL",msg.toString());
+                // ignore {"server_id":"GqrKrbcSeDfTYDkzQ"} web socket msgs
+                return;
+            } else if (msgtype.equals(DdpMessageType.ERROR)) {
+
+                if(errormsg.contains("Unknown websocket error (exception in callback?"))
+                {
+                    mDDPState = DDPSTATE.Closed;
+
+
+                    Log.e("MSG", msg.toString());
+                    reconnect();
+
+                }
+
+
+
+
+            } else if (msgtype.equals(DdpMessageType.CONNECTED)) {
+
+                Log.e("Conencted","Its connected");
+                mDDPState = DDPSTATE.Connected;
+
+
+                jobManager = MyApplication.getInstance().getJobManager();
+
+                jobManager.addJobInBackground(new Login());
+
+                broadcastConnectionState(mDDPState);
+            }
+            else if(msgtype.equals(DdpMessageType.CLOSED))
+            {
+                mDDPState = DDPSTATE.Closed;
+                Log.e("Connection Closed","connection closed");
+                broadcastDDPError("Connection closed");
+
+                reconnect();
+
+            }
+        }
+    }
+
+    public void reconnect()
+    {
+
+        jobManager = MyApplication.getInstance().getJobManager();
+        jobManager.addJobInBackground(new Connect());
+
+
+    }
+
+
+    public DDPSTATE getDDPState()
+    {
+        return mDDPState;
+    }
 
     public void tagDevideId(String deviceId)
     {
@@ -112,45 +194,58 @@ public class MyDDPState extends DDPStateSingleton {
 
         });
 
+    }
+
+
+    public void disconnect()
+    {
+
+        mDDP.disconnect();
 
     }
 
-    public void boutlineLogin(FacebookUserInfo fbUser)
+    public void followSport(final String sportId) throws Throwable
     {
-        Object[] parameters = new Object[1];
-        parameters[0]=fbUser;
 
-        mDDP.call("connectFacebookUser",parameters,new DDPListener(){
+        Object[] parameters = new Object[1];
+        parameters[0] = sportId;
+
+
+         mDDP.call("updateFollowSports", parameters, new DDPListener() {
+
 
             @Override
             public void onResult(Map<String, Object> resultFields) {
+
+                Log.e("RESPONSE", resultFields.toString());
                 super.onResult(resultFields);
                 if (resultFields.containsKey("result")) {
 
-                    Map<String, Object> result = (Map<String, Object>) resultFields
-                            .get(DdpMessageField.RESULT);
 
-                    if(result.containsKey("userId")) {
+                    String response = resultFields.get("result").toString();
 
-                        Intent broadcastIntent = new Intent();
-                        broadcastIntent.setAction("LOGINSUCCESS");
-                        broadcastIntent.putExtra("userId",
-                                result.get("userId").toString());
-                        LocalBroadcastManager.getInstance(
-                                MyApplication.getAppContext()).sendBroadcast(
-                                broadcastIntent);
-                    }
-                    else
-                    {
-                        Intent broadcastIntent = new Intent();
-                        broadcastIntent.setAction("LOGINFAILED");
-                        broadcastIntent.putExtra("Error",
-                               "Unable to Login");
-                        LocalBroadcastManager.getInstance(
-                                MyApplication.getAppContext()).sendBroadcast(
-                                broadcastIntent);
+                    Log.e("Respnse", response.toString());
+                    Log.e("Sport Preferences", response);
+
+                    if (response.matches("added") || response.matches("removed")) {
+
+
+                        // Do nothing
+
+
+                    } else {
+
+                        jobManager = MyApplication.getInstance().getJobManager();
+                        jobManager.addJobInBackground(new SendSportPreferences(sportId));
 
                     }
+
+
+                } else {
+
+
+                    jobManager = MyApplication.getInstance().getJobManager();
+                    jobManager.addJobInBackground(new SendSportPreferences(sportId));
 
 
                 }
@@ -165,6 +260,140 @@ public class MyDDPState extends DDPStateSingleton {
     }
 
 
+    public void followTournament(final String tournamentId) throws Throwable
+    {
+
+        Object[] parameters = new Object[1];
+        parameters[0] = tournamentId;
+
+
+        mDDP.call("updateFollowTournament", parameters, new DDPListener() {
+
+
+            @Override
+            public void onResult(Map<String, Object> resultFields) {
+
+                Log.e("RESPONSE", resultFields.toString());
+                super.onResult(resultFields);
+                if (resultFields.containsKey("result")) {
+
+
+                    String response = resultFields.get("result").toString();
+
+
+                    if (response.matches("added") || response.matches("removed")) {
+
+
+                        // Do nothing
+
+
+                    } else {
+
+                        jobManager = MyApplication.getInstance().getJobManager();
+                        jobManager.addJobInBackground(new SendTournamentPreferences(tournamentId));
+
+                    }
+
+
+                } else {
+
+
+                    jobManager = MyApplication.getInstance().getJobManager();
+                    jobManager.addJobInBackground(new SendTournamentPreferences(tournamentId));
+
+
+                }
+
+
+            }
+
+
+        });
+
+
+    }
+
+    public void boutlineLogin() throws Throwable {
+
+        FacebookUserInfo fbUser;
+
+
+        preferences = mContext.getSharedPreferences("boutlineData", Context.MODE_PRIVATE);
+
+
+        String storedFbInfoString = preferences.getString("fbUserInfo", null);
+        Gson gson = new Gson();
+
+        if(storedFbInfoString!=null) {
+
+            fbUser = gson.fromJson(storedFbInfoString, FacebookUserInfo.class);
+
+        }
+
+        else
+        {
+
+            Log.e("It's null","Null");
+            return;
+        }
+
+            if (mDDPState != mDDPState.LoggedIn)
+
+        {
+
+            Object[] parameters = new Object[1];
+            parameters[0] = fbUser;
+
+            mDDP.call("connectFacebookUser", parameters, new DDPListener() {
+
+                @Override
+                public void onResult(Map<String, Object> resultFields) {
+                    super.onResult(resultFields);
+                    if (resultFields.containsKey("result")) {
+
+                        Map<String, Object> result = (Map<String, Object>) resultFields
+                                .get(DdpMessageField.RESULT);
+                        if (result.containsKey("userId")) {
+
+                            mDDPState = mDDPState.LoggedIn;
+                            Intent broadcastIntent = new Intent();
+                            broadcastIntent.setAction("LOGINSUCCESS");
+                            broadcastIntent.putExtra("userId",
+                                    result.get("userId").toString());
+                            LocalBroadcastManager.getInstance(
+                                    MyApplication.getAppContext()).sendBroadcast(
+                                    broadcastIntent);
+                        } else {
+                            Intent broadcastIntent = new Intent();
+                            broadcastIntent.setAction("LOGINFAILED");
+                            broadcastIntent.putExtra("Error",
+                                    "Unable to Login");
+                            LocalBroadcastManager.getInstance(
+                                    MyApplication.getAppContext()).sendBroadcast(
+                                    broadcastIntent);
+                           mDDPState = mDDPState.NotLoggedIn;
+                        }
+
+
+                    }
+
+
+                }
+
+
+            });
+
+        }
+
+        else
+            {
+                Log.e("MyDDPState","already logged In");
+
+            }
+
+    }
+
+
 
     @Override
     public void broadcastSubscriptionChanged(String collectionName,
@@ -174,6 +403,7 @@ public class MyDDPState extends DDPStateSingleton {
 
         try {
             if (collectionName.equals("sports")) {
+
                 if (changetype.equals(DdpMessageType.ADDED)) {
 
                     Sport sport = new Sport(docId,getCollection(collectionName).get(docId));
@@ -183,9 +413,56 @@ public class MyDDPState extends DDPStateSingleton {
 
                 } else if (changetype.equals(DdpMessageType.REMOVED)) {
 
+
                 } else if (changetype.equals(DdpMessageType.UPDATED)) {
 
+                    Sport sport = new Sport(docId,getCollection(collectionName).get(docId));
+                    dbHelper.getInstance(mContext).putSport(sport);
+
                 }
+            }
+            else if(collectionName.equals("tournaments"))
+            {
+                if (changetype.equals(DdpMessageType.ADDED)) {
+
+                    Log.e("Item added","TOurnaments");
+
+                    Tournament tournament = new Tournament(docId, getCollection(collectionName).get(docId));
+                    dbHelper.getInstance(mContext).putTournament(tournament);
+
+                }  else if (changetype.equals(DdpMessageType.REMOVED)) {
+
+
+                } else if (changetype.equals(DdpMessageType.UPDATED)) {
+
+                    Tournament tournament = new Tournament(docId, getCollection(collectionName).get(docId));
+                    dbHelper.getInstance(mContext).putTournament(tournament);
+
+                }
+
+
+              }
+
+            else if(collectionName.equals("matches"))
+            {
+
+                if (changetype.equals(DdpMessageType.ADDED)) {
+
+                    Log.e("Item added","Matches");
+
+                    Match match = new Match(docId, getCollection(collectionName).get(docId));
+                    dbHelper.getInstance(mContext).putMatch(match);
+
+                }  else if (changetype.equals(DdpMessageType.REMOVED)) {
+
+
+                } else if (changetype.equals(DdpMessageType.UPDATED)) {
+
+                    Match match = new Match(docId, getCollection(collectionName).get(docId));
+                    dbHelper.getInstance(mContext).putMatch(match);
+
+                }
+
             }
        }
        catch (Exception E)

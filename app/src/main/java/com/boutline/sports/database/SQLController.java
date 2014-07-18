@@ -4,7 +4,6 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.util.Log;
 
 import com.boutline.sports.ContentProviders.SportProvider;
 import com.boutline.sports.models.Sport;
@@ -40,8 +39,6 @@ public class SQLController {
     }
 
     public void newSportInsert(String mDocId,Map<String, Object> mFields) {
-
-
 
 
         Cursor cursor = database.query("SPORTS", new String[] { "_id" },"_id" + "=?",

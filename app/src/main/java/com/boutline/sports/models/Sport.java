@@ -64,6 +64,7 @@ public class Sport {
         values.put(COL_ICON, fields.get("icon").toString());
         values.put(COL_FOLLOWED, (Boolean) fields.get("followed"));
         return values;
+
     }
 
     public Sport(String docId, Map<String, Object> fields) {

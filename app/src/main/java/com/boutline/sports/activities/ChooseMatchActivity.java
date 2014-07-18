@@ -23,33 +23,36 @@
 
 package com.boutline.sports.activities;
 
-import android.app.Activity;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.graphics.Typeface;
 import android.os.Bundle;
-import android.view.View;
-import android.view.View.OnClickListener;
+import android.support.v4.app.FragmentActivity;
+import android.support.v4.content.LocalBroadcastManager;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
-import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemClickListener;
-import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
-import com.boutline.sports.adapters.LiveMatchesAdapter;
-import com.boutline.sports.models.Match;
+import com.boutline.sports.application.MyDDPState;
+import com.boutline.sports.fragments.LiveMatchesFragment;
 import com.boutline.sports.R;
+import com.keysolutions.ddpclient.android.DDPBroadcastReceiver;
+import com.keysolutions.ddpclient.android.DDPStateSingleton;
 
-import java.util.ArrayList;
 
-
-public class ChooseMatchActivity extends Activity {
+public class ChooseMatchActivity extends FragmentActivity  {
 
     public String fontPath = "fonts/proxinova.ttf";
     public Typeface tf;
     public String boldFontPath = "fonts/proxinovabold.otf";
     public Typeface btf;
+    BroadcastReceiver mReceiver;
+    Context context;
+    String tournamentId;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -57,11 +60,14 @@ public class ChooseMatchActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_matches);
 
+        String tournamentName;
         //Declare the controls
         TextView lblTournamentName = (TextView) findViewById(R.id.lblTournamentName);
         TextView lblTournamentStartTime = (TextView) findViewById(R.id.lblTournamentStartTime);
+        /*
         TextView lblLiveMatches = (TextView) findViewById(R.id.lblLiveMatches);
         TextView lblUpcomingMatches = (TextView) findViewById(R.id.lblUpcomingMatches);
+        */
         RelativeLayout container = (RelativeLayout) findViewById(R.id.container);
 
         // Set up the animations
@@ -77,74 +83,88 @@ public class ChooseMatchActivity extends Activity {
         tf = Typeface.createFromAsset(getAssets(), fontPath);
         btf = Typeface.createFromAsset(getAssets(), boldFontPath);
 
-		// Populate the List View
-		
-		ArrayList<Match> arrayOfMatches = new ArrayList<Match>();
-		Match match = new Match("123","GER vs POR","4th July 9:30PM","4th July 11:30PM","Emirates Stadium","GERvsPOR","Salvador","123","123");
-		arrayOfMatches.add(match);
-		LiveMatchesAdapter liveMatchesAdapter = new LiveMatchesAdapter(this, arrayOfMatches);
-		ListView lvLiveMatches = (ListView) findViewById(R.id.lvLiveMatches);
-		ListView lvUpcomingMatches = (ListView) findViewById(R.id.lvUpcomingMatches);
-		RelativeLayout tourDetails = (RelativeLayout) findViewById(R.id.tourDetails);
-		lvLiveMatches.setAdapter(liveMatchesAdapter);
-		
-		ArrayList<Match> arrayOfUpcomingMatches = new ArrayList<Match>();
-		Match match2 = new Match("123","123","123","123","123","123","123","123","123");
-		arrayOfUpcomingMatches.add(match2);
-		LiveMatchesAdapter upcomingMatchesAdapter = new LiveMatchesAdapter(this, arrayOfMatches);
-		lvLiveMatches.setAdapter(upcomingMatchesAdapter);
-
         // Assign the font types
 
         lblTournamentName.setTypeface(btf);
         lblTournamentStartTime.setTypeface(btf);
-        lblLiveMatches.setTypeface(btf);
-        lblUpcomingMatches.setTypeface(btf);
 
-        // Set all the listeners
-		
-		tourDetails.setOnClickListener(new OnClickListener() {
-			@Override
-			public void onClick(View arg0) {
-				Intent intent = new Intent(ChooseMatchActivity.this,BoardActivity.class);
-				//TODO take user to tour board
-		        startActivity(intent);
-		        overridePendingTransition(R.anim.pushleftin, R.anim.pushleftout);
-			}
-		});
-		
-		lvLiveMatches.setOnItemClickListener(new OnItemClickListener() {
-			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-				// When clicked, show a toast with the TextView text
-				Match match = (Match) parent.getItemAtPosition(position);
-				Intent intent = new Intent(ChooseMatchActivity.this,BoardActivity.class);
-				intent.putExtra("matchId", match.getMatchId());
-				intent.putExtra("matchName",match.getMatchName());
-		        startActivity(intent);
-		        overridePendingTransition(R.anim.pushleftin, R.anim.pushleftout);
-				
-			}
-		});
-		
-		lvUpcomingMatches.setOnItemClickListener(new OnItemClickListener() {
-			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-				// When clicked, show a toast with the TextView text
-				Match match = (Match) parent.getItemAtPosition(position);
-				Intent intent = new Intent(ChooseMatchActivity.this,BoardActivity.class);
-				intent.putExtra("matchId", match.getMatchId());
-				intent.putExtra("matchName",match.getMatchName());
-		        startActivity(intent);
-		        overridePendingTransition(R.anim.pushleftin, R.anim.pushleftout);
-				
-			}
-		});
-		
-	}	
-	
-	@Override
+        tournamentId = getIntent().getExtras().getString("tournamentId");
+        tournamentName = getIntent().getExtras().getString("tournamentName");
+        lblTournamentName.setText(tournamentName);
+	}
+
+
+
+    @Override
 	public void onBackPressed() {
 		super.onBackPressed();
 		finish();
 		overridePendingTransition(R.anim.pushrightin, R.anim.pushrightout);
 	}
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        context = getApplicationContext();
+
+        mReceiver = new DDPBroadcastReceiver(MyDDPState.getInstance(), this) {
+
+            @Override
+            protected void onDDPConnect(DDPStateSingleton ddp) {
+                super.onDDPConnect(ddp);
+
+
+
+                Object[] parameters = new Object[2];
+                parameters[0] = tournamentId;
+                parameters[1] = 20;
+
+                //jobManager = MyApplication.getInstance().getJobManager();
+                //jobManager.addJobInBackground(new Subscribe(ddp,"userSportPreferences",parameters));
+
+                ddp.subscribe("tournamentLiveMatches",parameters);
+                ddp.subscribe("tournamenUpcomingMatches",parameters);
+
+
+            }
+
+            @Override
+            protected void onError(String title, String msg)
+            {
+
+            }
+
+            @Override
+            public void onReceive(Context context, Intent intent) {
+
+                super.onReceive(context, intent);
+
+                Bundle bundle = intent.getExtras();
+
+                if(intent.getAction().equals(MyDDPState.MESSAGE_ERROR))
+                {
+                    Toast.makeText(getApplicationContext(), "Internet connection not avaialable", Toast.LENGTH_SHORT);
+                }
+            }
+        };
+
+        LocalBroadcastManager.getInstance(this).registerReceiver(mReceiver,
+                new IntentFilter(MyDDPState.MESSAGE_ERROR));
+
+        // we want connection state change messages so we know we're logged in
+        LocalBroadcastManager.getInstance(this).registerReceiver(mReceiver,
+                new IntentFilter(MyDDPState.MESSAGE_CONNECTION));
+
+        if (MyDDPState.getInstance().getState() == MyDDPState.DDPSTATE.Closed) {
+            Toast.makeText(getApplicationContext(),"Internet connection not avaialable",Toast.LENGTH_SHORT);
+        }
+
+
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+    }
 }

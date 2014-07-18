@@ -23,17 +23,21 @@ import android.util.Log;
 import android.view.View;
 
 import com.boutline.sports.application.Constants;
+import com.boutline.sports.application.MyApplication;
 import com.boutline.sports.helpers.SmoothProgressBar;
 import com.boutline.sports.R;
 import android.content.SharedPreferences.Editor;
 import com.boutline.sports.application.MyDDPState;
 
+import com.boutline.sports.jobs.Connect;
 import com.boutline.sports.models.FacebookUserInfo;
 import com.google.gson.Gson;
 
 import com.keysolutions.ddpclient.android.DDPBroadcastReceiver;
 import com.keysolutions.ddpclient.android.DDPStateSingleton;
 import com.mixpanel.android.mpmetrics.MixpanelAPI;
+import com.path.android.jobqueue.JobManager;
+
 import android.widget.Toast;
 
 
@@ -45,7 +49,7 @@ public class MainActivity extends Activity {
     SharedPreferences preferences;
     public FacebookUserInfo fbUser=null;
     public MixpanelAPI mixpanel = null ;
-
+    JobManager jobManager;
     private Context context;
 
     @Override
@@ -61,10 +65,6 @@ public class MainActivity extends Activity {
 		mProgressBar.progressiveStart();
 				
 		getActionBar().hide();
-
-
-
-
 
     }
 
@@ -123,17 +123,12 @@ public class MainActivity extends Activity {
 
        }
 
-
-
-
             mReceiver = new DDPBroadcastReceiver(MyDDPState.getInstance(), this) {
 
 
             @Override
             protected void onDDPConnect(DDPStateSingleton ddp) {
                 super.onDDPConnect(ddp);
-
-
 
                 if(fbUser==null){
 
@@ -143,7 +138,9 @@ public class MainActivity extends Activity {
                 }
                 else{
 
-                    MyDDPState.getInstance().boutlineLogin(fbUser);
+                 // Commented code are precious..
+                 // MyDDPState.getInstance().boutlineLogin();
+
 
                 }
 
@@ -232,6 +229,10 @@ public class MainActivity extends Activity {
             };
 
 
+       // There are two ways of doing this..
+       // jobManager = MyApplication.getInstance().getJobManager();
+       // jobManager.addJobInBackground(new Connect());
+
         MyDDPState.getInstance().connectIfNeeded();
 
 
@@ -248,23 +249,39 @@ public class MainActivity extends Activity {
                 new IntentFilter(MyDDPState.MESSAGE_CONNECTION));
 
 
-
-
-
-
-        if (MyDDPState.getInstance().getState() == MyDDPState.DDPSTATE.Closed) {
+        if (MyDDPState.getInstance().getDDPState()== MyDDPState.DDPSTATE.Closed) {
 
            // Toast.makeText(getApplicationContext(),"Internet connection not avaialable",Toast.LENGTH_SHORT).show();
 
+        }
+        else if(MyDDPState.getInstance().getDDPState() == DDPStateSingleton.DDPSTATE.LoggedIn)
+        {
+            boolean hasChoseSport=false;
 
+            if(!hasChoseSport)
+            {
 
+                Intent mainIntent = new Intent(MainActivity.this, ChooseSportsActivity.class);
+                startActivity(mainIntent);
+                overridePendingTransition(R.anim.pushleftin, R.anim.pushleftout);
+                finish();
 
+            }
+            else {
 
+                Intent mainIntent = new Intent(MainActivity.this, ChooseTournamentActivity.class);
+                startActivity(mainIntent);
+                overridePendingTransition(R.anim.pushleftin, R.anim.pushleftout);
+                finish();
+            }
         }
 
 
 
+
+
     }
+
 
     @Override
     protected void onPause() {
