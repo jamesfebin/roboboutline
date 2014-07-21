@@ -36,15 +36,10 @@ import com.google.gson.Gson;
 import com.keysolutions.ddpclient.android.DDPBroadcastReceiver;
 import com.keysolutions.ddpclient.android.DDPStateSingleton;
 import com.mixpanel.android.mpmetrics.MixpanelAPI;
-<<<<<<< HEAD
-=======
 import com.path.android.jobqueue.JobManager;
-
-
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
->>>>>>> 32aee3d04bb2ca445408220206691472eba0d62f
 import android.widget.Toast;
 
 
@@ -73,18 +68,6 @@ public class MainActivity extends Activity {
 				
 		getActionBar().hide();
 
-<<<<<<< HEAD
-
-
-
-
-=======
-        Animation fadeinAnim = AnimationUtils.loadAnimation(this, R.anim.fadein);
-        fadeinAnim.setDuration(1000);
-        fadeinAnim.setRepeatCount(1);
-        fadeinAnim.setRepeatMode(1);
-        splashimage.startAnimation(fadeinAnim);
->>>>>>> 32aee3d04bb2ca445408220206691472eba0d62f
     }
 
 
