@@ -24,13 +24,17 @@ package com.boutline.sports.activities;
 
 import android.app.ActionBar;
 import android.app.Activity;
+import android.app.LoaderManager;
 import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.CursorLoader;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.Loader;
 import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
+import android.database.Cursor;
 import android.graphics.Typeface;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -48,12 +52,18 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
+import android.widget.SimpleCursorAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.boutline.sports.ContentProviders.SportProvider;
+import com.boutline.sports.ContentProviders.TournamentProvider;
+import com.boutline.sports.adapters.SportsAdapter;
 import com.boutline.sports.adapters.TournamentsAdapter;
 import com.boutline.sports.application.MyDDPState;
+import com.boutline.sports.database.SQLController;
 import com.boutline.sports.helpers.Mayday;
+import com.boutline.sports.models.Sport;
 import com.boutline.sports.models.Tournament;
 import com.boutline.sports.R;
 import com.google.android.gms.common.ConnectionResult;
@@ -61,12 +71,13 @@ import com.google.android.gms.common.GooglePlayServicesUtil;
 import com.google.android.gms.gcm.GoogleCloudMessaging;
 import com.keysolutions.ddpclient.android.DDPBroadcastReceiver;
 import com.keysolutions.ddpclient.android.DDPStateSingleton;
+import com.path.android.jobqueue.JobManager;
 //import com.tjeannin.apprate.AppRate;
 
 import java.io.IOException;
 import java.util.ArrayList;
 
-public class ChooseTournamentActivity extends Activity {
+public class ChooseTournamentActivity extends Activity implements LoaderManager.LoaderCallbacks<Cursor> {
 
 	public String fontPath = "fonts/proxinova.ttf";
 	public Typeface tf;
@@ -82,7 +93,12 @@ public class ChooseTournamentActivity extends Activity {
     private String TAG ="Choose Tournaments";
     Context context;
     private BroadcastReceiver mReceiver;
-
+    SQLController dbController;
+    Cursor c;
+    LoaderManager loadermanager;
+    JobManager jobManager;
+    SimpleCursorAdapter tournamenentAdapter;
+    ListView listView;
 
 
 
@@ -122,35 +138,29 @@ public class ChooseTournamentActivity extends Activity {
         tf = Typeface.createFromAsset(getAssets(), fontPath);
         btf = Typeface.createFromAsset(getAssets(), boldFontPath);
 		lblChooseTournament.setTypeface(btf);
-		
-			
-		// Populate the List View
-		
-		ArrayList<Tournament> arrayOfTournaments = new ArrayList<Tournament>();
-		Tournament tournament = new Tournament("123","Indian Premier League","30th June","6th July","#PepsiIPL", 2, true);
-		arrayOfTournaments.add(tournament);
-        Tournament tournament2 = new Tournament("124","FIFA World Cup","30th June","6th July","#PepsiIPL", 2, true);
-        arrayOfTournaments.add(tournament2);
-		if(arrayOfTournaments.size()==0){
-			lblChooseTournament.setVisibility(View.INVISIBLE);
-			lblBlankSlate.setVisibility(View.VISIBLE);
-		}
-		TournamentsAdapter adapter = new TournamentsAdapter(this, arrayOfTournaments);
-		ListView listView = (ListView) findViewById(R.id.lvTournaments);
-		listView.setAdapter(adapter);
+
+
+        loadermanager = getLoaderManager();
+        populateListViewFromDb();
+        loadermanager.initLoader(1,null,this);
+
+/*
 		listView.setOnItemClickListener(new OnItemClickListener() {
 			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 				// When clicked, show a toast with the TextView text
-				Tournament tournament = (Tournament) parent.getItemAtPosition(position);
-				
+			Cursor cursor = (Cursor) parent.getItemAtPosition(position+1);
+
+                //cursor.move(position);
+
+
 				Intent intent = new Intent(ChooseTournamentActivity.this,ChooseMatchActivity.class);
-				intent.putExtra("tournamentId", tournament.getTournamentId());
-				intent.putExtra("tournamentName",tournament.getTournamentName());
+				intent.putExtra("tournamentId", cursor.getString(cursor.getColumnIndex("_id")));
 		        startActivity(intent);
 		        overridePendingTransition(R.anim.pushleftin, R.anim.pushleftout);
-				
+
 			}
 		});
+		*/
 		/*
 		new AppRate(this)
 	    .setMinDaysUntilPrompt(7)
@@ -158,7 +168,27 @@ public class ChooseTournamentActivity extends Activity {
 	    .setShowIfAppHasCrashed(false)
 	    .init();*/
 		
-	}	
+	}
+
+    public void populateListViewFromDb()
+    {
+
+
+
+
+        String[] fromFieldNames = new String[] {"name","followed","from_date","till_date"};
+
+        int[] toViewIDs = new int[]
+                {R.id.lblTournamentName,R.id.chkFollowStatus,R.id.lblTournamentStartTime,R.id.lblTournamentStartTime};
+
+        tournamenentAdapter = new TournamentsAdapter(this,R.layout.item_tournament,c,fromFieldNames,toViewIDs, 0);
+        listView = (ListView) findViewById(R.id.lvTournaments);
+        listView.setAdapter(tournamenentAdapter);
+
+
+
+
+    }
 	
 	@Override
 	public void onBackPressed() {
@@ -297,6 +327,15 @@ public class ChooseTournamentActivity extends Activity {
                 }
 
 
+                Object[] parameters = new Object[1];
+                parameters[0] = 20;
+
+                //jobManager = MyAp plication.getInstance().getJobManager();
+                //jobManager.addJobInBackground(new Subscribe(ddp,"userTournamentPreferences",parameters));
+
+                ddp.subscribe("userTournamentPreferences",parameters);
+
+
 
             }
 
@@ -372,5 +411,24 @@ public class ChooseTournamentActivity extends Activity {
 		        return super.onOptionsItemSelected(item);
 		    }
 	}
-	
+
+    @Override
+    public Loader<Cursor> onCreateLoader(int i, Bundle bundle) {
+        return new CursorLoader(this,
+                TournamentProvider.URI_TOURNAMENTS, Tournament.FIELDS, null, null,
+                null);
+    }
+
+    @Override
+    public void onLoadFinished(Loader<Cursor> cursorLoader, Cursor cursor) {
+
+        tournamenentAdapter.swapCursor(cursor);
+        c=cursor;
+    }
+
+    @Override
+    public void onLoaderReset(Loader<Cursor> cursorLoader) {
+        tournamenentAdapter.swapCursor(null);
+
+    }
 }

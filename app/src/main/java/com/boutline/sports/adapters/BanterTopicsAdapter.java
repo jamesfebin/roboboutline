@@ -71,8 +71,8 @@ public class BanterTopicsAdapter extends ArrayAdapter<Tournament> {
        
        // Populate the data into the template view using the data object
        
-       viewHolder.lblTournamentName.setText(tournament.getTournamentName());
-       viewHolder.chkFollowStatus.setChecked(tournament.getTournamentFollow());
+       viewHolder.lblTournamentName.setText("");
+       viewHolder.chkFollowStatus.setChecked(false);
        tf = Typeface.createFromAsset(getContext().getAssets(), fontPath);
        btf = Typeface.createFromAsset(getContext().getAssets(), boldFontPath);
        viewHolder.lblTournamentName.setTypeface(btf);

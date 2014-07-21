@@ -46,10 +46,12 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.boutline.sports.application.Constants;
+import com.boutline.sports.application.MyApplication;
 import com.boutline.sports.helpers.Mayday;
 import com.boutline.sports.helpers.OnSwipeTouchListener;
 import com.boutline.sports.helpers.SmoothProgressBar;
 import com.boutline.sports.R;
+import com.boutline.sports.jobs.Login;
 import com.boutline.sports.models.FacebookUserInfo;
 import com.facebook.HttpMethod;
 import com.facebook.Request;
@@ -76,6 +78,7 @@ import com.boutline.sports.application.MyDDPState;
 import com.keysolutions.ddpclient.android.DDPBroadcastReceiver;
 import com.keysolutions.ddpclient.android.DDPStateSingleton;
 import com.mixpanel.android.mpmetrics.MixpanelAPI;
+import com.path.android.jobqueue.JobManager;
 
 public class FacebookLogin extends Activity {
 
@@ -98,6 +101,8 @@ public class FacebookLogin extends Activity {
     private Context context;
 
     public MixpanelAPI mixpanel = null ;
+
+    JobManager jobManager;
     @Override
 	protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -198,8 +203,9 @@ public class FacebookLogin extends Activity {
 	protected void onResume() {
 		super.onResume();
 
+     jobManager = MyApplication.getInstance().getJobManager();
 
-context = getApplicationContext();
+     context = getApplicationContext();
      mixpanel=MixpanelAPI.getInstance(getApplicationContext(), Constants.MIXPANEL_TOKEN);
 
         mReceiver = new BroadcastReceiver() {
@@ -493,7 +499,7 @@ context = getApplicationContext();
         editor.putString("fbUserInfo",json);
         editor.commit();
 
-        MyDDPState.getInstance().boutlineLogin(fbUser);
+        jobManager.addJobInBackground(new Login());
 
 
     }

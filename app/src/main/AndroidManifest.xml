@@ -125,6 +125,20 @@
             android:enabled="true"
             android:exported="true" >
         </provider>
+        <provider
+            android:name="com.boutline.sports.ContentProviders.TournamentProvider"
+            android:authorities="com.boutline.tournaments.provider"
+            android:multiprocess="true"
+            android:enabled="true"
+            android:exported="true" >
+        </provider>
+        <provider
+            android:name="com.boutline.sports.ContentProviders.MatchProvider"
+            android:authorities="com.boutline.matches.provider"
+            android:multiprocess="true"
+            android:enabled="true"
+            android:exported="true" >
+        </provider>
     </application>
 
 </manifest>

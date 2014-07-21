@@ -7,14 +7,11 @@
     android:padding="10dp">
 
 
-    <com.makeramen.RoundedImageView
+    <ImageView
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:id="@+id/imgTeamA"
         android:src="@drawable/dummy"
         android:scaleType="centerCrop"
-        app:corner_radius="35dip"
-        app:oval="true"
-        app:mutate_background="true"
         android:layout_width="70dp"
         android:layout_height="70dp"
         android:padding="5dp"
@@ -55,15 +52,12 @@
 		    
 	    </LinearLayout>
 
-    <com.makeramen.RoundedImageView
+    <ImageView
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:id="@+id/imgTeamB"
         android:layout_alignParentRight="true"
         android:src="@drawable/dummy"
         android:scaleType="centerCrop"
-        app:corner_radius="35dip"
-        app:oval="true"
-        app:mutate_background="true"
         android:layout_width="70dp"
         android:layout_height="70dp"
         android:padding="5dp"

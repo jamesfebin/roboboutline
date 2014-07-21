@@ -16,8 +16,14 @@ import android.widget.TextView;
 
 import com.androidquery.AQuery;
 import com.androidquery.callback.ImageOptions;
+import com.boutline.sports.application.MyApplication;
+import com.boutline.sports.application.MyDDPState;
+import com.boutline.sports.database.BoutDBHelper;
+import com.boutline.sports.jobs.SendSportPreferences;
 import com.boutline.sports.models.Sport;
 import com.boutline.sports.R;
+import com.path.android.jobqueue.JobManager;
+
 import java.util.ArrayList;
 
 public class SportsAdapter extends SimpleCursorAdapter{
@@ -26,6 +32,12 @@ public class SportsAdapter extends SimpleCursorAdapter{
 	public Typeface tf;
 	public String boldFontPath = "fonts/proxinovabold.otf";
 	public Typeface btf;
+    JobManager jobManager;
+
+    private Context context;
+    private int layout;
+    BoutDBHelper dbHelper;
+
     private static class ViewHolder {
         TextView lblSportName;
         TextView lblSportDescription;
@@ -33,8 +45,6 @@ public class SportsAdapter extends SimpleCursorAdapter{
         ImageView imgSport;
         RelativeLayout sportContainer;
     }
-    private Context context;
-    private int layout;
 
 
 
@@ -43,7 +53,6 @@ public class SportsAdapter extends SimpleCursorAdapter{
         super(context, layout, c, from, to, flags);
         this.context = context;
         this.layout = layout;
-
 
     }
 
@@ -54,62 +63,83 @@ public class SportsAdapter extends SimpleCursorAdapter{
 
         Cursor c = getCursor();
 
-       // Check if an existing view is being reused, otherwise inflate the view
-       final ViewHolder viewHolder; // view lookup cache stored in tag
-       if (convertView == null) {
-          viewHolder = new ViewHolder();
-          LayoutInflater inflater = LayoutInflater.from(context);
-          convertView = inflater.inflate(R.layout.item_sport, parent, false);
-          viewHolder.lblSportName = (TextView) convertView.findViewById(R.id.lblSportName);
-          viewHolder.lblSportDescription = (TextView) convertView.findViewById(R.id.lblSportDescription);
-          viewHolder.chkFollowStatus = (CheckBox) convertView.findViewById(R.id.chkFollowStatus);
-          viewHolder.imgSport = (ImageView) convertView.findViewById(R.id.imgSport);
-          viewHolder.sportContainer = (RelativeLayout) convertView.findViewById(R.id.sportContainer);
+        if(c.moveToPosition(position)) {
+            // Check if an existing view is being reused, otherwise inflate the view
+            final ViewHolder viewHolder; // view lookup cache stored in tag
+            if (convertView == null) {
+                viewHolder = new ViewHolder();
+                LayoutInflater inflater = LayoutInflater.from(context);
+                convertView = inflater.inflate(R.layout.item_sport, parent, false);
+                viewHolder.lblSportName = (TextView) convertView.findViewById(R.id.lblSportName);
+                viewHolder.lblSportDescription = (TextView) convertView.findViewById(R.id.lblSportDescription);
+                viewHolder.chkFollowStatus = (CheckBox) convertView.findViewById(R.id.chkFollowStatus);
+                viewHolder.imgSport = (ImageView) convertView.findViewById(R.id.imgSport);
+                viewHolder.sportContainer = (RelativeLayout) convertView.findViewById(R.id.sportContainer);
 
-          convertView.setTag(viewHolder);
-          	
-       } 
-       else {
-           viewHolder = (ViewHolder) convertView.getTag();
-       }
+                convertView.setTag(viewHolder);
+
+            } else {
+                viewHolder = (ViewHolder) convertView.getTag();
+            }
 
 
+            viewHolder.lblSportName.setText(c.getString(c.getColumnIndex("name")));
+            viewHolder.lblSportDescription.setText("sup");
 
-        viewHolder.lblSportName.setText(c.getString(c.getColumnIndex("name")));
-        viewHolder.lblSportDescription.setText("sup");
+            if (c.getInt(c.getColumnIndex("followed")) == 1)
+                viewHolder.chkFollowStatus.setChecked(true);
+            else
+                viewHolder.chkFollowStatus.setChecked(false);
 
-        if(c.getInt(c.getColumnIndex("followed"))==1)
-        viewHolder.chkFollowStatus.setChecked(true);
-        else
-        viewHolder.chkFollowStatus.setChecked(false);
-
-        //Remove the following
+            //Remove the following
 
 
             AQuery aq = new AQuery(context);
             ImageOptions options = new ImageOptions();
 
-            String image_url = "https://boutline.com/"+c.getString(c.getColumnIndex("icon"));
-            Log.i("Image Url is ",image_url);
-        options.round = 35;
+            String image_url = "https://boutline.com/" + c.getString(c.getColumnIndex("icon"));
+            Log.i("Image Url is ", image_url);
+            options.round = 35;
 
-        aq.id(viewHolder.imgSport).image(image_url,options);
+            aq.id(viewHolder.imgSport).image(image_url, options);
 
 
-        tf = Typeface.createFromAsset(context.getAssets(), fontPath);
-        btf = Typeface.createFromAsset(context.getAssets(), boldFontPath);
-        viewHolder.lblSportName.setTypeface(btf);
-        viewHolder.lblSportDescription.setTypeface(btf);
+            tf = Typeface.createFromAsset(context.getAssets(), fontPath);
+            btf = Typeface.createFromAsset(context.getAssets(), boldFontPath);
+            viewHolder.lblSportName.setTypeface(btf);
+            viewHolder.lblSportDescription.setTypeface(btf);
 
-        viewHolder.sportContainer.setOnClickListener(new View.OnClickListener() {
-           @Override
-           public void onClick(View arg0) {
-               viewHolder.chkFollowStatus.setChecked(!(viewHolder.chkFollowStatus.isChecked()));
-           }
-        });
+            final String sportId = c.getString(c.getColumnIndex("_id"));
 
-       // Return the completed view to render on screen
-       
+            viewHolder.sportContainer.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View arg0) {
+                    viewHolder.chkFollowStatus.setChecked(!(viewHolder.chkFollowStatus.isChecked()));
+
+                    Log.i("Choose to follow/unfollow", sportId);
+
+                    jobManager = MyApplication.getInstance().getJobManager();
+                    jobManager.addJobInBackground(new SendSportPreferences(sportId));
+                    dbHelper.getInstance(context).updateFollowSport(viewHolder.chkFollowStatus.isChecked(), sportId);
+
+
+                }
+            });
+
+            viewHolder.chkFollowStatus.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View arg0) {
+                    Log.i("Choose to follow/unfollow", sportId);
+
+                    jobManager = MyApplication.getInstance().getJobManager();
+                    jobManager.addJobInBackground(new SendSportPreferences(sportId));
+                    dbHelper.getInstance(context).updateFollowSport(viewHolder.chkFollowStatus.isChecked(), sportId);
+
+                }
+            });
+
+            // Return the completed view to render on screen
+        }
         return convertView;
 
    }

@@ -15,7 +15,6 @@ import android.database.DataSetObserver;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v4.content.LocalBroadcastManager;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -24,26 +23,26 @@ import android.view.Window;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
-import android.widget.CursorAdapter;
+import android.widget.CheckBox;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.SimpleCursorAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.content.CursorLoader;
 import android.content.Loader;
 import com.boutline.sports.ContentProviders.SportProvider;
 import com.boutline.sports.adapters.SportsAdapter;
+import com.boutline.sports.adapters.TournamentsAdapter;
+import com.boutline.sports.application.MyApplication;
 import com.boutline.sports.application.MyDDPState;
 import com.boutline.sports.database.SQLController;
 import com.boutline.sports.helpers.Mayday;
+import com.boutline.sports.jobs.Subscribe;
 import com.boutline.sports.models.Sport;
 import com.boutline.sports.R;
 import com.keysolutions.ddpclient.android.DDPBroadcastReceiver;
 import com.keysolutions.ddpclient.android.DDPStateSingleton;
-
-import java.sql.SQLException;
-import java.util.ArrayList;
+import com.path.android.jobqueue.JobManager;
 
 public class ChooseSportsActivity extends Activity implements LoaderManager.LoaderCallbacks<Cursor>  {
 	
@@ -57,10 +56,10 @@ public class ChooseSportsActivity extends Activity implements LoaderManager.Load
     ListView listView;
     Cursor c;
     SQLController dbController;
-    DataSetObserver mDataSetObserver;
 
     LoaderManager loadermanager;
 
+    JobManager jobManager;
 
 
 
@@ -103,6 +102,42 @@ public class ChooseSportsActivity extends Activity implements LoaderManager.Load
 		btnSubmitSportsSelection.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View arg0) {
+
+
+
+
+                int i;
+                int flag=0;
+                CheckBox cb;
+
+                for(i=0;i< listView.getCount();i++)
+                {
+
+                    cb = (CheckBox) listView.getChildAt(i).findViewById(R.id.chkFollowStatus);
+
+                    if(cb.isChecked())
+                    {
+                        flag = 1;
+                    }
+
+
+                }
+                if(flag == 1)
+
+                {
+                    btnSubmitSportsSelection.setText("Saving...");
+                    btnSubmitSportsSelection.setText("Please Wait......");
+
+                    Intent mainIntent = new Intent(ChooseSportsActivity.this, ChooseTournamentActivity.class);
+                    startActivity(mainIntent);
+                    overridePendingTransition(R.anim.pushleftin, R.anim.pushleftout);
+                }
+                else
+                {
+
+                    Toast.makeText(getApplicationContext(),"Please choose atleast one sport to continue",Toast.LENGTH_SHORT).show();
+
+                }
 				String errorMessage = "Something went wrong. Try again.";
 				Boolean noSportSelected = false;
 				Boolean isSportsCollectionUpdated = true; //Change this to false later
@@ -146,7 +181,8 @@ public class ChooseSportsActivity extends Activity implements LoaderManager.Load
 			        overridePendingTransition(R.anim.pushleftin, R.anim.pushleftout);
 				}
 				else{
-					showError(errorMessage);
+
+                    Toast.makeText(getApplicationContext(),errorMessage,Toast.LENGTH_SHORT).show();
 					btnSubmitSportsSelection.setText("Continue");
 				}
 			}
@@ -197,11 +233,21 @@ public class ChooseSportsActivity extends Activity implements LoaderManager.Load
                 super.onDDPConnect(ddp);
                 Object[] parameters = new Object[1];
                 parameters[0] = 100;
+                //jobManager = MyApplication.getInstance().getJobManager();
+
+                //jobManager.addJobInBackground(new Subscribe(ddp,"userSportPreferences",parameters));
+
                 ddp.subscribe("userSportPreferences",parameters);
+
+            }
+
+            @Override
+            protected void onError(String title, String msg) {
             }
 
             @Override
             public void onReceive(Context context, Intent intent) {
+
                 super.onReceive(context, intent);
                 if(intent.getAction().equals(MyDDPState.MESSAGE_ERROR))
                 {
@@ -215,8 +261,6 @@ public class ChooseSportsActivity extends Activity implements LoaderManager.Load
             }
         };
 
-        LocalBroadcastManager.getInstance(this).registerReceiver(mReceiver,
-                new IntentFilter("LOGINFAILED"));
 
 
         LocalBroadcastManager.getInstance(this).registerReceiver(mReceiver,
@@ -225,12 +269,25 @@ public class ChooseSportsActivity extends Activity implements LoaderManager.Load
         // we want connection state change messages so we know we're logged in
         LocalBroadcastManager.getInstance(this).registerReceiver(mReceiver,
                 new IntentFilter(MyDDPState.MESSAGE_CONNECTION));
+
+
     }
 
-	public void showError(String msg){
-		Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
-	}
-	
+
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        if(mReceiver!=null) {
+            LocalBroadcastManager.getInstance(this).unregisterReceiver(mReceiver);
+
+        mReceiver = null;
+        }
+        }
+
+
+
+
 	@Override
 	public void onBackPressed() {
 		super.onBackPressed();
