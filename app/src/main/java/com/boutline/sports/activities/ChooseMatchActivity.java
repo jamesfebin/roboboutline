@@ -23,6 +23,7 @@
 
 package com.boutline.sports.activities;
 
+import android.app.Activity;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -31,6 +32,7 @@ import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.content.LocalBroadcastManager;
+import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.RelativeLayout;
@@ -56,6 +58,7 @@ public class ChooseMatchActivity extends FragmentActivity  {
     Context context;
     String tournamentId;
 
+    RelativeLayout tournamentLayout;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 			
@@ -77,7 +80,7 @@ public class ChooseMatchActivity extends FragmentActivity  {
         TextView lblLeftProfile = (TextView) findViewById(R.id.lblLeftProfile);
         TextView lblLeftLogout = (TextView) findViewById(R.id.lblLeftLogout);
         TextView lblProfileName = (TextView) findViewById(R.id.lblProfileName);
-    TextView lblLiveMatches = (TextView) findViewById(R.id.lblLiveMatches);
+        TextView lblLiveMatches = (TextView) findViewById(R.id.lblLiveMatches);
         TextView lblUpcomingMatches = (TextView) findViewById(R.id.lblUpcomingMatches);
 
         // Set up the animations
@@ -101,6 +104,23 @@ public class ChooseMatchActivity extends FragmentActivity  {
         tournamentId = getIntent().getExtras().getString("tournamentId");
         tournamentName = getIntent().getExtras().getString("tournamentName");
         lblTournamentName.setText(tournamentName);
+
+        final String type="tournament";
+
+        tournamentLayout = (RelativeLayout) findViewById(R.id.tourDetails);
+
+        tournamentLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                        Intent intent = new Intent(context, BoardActivity.class);
+                        intent.putExtra("mtId",tournamentId);
+                        intent.putExtra("type",type);
+                        startActivity(intent);
+                        overridePendingTransition(R.anim.pushleftin, R.anim.pushleftout);
+
+            }
+        });
 
 
         lblLiveMatches.setTypeface(btf);
@@ -139,8 +159,6 @@ public class ChooseMatchActivity extends FragmentActivity  {
             protected void onDDPConnect(DDPStateSingleton ddp) {
                 super.onDDPConnect(ddp);
 
-
-
                 Object[] parameters = new Object[2];
                 parameters[0] = tournamentId;
                 parameters[1] = 20;
@@ -169,7 +187,7 @@ public class ChooseMatchActivity extends FragmentActivity  {
 
                 if(intent.getAction().equals(MyDDPState.MESSAGE_ERROR))
                 {
-                    Toast.makeText(getApplicationContext(), "Internet connection not avaialable", Toast.LENGTH_SHORT);
+                    Toast.makeText(getApplicationContext(), "Internet connection not avaialable", Toast.LENGTH_SHORT).show();
                 }
             }
         };
@@ -191,5 +209,11 @@ public class ChooseMatchActivity extends FragmentActivity  {
     @Override
     protected void onPause() {
         super.onPause();
+        if (mReceiver != null) {
+
+            LocalBroadcastManager.getInstance(this).unregisterReceiver(mReceiver);
+            mReceiver = null;
+        }
+
     }
 }

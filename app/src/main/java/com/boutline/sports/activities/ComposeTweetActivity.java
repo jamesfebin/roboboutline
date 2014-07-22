@@ -25,7 +25,8 @@ package com.boutline.sports.activities;
 
 import android.app.ActionBar;
 import android.app.Activity;
-import android.content.Intent;
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
@@ -35,11 +36,18 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.boutline.sports.models.Tweet;
+import com.androidquery.AQuery;
+import com.androidquery.callback.ImageOptions;
+import com.boutline.sports.application.MyApplication;
+import com.boutline.sports.helpers.Mayday;
+import com.boutline.sports.jobs.GetTwitterUserInfo;
+import com.boutline.sports.jobs.UpdateStatus;
 import com.boutline.sports.R;
+import com.path.android.jobqueue.JobManager;
 
 public class ComposeTweetActivity extends Activity {
 	
@@ -48,6 +56,8 @@ public class ComposeTweetActivity extends Activity {
     public Typeface tf;
     public String boldFontPath = "fonts/proxinovabold.otf";
     public Typeface btf;
+    Mayday mayday;
+    JobManager jobManager;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -62,7 +72,7 @@ public class ComposeTweetActivity extends Activity {
         TextView lblTweetCharCount = (TextView)findViewById(R.id.lblTweetCharCount);
         TextView lblTweetUsername = (TextView)findViewById(R.id.lblTweetUsername);
         TextView lblTweetHandle = (TextView)findViewById(R.id.lblTweetHandle);
-
+        ImageView profilePic = (ImageView) findViewById(R.id.imgPropic);
         // Set up controls
 		txtTweetMessage.setText(getMatchHashTag());
 		lblTweetCharCount.setText(String.valueOf(140-getMatchHashTag().length()));
@@ -76,49 +86,81 @@ public class ComposeTweetActivity extends Activity {
         lblTweetUsername.setTypeface(btf);
         lblTweetHandle.setTypeface(btf);
 
+        jobManager = MyApplication.getInstance().getJobManager();
+
+        mayday = new Mayday(getApplicationContext());
+
+        if(mayday.hasTwitterCredentials()) {
+            SharedPreferences preferences = this.getSharedPreferences("boutlineData", Context.MODE_PRIVATE);
+
+            String userHandle = preferences.getString("userHandle",null);
+            String fullName = preferences.getString("fullName",null);
+            String profileImageUrl = preferences.getString("profileImageUrl",null);
+
+
+            if(userHandle!= null && fullName !=null && profileImageUrl!=null) {
+                lblTweetHandle.setText(userHandle);
+                lblTweetUsername.setText(fullName);
+
+                AQuery aq = new AQuery(getApplicationContext());
+                ImageOptions options = new ImageOptions();
+                options.round = 35;
+                aq.id(profilePic).image(profileImageUrl, options);
+            }
+            else
+            {
+
+                jobManager.addJobInBackground(new GetTwitterUserInfo(mayday.getTwitterAccessToken(),mayday.getTwitterAccessTokenSecret()));
+
+
+            }
+
+
+
+        }
+        else
+        {
+            mayday.askForTwitterCredentials();
+        }
+
+
 		//Set up the listeners
-		
+
+
 		txtTweetMessage.addTextChangedListener(mTextEditorWatcher);
 		btnPostTweet.setOnClickListener(new OnClickListener() {
 				@Override
 				public void onClick(View arg0){	
 					
-					// Create Tweet object here					
-					Tweet tweet = new Tweet(null, null, null, null, null, txtTweetMessage.getText().toString(), null, null); 
+					// Create Tweet object here
+                String tweet = txtTweetMessage.getText().toString();
 					Boolean isValid = validateTweet(tweet);
 					if(isValid) {
-						postToTwitter(tweet);
-						Intent mainIntent = new Intent(ComposeTweetActivity.this, BoardActivity.class);
-				        startActivity(mainIntent);
-				        overridePendingTransition(R.anim.pushdownin, R.anim.pushdownout);
+
+                    jobManager.addJobInBackground(new UpdateStatus(mayday.getTwitterAccessToken(),mayday.getTwitterAccessTokenSecret(),tweet));
+                    Toast.makeText(getApplicationContext(),"Tweet posted",Toast.LENGTH_SHORT).show();
+                        finish();
 					}
 				}	 
 		});
+
+
+
+
 	}	
 	
 	
 	
-	public Boolean validateTweet(Tweet tweet){
+	public Boolean validateTweet(String tweet){
 		Boolean isValid = true;
-		if(tweet.tweetMessage.length()==0 || tweet.tweetMessage==""||tweet.tweetMessage==null){
+		if(tweet.length()==0 || tweet==""||tweet==null){
 			Toast.makeText(this, "Tweet cannot be blank.", Toast.LENGTH_SHORT).show();
 			isValid=false;
 		}
 		return isValid;
 	}
 	
-	public Boolean postToTwitter(Tweet tweet){
-		Boolean tweetPosted = false;
-		try{
-			// Do the post to Twitter work here
-		}
-		catch(Exception e){
-			String errorMessage = "Unable to post to Twitter. Try again.";
-			// error handling happens here
-			Toast.makeText(this, errorMessage, Toast.LENGTH_SHORT).show();
-		}
-		return tweetPosted;
-	}
+
 	
 	// Show character count for limiting tweet length
 	

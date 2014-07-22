@@ -10,9 +10,11 @@ import android.util.Log;
 import com.boutline.sports.ContentProviders.MatchProvider;
 import com.boutline.sports.ContentProviders.SportProvider;
 import com.boutline.sports.ContentProviders.TournamentProvider;
+import com.boutline.sports.ContentProviders.TweetProvider;
 import com.boutline.sports.models.Match;
 import com.boutline.sports.models.Sport;
 import com.boutline.sports.models.Tournament;
+import com.boutline.sports.models.Tweet;
 
 /**
  * Created by user on 07/07/14.
@@ -48,6 +50,8 @@ public class BoutDBHelper extends SQLiteOpenHelper {
         db.execSQL(Sport.CREATE_TABLE);
         db.execSQL(Tournament.CREATE_TABLE);
         db.execSQL(Match.CREATE_TABLE);
+        db.execSQL(Tweet.CreateTable);
+
         int i=0;
 
         for(i=0;i<34;i++) {
@@ -370,5 +374,74 @@ public class BoutDBHelper extends SQLiteOpenHelper {
 
     }
 
+
+
+    public synchronized boolean putTweet(Tweet tweet) {
+        boolean success = false;
+        int result = 0;
+        final SQLiteDatabase db = this.getWritableDatabase();
+
+        Cursor cursor = db.query(Tweet.TABLE_NAME, new String[] { "_id" },"_id" + "=?",
+                new String[] { tweet.mDocId }, null, null, null, null);
+
+
+        if (cursor.getCount() > 0) {
+            // Then update
+
+
+            result += db.update(Tweet.TABLE_NAME, tweet.getContent(),
+                    Tweet.COL_ID + " IS ?",
+                    new String[] { tweet.mDocId });
+        }
+
+
+        if (result > 0) {
+            success = true;
+        } else {
+            // Update failed or wasn't possible, insert instead
+            final long id = db.insert(Tweet.TABLE_NAME, null,
+                    tweet.getContent());
+
+            success = true;
+        }
+
+        if(success)
+        {
+            notifyProviderOnTweetChange(tweet.type);
+
+        }
+        return success;
+    }
+
+    public synchronized int removeTweet(final Tweet tweet) {
+
+        final SQLiteDatabase db = this.getWritableDatabase();
+
+        final int result = db.delete(Tweet.TABLE_NAME,
+                Tweet.COL_ID + " IS ?",
+                new String[] { tweet.mDocId });
+
+        notifyProviderOnTweetChange(tweet.type);
+
+        return result;
+    }
+
+    private void notifyProviderOnTweetChange(String type) {
+
+
+        // Type must be implemented later
+
+        mcontext.getContentResolver().notifyChange(
+                TweetProvider.URI_Tweets_Normal, null, false);
+
+
+        mcontext.getContentResolver().notifyChange(
+                TweetProvider.URI_Tweets_Media, null, false);
+
+
+        mcontext.getContentResolver().notifyChange(
+                TweetProvider.URI_Tweets_Expert, null, false);
+
+    }
 
 }

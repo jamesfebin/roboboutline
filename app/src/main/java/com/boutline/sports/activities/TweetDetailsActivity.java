@@ -49,12 +49,13 @@ public class TweetDetailsActivity extends Activity {
 		setContentView(R.layout.activity_tweetdetails);
 		ImageView tweetPhoto = (ImageView)findViewById(R.id.imgTweetPicUrl);
 		tweetPhoto.setVisibility(View.INVISIBLE);  //By default image doesnt exist in the tweet
-		Tweet tweet = new Tweet("123",null,"Anand Satyan",null,"@anandsatyan","This is a tweet","30th July, 4:30 PM","123");
+		//Tweet tweet = new Tweet("123",null,"Anand Satyan",null,"@anandsatyan","This is a tweet","30th July, 4:30 PM","123");
 		TextView lblTweetUsername = (TextView)findViewById(R.id.lblTweetUsername);
 		TextView lblTweetHandle = (TextView)findViewById(R.id.lblTweetHandle);
 		TextView lblTweetMessage = (TextView)findViewById(R.id.lblTweetMessage);
 		TextView lblTweetDateTime = (TextView)findViewById(R.id.lblTweetDateTime);
-		
+
+        /*
 		lblTweetUsername.setText(tweet.getTweetUsername());
 		lblTweetHandle.setText(tweet.getTweetHandle());
 		lblTweetMessage.setText(tweet.getTweetMessage());
@@ -73,7 +74,7 @@ public class TweetDetailsActivity extends Activity {
         lblTweetHandle.setTypeface(tf);
         lblTweetMessage.setTypeface(btf);
         lblTweetDateTime.setTypeface(tf);
-		
+		*/
 	}	
 	
 	@Override

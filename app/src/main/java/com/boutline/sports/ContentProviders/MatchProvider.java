@@ -51,8 +51,6 @@ public class MatchProvider extends ContentProvider {
         Cursor result = null;
 
         if (uri.toString().startsWith(MATCH_BASE)) {
-
-
             final String id = uri.getLastPathSegment();
             result = BoutDBHelper
                     .getInstance(getContext())
@@ -61,11 +59,9 @@ public class MatchProvider extends ContentProvider {
                             Match.COL_ID + " IS ?",
                             new String[] { id }, null, null,
                             null, null);
-
             result.setNotificationUri(getContext().getContentResolver(), URI_MATCHES);
         }
         else if (URI_MATCHES.equals(uri)) {
-
             result = BoutDBHelper
                     .getInstance(getContext())
                     .getReadableDatabase()
@@ -80,7 +76,6 @@ public class MatchProvider extends ContentProvider {
         {
 
             final String tournamentId = uri.getLastPathSegment();
-
             long unixTimeNow = System.currentTimeMillis() / 1000L;
             Log.e("Unixtime now",unixTimeNow+"");
 
@@ -90,7 +85,6 @@ public class MatchProvider extends ContentProvider {
                     .query(Match.TABLE_NAME, Match.FIELDS, " tournament_id = '"+tournamentId+"' AND unixtime <="+unixTimeNow+" AND end_unixtime>="+unixTimeNow, null, null,
                             null, Match.COL_MATCHSTARTTIME, null);
             result.setNotificationUri(getContext().getContentResolver(), URI_LIVE_MATCHES);
-
 
         }
         else if(uri.toString().startsWith(UPCOMING_MATCHES_FILTER))

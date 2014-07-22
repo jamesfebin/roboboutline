@@ -93,7 +93,6 @@ public class LiveMatchesFragment extends Fragment implements LoaderManager.Loade
     public Loader<Cursor> onCreateLoader(int id, Bundle args) {
         String tournamentId = getActivity().getIntent().getExtras().getString("tournamentId");
 
-
         return new CursorLoader(getActivity(),
                 Uri.parse(MatchProvider.URI_LIVE_MATCHES+"/"+tournamentId), Match.FIELDS, null, null,
                 null);

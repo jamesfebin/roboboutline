@@ -251,7 +251,7 @@ public class ChooseSportsActivity extends Activity implements LoaderManager.Load
                 super.onReceive(context, intent);
                 if(intent.getAction().equals(MyDDPState.MESSAGE_ERROR))
                 {
-                    Toast.makeText(getApplicationContext(),"Internet connection not avaialable",Toast.LENGTH_SHORT);
+                    Toast.makeText(getApplicationContext(),"Internet connection not avaialable",Toast.LENGTH_SHORT).show();
                 }
             }
 

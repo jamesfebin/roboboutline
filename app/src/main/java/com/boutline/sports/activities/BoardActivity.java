@@ -32,10 +32,14 @@ package com.boutline.sports.activities;
 import android.app.ActionBar;
 import android.app.ActionBar.Tab;
 import android.app.FragmentTransaction;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
+import android.support.v4.content.LocalBroadcastManager;
 import android.support.v4.view.ViewPager;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -48,9 +52,13 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.boutline.sports.adapters.TabPagerAdapter;
 import com.boutline.sports.R;
+import com.boutline.sports.application.MyDDPState;
+import com.keysolutions.ddpclient.android.DDPBroadcastReceiver;
+import com.keysolutions.ddpclient.android.DDPStateSingleton;
 
 public class BoardActivity extends FragmentActivity implements ActionBar.TabListener {
 
@@ -61,6 +69,8 @@ public class BoardActivity extends FragmentActivity implements ActionBar.TabList
 	public Typeface btf;
 	Animation mouseAnim;
 	Boolean isPlay = true;
+    BroadcastReceiver mReceiver;
+    Context context;
 	
 	
 	@Override
@@ -85,7 +95,10 @@ public class BoardActivity extends FragmentActivity implements ActionBar.TabList
 		//Set up the tabs
 
 	    String[] tabs = { "Popular", "Media", "Fan Voice" };
-		TabPagerAdapter adapterViewPager = new TabPagerAdapter(getSupportFragmentManager());
+
+        String mtId = getIntent().getExtras().getString("mtId");
+        String type = getIntent().getExtras().getString("type");
+		TabPagerAdapter adapterViewPager = new TabPagerAdapter(getSupportFragmentManager(),mtId);
 	    vpPager.setAdapter(adapterViewPager);
 	    vpPager.setOffscreenPageLimit(3);
 		
@@ -198,8 +211,113 @@ public class BoardActivity extends FragmentActivity implements ActionBar.TabList
 	 }
 
 	 // Tab methods
-	 
-	@Override
+
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        context = getApplicationContext();
+
+        mReceiver = new DDPBroadcastReceiver(MyDDPState.getInstance(), this) {
+
+            @Override
+            protected void onDDPConnect(DDPStateSingleton ddp) {
+                super.onDDPConnect(ddp);
+
+
+
+
+
+                String type = getIntent().getExtras().getString("type");
+                String mtId = getIntent().getExtras().getString("mtId");
+
+
+                Object[] parameters = new Object[2];
+                parameters[0] = mtId;
+                parameters[1] = 20;
+
+                if(type.matches("match"))
+                {
+
+                    ddp.subscribe("mobileMatchesInfluencerTweets",parameters);
+                    ddp.subscribe("mobileMatchesMediaTweets",parameters);
+                    ddp.subscribe("mobileMatchesFanTweets",parameters);
+
+                    //jobManager = MyApplication.getInstance().getJobManager();
+                    //jobManager.addJobInBackground(new Subscribe(ddp,"mobileMatchesFanTweets",parameters));
+
+
+                }
+                else
+                {
+
+                    ddp.subscribe("mobileTournamentsInfluencerTweets",parameters);
+                    ddp.subscribe("mobileTournamentsMediaTweets",parameters);
+                    ddp.subscribe("mobileTournamentsFanVoice",parameters);
+
+
+
+
+                }
+
+
+
+
+            }
+
+            @Override
+            protected void onError(String title, String msg) {
+
+            }
+
+            @Override
+            public void onReceive(Context context, Intent intent) {
+
+                super.onReceive(context, intent);
+
+                Bundle bundle = intent.getExtras();
+
+                if(intent.getAction().equals(MyDDPState.MESSAGE_ERROR))
+                {
+
+                    Toast.makeText(getApplicationContext(), "Internet connection not avaialable", Toast.LENGTH_SHORT).show();
+
+                }
+
+
+            }
+        };
+
+        LocalBroadcastManager.getInstance(this).registerReceiver(mReceiver,
+                new IntentFilter(MyDDPState.MESSAGE_ERROR));
+
+
+        // we want connection state change messages so we know we're logged in
+        LocalBroadcastManager.getInstance(this).registerReceiver(mReceiver,
+                new IntentFilter(MyDDPState.MESSAGE_CONNECTION));
+
+        if (MyDDPState.getInstance().getState() == MyDDPState.DDPSTATE.Closed) {
+            Toast.makeText(getApplicationContext(),"Internet connection not avaialable",Toast.LENGTH_SHORT);
+        }
+
+
+
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+
+        if (mReceiver != null) {
+
+            LocalBroadcastManager.getInstance(this).unregisterReceiver(mReceiver);
+            mReceiver = null;
+        }
+
+    }
+
+    @Override
 	public void onTabReselected(Tab tab, FragmentTransaction ft) {
 	}
 	

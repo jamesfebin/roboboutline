@@ -13,6 +13,7 @@ import com.boutline.sports.models.Match;
 import com.boutline.sports.models.Sport;
 
 import com.boutline.sports.models.Tournament;
+import com.boutline.sports.models.Tweet;
 import com.facebook.SharedPreferencesTokenCachingStrategy;
 import com.google.gson.Gson;
 import com.keysolutions.ddpclient.DDPListener;
@@ -313,6 +314,21 @@ public class MyDDPState extends DDPStateSingleton {
 
     }
 
+    public void storeTwitterUserInfo(Long twitterId,String userHandle,String profileImageUrl,String fullName)
+    {
+
+        preferences = mContext.getSharedPreferences("boutlineData", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = preferences.edit();
+
+        editor.putLong("twitterId",twitterId);
+        editor.putString("userHandle",userHandle);
+        editor.putString("profileImageUrl",profileImageUrl);
+        editor.putString("fullName",fullName);
+        editor.commit();
+
+
+    }
+
     public void boutlineLogin() throws Throwable {
 
         FacebookUserInfo fbUser;
@@ -462,6 +478,32 @@ public class MyDDPState extends DDPStateSingleton {
                     dbHelper.getInstance(mContext).putMatch(match);
 
                 }
+
+            }
+            else if(collectionName.equals("tweets"))
+            {
+
+
+                if (changetype.equals(DdpMessageType.ADDED)) {
+
+                    Log.e("Item added","Tweets");
+
+
+
+                    Tweet tweet = new Tweet(docId, getCollection(collectionName).get(docId));
+                    dbHelper.getInstance(mContext).putTweet(tweet);
+
+                }  else if (changetype.equals(DdpMessageType.REMOVED)) {
+
+
+                } else if (changetype.equals(DdpMessageType.UPDATED)) {
+
+                    Tweet tweet = new Tweet(docId, getCollection(collectionName).get(docId));
+                    dbHelper.getInstance(mContext).putTweet(tweet);
+
+                }
+
+
 
             }
        }

@@ -118,6 +118,29 @@
             android:screenOrientation="portrait"
             android:theme="@android:style/Theme.Holo.Light.NoActionBar.Fullscreen" />
 
+        <activity
+            android:name=".activities.TwitterLogin"
+            android:label=""
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Holo.Light.NoActionBar.Fullscreen" >
+
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data android:scheme="oauth" android:host="t4jsample"/>
+
+            </intent-filter>
+            </activity>
+
+        <activity
+            android:name=".activities.TwitterWebViewLogin"
+            android:label=""
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Holo.Light.NoActionBar.Fullscreen" />
+
+
         <provider
             android:name="com.boutline.sports.ContentProviders.SportProvider"
             android:authorities="com.boutline.sports.provider"
@@ -135,6 +158,14 @@
         <provider
             android:name="com.boutline.sports.ContentProviders.MatchProvider"
             android:authorities="com.boutline.matches.provider"
+            android:multiprocess="true"
+            android:enabled="true"
+            android:exported="true" >
+        </provider>
+
+        <provider
+            android:name="com.boutline.sports.ContentProviders.TweetProvider"
+            android:authorities="com.boutline.tweets.provider"
             android:multiprocess="true"
             android:enabled="true"
             android:exported="true" >

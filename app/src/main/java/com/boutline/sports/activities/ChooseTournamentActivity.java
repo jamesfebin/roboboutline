@@ -349,7 +349,7 @@ public class ChooseTournamentActivity extends Activity implements LoaderManager.
                 if(intent.getAction().equals(MyDDPState.MESSAGE_ERROR))
                 {
 
-                    Toast.makeText(getApplicationContext(),"Internet connection not avaialable",Toast.LENGTH_SHORT);
+                    Toast.makeText(getApplicationContext(),"Internet connection not avaialable",Toast.LENGTH_SHORT).show();
 
                 }
 

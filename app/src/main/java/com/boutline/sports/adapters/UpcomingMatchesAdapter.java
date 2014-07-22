@@ -1,6 +1,8 @@
 package com.boutline.sports.adapters;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Typeface;
 import android.view.LayoutInflater;
@@ -9,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.SimpleCursorAdapter;
 import android.widget.TextView;
 
+import com.boutline.sports.activities.BoardActivity;
 import com.boutline.sports.helpers.FormateTime;
 import com.boutline.sports.R;
 
@@ -79,7 +82,7 @@ public class UpcomingMatchesAdapter extends SimpleCursorAdapter {
             viewHolder.lblMatchVenue.setText(c.getString(c.getColumnIndex("matchvenue")));
 
             //Set up fonts
-            Context context = parent.getContext();
+            final Context context = parent.getContext();
 
 
             tf = Typeface.createFromAsset(context.getAssets(), fontPath);
@@ -94,7 +97,28 @@ public class UpcomingMatchesAdapter extends SimpleCursorAdapter {
 
             // Return the completed view to render on screen
 
+            final String matchId = c.getString(c.getColumnIndex("_id"));
+            final String type = "match";
 
+
+            convertView.setOnClickListener(new View.OnClickListener() {
+
+                @Override
+                public void onClick(View view) {
+
+
+                    Intent intent = new Intent(context, BoardActivity.class);
+                    intent.putExtra("mtId",matchId);
+                    intent.putExtra("type",type);
+                    Activity activity = (Activity) context;
+                    activity.startActivity(intent);
+                    activity.overridePendingTransition(R.anim.pushleftin, R.anim.pushleftout);
+
+
+
+                }
+
+            });
         }
         return convertView;
 
