@@ -9,38 +9,32 @@
         android:id="@+id/imgSport"
         android:src="@drawable/dummy"
         android:scaleType="centerCrop"
-        android:layout_width="70dp"
-        android:layout_height="70dp"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
         android:padding="10dp"
         />
-
-    <LinearLayout
-        android:id="@+id/sportDetails"
-        android:layout_toRightOf="@id/imgSport"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:gravity="center_vertical"
-        android:layout_centerVertical="true"
-        android:padding="10dp">
 
 	    <TextView
 	        android:id="@+id/lblSportName"
 	        android:text="@string/cricket"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
 	        android:layout_width="wrap_content"
 	        android:layout_height="wrap_content"
-	        android:textColor="@color/darkgray"
+	        android:textColor="@color/white"
 	        />
 
 	    <TextView
 	        android:id="@+id/lblSportDescription"
 	        android:text="@string/dummy"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:layout_below="@id/lblSportName"
 	        android:layout_width="wrap_content"
 	        android:layout_height="wrap_content"
-	        android:textColor="@color/darkgray"
+            android:paddingTop="24sp"
+	        android:textColor="@color/white"
 	        />
-
-    </LinearLayout>
 
     <CheckBox
         android:id="@+id/chkFollowStatus"
@@ -49,8 +43,7 @@
         android:layout_height="wrap_content"
         android:checked="true"
         android:layout_alignParentRight="true"
-        android:layout_centerVertical="true"
-        android:paddingRight="20dp"/>
+        android:paddingRight="10dp"/>
 
  </RelativeLayout>
 

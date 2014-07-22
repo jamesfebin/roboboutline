@@ -17,12 +17,8 @@ import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
-import android.view.MotionEvent;
-import android.view.View;
-import android.view.View.OnTouchListener;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
-import android.view.animation.ScaleAnimation;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -34,7 +30,7 @@ public class Walkthrough0 extends Activity {
 
 	public String fontPath = "fonts/sharp.ttf";
 	public Typeface tf;
-	public String boldFontPath = "fonts/sharpbold.ttf";
+	public String boldFontPath = "fonts/sharpsemibold.ttf";
 	public Typeface btf;
 	
 	@Override

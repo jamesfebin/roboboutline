@@ -28,9 +28,9 @@ import java.util.ArrayList;
 
 public class SportsAdapter extends SimpleCursorAdapter{
 	
-	public String fontPath = "fonts/proxinova.ttf";
+	public String fontPath = "fonts/sharp.ttf";
 	public Typeface tf;
-	public String boldFontPath = "fonts/proxinovabold.otf";
+	public String boldFontPath = "fonts/sharpbold.ttf";
 	public Typeface btf;
     JobManager jobManager;
 
@@ -48,12 +48,10 @@ public class SportsAdapter extends SimpleCursorAdapter{
 
 
 
-    public SportsAdapter(Context context, int layout, Cursor c,
-                         String[] from, int[] to, int flags) {
+    public SportsAdapter(Context context, int layout, Cursor c, String[] from, int[] to, int flags) {
         super(context, layout, c, from, to, flags);
         this.context = context;
         this.layout = layout;
-
     }
 
 
@@ -75,7 +73,6 @@ public class SportsAdapter extends SimpleCursorAdapter{
                 viewHolder.chkFollowStatus = (CheckBox) convertView.findViewById(R.id.chkFollowStatus);
                 viewHolder.imgSport = (ImageView) convertView.findViewById(R.id.imgSport);
                 viewHolder.sportContainer = (RelativeLayout) convertView.findViewById(R.id.sportContainer);
-
                 convertView.setTag(viewHolder);
 
             } else {
@@ -98,11 +95,7 @@ public class SportsAdapter extends SimpleCursorAdapter{
             ImageOptions options = new ImageOptions();
 
             String image_url = "https://boutline.com/" + c.getString(c.getColumnIndex("icon"));
-            Log.i("Image Url is ", image_url);
-            options.round = 35;
-
             aq.id(viewHolder.imgSport).image(image_url, options);
-
 
             tf = Typeface.createFromAsset(context.getAssets(), fontPath);
             btf = Typeface.createFromAsset(context.getAssets(), boldFontPath);
@@ -110,19 +103,14 @@ public class SportsAdapter extends SimpleCursorAdapter{
             viewHolder.lblSportDescription.setTypeface(btf);
 
             final String sportId = c.getString(c.getColumnIndex("_id"));
-
             viewHolder.sportContainer.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View arg0) {
                     viewHolder.chkFollowStatus.setChecked(!(viewHolder.chkFollowStatus.isChecked()));
-
                     Log.i("Choose to follow/unfollow", sportId);
-
                     jobManager = MyApplication.getInstance().getJobManager();
                     jobManager.addJobInBackground(new SendSportPreferences(sportId));
                     dbHelper.getInstance(context).updateFollowSport(viewHolder.chkFollowStatus.isChecked(), sportId);
-
-
                 }
             });
 
@@ -130,7 +118,6 @@ public class SportsAdapter extends SimpleCursorAdapter{
                 @Override
                 public void onClick(View arg0) {
                     Log.i("Choose to follow/unfollow", sportId);
-
                     jobManager = MyApplication.getInstance().getJobManager();
                     jobManager.addJobInBackground(new SendSportPreferences(sportId));
                     dbHelper.getInstance(context).updateFollowSport(viewHolder.chkFollowStatus.isChecked(), sportId);
