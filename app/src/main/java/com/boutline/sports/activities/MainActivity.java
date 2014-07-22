@@ -65,7 +65,6 @@ public class MainActivity extends Activity {
 		mProgressBar = (SmoothProgressBar) findViewById(R.id.progressBar);
 		mProgressBar.setVisibility(View.VISIBLE);
 		mProgressBar.progressiveStart();
-				
 		getActionBar().hide();
 
     }
@@ -77,7 +76,7 @@ public class MainActivity extends Activity {
 		  Intent mainIntent = new Intent(MainActivity.this,Walkthrough0.class);
           startActivity(mainIntent);
           finish();
-          overridePendingTransition(R.anim.pushleftin, R.anim.pushleftout);
+          overridePendingTransition(R.anim.pushupin, R.anim.pushupout);
 	}
 	
 	protected void goToChooseTournament(){

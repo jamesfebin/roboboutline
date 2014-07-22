@@ -32,9 +32,9 @@ import com.boutline.sports.helpers.OnSwipeTouchListener;
 
 public class Walkthrough0 extends Activity {
 
-	public String fontPath = "fonts/proxinova.ttf";
+	public String fontPath = "fonts/sharp.ttf";
 	public Typeface tf;
-	public String boldFontPath = "fonts/proxinovabold.otf";
+	public String boldFontPath = "fonts/sharpbold.ttf";
 	public Typeface btf;
 	
 	@Override
