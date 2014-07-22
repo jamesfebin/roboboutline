@@ -51,6 +51,7 @@ import android.view.animation.Animation;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.boutline.sports.adapters.TabPagerAdapter;
@@ -87,6 +88,7 @@ public class BoardActivity extends FragmentActivity implements ActionBar.TabList
 		ViewPager vpPager = (ViewPager) findViewById(R.id.pager);
 		LinearLayout composeLink = (LinearLayout) findViewById(R.id.composeLink);
         Button btnComposeDummy = (Button)findViewById(R.id.btnComposeDummy);
+
         EditText txtComposeDummy = (EditText)findViewById(R.id.txtComposeDummy);
         actionBar.setHomeButtonEnabled(false);
 		actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
@@ -97,6 +99,7 @@ public class BoardActivity extends FragmentActivity implements ActionBar.TabList
 
         String mtId = getIntent().getExtras().getString("mtId");
         String type = getIntent().getExtras().getString("type");
+        txtComposeDummy.setText("Tweet with #"+getIntent().getExtras().getString("hashtag"));
 		TabPagerAdapter adapterViewPager = new TabPagerAdapter(getSupportFragmentManager(),mtId);
 	    vpPager.setAdapter(adapterViewPager);
 	    vpPager.setOffscreenPageLimit(3);
@@ -134,7 +137,9 @@ public class BoardActivity extends FragmentActivity implements ActionBar.TabList
 				@Override
 				public void onClick(View arg0) {		
 					Intent mainIntent = new Intent(BoardActivity.this, ComposeTweetActivity.class);
-			        startActivity(mainIntent);
+			        mainIntent.putExtra("hashtag",getIntent().getExtras().getString("hashtag"));
+                    startActivity(mainIntent);
+
 			        overridePendingTransition(R.anim.pushupin, R.anim.pushupout);
 				}	 
 		 });
@@ -143,7 +148,8 @@ public class BoardActivity extends FragmentActivity implements ActionBar.TabList
 				@Override
 				public void onClick(View arg0) {				
 					Intent mainIntent = new Intent(BoardActivity.this, TweetDetailsActivity.class);
-			        startActivity(mainIntent);
+                    mainIntent.putExtra("hashtag",getIntent().getExtras().getString("hashtag"));
+                    startActivity(mainIntent);
 			        overridePendingTransition(R.anim.pushleftin, R.anim.pushleftout);
 				}	 
 		 });

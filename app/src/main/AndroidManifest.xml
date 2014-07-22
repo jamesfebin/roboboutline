@@ -164,8 +164,15 @@
         </provider>
 
         <provider
-            android:name="com.boutline.sports.ContentProviders.TweetProvider"
-            android:authorities="com.boutline.tweets.provider"
+        android:name="com.boutline.sports.ContentProviders.TweetProvider"
+        android:authorities="com.boutline.tweets.provider"
+        android:multiprocess="true"
+        android:enabled="true"
+        android:exported="true" >
+    </provider>
+        <provider
+            android:name="com.boutline.sports.ContentProviders.ConversationProvider"
+            android:authorities="com.boutline.conversations.provider"
             android:multiprocess="true"
             android:enabled="true"
             android:exported="true" >

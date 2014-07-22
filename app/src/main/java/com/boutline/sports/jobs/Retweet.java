@@ -21,13 +21,14 @@ public class Retweet extends Job {
     Long statusId;
     String AccessToken;
     String AccessTokenSecret;
-
-    public Retweet(Long statusId,String AccessToken,String AccessTokenSecret) {
+Boolean status;
+    public Retweet(Long statusId,String AccessToken,String AccessTokenSecret,Boolean status) {
 
         super(new Params(Priority.MID).requireNetwork().persist().groupBy("retweetRequests"));
         this.statusId=statusId;
         this.AccessToken = AccessToken;
         this.AccessTokenSecret = AccessTokenSecret;
+        this.status = status;
     }
 
     @Override
@@ -47,7 +48,13 @@ public class Retweet extends Job {
             builder.setOAuthAccessTokenSecret(AccessTokenSecret);
             Configuration config = builder.build();
             Twitter twitter = new TwitterFactory(config).getInstance();
-            twitter.retweetStatus(statusId);
+            if(status) {
+              twitter.retweetStatus(statusId);
+            }
+                else
+            {
+             twitter.destroyStatus(statusId);
+            }
 
 
 
@@ -71,6 +78,6 @@ public class Retweet extends Job {
 
     @Override
     protected int getRetryLimit() {
-        return 25;
+        return 1;
     }
 }

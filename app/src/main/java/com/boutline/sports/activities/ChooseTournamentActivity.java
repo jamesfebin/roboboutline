@@ -143,25 +143,7 @@ public class ChooseTournamentActivity extends Activity implements LoaderManager.
         loadermanager = getLoaderManager();
         populateListViewFromDb();
         loadermanager.initLoader(1,null,this);
-
 /*
-		listView.setOnItemClickListener(new OnItemClickListener() {
-			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-				// When clicked, show a toast with the TextView text
-			Cursor cursor = (Cursor) parent.getItemAtPosition(position+1);
-
-                //cursor.move(position);
-
-
-				Intent intent = new Intent(ChooseTournamentActivity.this,ChooseMatchActivity.class);
-				intent.putExtra("tournamentId", cursor.getString(cursor.getColumnIndex("_id")));
-		        startActivity(intent);
-		        overridePendingTransition(R.anim.pushleftin, R.anim.pushleftout);
-
-			}
-		});
-		*/
-		/*
 		new AppRate(this)
 	    .setMinDaysUntilPrompt(7)
 	    .setMinLaunchesUntilPrompt(20)
@@ -369,10 +351,7 @@ public class ChooseTournamentActivity extends Activity implements LoaderManager.
             Toast.makeText(getApplicationContext(),"Internet connection not avaialable",Toast.LENGTH_SHORT);
         }
 
-
-
     }
-
 
     @Override
     protected void onPause() {
@@ -423,7 +402,6 @@ public class ChooseTournamentActivity extends Activity implements LoaderManager.
     public void onLoadFinished(Loader<Cursor> cursorLoader, Cursor cursor) {
 
         tournamenentAdapter.swapCursor(cursor);
-        c=cursor;
     }
 
     @Override

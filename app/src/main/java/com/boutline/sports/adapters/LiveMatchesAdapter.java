@@ -95,6 +95,12 @@ public class LiveMatchesAdapter extends SimpleCursorAdapter {
             final String matchId = c.getString(c.getColumnIndex("_id"));
             final String type = "match";
 
+             String hashtags = c.getString(c.getColumnIndex("hashtags"));
+
+
+            String hashtagArray[] = hashtags.split(",");
+            final String hashtag = hashtagArray[0].replace("[","");
+
 convertView.setOnClickListener(new View.OnClickListener() {
 
     @Override
@@ -104,6 +110,7 @@ convertView.setOnClickListener(new View.OnClickListener() {
         Intent intent = new Intent(context, BoardActivity.class);
         intent.putExtra("mtId",matchId);
         intent.putExtra("type",type);
+        intent.putExtra("hashtag",hashtag);
         Activity activity = (Activity) context;
         activity.startActivity(intent);
         activity.overridePendingTransition(R.anim.pushleftin, R.anim.pushleftout);

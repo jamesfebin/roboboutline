@@ -52,7 +52,7 @@
         android:padding="10dp"/>
     
      <ListView
-        android:id="@+id/lvSports"
+        android:id="@+id/lvTournaments"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/lblChooseTopic"
@@ -63,7 +63,7 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_margin="20dp"
-        android:layout_below="@id/lvSports"
+        android:layout_below="@id/lvTournaments"
         android:text="@string/createbantergroup"/>
     
 </RelativeLayout>

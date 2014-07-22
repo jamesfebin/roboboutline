@@ -32,6 +32,7 @@
 package com.boutline.sports.activities;
 
 import android.app.Activity;
+import android.content.BroadcastReceiver;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.widget.EditText;
@@ -49,6 +50,7 @@ public class ConversationActivity extends Activity {
     public Typeface tf;
     public String boldFontPath = "fonts/proxinovabold.otf";
     public Typeface btf;
+    BroadcastReceiver mReciever;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {

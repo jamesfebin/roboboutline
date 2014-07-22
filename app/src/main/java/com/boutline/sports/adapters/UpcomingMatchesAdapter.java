@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.SimpleCursorAdapter;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.boutline.sports.activities.BoardActivity;
 import com.boutline.sports.helpers.FormateTime;
@@ -107,13 +108,15 @@ public class UpcomingMatchesAdapter extends SimpleCursorAdapter {
                 public void onClick(View view) {
 
 
+                    Toast.makeText(context,"Please wait till the match becomes live.",Toast.LENGTH_SHORT).show();
+                    /*
                     Intent intent = new Intent(context, BoardActivity.class);
                     intent.putExtra("mtId",matchId);
                     intent.putExtra("type",type);
                     Activity activity = (Activity) context;
                     activity.startActivity(intent);
                     activity.overridePendingTransition(R.anim.pushleftin, R.anim.pushleftout);
-
+*/
 
 
                 }

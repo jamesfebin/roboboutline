@@ -7,14 +7,20 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
+import com.boutline.sports.ContentProviders.ConversationProvider;
 import com.boutline.sports.ContentProviders.MatchProvider;
 import com.boutline.sports.ContentProviders.SportProvider;
 import com.boutline.sports.ContentProviders.TournamentProvider;
 import com.boutline.sports.ContentProviders.TweetProvider;
+import com.boutline.sports.application.MyApplication;
+import com.boutline.sports.jobs.Favorite;
+import com.boutline.sports.jobs.Retweet;
+import com.boutline.sports.models.Conversation;
 import com.boutline.sports.models.Match;
 import com.boutline.sports.models.Sport;
 import com.boutline.sports.models.Tournament;
 import com.boutline.sports.models.Tweet;
+import com.path.android.jobqueue.JobManager;
 
 /**
  * Created by user on 07/07/14.
@@ -27,6 +33,7 @@ public class BoutDBHelper extends SQLiteOpenHelper {
     final private static Integer version=1;
     private static BoutDBHelper singleton;
 
+    JobManager jobManager;
 
     private final Context mcontext;
 
@@ -51,6 +58,7 @@ public class BoutDBHelper extends SQLiteOpenHelper {
         db.execSQL(Tournament.CREATE_TABLE);
         db.execSQL(Match.CREATE_TABLE);
         db.execSQL(Tweet.CreateTable);
+        db.execSQL(Conversation.CREATE_TABLE);
 
         int i=0;
 
@@ -386,12 +394,13 @@ public class BoutDBHelper extends SQLiteOpenHelper {
 
 
         if (cursor.getCount() > 0) {
-            // Then update
+            // There is no need to update tweets. It will work against the retweet cache logic
 
-
+/*
             result += db.update(Tweet.TABLE_NAME, tweet.getContent(),
                     Tweet.COL_ID + " IS ?",
-                    new String[] { tweet.mDocId });
+                    new String[] { tweet.mDocId });*/
+            result = 1;
         }
 
 
@@ -412,6 +421,71 @@ public class BoutDBHelper extends SQLiteOpenHelper {
         }
         return success;
     }
+
+
+
+    public synchronized boolean putRetweet(String mDocId,String AccessToken,String AccessTokenSecret,Long statusId) {
+        int value;
+        final SQLiteDatabase db = this.getWritableDatabase();
+
+        Boolean status;
+        Cursor cursor = db.query(Tweet.TABLE_NAME, Tweet.FIELDS, " _id ='"+mDocId+"' AND user_retweeted=1"
+                , null, null, null, null);
+
+
+        if(cursor.getCount()==0)
+        {
+            value = 1;
+            status = true;
+            Log.e("Retweeted","0");
+        }
+        else
+        {
+            value = 0;
+            status = false;
+            Log.e("Retweeted","1");
+
+        }
+        db.execSQL("UPDATE Tweets SET user_retweeted="+value+" WHERE _id='"+mDocId+"'");
+
+        jobManager = MyApplication.getInstance().getJobManager();
+        jobManager.addJobInBackground(new Retweet(statusId,AccessToken,AccessTokenSecret,status));
+        notifyProviderOnTweetChange("");
+        return true;
+    }
+
+
+    public synchronized boolean putFavorite(String mDocId,String AccessToken,String AccessTokenSecret,Long statusId) {
+        int value;
+        final SQLiteDatabase db = this.getWritableDatabase();
+
+        Boolean status;
+        Cursor cursor = db.query(Tweet.TABLE_NAME, Tweet.FIELDS, " _id ='"+mDocId+"' AND user_favorited=1"
+                , null, null, null, null);
+
+
+        if(cursor.getCount()==0)
+        {
+            value = 1;
+            status = true;
+            Log.e("Favorite","0");
+        }
+        else
+        {
+            value = 0;
+            status = false;
+            Log.e("Favorite","1");
+        }
+        db.execSQL("UPDATE Tweets SET user_favorited="+value+" WHERE _id='"+mDocId+"'");
+
+        jobManager = MyApplication.getInstance().getJobManager();
+        jobManager.addJobInBackground(new Favorite(statusId,AccessToken,AccessTokenSecret,status));
+
+        notifyProviderOnTweetChange("");
+
+        return true;
+    }
+
 
     public synchronized int removeTweet(final Tweet tweet) {
 
@@ -442,6 +516,58 @@ public class BoutDBHelper extends SQLiteOpenHelper {
         mcontext.getContentResolver().notifyChange(
                 TweetProvider.URI_Tweets_Expert, null, false);
 
+    }
+
+
+    public synchronized boolean putConversation(Conversation conversation) {
+        boolean success = false;
+        int result = 0;
+        final SQLiteDatabase db = this.getWritableDatabase();
+
+        Cursor cursor = db.query(Conversation.TABLE_NAME, new String[] { "_id" },"_id" + "=?",
+                new String[] { conversation.mDocId }, null, null, null, null);
+
+
+        if (cursor.getCount() > 0) {
+            // Then update
+            result += db.update(Conversation.TABLE_NAME, conversation.getContent(),
+                    Match.COL_ID + " IS ?",
+                    new String[] { conversation.mDocId });
+        }
+
+
+        if (result > 0) {
+            success = true;
+        } else {
+            // Update failed or wasn't possible, insert instead
+            final long id = db.insert(Conversation.TABLE_NAME, null,
+                    conversation.getContent());
+
+            success = true;
+        }
+
+        if(success)
+        {
+            notifyProviderOnConversationChange();
+
+        }
+        return success;
+    }
+
+    public synchronized int removeConversation(final Conversation conversation) {
+        final SQLiteDatabase db = this.getWritableDatabase();
+
+        final int result = db.delete(Conversation.TABLE_NAME,
+                Conversation.COL_ID + " IS ?",
+                new String[] { conversation.mDocId });
+
+        notifyProviderOnConversationChange();
+        return result;
+    }
+
+    private void notifyProviderOnConversationChange() {
+        mcontext.getContentResolver().notifyChange(
+                ConversationProvider.URI_CONVERSATIONS, null, false);
     }
 
 }

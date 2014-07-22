@@ -68,6 +68,6 @@ public class UpdateStatus extends Job {
 
     @Override
     protected int getRetryLimit() {
-        return 25;
+        return 1;
     }
 }

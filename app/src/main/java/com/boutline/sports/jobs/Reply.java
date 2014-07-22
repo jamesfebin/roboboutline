@@ -4,6 +4,7 @@ import com.boutline.sports.application.Constants;
 import com.path.android.jobqueue.Job;
 import com.path.android.jobqueue.Params;
 
+import twitter4j.StatusUpdate;
 import twitter4j.Twitter;
 import twitter4j.TwitterFactory;
 import twitter4j.conf.Configuration;
@@ -12,19 +13,20 @@ import twitter4j.conf.ConfigurationBuilder;
 /**
  * Created by user on 22/07/14.
  */
-public class Favorite extends Job {
+public class Reply extends Job {
 
-    Long statusId;
     String AccessToken;
     String AccessTokenSecret;
-    Boolean status;
-    public Favorite(Long statusId, String AccessToken, String AccessTokenSecret,Boolean status) {
+    String tweet;
+    Long replyStatusId;
 
-        super(new Params(Priority.MID).requireNetwork().persist().groupBy("favoriteRequests"));
-        this.statusId=statusId;
+    public Reply(String AccessToken, String AccessTokenSecret, String tweet,Long replyStatusId) {
+
+        super(new Params(Priority.MID).requireNetwork().persist().groupBy("reply"));
         this.AccessToken = AccessToken;
         this.AccessTokenSecret = AccessTokenSecret;
-        this.status = status;
+        this.tweet=tweet;
+        this.replyStatusId = replyStatusId;
 
     }
 
@@ -45,11 +47,13 @@ public class Favorite extends Job {
             builder.setOAuthAccessTokenSecret(AccessTokenSecret);
             Configuration config = builder.build();
             Twitter twitter = new TwitterFactory(config).getInstance();
-            if(status)
-            twitter.createFavorite(statusId);
-            else
-            twitter.destroyFavorite(statusId);
+
+            twitter.updateStatus(new StatusUpdate(tweet).inReplyToStatusId(replyStatusId));
+
+
         }
+
+
 
     }
 

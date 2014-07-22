@@ -8,6 +8,7 @@ import com.boutline.sports.jobs.Connect;
 import com.boutline.sports.jobs.Login;
 import com.boutline.sports.jobs.SendSportPreferences;
 import com.boutline.sports.jobs.SendTournamentPreferences;
+import com.boutline.sports.models.Conversation;
 import com.boutline.sports.models.FacebookUserInfo;
 import com.boutline.sports.models.Match;
 import com.boutline.sports.models.Sport;
@@ -504,6 +505,28 @@ public class MyDDPState extends DDPStateSingleton {
                 }
 
 
+
+            }
+
+            else if(collectionName.equals("banters"))
+            {
+
+                if (changetype.equals(DdpMessageType.ADDED)) {
+
+                    Log.e("Item added","Conversations");
+
+                    Conversation conversation = new Conversation(docId, getCollection(collectionName).get(docId));
+                    dbHelper.getInstance(mContext).putConversation(conversation);
+
+                }  else if (changetype.equals(DdpMessageType.REMOVED)) {
+
+
+                } else if (changetype.equals(DdpMessageType.UPDATED)) {
+
+                    Conversation conversation = new Conversation(docId, getCollection(collectionName).get(docId));
+                    dbHelper.getInstance(mContext).putConversation(conversation);
+
+                }
 
             }
        }

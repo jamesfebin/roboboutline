@@ -24,6 +24,9 @@ public class Tweet {
     public static final String COL_Type= "type";
     public static final String COL_UserFullName= "user_full_name";
     public static final String COL_MediaUrl="media_url";
+    public static final String COL_UserRetweeted = "user_retweeted";
+    public static final String COL_UserFavorited = "user_favorited";
+
 
 
 
@@ -39,9 +42,11 @@ public class Tweet {
                                 +COL_HasImage + " BOOLEAN NOT NULL,"
                                 +COL_Type + " TEXT NOT NULL, "
                                 +COL_UserFullName + " TEXT NOT NULL,"
-                                +COL_MediaUrl + " TEXT NOT NULL) ";
+                                +COL_MediaUrl + " TEXT NOT NULL,"
+                                +COL_UserRetweeted + " BOOLEAN ,"
+                                +COL_UserFavorited +" BOOLEAN )";
 
-    public static final String[] FIELDS = { COL_ID,COL_Unixtimenow,COL_StatusId,COL_MTID,COL_UserHandle,COL_ProfileImage,COL_Tweet,COL_Tweet,COL_Retweeted,COL_UserTwitterId,COL_HasImage,COL_Type,COL_UserFullName,COL_MediaUrl};
+    public static final String[] FIELDS = { COL_ID,COL_Unixtimenow,COL_StatusId,COL_MTID,COL_UserHandle,COL_ProfileImage,COL_Tweet,COL_Tweet,COL_Retweeted,COL_UserTwitterId,COL_HasImage,COL_Type,COL_UserFullName,COL_MediaUrl,COL_UserFavorited,COL_UserRetweeted};
 
 
 
@@ -104,6 +109,8 @@ public class Tweet {
             values.put(COL_Type, fields.get("type").toString());
             values.put(COL_UserFullName, fields.get("user_full_name").toString());
             values.put(COL_MediaUrl, fields.get("media_url").toString());
+            values.put(COL_UserRetweeted, false);
+            values.put(COL_UserFavorited, false);
             return values;
         }
         else
@@ -122,6 +129,8 @@ public class Tweet {
             values.put(COL_Type, fields.get("type").toString());
             values.put(COL_UserFullName, fields.get("user_full_name").toString());
             values.put(COL_MediaUrl, fields.get("media_url").toString());
+            values.put(COL_UserRetweeted, false);
+            values.put(COL_UserFavorited, false);
             return values;
 
 

@@ -41,7 +41,8 @@
 		        />
 	    
     </RelativeLayout>
-     
+
+
     <Button
         android:id="@+id/btnPostToTwitter"
         android:text="@string/posttweet"
@@ -71,7 +72,70 @@
 	    android:textColor="#9BA4A9"
 	    android:layout_below="@id/tweeterDetails"
 	    />
-   
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/txtTweetMessage"
+        android:id="@+id/replyContainer">
+
+    <ImageView
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/replyToUserProPic"
+        android:src="@drawable/dummy"
+        android:scaleType="centerCrop"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        />
+
+    <RelativeLayout
+        android:id="@+id/replyToUserDetails"
+        android:layout_toRightOf="@id/replyToUserProPic"
+        android:padding="10dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/replyToUsername"
+            android:text="Anand Satyan"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#343D42"
+            />
+
+        <TextView
+            android:id="@+id/replyToUserhandle"
+            android:text="anandsatyan"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#9AA3A8"
+            android:paddingLeft="5dp"
+            android:layout_below="@id/replyToUsername"
+            />
+        <TextView
+            android:id="@+id/replyToTweet"
+            android:text=""
+            android:layout_width="fill_parent"
+            android:hint="@string/whatshappening"
+            android:layout_height="wrap_content"
+            android:minHeight="100dp"
+            android:textColor="#9BA4A9"
+            android:layout_toRightOf="@id/replyToUsername"
+            />
+        <ImageView
+            android:contentDescription="@string/dummy"
+            android:id="@+id/replyToTweetImage"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:src="@drawable/imgplaceholder"
+            android:layout_below="@id/replyToTweet"
+            />
+
+
+    </RelativeLayout>
+
+
+    </LinearLayout>
  </RelativeLayout>
 
 

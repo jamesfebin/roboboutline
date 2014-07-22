@@ -37,6 +37,7 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -45,6 +46,7 @@ import com.androidquery.callback.ImageOptions;
 import com.boutline.sports.application.MyApplication;
 import com.boutline.sports.helpers.Mayday;
 import com.boutline.sports.jobs.GetTwitterUserInfo;
+import com.boutline.sports.jobs.Reply;
 import com.boutline.sports.jobs.UpdateStatus;
 import com.boutline.sports.R;
 import com.path.android.jobqueue.JobManager;
@@ -73,6 +75,8 @@ public class ComposeTweetActivity extends Activity {
         TextView lblTweetUsername = (TextView)findViewById(R.id.lblTweetUsername);
         TextView lblTweetHandle = (TextView)findViewById(R.id.lblTweetHandle);
         ImageView profilePic = (ImageView) findViewById(R.id.imgPropic);
+        LinearLayout replyContainer = (LinearLayout) findViewById(R.id.replyContainer);
+
         // Set up controls
 		txtTweetMessage.setText(getMatchHashTag());
 		lblTweetCharCount.setText(String.valueOf(140-getMatchHashTag().length()));
@@ -89,6 +93,11 @@ public class ComposeTweetActivity extends Activity {
         jobManager = MyApplication.getInstance().getJobManager();
 
         mayday = new Mayday(getApplicationContext());
+
+
+
+
+
 
         if(mayday.hasTwitterCredentials()) {
             SharedPreferences preferences = this.getSharedPreferences("boutlineData", Context.MODE_PRIVATE);
@@ -124,9 +133,58 @@ public class ComposeTweetActivity extends Activity {
         }
 
 
+
+        if(getIntent().hasExtra("replyToTweetStatusId")==true)
+        {
+            replyContainer.setVisibility(View.VISIBLE);
+            ImageView replyTweeterProPic = (ImageView) findViewById(R.id.replyToUserProPic);
+            TextView fullName = (TextView) findViewById(R.id.replyToUsername);
+            TextView handle = (TextView) findViewById(R.id.replyToUserhandle);
+            TextView replyMessage = (TextView) findViewById(R.id.replyToTweet);
+
+
+            AQuery aq = new AQuery(getApplicationContext());
+            ImageOptions options = new ImageOptions();
+            options.round = 35;
+            aq.id(replyTweeterProPic).image(getIntent().getExtras().getString("replyToUserProPicUrl"), options);
+
+            fullName.setText(getIntent().getExtras().getString("replyToUserFullname"));
+            handle.setText(getIntent().getExtras().getString("replyToUserHandle"));
+            replyMessage.setText(getIntent().getExtras().getString("replyToTweet"));
+
+            txtTweetMessage.setText("@"+getIntent().getExtras().getString("replyToUserHandle"));
+            ImageView replyImage = (ImageView) findViewById(R.id.replyToTweetImage);
+
+            if(getIntent().getExtras().getString("replyToTweetImage").matches(""))
+            {
+
+                replyImage.setVisibility(View.GONE);
+
+            }
+            else
+            {
+
+                replyImage.setVisibility(View.VISIBLE);
+                options = new ImageOptions();
+                aq.id(replyImage).image(getIntent().getExtras().getString("replyToTweetImage"), options);
+
+
+            }
+
+        }
+        else
+        {
+
+            replyContainer.setVisibility(View.GONE);
+        }
 		//Set up the listeners
 
 
+        if(getIntent().hasExtra("hashtag")==true)
+        {
+
+            txtTweetMessage.setText("#"+getIntent().getExtras().getString("hashtag"));
+        }
 		txtTweetMessage.addTextChangedListener(mTextEditorWatcher);
 		btnPostTweet.setOnClickListener(new OnClickListener() {
 				@Override
@@ -137,10 +195,20 @@ public class ComposeTweetActivity extends Activity {
 					Boolean isValid = validateTweet(tweet);
 					if(isValid) {
 
-                    jobManager.addJobInBackground(new UpdateStatus(mayday.getTwitterAccessToken(),mayday.getTwitterAccessTokenSecret(),tweet));
-                    Toast.makeText(getApplicationContext(),"Tweet posted",Toast.LENGTH_SHORT).show();
-                        finish();
-					}
+                        if(getIntent().hasExtra("replyToTweetStatusId")==true) {
+
+                            Long replyToStatusId = Long.parseLong(getIntent().getExtras().getString("replyToTweetStatusId"));
+                            jobManager.addJobInBackground(new Reply(mayday.getTwitterAccessToken(), mayday.getTwitterAccessTokenSecret(), tweet,replyToStatusId));
+                            Toast.makeText(getApplicationContext(), "Tweet posted", Toast.LENGTH_SHORT).show();
+                            finish();
+                        }
+                        else {
+                            jobManager.addJobInBackground(new UpdateStatus(mayday.getTwitterAccessToken(), mayday.getTwitterAccessTokenSecret(), tweet));
+                            Toast.makeText(getApplicationContext(), "Tweet posted", Toast.LENGTH_SHORT).show();
+                            finish();
+                        }
+
+                        }
 				}	 
 		});
 

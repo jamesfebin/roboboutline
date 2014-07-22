@@ -103,6 +103,7 @@ public class ChooseMatchActivity extends FragmentActivity  {
 
         tournamentId = getIntent().getExtras().getString("tournamentId");
         tournamentName = getIntent().getExtras().getString("tournamentName");
+        final String hashtag = getIntent().getExtras().getString("hashtag");
         lblTournamentName.setText(tournamentName);
 
         final String type="tournament";
@@ -116,6 +117,7 @@ public class ChooseMatchActivity extends FragmentActivity  {
                         Intent intent = new Intent(context, BoardActivity.class);
                         intent.putExtra("mtId",tournamentId);
                         intent.putExtra("type",type);
+                         intent.putExtra("hashtag",hashtag);
                         startActivity(intent);
                         overridePendingTransition(R.anim.pushleftin, R.anim.pushleftout);
 
