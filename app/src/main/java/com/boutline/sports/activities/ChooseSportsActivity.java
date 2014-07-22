@@ -1,5 +1,3 @@
-
-
 package com.boutline.sports.activities;
 
 import android.app.ActionBar;
@@ -23,7 +21,7 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.CheckBox;
-import android.widget.ListView;
+import android.widget.GridView;
 import android.widget.RelativeLayout;
 import android.widget.SimpleCursorAdapter;
 import android.widget.TextView;
@@ -49,7 +47,7 @@ public class ChooseSportsActivity extends Activity implements LoaderManager.Load
 	ActionBar actionBar;
     BroadcastReceiver mReceiver;
     SimpleCursorAdapter sportAdapter;
-    ListView listView;
+    GridView gridview;
     Cursor c;
     SQLController dbController;
     LoaderManager loadermanager;
@@ -76,10 +74,15 @@ public class ChooseSportsActivity extends Activity implements LoaderManager.Load
 		btnSubmitSportsSelection.setTypeface(btf);
         lblChooseSportDesc.setTypeface(tf);
 		
-		// Populate the List View
+		// Populate the Grid View
 
         loadermanager = getLoaderManager();
-        populateListViewFromDb();
+        String[] fromFieldNames = new String[] {"name","followed"};
+        int[] toViewIDs = new int[]
+                {R.id.lblSportName,R.id.chkFollowStatus};
+        sportAdapter = new SportsAdapter(this,R.layout.item_sport,c,fromFieldNames,toViewIDs, 0);
+       final GridView gridview = (GridView) findViewById(R.id.gvSports);
+        gridview.setAdapter(sportAdapter);
         loadermanager.initLoader(1,null,this);
 
         // Set up the animations
@@ -96,78 +99,55 @@ public class ChooseSportsActivity extends Activity implements LoaderManager.Load
 		btnSubmitSportsSelection.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View arg0) {
-
-
-
-
                 int i;
                 int flag=0;
                 CheckBox cb;
 
-                for(i=0;i< listView.getCount();i++)
+                for(i=0;i<gridview.getCount();i++)
                 {
-
-                    cb = (CheckBox) listView.getChildAt(i).findViewById(R.id.chkFollowStatus);
-
+                    cb = (CheckBox) gridview.getChildAt(i).findViewById(R.id.chkFollowStatus);
                     if(cb.isChecked())
                     {
                         flag = 1;
                     }
-
-
                 }
                 if(flag == 1)
-
                 {
-                    btnSubmitSportsSelection.setText("Saving...");
-                    btnSubmitSportsSelection.setText("Please Wait......");
-
+                    btnSubmitSportsSelection.setText("Saving, Please Wait.");
                     Intent mainIntent = new Intent(ChooseSportsActivity.this, ChooseTournamentActivity.class);
                     startActivity(mainIntent);
                     overridePendingTransition(R.anim.pushleftin, R.anim.pushleftout);
                 }
                 else
                 {
-
                     Toast.makeText(getApplicationContext(),"Please choose atleast one sport to continue",Toast.LENGTH_SHORT).show();
-
                 }
 				String errorMessage = "Something went wrong. Try again.";
 				Boolean noSportSelected = false;
 				Boolean isSportsCollectionUpdated = true; //Change this to false later
-				btnSubmitSportsSelection.setText("Saving...");
-				btnSubmitSportsSelection.setText("Please Wait......");
+				btnSubmitSportsSelection.setText("Saving, Please Wait.");
 				Mayday chk = new Mayday(ChooseSportsActivity.this);
-				
-				//TODO find out if atleast one sport is selected and assign it to noSportSelected
-				
-				// Check if theres internet connection to update
-				
-				if(!chk.isConnectingToInternet()) 
+				if(!chk.isConnectingToInternet())
 				{
 					errorMessage ="No internet connection. Try again.";
 					isSportsCollectionUpdated = false;
 					btnSubmitSportsSelection.setText("Continue");
 				}
-				
-				//Check if atleast one sport is selected
-				
+
 				if(noSportSelected){
 					isSportsCollectionUpdated = false;
 					errorMessage = "Select atleast one sport to continue.";
 					isSportsCollectionUpdated = false;
 					btnSubmitSportsSelection.setText("Continue");
 				}
-				
+
 				try {
 					//TODO store sports selections in the database and update sportsCollectionUpdated
 				}
 				catch(Exception e) {
 					isSportsCollectionUpdated = false;
 				}
-				
-				//Success:go to next activity, else show errorMessage
-			
+
 				if(isSportsCollectionUpdated){
 					btnSubmitSportsSelection.setText("Great!");
 					Intent mainIntent = new Intent(ChooseSportsActivity.this,ChooseTournamentActivity.class);
@@ -175,26 +155,25 @@ public class ChooseSportsActivity extends Activity implements LoaderManager.Load
 			        overridePendingTransition(R.anim.pushleftin, R.anim.pushleftout);
 				}
 				else{
-
                     Toast.makeText(getApplicationContext(),errorMessage,Toast.LENGTH_SHORT).show();
 					btnSubmitSportsSelection.setText("Continue");
 				}
 			}
- 
+
 		});
-		
+
 	}
 
 
-	public void populateListViewFromDb()
+	public void populateGridViewFromDb()
     {
       //  c = dbController.getSportsData();
         String[] fromFieldNames = new String[] {"name","followed"};
         int[] toViewIDs = new int[]
                 {R.id.lblSportName,R.id.chkFollowStatus};
         sportAdapter = new SportsAdapter(this,R.layout.item_sport,c,fromFieldNames,toViewIDs, 0);
-        listView = (ListView) findViewById(R.id.lvSports);
-        listView.setAdapter(sportAdapter);
+         gridview = (GridView) findViewById(R.id.gvSports);
+        gridview.setAdapter(sportAdapter);
     }
 
     @Override
@@ -204,10 +183,7 @@ public class ChooseSportsActivity extends Activity implements LoaderManager.Load
 
     @Override
     public Loader<Cursor> onCreateLoader(int i, Bundle bundle) {
-        return new CursorLoader(this,
-                SportProvider.URI_SPORTS, Sport.FIELDS, null, null,
-                null);
-
+        return new CursorLoader(this, SportProvider.URI_SPORTS, Sport.FIELDS, null, null, null);
     }
 
     @Override
@@ -221,18 +197,14 @@ public class ChooseSportsActivity extends Activity implements LoaderManager.Load
         final Button btnSubmitSportsSelection = (Button) findViewById(R.id.btnSubmitSportsSelection);
         btnSubmitSportsSelection.setText("Continue");
         mReceiver = new DDPBroadcastReceiver(MyDDPState.getInstance(), this) {
-
             @Override
             protected void onDDPConnect(DDPStateSingleton ddp) {
                 super.onDDPConnect(ddp);
                 Object[] parameters = new Object[1];
                 parameters[0] = 100;
                 //jobManager = MyApplication.getInstance().getJobManager();
-
                 //jobManager.addJobInBackground(new Subscribe(ddp,"userSportPreferences",parameters));
-
                 ddp.subscribe("userSportPreferences",parameters);
-
             }
 
             @Override
@@ -241,7 +213,6 @@ public class ChooseSportsActivity extends Activity implements LoaderManager.Load
 
             @Override
             public void onReceive(Context context, Intent intent) {
-
                 super.onReceive(context, intent);
                 if(intent.getAction().equals(MyDDPState.MESSAGE_ERROR))
                 {
@@ -255,16 +226,9 @@ public class ChooseSportsActivity extends Activity implements LoaderManager.Load
             }
         };
 
-
-
-        LocalBroadcastManager.getInstance(this).registerReceiver(mReceiver,
-                new IntentFilter(MyDDPState.MESSAGE_ERROR));
-
+        LocalBroadcastManager.getInstance(this).registerReceiver(mReceiver,new IntentFilter(MyDDPState.MESSAGE_ERROR));
         // we want connection state change messages so we know we're logged in
-        LocalBroadcastManager.getInstance(this).registerReceiver(mReceiver,
-                new IntentFilter(MyDDPState.MESSAGE_CONNECTION));
-
-
+        LocalBroadcastManager.getInstance(this).registerReceiver(mReceiver,new IntentFilter(MyDDPState.MESSAGE_CONNECTION));
     }
 
 
@@ -284,36 +248,16 @@ public class ChooseSportsActivity extends Activity implements LoaderManager.Load
 
 	@Override
 	public void onBackPressed() {
-		super.onBackPressed();
-		finish();
-		overridePendingTransition(R.anim.pushrightin, R.anim.pushrightout);
-	}
-	
-	// inflate the menu assigned for this page and set click listeners
+        super.onBackPressed();
+        finish();
+        overridePendingTransition(R.anim.pushrightin, R.anim.pushrightout);
+    }
 
     @Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 	     getMenuInflater().inflate(R.menu.choosesport, menu);
 	     return true;
 	}
-		 
-	// Action Bar icon click listeners
-		 
-	@Override
-	public boolean onOptionsItemSelected(MenuItem item) {
-	     switch (item.getItemId()) {
-		    case R.id.banter:
-		       	Intent banterIntent = new Intent(ChooseSportsActivity.this, BanterActivity.class);
-		        startActivity(banterIntent);
-		        overridePendingTransition(R.anim.pushleftin, R.anim.pushleftout);
-		        return true;
-		    case R.id.settings:
-		       	Intent settingsIntent = new Intent(ChooseSportsActivity.this, SettingsActivity.class);
-		        startActivity(settingsIntent);
-		        overridePendingTransition(R.anim.pushleftin, R.anim.pushleftout);
-		        return true;
-		    default:
-		        return super.onOptionsItemSelected(item);
-		    }
-	}
+
+    //TODO set up actionbar click listeners
 }

@@ -28,24 +28,28 @@
         android:textColor="@color/darkgray"
         />
 
-    <ListView
-        android:id="@+id/lvSports"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/lblChooseSportDesc"
-        android:paddingTop="20dp"
-        android:divider="@color/white"
-        />
-
-    <Button 
+    <Button
         android:id="@+id/btnSubmitSportsSelection"
         android:text="@string/moveon"
         android:background="@color/blue"
-        android:layout_width="fill_parent" 
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:textColor="#ffffff"
         android:layout_alignParentBottom="true"
         />
-    
+
+    <GridView xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/gvSports"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:numColumns="2"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="40dp"
+        android:stretchMode="columnWidth"
+        android:gravity="bottom"
+        android:layout_above="@id/btnSubmitSportsSelection"
+        android:layout_below="@id/lblChooseSportDesc"
+        />
+
 </RelativeLayout>
 
