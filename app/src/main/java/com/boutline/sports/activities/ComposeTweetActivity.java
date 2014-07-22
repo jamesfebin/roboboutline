@@ -130,6 +130,7 @@ public class ComposeTweetActivity extends Activity {
         else
         {
             mayday.askForTwitterCredentials();
+        finish();
         }
 
 

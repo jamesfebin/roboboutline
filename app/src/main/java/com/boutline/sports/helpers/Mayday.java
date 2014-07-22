@@ -50,8 +50,9 @@ public class Mayday {
     {
 
         Intent intent = new Intent(context, TwitterLogin.class);
-        Activity activity = (Activity) context;
-        activity.startActivity(intent);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        context.startActivity(intent);
+
 
     }
 

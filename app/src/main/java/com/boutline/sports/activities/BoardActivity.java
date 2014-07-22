@@ -71,7 +71,7 @@ public class BoardActivity extends FragmentActivity implements ActionBar.TabList
 	Boolean isPlay = true;
     BroadcastReceiver mReceiver;
     Context context;
-	
+
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
