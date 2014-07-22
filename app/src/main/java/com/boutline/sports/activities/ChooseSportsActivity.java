@@ -11,7 +11,6 @@ import android.content.CursorLoader;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.database.Cursor;
-import android.database.DataSetObserver;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v4.content.LocalBroadcastManager;
@@ -32,12 +31,9 @@ import android.widget.Toast;
 import android.content.Loader;
 import com.boutline.sports.ContentProviders.SportProvider;
 import com.boutline.sports.adapters.SportsAdapter;
-import com.boutline.sports.adapters.TournamentsAdapter;
-import com.boutline.sports.application.MyApplication;
 import com.boutline.sports.application.MyDDPState;
 import com.boutline.sports.database.SQLController;
 import com.boutline.sports.helpers.Mayday;
-import com.boutline.sports.jobs.Subscribe;
 import com.boutline.sports.models.Sport;
 import com.boutline.sports.R;
 import com.keysolutions.ddpclient.android.DDPBroadcastReceiver;
@@ -46,9 +42,9 @@ import com.path.android.jobqueue.JobManager;
 
 public class ChooseSportsActivity extends Activity implements LoaderManager.LoaderCallbacks<Cursor>  {
 	
-	public String fontPath = "fonts/proxinova.ttf";
+	public String fontPath = "fonts/sharp.ttf";
 	public Typeface tf;
-	public String boldFontPath = "fonts/proxinovabold.otf";
+	public String boldFontPath = "fonts/sharpbold.ttf";
 	public Typeface btf;
 	ActionBar actionBar;
     BroadcastReceiver mReceiver;
@@ -56,12 +52,8 @@ public class ChooseSportsActivity extends Activity implements LoaderManager.Load
     ListView listView;
     Cursor c;
     SQLController dbController;
-
     LoaderManager loadermanager;
-
     JobManager jobManager;
-
-
 
     @Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -74,6 +66,7 @@ public class ChooseSportsActivity extends Activity implements LoaderManager.Load
         // define the controls
 
 		TextView lblChooseSport = (TextView)findViewById(R.id.lblChooseSport);
+        TextView lblChooseSportDesc = (TextView)findViewById(R.id.lblChooseSportDesc);
 
 		//Set up fonts
 		
@@ -81,6 +74,7 @@ public class ChooseSportsActivity extends Activity implements LoaderManager.Load
 		btf = Typeface.createFromAsset(getAssets(), boldFontPath);
 		lblChooseSport.setTypeface(btf);
 		btnSubmitSportsSelection.setTypeface(btf);
+        lblChooseSportDesc.setTypeface(tf);
 		
 		// Populate the List View
 

@@ -5,7 +5,7 @@
     <color name="semidarkgray">#393D3C</color>
     <color name="lightgray">#E6E6E6</color>
     <color name="green">#76C70A</color>
-    <color name="blue">#0EA3F9</color>
+    <color name="blue">#59c7ff</color>
     <color name="black">#3C3C3C</color>
      <integer-array name="pocket_bar_colors">
         <item>@color/pocket_color_1</item>

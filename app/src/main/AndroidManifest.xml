@@ -97,8 +97,7 @@
         <activity
             android:name=".activities.ChooseSportsActivity"
             android:label=""
-            android:screenOrientation="portrait"
-            android:theme="@android:style/Theme.Holo.Light.NoActionBar.Fullscreen" />
+            android:screenOrientation="portrait" />
         <activity
             android:name=".activities.ChooseTournamentActivity"
             android:label=""

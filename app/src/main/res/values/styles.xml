@@ -6,14 +6,13 @@
         <item name="android:dropDownListViewStyle">@style/DropDownListView.Bostyle</item>
         <item name="android:actionBarTabStyle">@style/ActionBarTabStyle.Bostyle</item>
         <item name="android:actionDropDownStyle">@style/DropDownNav.Bostyle</item>
-        <item name="android:actionBarStyle">@style/ActionBar.Transparent.Bostyle</item>
+        <item name="android:actionBarStyle">@style/ActionBar.Solid.Bostyle</item>
         <item name="android:actionModeBackground">@drawable/cab_background_top_bostyle</item>
         <item name="android:actionModeSplitBackground">@drawable/cab_background_bottom_bostyle</item>
         <item name="android:actionModeCloseButtonStyle">@style/ActionButton.CloseMode.Bostyle</item>
         <item name="android:windowContentOverlay">@null</item>
-        <item name="android:actionMenuTextColor">@color/semidarkgray</item>
+        <item name="android:actionMenuTextColor">@color/white</item>
         <item name="android:actionBarTabTextStyle">@style/ActionBarTabTextStyle.TabTextTheme</item>
-        <item name="android:windowActionBarOverlay">true</item>
     </style>
 
     <style name="ActionBar.Solid.Bostyle" parent="@android:style/Widget.Holo.Light.ActionBar.Solid">
@@ -21,18 +20,18 @@
         <item name="android:backgroundStacked">@drawable/ab_stacked_solid_bostyle</item>
         <item name="android:backgroundSplit">@drawable/ab_bottom_solid_bostyle</item>
         <item name="android:progressBarStyle">@style/ProgressBar.Bostyle</item>
-        <item name="android:titleTextStyle">@color/semidarkgray</item>
-        <item name="android:textColor">@color/semidarkgray</item>
+        <item name="android:titleTextStyle">@color/white</item>
+        <item name="android:textColor">@color/white</item>
     </style>
 
     <style name="ActionBarTabTextStyle.TabTextTheme" parent="@android:style/Widget.Holo.Light.ActionBar.TabText">
-        <item name="android:textColor">@color/semidarkgray</item>
+        <item name="android:textColor">@color/white</item>
     </style>
 
     <style name="ActionBar.Transparent.Bostyle" parent="@android:style/Widget.Holo.Light.ActionBar">
         <item name="android:background">@drawable/ab_transparent_bostyle</item>
         <item name="android:progressBarStyle">@style/ProgressBar.Bostyle</item>
-        <item name="android:titleTextStyle">@color/semidarkgray</item>
+        <item name="android:titleTextStyle">@color/white</item>
     </style>
 
     <style name="PopupMenu.Bostyle" parent="@android:style/Widget.Holo.Light.ListPopupWindow">
@@ -52,6 +51,7 @@
         <item name="android:popupBackground">@drawable/menu_dropdown_panel_bostyle</item>
         <item name="android:dropDownSelector">@drawable/selectable_background_bostyle</item>
     </style>
+
 
     <style name="ProgressBar.Bostyle" parent="@android:style/Widget.Holo.Light.ProgressBar.Horizontal">
         <item name="android:progressDrawable">@drawable/progress_horizontal_bostyle</item>

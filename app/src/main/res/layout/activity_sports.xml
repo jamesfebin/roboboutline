@@ -3,8 +3,7 @@
     android:id="@+id/container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#ffffff"
-    android:padding="15dp">
+    android:background="#e3e3e7">
     
     <TextView
         android:id="@+id/lblChooseSport"
@@ -12,28 +11,39 @@
         android:layout_height="wrap_content"
         android:gravity="center_horizontal"
         android:text="@string/chooseSport"
-        android:paddingBottom="20dp"
+        android:paddingTop="40dp"
+        android:textSize="28sp"
+        android:textColor="@color/darkgray"
+        />
+
+    <TextView
+        android:id="@+id/lblChooseSportDesc"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:text="@string/chooseSportDesc"
+        android:layout_below="@id/lblChooseSport"
+        android:padding="20dp"
         android:textSize="16sp"
         android:textColor="@color/darkgray"
         />
-    
+
     <ListView
         android:id="@+id/lvSports"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/lblChooseSport"
+        android:layout_below="@id/lblChooseSportDesc"
         android:paddingTop="20dp"
         android:divider="@color/white"
         />
-    
+
     <Button 
         android:id="@+id/btnSubmitSportsSelection"
         android:text="@string/moveon"
-        android:background="@drawable/bluebuttonstates"
+        android:background="@color/blue"
         android:layout_width="fill_parent" 
         android:layout_height="wrap_content"
-        android:padding="10dp"
-        android:textColor="#000000"
+        android:textColor="#ffffff"
         android:layout_alignParentBottom="true"
         />
     
