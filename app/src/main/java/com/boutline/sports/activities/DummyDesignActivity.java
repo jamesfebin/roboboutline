@@ -41,7 +41,7 @@ import com.boutline.sports.R;
 
 public class DummyDesignActivity extends Activity {
 
-	public String fontPath = "fonts/museo.otf";
+	public String fontPath = "fonts/proxinova.ttf";
 	public Typeface tf;
 	public String boldFontPath = "fonts/proxinovabold.otf";
 	public Typeface btf;

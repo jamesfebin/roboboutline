@@ -91,7 +91,7 @@ public class TweetsAdapter extends SimpleCursorAdapter {
                viewHolder.lblTweetMessage = (TextView) convertView.findViewById(R.id.lblTweetMessage);
                viewHolder.lblTweetTime = (TextView) convertView.findViewById(R.id.lblTweetTime);
                viewHolder.imgTweetImage = (ImageView) convertView.findViewById(R.id.imgTweetImage);
-               viewHolder.imgProfile = (ImageView) convertView.findViewById(R.id.imgProPic);
+               viewHolder.imgProfile = (ImageView) convertView.findViewById(R.id.imgPropic);
                viewHolder.retweet = (ImageView) convertView.findViewById(R.id.retweet);
                viewHolder.favorite = (ImageView) convertView.findViewById(R.id.favourite);
                convertView.setTag(viewHolder);
@@ -102,12 +102,12 @@ public class TweetsAdapter extends SimpleCursorAdapter {
            // Populate the data into the template view using the data object
 
            viewHolder.lblTweetUsername.setText(c.getString(c.getColumnIndex(Tweet.COL_UserFullName)));
-           viewHolder.lblTweetHandle.setText("@"+c.getString(c.getColumnIndex(Tweet.COL_UserHandle)));
+           viewHolder.lblTweetHandle.setText("@" + c.getString(c.getColumnIndex(Tweet.COL_UserHandle)));
            viewHolder.lblTweetMessage.setText(c.getString(c.getColumnIndex(Tweet.COL_Tweet)));
 
            AQuery aq = new AQuery(context);
            ImageOptions options = new ImageOptions();
-            final String status_id = c.getString(c.getColumnIndex(Tweet.COL_StatusId));
+           final String status_id = c.getString(c.getColumnIndex(Tweet.COL_StatusId));
            String image_url = c.getString(c.getColumnIndex(Tweet.COL_ProfileImage));
            options.round = 35;
 
@@ -129,7 +129,7 @@ public class TweetsAdapter extends SimpleCursorAdapter {
 
                viewHolder.imgTweetImage.setVisibility(View.VISIBLE);
 
-                options = new ImageOptions();
+               options = new ImageOptions();
 
                String twee_image_url = c.getString(c.getColumnIndex("media_url"));
 
@@ -142,13 +142,11 @@ public class TweetsAdapter extends SimpleCursorAdapter {
                @Override
                public void onClick(View view) {
 
-                   if(mayday.hasTwitterCredentials())
-                   {
+                   if (mayday.hasTwitterCredentials()) {
 
                        favortite(status_id);
 
-                   }
-                   else {
+                   } else {
                        mayday.askForTwitterCredentials();
                    }
 
@@ -156,25 +154,23 @@ public class TweetsAdapter extends SimpleCursorAdapter {
            });
 
 
-
            viewHolder.retweet.setOnClickListener(new View.OnClickListener() {
                @Override
                public void onClick(View view) {
 
 
-
-                   if(mayday.hasTwitterCredentials())
-                   {
+                   if (mayday.hasTwitterCredentials()) {
 
                        retweet(status_id);
 
 
-                   }
-                   else {
-                      mayday.askForTwitterCredentials();
+                   } else {
+                       mayday.askForTwitterCredentials();
                    }
                }
            });
+
+       }
 
         Animation walkthroughAnim = AnimationUtils.loadAnimation(context, R.anim.pushdownin);
         walkthroughAnim.setDuration(1000);
@@ -182,9 +178,8 @@ public class TweetsAdapter extends SimpleCursorAdapter {
         walkthroughAnim.setRepeatMode(1);
         walkthroughAnim.setZAdjustment(1);
         convertView.startAnimation(walkthroughAnim);
-
-       }
        return convertView;
+
    }
 
     public void retweet(String statusId)

@@ -37,8 +37,6 @@ import com.keysolutions.ddpclient.android.DDPBroadcastReceiver;
 import com.keysolutions.ddpclient.android.DDPStateSingleton;
 import com.mixpanel.android.mpmetrics.MixpanelAPI;
 import com.path.android.jobqueue.JobManager;
-
-
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
@@ -60,21 +58,15 @@ public class MainActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
-		ImageView splashimage = (ImageView)findViewById(R.id.splashimage);
+		
 		// Setup Progress Bar
 		
 		SmoothProgressBar mProgressBar;
 		mProgressBar = (SmoothProgressBar) findViewById(R.id.progressBar);
 		mProgressBar.setVisibility(View.VISIBLE);
 		mProgressBar.progressiveStart();
-				
 		getActionBar().hide();
 
-        Animation fadeinAnim = AnimationUtils.loadAnimation(this, R.anim.fadein);
-        fadeinAnim.setDuration(1000);
-        fadeinAnim.setRepeatCount(1);
-        fadeinAnim.setRepeatMode(1);
-        splashimage.startAnimation(fadeinAnim);
     }
 
 
@@ -84,7 +76,7 @@ public class MainActivity extends Activity {
 		  Intent mainIntent = new Intent(MainActivity.this,Walkthrough0.class);
           startActivity(mainIntent);
           finish();
-          overridePendingTransition(R.anim.pushleftin, R.anim.pushleftout);
+          overridePendingTransition(R.anim.pushupin, R.anim.pushupout);
 	}
 	
 	protected void goToChooseTournament(){
