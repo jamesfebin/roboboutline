@@ -29,9 +29,11 @@ import android.widget.Toast;
 import android.content.Loader;
 import com.boutline.sports.ContentProviders.SportProvider;
 import com.boutline.sports.adapters.SportsAdapter;
+import com.boutline.sports.application.MyApplication;
 import com.boutline.sports.application.MyDDPState;
 import com.boutline.sports.database.SQLController;
 import com.boutline.sports.helpers.Mayday;
+import com.boutline.sports.jobs.CreateBanter;
 import com.boutline.sports.models.Sport;
 import com.boutline.sports.R;
 import com.keysolutions.ddpclient.android.DDPBroadcastReceiver;
@@ -194,6 +196,7 @@ public class ChooseSportsActivity extends Activity implements LoaderManager.Load
 	@Override
 	protected void onResume() {
         super.onResume();
+
         final Button btnSubmitSportsSelection = (Button) findViewById(R.id.btnSubmitSportsSelection);
         btnSubmitSportsSelection.setText("Continue");
         mReceiver = new DDPBroadcastReceiver(MyDDPState.getInstance(), this) {
@@ -209,6 +212,7 @@ public class ChooseSportsActivity extends Activity implements LoaderManager.Load
 
             @Override
             protected void onError(String title, String msg) {
+
             }
 
             @Override

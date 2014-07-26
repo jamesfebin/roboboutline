@@ -37,6 +37,9 @@ import android.database.Cursor;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v4.content.LocalBroadcastManager;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
@@ -49,8 +52,11 @@ import com.boutline.sports.adapters.BanterTopicsAdapter;
 import com.boutline.sports.adapters.SportsAdapter;
 import com.boutline.sports.adapters.TournamentsAdapter;
 import com.boutline.sports.adapters.TournamentsSelectAdapter;
+import com.boutline.sports.application.MyApplication;
 import com.boutline.sports.application.MyDDPState;
 import com.boutline.sports.database.SQLController;
+import com.boutline.sports.jobs.CreateBanter;
+import com.boutline.sports.models.Conversation;
 import com.boutline.sports.models.Tournament;
 import com.boutline.sports.R;
 import com.keysolutions.ddpclient.android.DDPBroadcastReceiver;
@@ -66,11 +72,12 @@ public class NewBanterActivity extends Activity implements LoaderManager.LoaderC
     public String boldFontPath = "fonts/proxinovabold.otf";
     public Typeface btf;
     LoaderManager loadermanager;
-    JobManager jobManager;
-    SimpleCursorAdapter tournamenentAdapter;
+    TournamentsSelectAdapter tournamenentAdapter;
     ListView listView;
     Cursor c;
     BroadcastReceiver mReceiver;
+    String selectedTournament=null;
+    JobManager jobManager;
 
     @Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -79,7 +86,7 @@ public class NewBanterActivity extends Activity implements LoaderManager.LoaderC
 
         TextView hdrNewBanter = (TextView)findViewById(R.id.hdrNewBanter);
         TextView lblGiveName = (TextView)findViewById(R.id.lblGiveName);
-        EditText txtBanterName = (EditText)findViewById(R.id.txtBanterName);
+        final EditText txtBanterName = (EditText)findViewById(R.id.txtBanterName);
         TextView lblChooseTopic = (TextView)findViewById(R.id.lblChooseTopic);
         Button btnCreateBanter = (Button)findViewById(R.id.btnCreateBanter);
         // Set up the fonts
@@ -94,6 +101,66 @@ public class NewBanterActivity extends Activity implements LoaderManager.LoaderC
         loadermanager = getLoaderManager();
         populateListViewFromDb();
         loadermanager.initLoader(1, null, this);
+
+        jobManager = MyApplication.getInstance().getJobManager();
+        txtBanterName.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i2, int i3) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i2, int i3) {
+
+                String str = charSequence.toString();
+                if(str.length() > 0 && str.startsWith(" ")){
+
+                    Toast.makeText(getApplicationContext(),"Banter Name cannot begin with a whitespace",Toast.LENGTH_SHORT).show();
+                    txtBanterName.setText("");
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
+        });
+
+        btnCreateBanter.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+
+
+        if(tournamenentAdapter.getSelectedTournament()!=null)
+        {
+
+            selectedTournament = tournamenentAdapter.getSelectedTournament();
+
+            if(txtBanterName.getText().toString().equals("")==false)
+            {
+                String banterName = txtBanterName.getText().toString();
+
+                Object[] parameters = new Object[2];
+                parameters[0]=txtBanterName.getText().toString();
+                parameters[1]=tournamenentAdapter.getSelectedTournament();
+
+                jobManager.addJobInBackground(new CreateBanter(parameters));
+
+            }
+            else
+            {
+                Toast.makeText(getApplicationContext(),"Please provide Banter Name",Toast.LENGTH_SHORT).show();
+            }
+
+        }
+                else
+        {
+            Toast.makeText(getApplicationContext(),"Please select one tournament to continue",Toast.LENGTH_SHORT).show();
+        }
+
+            }
+        });
 
 
 
@@ -118,6 +185,11 @@ public class NewBanterActivity extends Activity implements LoaderManager.LoaderC
                 ddp.subscribe("userTournamentPreferences",parameters);
 
 
+
+            }
+
+            @Override
+            protected void onError(String title, String msg) {
 
             }
 

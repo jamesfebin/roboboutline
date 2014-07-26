@@ -2,20 +2,24 @@ package com.boutline.sports.application;
 
 import com.boutline.sports.database.BoutDBHelper;
 import com.boutline.sports.database.SQLController;
-import com.boutline.sports.exceptions.NotConnectedToBoutline;
-import com.boutline.sports.exceptions.NotLoggedIn;
 import com.boutline.sports.jobs.Connect;
+import com.boutline.sports.jobs.CreateBanter;
 import com.boutline.sports.jobs.Login;
+import com.boutline.sports.jobs.ProcessFbRequests;
+import com.boutline.sports.jobs.RequestFbUser;
+import com.boutline.sports.jobs.SendMessage;
 import com.boutline.sports.jobs.SendSportPreferences;
 import com.boutline.sports.jobs.SendTournamentPreferences;
 import com.boutline.sports.models.Conversation;
+import com.boutline.sports.models.ConversationParameter;
 import com.boutline.sports.models.FacebookUserInfo;
 import com.boutline.sports.models.Match;
+import com.boutline.sports.models.Message;
+import com.boutline.sports.models.MessageParameter;
 import com.boutline.sports.models.Sport;
 
 import com.boutline.sports.models.Tournament;
 import com.boutline.sports.models.Tweet;
-import com.facebook.SharedPreferencesTokenCachingStrategy;
 import com.google.gson.Gson;
 import com.keysolutions.ddpclient.DDPListener;
 import com.keysolutions.ddpclient.DDPClient.DdpMessageField;
@@ -46,7 +50,7 @@ public class MyDDPState extends DDPStateSingleton {
 
     private Map<String, Sport> sports;
     public String TAG="MY DDP State";
-    private DDPSTATE mDDPState;
+    public DDPSTATE mDDPState;
     private static Context mContext;
 
     SQLiteDatabase boutdb;
@@ -124,9 +128,7 @@ public class MyDDPState extends DDPStateSingleton {
                 if(errormsg.contains("Unknown websocket error (exception in callback?"))
                 {
                     mDDPState = DDPSTATE.Closed;
-
-
-                    Log.e("MSG", msg.toString());
+                 Log.e("MSG", msg.toString());
                     reconnect();
 
                 }
@@ -237,8 +239,6 @@ public class MyDDPState extends DDPStateSingleton {
 
                     } else {
 
-                        jobManager = MyApplication.getInstance().getJobManager();
-                        jobManager.addJobInBackground(new SendSportPreferences(sportId));
 
                     }
 
@@ -247,7 +247,7 @@ public class MyDDPState extends DDPStateSingleton {
 
 
                     jobManager = MyApplication.getInstance().getJobManager();
-                    jobManager.addJobInBackground(new SendSportPreferences(sportId));
+                   jobManager.addJobInBackground(new SendSportPreferences(sportId));
 
 
                 }
@@ -291,8 +291,55 @@ public class MyDDPState extends DDPStateSingleton {
 
                     } else {
 
-                        jobManager = MyApplication.getInstance().getJobManager();
-                        jobManager.addJobInBackground(new SendTournamentPreferences(tournamentId));
+                    }
+
+
+                } else {
+
+
+                    jobManager = MyApplication.getInstance().getJobManager();
+                   jobManager.addJobInBackground(new SendTournamentPreferences(tournamentId));
+
+
+                }
+
+
+            }
+
+
+        });
+
+
+    }
+
+
+
+    public void processFbRequests(final Object[] parameters) throws Throwable
+    {
+
+
+
+        mDDP.call("processBanterRequests", parameters, new DDPListener() {
+
+
+            @Override
+            public void onResult(Map<String, Object> resultFields) {
+
+                Log.e("RESPONSE", resultFields.toString());
+                super.onResult(resultFields);
+                if (resultFields.containsKey("result")) {
+
+
+                    String response = resultFields.get("result").toString();
+
+
+                    if (response.matches("added") || response.matches("removed")) {
+
+
+                        // Do nothing
+
+
+                    } else {
 
                     }
 
@@ -301,7 +348,56 @@ public class MyDDPState extends DDPStateSingleton {
 
 
                     jobManager = MyApplication.getInstance().getJobManager();
-                    jobManager.addJobInBackground(new SendTournamentPreferences(tournamentId));
+                    jobManager.addJobInBackground(new ProcessFbRequests(parameters));
+
+
+                }
+
+
+            }
+
+
+        });
+
+
+    }
+
+
+    public void requestFbUser(final Object[] parameters) throws Throwable
+    {
+
+
+
+        mDDP.call("requestFbUser", parameters, new DDPListener() {
+
+
+            @Override
+            public void onResult(Map<String, Object> resultFields) {
+
+                Log.e("RESPONSE", resultFields.toString());
+                super.onResult(resultFields);
+                if (resultFields.containsKey("result")) {
+
+
+                    String response = resultFields.get("result").toString();
+
+
+                    if (response.matches("added") || response.matches("removed")) {
+
+
+                        // Do nothing
+
+
+                    } else {
+
+                    }
+
+
+                } else {
+
+
+                    jobManager = MyApplication.getInstance().getJobManager();
+                    jobManager.addJobInBackground(new RequestFbUser(parameters));
 
 
                 }
@@ -329,6 +425,109 @@ public class MyDDPState extends DDPStateSingleton {
 
 
     }
+
+    public void createBanter(final Object[] parameters)  {
+
+
+
+        ConversationParameter conversation = new ConversationParameter();
+        conversation.name = parameters[0].toString();
+        conversation.tournamentId = parameters[1].toString();
+
+        Object[] convoParameters = new Object[1];
+        convoParameters[0]=conversation;
+
+        mDDP.call("createBanter", convoParameters, new DDPListener() {
+
+
+            @Override
+            public void onResult(Map<String, Object> resultFields) {
+
+                Log.e("RESPONSE", resultFields.toString());
+               // super.onResult(resultFields);
+                if (resultFields.containsKey("result")) {
+
+
+
+                } else {
+
+                    //This has a purpose.. Don't delete
+                  jobManager = MyApplication.getInstance().getJobManager();
+                  jobManager.addJobInBackground(new CreateBanter(parameters));
+
+
+                }
+
+
+            }
+
+
+        });
+
+
+    }
+
+    public void sendMessage(final Object[] parameters)  {
+
+
+
+        MessageParameter message = new MessageParameter();
+        message.banterId = parameters[0].toString();
+        message.message=parameters[1].toString();
+
+
+
+        Object[] messageParameters = new Object[1];
+        messageParameters[0]=message;
+
+
+
+        mDDP.call("sendMessage", messageParameters, new DDPListener() {
+
+
+                @Override
+                public void onResult (Map<String, Object> resultFields){
+
+                Log.e("RESPONSE", resultFields.toString());
+                super.onResult(resultFields);
+                if (resultFields.containsKey("result")) {
+
+
+                    String response = resultFields.get("result").toString();
+
+                    Log.e("Respnse", response.toString());
+
+                    if (response.matches("Message was inserted") == true) {
+
+
+                        // Do nothing
+
+
+                    } else {
+
+
+                    }
+
+
+                } else {
+
+                    //This has a purpose.. Don't delete
+                    jobManager = MyApplication.getInstance().getJobManager();
+                    jobManager.addJobInBackground(new SendMessage(parameters));
+
+
+                }
+
+
+            }
+
+
+
+
+        });
+
+    }
+
 
     public void boutlineLogin() throws Throwable {
 
@@ -372,6 +571,11 @@ public class MyDDPState extends DDPStateSingleton {
                                 .get(DdpMessageField.RESULT);
                         if (result.containsKey("userId")) {
 
+                           preferences = mContext.getSharedPreferences("boutlineData", Context.MODE_PRIVATE);
+                           SharedPreferences.Editor editor = preferences.edit();
+                           editor.putString("boutlineUserId", result.get("userId").toString());
+                           editor.commit();
+
                             mDDPState = mDDPState.LoggedIn;
                             Intent broadcastIntent = new Intent();
                             broadcastIntent.setAction("LOGINSUCCESS");
@@ -403,9 +607,15 @@ public class MyDDPState extends DDPStateSingleton {
         }
 
         else
+
             {
                 Log.e("MyDDPState","already logged In");
-
+                mDDPState = mDDPState.LoggedIn;
+                Intent broadcastIntent = new Intent();
+                broadcastIntent.setAction("LOGINSUCCESS");
+                LocalBroadcastManager.getInstance(
+                        MyApplication.getAppContext()).sendBroadcast(
+                        broadcastIntent);
             }
 
     }
@@ -527,6 +737,30 @@ public class MyDDPState extends DDPStateSingleton {
                     dbHelper.getInstance(mContext).putConversation(conversation);
 
                 }
+
+            }
+            else if(collectionName.equals("messages"))
+            {
+
+
+                if (changetype.equals(DdpMessageType.ADDED)) {
+
+                    Log.e("Item added","Messages");
+
+                    Message message = new Message(docId, getCollection(collectionName).get(docId));
+                    dbHelper.getInstance(mContext).putMessage(message);
+
+                }  else if (changetype.equals(DdpMessageType.REMOVED)) {
+
+
+                } else if (changetype.equals(DdpMessageType.UPDATED)) {
+
+                    Message message = new Message(docId, getCollection(collectionName).get(docId));
+                    dbHelper.getInstance(mContext).putMessage(message);
+
+                }
+
+
 
             }
        }

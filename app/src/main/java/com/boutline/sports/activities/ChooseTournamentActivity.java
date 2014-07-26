@@ -312,12 +312,17 @@ public class ChooseTournamentActivity extends Activity implements LoaderManager.
                 Object[] parameters = new Object[1];
                 parameters[0] = 20;
 
-                //jobManager = MyAp plication.getInstance().getJobManager();
+                //jobManager = MyApplication.getInstance().getJobManager();
                 //jobManager.addJobInBackground(new Subscribe(ddp,"userTournamentPreferences",parameters));
 
                 ddp.subscribe("userTournamentPreferences",parameters);
 
 
+
+            }
+
+            @Override
+            protected void onError(String title, String msg) {
 
             }
 

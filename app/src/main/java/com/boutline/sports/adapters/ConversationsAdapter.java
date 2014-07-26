@@ -1,6 +1,8 @@
 package com.boutline.sports.adapters;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Typeface;
 import android.view.LayoutInflater;
@@ -10,6 +12,7 @@ import android.widget.ArrayAdapter;
 import android.widget.SimpleCursorAdapter;
 import android.widget.TextView;
 
+import com.boutline.sports.activities.ConversationActivity;
 import com.boutline.sports.models.Conversation;
 import com.boutline.sports.R;
 
@@ -44,6 +47,7 @@ public class ConversationsAdapter extends SimpleCursorAdapter {
         Cursor c = getCursor();
 
         if(c.moveToPosition(position)) {
+
             tf = Typeface.createFromAsset(context.getAssets(), fontPath);
             btf = Typeface.createFromAsset(context.getAssets(), boldFontPath);
 
@@ -67,6 +71,18 @@ public class ConversationsAdapter extends SimpleCursorAdapter {
                 viewHolder = (ViewHolder) convertView.getTag();
             }
 
+            final String conversationId = c.getString(c.getColumnIndex(Conversation.COL_ID));
+            convertView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent = new Intent(context, ConversationActivity.class);
+                    intent.putExtra("conversationId",conversationId);
+                    Activity activity = (Activity) context;
+                    activity.startActivity(intent);
+                    activity.overridePendingTransition(R.anim.pushleftin, R.anim.pushleftout);
+
+                }
+            });
             // Populate the data into the template view using the data object
 
             viewHolder.lblConversationName.setText(c.getString(c.getColumnIndex(Conversation.COL_NAME)));

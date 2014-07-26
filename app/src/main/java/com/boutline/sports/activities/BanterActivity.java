@@ -45,16 +45,30 @@ import android.widget.Toast;
 import com.boutline.sports.ContentProviders.ConversationProvider;
 import com.boutline.sports.adapters.ConversationsAdapter;
 import com.boutline.sports.adapters.SportsAdapter;
+import com.boutline.sports.application.MyApplication;
 import com.boutline.sports.application.MyDDPState;
 import com.boutline.sports.helpers.Mayday;
+import com.boutline.sports.jobs.ProcessFbRequests;
 import com.boutline.sports.models.Conversation;
 import com.boutline.sports.R;
 import com.boutline.sports.models.Match;
 import com.boutline.sports.models.Sport;
+import com.facebook.HttpMethod;
+import com.facebook.Request;
+import com.facebook.Response;
+import com.facebook.Session;
+import com.facebook.SessionState;
+import com.facebook.UiLifecycleHelper;
 import com.keysolutions.ddpclient.android.DDPBroadcastReceiver;
 import com.keysolutions.ddpclient.android.DDPStateSingleton;
+import com.path.android.jobqueue.JobManager;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class BanterActivity extends Activity implements LoaderManager.LoaderCallbacks<Cursor> {
 
@@ -66,7 +80,20 @@ public class BanterActivity extends Activity implements LoaderManager.LoaderCall
     Cursor c;
     ListView listView;
     LoaderManager loadermanager;
+    private UiLifecycleHelper uiHelper;
     BroadcastReceiver mReceiver;
+    JobManager jobManager;
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        uiHelper.onSaveInstanceState(outState);
+    }
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        uiHelper.onDestroy();
+    }
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -75,7 +102,7 @@ public class BanterActivity extends Activity implements LoaderManager.LoaderCall
         TextView hdrConversations = (TextView)findViewById(R.id.hdrConversations);
 
 		// Declare and Assign the fonts
-		
+
 		tf = Typeface.createFromAsset(getAssets(), fontPath);
     	btf = Typeface.createFromAsset(getAssets(), boldFontPath);
     	hdrConversations.setTypeface(btf);
@@ -85,10 +112,158 @@ public class BanterActivity extends Activity implements LoaderManager.LoaderCall
         loadermanager = getLoaderManager();
         populateListViewFromDb();
         loadermanager.initLoader(1, null, this);
+        jobManager = MyApplication.getInstance().getJobManager();
 
+        uiHelper = new UiLifecycleHelper(this, callback);
+        uiHelper.onCreate(savedInstanceState);
 
 		
 	}
+
+    private void onSessionStateChange(Session session, SessionState state, Exception exception) {
+
+        if (state.isOpened()) {
+
+
+        }
+        else if(state.isClosed())
+        {
+
+
+            MyDDPState.getInstance().mDDPState = DDPStateSingleton.DDPSTATE.Connected;
+
+            Intent intent = new Intent(this,FacebookLogin.class);
+            startActivity(intent);
+
+
+        }
+
+    }
+
+
+    private Session.StatusCallback callback =
+            new SessionStatusCallback();
+    private Session.StatusCallback statusCallback =
+            new SessionStatusCallback();
+
+    private class SessionStatusCallback implements Session.StatusCallback {
+        @Override
+        public void call(Session session, SessionState state, Exception exception) {
+            onSessionStateChange(session, state, exception);
+        }
+    }
+
+
+    public void checkForFacebookRequests()
+    {
+
+        try{
+
+            new Request(
+                    Session.getActiveSession(),
+                    "/me/apprequests",
+                    null,
+                    HttpMethod.GET,
+                    new Request.Callback() {
+
+
+                        public void onCompleted(Response response) {
+
+                            try {
+
+                                JSONObject x = response.getGraphObject().getInnerJSONObject();
+
+
+                                JSONArray dataArray = x.getJSONArray("data");
+
+                                int cursor;
+                                for(cursor=0;cursor<dataArray.length();cursor++)
+                                {
+
+                                    JSONObject appRequest = dataArray.getJSONObject(cursor);
+                                    System.out.println("App Message is"+appRequest.get("message").toString());
+
+                                    String req_id_combined = appRequest.get("id").toString();
+                                    String[] parts = req_id_combined.split("_");
+                                    String req_id=parts[0];
+
+                                    Object req_app= appRequest.get("application");
+                                    Object req_to=appRequest.get("to");
+                                    Object req_from= appRequest.get("from");
+                                    String req_message=appRequest.get("message").toString();
+                                    Object req_created=appRequest.get("created_time");
+
+                                    System.out.println("Resuest ID: "+req_id);
+                                    System.out.println("Application: "+req_app);
+                                    System.out.println("To: "+req_to);
+                                    System.out.println("From"+req_from);
+                                    System.out.println("Message:"+req_message);
+                                    System.out.println("created"+req_created);
+
+
+
+                                    Object[] parameters = new Object[1];
+                                    parameters[0]=req_id;
+
+
+                                    jobManager.addJobInBackground(new ProcessFbRequests(parameters));
+
+
+                                    try
+                                    {
+
+                                        new Request(
+                                                Session.getActiveSession(),
+                                                "/"+req_id,
+                                                null,
+                                                HttpMethod.DELETE,
+                                                new Request.Callback() {
+                                                    public void onCompleted(Response response) {
+
+                                                        System.out.println("Deleted"+response.toString());
+                                                    }
+                                                }
+                                        ).executeAsync();
+
+                                    }
+                                    catch(Exception E)
+                                    {
+                                        E.printStackTrace();
+                                    }
+
+
+
+
+                                }
+
+
+
+                            } catch (JSONException e) {
+                                // TODO Auto-generated catch block
+                                e.printStackTrace();
+                            }
+                            catch(NullPointerException E)
+                            {
+                                E.printStackTrace();
+                            }
+
+
+                        }
+
+
+                    }
+            ).executeAsync();
+
+
+        }
+        catch(Exception E){
+            E.printStackTrace();
+        }
+
+
+
+    }
+
 
     public void populateListViewFromDb()
     {
@@ -132,6 +307,35 @@ public class BanterActivity extends Activity implements LoaderManager.LoaderCall
     @Override
     protected void onResume() {
         super.onResume();
+
+        Session session = Session.getActiveSession();
+        if (session != null &&
+                (session.isOpened() || session.isClosed()) ) {
+            onSessionStateChange(session, session.getState(), null);
+        }
+        uiHelper.onResume();
+
+
+        if (!session.isOpened() && !session.isClosed()) {
+
+            MyDDPState.getInstance().mDDPState = DDPStateSingleton.DDPSTATE.Connected;
+
+            Intent intent = new Intent(this,FacebookLogin.class);
+            startActivity(intent);
+
+
+        } else if(session.isClosed()){
+
+            MyDDPState.getInstance().mDDPState = DDPStateSingleton.DDPSTATE.Connected;
+
+            Intent intent = new Intent(this,FacebookLogin.class);
+            startActivity(intent);
+
+        }
+
+        checkForFacebookRequests();
+
+
         mReceiver = new DDPBroadcastReceiver(MyDDPState.getInstance(), this) {
 
             @Override
@@ -146,6 +350,11 @@ public class BanterActivity extends Activity implements LoaderManager.LoaderCall
                 //jobManager.addJobInBackground(new Subscribe(ddp,"associatedBanters",parameters));
 
                 ddp.subscribe("associatedBanters",parameters);
+
+            }
+
+            @Override
+            protected void onError(String title, String msg) {
 
             }
 
@@ -188,6 +397,7 @@ public class BanterActivity extends Activity implements LoaderManager.LoaderCall
             LocalBroadcastManager.getInstance(this).unregisterReceiver(mReceiver);
             mReceiver = null;
         }
+        uiHelper.onPause();
 
     }
 
@@ -210,6 +420,7 @@ public class BanterActivity extends Activity implements LoaderManager.LoaderCall
     public void onLoadFinished(Loader<Cursor> cursorLoader, Cursor cursor) {
 
        conversationsAdapter.swapCursor(cursor);
+
     }
 
     @Override

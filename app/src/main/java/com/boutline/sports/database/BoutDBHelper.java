@@ -9,6 +9,7 @@ import android.util.Log;
 
 import com.boutline.sports.ContentProviders.ConversationProvider;
 import com.boutline.sports.ContentProviders.MatchProvider;
+import com.boutline.sports.ContentProviders.MessageProvider;
 import com.boutline.sports.ContentProviders.SportProvider;
 import com.boutline.sports.ContentProviders.TournamentProvider;
 import com.boutline.sports.ContentProviders.TweetProvider;
@@ -17,6 +18,7 @@ import com.boutline.sports.jobs.Favorite;
 import com.boutline.sports.jobs.Retweet;
 import com.boutline.sports.models.Conversation;
 import com.boutline.sports.models.Match;
+import com.boutline.sports.models.Message;
 import com.boutline.sports.models.Sport;
 import com.boutline.sports.models.Tournament;
 import com.boutline.sports.models.Tweet;
@@ -59,6 +61,7 @@ public class BoutDBHelper extends SQLiteOpenHelper {
         db.execSQL(Match.CREATE_TABLE);
         db.execSQL(Tweet.CreateTable);
         db.execSQL(Conversation.CREATE_TABLE);
+        db.execSQL(Message.CREATE_TABLE);
 
         int i=0;
 
@@ -570,4 +573,54 @@ public class BoutDBHelper extends SQLiteOpenHelper {
                 ConversationProvider.URI_CONVERSATIONS, null, false);
     }
 
+    public synchronized boolean putMessage(Message message) {
+        boolean success = false;
+        int result = 0;
+        final SQLiteDatabase db = this.getWritableDatabase();
+
+        Cursor cursor = db.query(Message.TABLE_NAME, new String[] { "_id" },"_id" + "=?",
+                new String[] { message.mDocId }, null, null, null, null);
+
+
+        if (cursor.getCount() > 0) {
+            // Then update
+            result += db.update(Message.TABLE_NAME, message.getContent(),
+                    Message.COL_ID + " IS ?",
+                    new String[] { message.mDocId });
+        }
+
+
+        if (result > 0) {
+            success = true;
+        } else {
+            // Update failed or wasn't possible, insert instead
+            final long id = db.insert(Message.TABLE_NAME, null,
+                    message.getContent());
+
+            success = true;
+        }
+
+        if(success)
+        {
+            notifyProviderOnMessageChange();
+
+        }
+        return success;
+    }
+
+    public synchronized int removeMessage(final Message message) {
+        final SQLiteDatabase db = this.getWritableDatabase();
+
+        final int result = db.delete(Message.TABLE_NAME,
+                Message.COL_ID + " IS ?",
+                new String[] { message.mDocId });
+
+        notifyProviderOnMessageChange();
+        return result;
+    }
+
+    private void notifyProviderOnMessageChange() {
+        mcontext.getContentResolver().notifyChange(
+                MessageProvider.URI_FILTERMESSAGES, null, false);
+    }
 }

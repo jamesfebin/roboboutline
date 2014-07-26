@@ -32,11 +32,11 @@ public class Conversation {
 
     public long id = -1;
     public static String mDocId;
-    String name;
-    String tournamentName;
-    String tournamentId;
-    String randomUserPics;
-    String lastMessage;
+    public String name;
+    public String tournamentName;
+    public String tournamentId;
+    public String randomUserPics;
+    public String lastMessage;
 
 
     public Map<String, Object> fields;
@@ -44,6 +44,11 @@ public class Conversation {
 
 
     // Constructor
+
+    public Conversation()
+    {
+
+    }
     
     public Conversation(String mDocId,Map<String, Object> fields) {
 

@@ -95,10 +95,6 @@ public class ComposeTweetActivity extends Activity {
         mayday = new Mayday(getApplicationContext());
 
 
-
-
-
-
         if(mayday.hasTwitterCredentials()) {
             SharedPreferences preferences = this.getSharedPreferences("boutlineData", Context.MODE_PRIVATE);
 

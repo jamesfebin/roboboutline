@@ -119,14 +119,9 @@ public class MainActivity extends Activity {
         Gson gson = new Gson();
 
        if(storedFbInfoString!=null) {
-
             fbUser = gson.fromJson(storedFbInfoString, FacebookUserInfo.class);
-
        }
-
             mReceiver = new DDPBroadcastReceiver(MyDDPState.getInstance(), this) {
-
-
             @Override
             protected void onDDPConnect(DDPStateSingleton ddp) {
                 super.onDDPConnect(ddp);
@@ -138,11 +133,8 @@ public class MainActivity extends Activity {
 
                 }
                 else{
-
                  // Commented code are precious..
                  // MyDDPState.getInstance().boutlineLogin();
-
-
                 }
 
             }

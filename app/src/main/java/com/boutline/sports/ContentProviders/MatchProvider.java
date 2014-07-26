@@ -65,7 +65,7 @@ public class MatchProvider extends ContentProvider {
             result = BoutDBHelper
                     .getInstance(getContext())
                     .getReadableDatabase()
-                    .query(true,Match.TABLE_NAME, Match.FIELDS, null, null, null,
+                    .query(Match.TABLE_NAME, Match.FIELDS, null, null, null,
                             null, Match.COL_MATCHSTARTTIME, null);
 
             Log.e("Total cursor count",result.getCount()+"");

@@ -32,56 +32,380 @@
 package com.boutline.sports.activities;
 
 import android.app.Activity;
+import android.app.LoaderManager;
 import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.CursorLoader;
+import android.content.Intent;
+import android.content.IntentFilter;
+import android.content.Loader;
+import android.content.SharedPreferences;
+import android.database.Cursor;
+import android.graphics.Color;
 import android.graphics.Typeface;
+import android.net.Uri;
 import android.os.Bundle;
+import android.support.v4.content.LocalBroadcastManager;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.SimpleCursorAdapter;
+import android.widget.TextView;
+import android.widget.Toast;
 
+import com.boutline.sports.ContentProviders.MatchProvider;
+import com.boutline.sports.ContentProviders.MessageProvider;
+import com.boutline.sports.ContentProviders.SportProvider;
 import com.boutline.sports.adapters.MessagesAdapter;
+import com.boutline.sports.application.MyApplication;
+import com.boutline.sports.application.MyDDPState;
+import com.boutline.sports.jobs.RequestFbUser;
+import com.boutline.sports.jobs.SendMessage;
 import com.boutline.sports.models.Message;
 import com.boutline.sports.R;
+import com.boutline.sports.models.Sport;
+import com.facebook.FacebookException;
+import com.facebook.FacebookOperationCanceledException;
+import com.facebook.Session;
+import com.facebook.SessionState;
+
+import com.facebook.UiLifecycleHelper;
+import com.facebook.widget.WebDialog;
+import com.keysolutions.ddpclient.android.DDPBroadcastReceiver;
+import com.keysolutions.ddpclient.android.DDPStateSingleton;
+import com.path.android.jobqueue.JobManager;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
-public class ConversationActivity extends Activity {
+public class ConversationActivity extends Activity implements LoaderManager.LoaderCallbacks<Cursor>{
 
     public String fontPath = "fonts/proxinova.ttf";
     public Typeface tf;
     public String boldFontPath = "fonts/proxinovabold.otf";
     public Typeface btf;
     BroadcastReceiver mReciever;
+    MessagesAdapter messageAdapter;
+    LoaderManager loadermanager;
+    Cursor c;
+    BroadcastReceiver mReceiver;
+    ListView listView;
+    JobManager jobManager;
+    private UiLifecycleHelper uiHelper;
+    SharedPreferences mSharedPreferences;
 
-	@Override
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        uiHelper.onSaveInstanceState(outState);
+    }
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        uiHelper.onDestroy();
+        mSharedPreferences = this.getSharedPreferences("boutlineData",
+                Context.MODE_PRIVATE);
+
+        SharedPreferences.Editor editor = mSharedPreferences.edit();
+        editor.putString("currentScreen","");
+        editor.putString("banterId","");
+        editor.commit();
+
+    }
+
+    @Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_conversation);
 
         tf = Typeface.createFromAsset(getAssets(), fontPath);
         btf = Typeface.createFromAsset(getAssets(), boldFontPath);
-        EditText txtCompose = (EditText) findViewById(R.id.txtCompose);
+        final EditText txtCompose = (EditText) findViewById(R.id.txtCompose);
+        Button sendMessage = (Button) findViewById(R.id.btnCompose);
 		txtCompose.setTypeface(tf);
+        jobManager = MyApplication.getInstance().getJobManager();
 
 		// Populate the List View
-		
-		ArrayList<Message> arrayOfMessages = new ArrayList<Message>();
-		ArrayList<String> abc = new ArrayList<String>();
-		Message message = new Message("123","123","Anand Satyan","123","My name is Antony Gonsalves. Mein duniya mein akhela hoon! Goli number Goli number Goli number chaar sow bhees!","4:30 PM","123");
-		arrayOfMessages.add(message);
-        Message message2 = new Message("124","124","Febin John James","124","Excuse me please!","4:31 PM","124");
-        arrayOfMessages.add(message2);
-        Message message3 = new Message("125","125","Boutbot","125","Sharath Acharya joined the conversation","4:31 PM","125");
-        arrayOfMessages.add(message3);
-		MessagesAdapter adapter = new MessagesAdapter(this, arrayOfMessages);
-		ListView listView = (ListView) findViewById(R.id.lvMessages);
-		listView.setAdapter(adapter);
-				
-	}	
-	
-	@Override
+        loadermanager = getLoaderManager();
+		populateListViewFromdb();
+        loadermanager.initLoader(1,null,this);
+
+        uiHelper = new UiLifecycleHelper(this, callback);
+        uiHelper.onCreate(savedInstanceState);
+
+        txtCompose.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i2, int i3) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i2, int i3) {
+
+                String str = charSequence.toString();
+                if(str.length() > 0 && str.startsWith(" ")){
+
+                    txtCompose.setText("");
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
+        });
+
+        jobManager = MyApplication.getInstance().getJobManager();
+        sendMessage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                if (txtCompose.getText().toString().matches("invite") == true) {
+                    sendRequestDialog();
+                } else if (txtCompose.getText().toString().matches("") == false) {
+                    Object[] parameters = new Object[2];
+                    parameters[0] = getIntent().getExtras().getString("conversationId");
+                    parameters[1] = txtCompose.getText().toString();
+                    jobManager.addJobInBackground(new SendMessage(parameters));
+                    txtCompose.setText("");
+                }
+            }
+        });
+
+	}
+
+    public void populateListViewFromdb()
+    {
+
+        String[] fromFieldNames = new String[] {Message.COL_MESSAGE};
+        int[] toViewIDs = new int[]
+                {R.id.lblMessage};
+
+        messageAdapter = new MessagesAdapter(this,R.layout.item_leftmessage,c,fromFieldNames,toViewIDs,0);
+        listView = (ListView) findViewById(R.id.lvMessages);
+        listView.setAdapter(messageAdapter);
+
+
+    }
+
+
+    private void onSessionStateChange(Session session, SessionState state, Exception exception) {
+
+        if (state.isOpened()) {
+
+
+        }
+        else if(state.isClosed())
+        {
+
+
+        }
+
+    }
+
+
+    private Session.StatusCallback callback =
+            new SessionStatusCallback();
+    private Session.StatusCallback statusCallback =
+            new SessionStatusCallback();
+
+    private class SessionStatusCallback implements Session.StatusCallback {
+        @Override
+        public void call(Session session, SessionState state, Exception exception) {
+            onSessionStateChange(session, state, exception);
+        }
+    }
+
+
+        @Override
+    protected void onResume() {
+        super.onResume();
+
+            mSharedPreferences = this.getSharedPreferences("boutlineData",
+                    Context.MODE_PRIVATE);
+
+            SharedPreferences.Editor editor = mSharedPreferences.edit();
+            editor.putString("currentScreen","banter");
+            editor.putString("banterId",getIntent().getExtras().getString("conversationId"));
+            editor.commit();
+
+        Session session = Session.getActiveSession();
+        if (session != null &&
+                (session.isOpened() || session.isClosed()) ) {
+            onSessionStateChange(session, session.getState(), null);
+        }
+        uiHelper.onResume();
+
+            if (!session.isOpened() && !session.isClosed()) {
+                MyDDPState.getInstance().mDDPState = DDPStateSingleton.DDPSTATE.Connected;
+
+                Intent intent = new Intent(this,FacebookLogin.class);
+                startActivity(intent);
+
+            } else if(session.isClosed()){
+
+                MyDDPState.getInstance().mDDPState = DDPStateSingleton.DDPSTATE.Connected;
+
+                Intent intent = new Intent(this,FacebookLogin.class);
+                startActivity(intent);
+
+            }
+
+
+
+    mReceiver = new DDPBroadcastReceiver(MyDDPState.getInstance(), this) {
+
+            @Override
+            protected void onDDPConnect(DDPStateSingleton ddp) {
+                super.onDDPConnect(ddp);
+
+
+                Log.e("ConversationId", getIntent().getExtras().getString("conversationId"));
+
+                Object[] parameters = new Object[2];
+                parameters[0] = getIntent().getExtras().getString("conversationId");
+                parameters[1] = 20;
+
+                //jobManager = MyApplication.getInstance().getJobManager();
+                //jobManager.addJobInBackground(new Subscribe(ddp,"messages",parameters));
+
+                ddp.subscribe("messages",parameters);
+
+            }
+
+            @Override
+            protected void onError(String title, String msg) {
+
+            }
+
+            @Override
+            public void onReceive(Context context, Intent intent) {
+
+                super.onReceive(context, intent);
+
+                Bundle bundle = intent.getExtras();
+
+                if(intent.getAction().equals(MyDDPState.MESSAGE_ERROR))
+                {
+
+                    Toast.makeText(getApplicationContext(), "Internet connection not avaialable", Toast.LENGTH_SHORT).show();
+
+                }
+
+
+            }
+        };
+
+        LocalBroadcastManager.getInstance(this).registerReceiver(mReceiver,
+                new IntentFilter(MyDDPState.MESSAGE_ERROR));
+
+
+        // we want connection state change messages so we know we're logged in
+        LocalBroadcastManager.getInstance(this).registerReceiver(mReceiver,
+                new IntentFilter(MyDDPState.MESSAGE_CONNECTION));
+
+        if (MyDDPState.getInstance().getState() == MyDDPState.DDPSTATE.Closed) {
+            //    Toast.makeText(getApplicationContext(),"Internet connection not avaialable",Toast.LENGTH_SHORT);
+        }
+
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        mSharedPreferences = this.getSharedPreferences("boutlineData",
+                Context.MODE_PRIVATE);
+
+        SharedPreferences.Editor editor = mSharedPreferences.edit();
+        editor.putString("currentScreen","");
+        editor.putString("banterId","");
+        editor.commit();
+        if (mReceiver != null) {
+
+            LocalBroadcastManager.getInstance(this).unregisterReceiver(mReceiver);
+            mReceiver = null;
+        }
+        uiHelper.onPause();
+
+
+    }
+
+    @Override
 	public void onBackPressed() {
 		super.onBackPressed();
 		finish();
 		overridePendingTransition(R.anim.pushrightin, R.anim.pushrightout);
 	}
+
+    @Override
+    public Loader<Cursor> onCreateLoader(int i, Bundle bundle) {
+        String conversationId = getIntent().getExtras().getString("conversationId");
+        return new CursorLoader(this, Uri.parse(MessageProvider.URI_FILTERMESSAGES+"/"+conversationId) , Message.FIELDS, null, null, null);
+    }
+
+    @Override
+    public void onLoadFinished(Loader<Cursor> cursorLoader, Cursor cursor) {
+        messageAdapter.swapCursor(cursor);
+    }
+
+    @Override
+    public void onLoaderReset(Loader<Cursor> cursorLoader) {
+        messageAdapter.swapCursor(null);
+
+    }
+
+    private void sendRequestDialog() {
+
+        Session session = Session.getActiveSession();
+
+        if(session.isOpened()) {
+
+            Bundle parameters = new Bundle();
+            parameters.putString("message", "Sent by Boutline");
+
+
+            WebDialog.Builder builder = new WebDialog.Builder(ConversationActivity.this, Session.getActiveSession(),
+                    "apprequests", parameters);
+
+            builder.setOnCompleteListener(new WebDialog.OnCompleteListener() {
+
+                @Override
+                public void onComplete(Bundle values, FacebookException error) {
+
+                    if (error != null) {
+                        if (error instanceof FacebookOperationCanceledException) {
+                            Toast.makeText(ConversationActivity.this, "Request cancelled", Toast.LENGTH_SHORT).show();
+                        } else {
+                            Toast.makeText(ConversationActivity.this, "Network Error", Toast.LENGTH_SHORT).show();
+
+                        }
+                    } else {
+
+                        final String requestId = values.getString("request");
+                        Log.e("Rewuests", "This is the request ID" + requestId);
+                        if (requestId != null) {
+                            Toast.makeText(ConversationActivity.this, "Request sent", Toast.LENGTH_SHORT).show();
+                            Object[] parameters = new Object[2];
+                            parameters[0] = getIntent().getExtras().getString("conversationId");
+                            parameters[1] = requestId;
+
+                            jobManager.addJobInBackground(new RequestFbUser(parameters));
+                        } else {
+                            Toast.makeText(ConversationActivity.this, "Request cancelled", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                }
+            });
+
+            WebDialog webDialog = builder.build();
+            webDialog.show();
+        }
+    }
+
+
+
 }

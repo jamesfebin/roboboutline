@@ -31,7 +31,9 @@ public class TournamentsSelectAdapter extends SimpleCursorAdapter {
 	public Typeface btf;
     JobManager jobManager;
 
+    public String selectedTournament = null;
 
+    ViewGroup parentClone;
     private Context context;
     private int layout;
     BoutDBHelper dbHelper;
@@ -52,11 +54,32 @@ public class TournamentsSelectAdapter extends SimpleCursorAdapter {
 
     }
 
+    public String getSelectedTournament()
+    {
+
+        int i =0;
+        for(i=0;i<parentClone.getChildCount();i++)
+        {
+            CheckBox cb = (CheckBox) parentClone.getChildAt(i).findViewById(R.id.SelectChkFollowStatus);
+
+            if(cb.isChecked()==true)
+            {
+                return selectedTournament;
+            }
+
+
+        }
+
+        return null;
+
+    }
+
     @Override
     public View getView(int position, View convertView, final ViewGroup parent) {
     	
        // Get the data item for this position
 
+        parentClone = parent;
         Cursor c = getCursor();
 
         if(c.moveToPosition(position)) {
@@ -75,7 +98,6 @@ public class TournamentsSelectAdapter extends SimpleCursorAdapter {
                 viewHolder.matchContainer = (RelativeLayout) convertView.findViewById(R.id.matchContainer);
                 convertView.setTag(viewHolder);
             } else {
-
                 viewHolder = (ViewHolder) convertView.getTag();
             }
 
@@ -95,12 +117,16 @@ public class TournamentsSelectAdapter extends SimpleCursorAdapter {
                     viewHolder.chkFollowStatus.setChecked(select_status);
 
                     if(select_status) {
+
+                        selectedTournament = tournamentId;
+
                         int i = 0;
                         for (i = 0; i < parent.getChildCount(); i++) {
 
                             CheckBox cb = (CheckBox) parent.getChildAt(i).findViewById(R.id.SelectChkFollowStatus);
 
                             if (currentPosition != i) {
+
                                 cb.setChecked(false);
 
                             }
@@ -123,8 +149,11 @@ public class TournamentsSelectAdapter extends SimpleCursorAdapter {
                     viewHolder.chkFollowStatus.setChecked(select_status);
 
                     if(select_status) {
+                        selectedTournament = tournamentId;
+
                         int i = 0;
                         for (i = 0; i < parent.getChildCount(); i++) {
+
 
                             CheckBox cb = (CheckBox) parent.getChildAt(i).findViewById(R.id.SelectChkFollowStatus);
 

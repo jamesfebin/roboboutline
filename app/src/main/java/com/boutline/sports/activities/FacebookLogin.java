@@ -218,11 +218,7 @@ public class FacebookLogin extends Activity {
                 if (intent.getAction().equals("LOGINSUCCESS"))
                 {
 
-                    if(intent.hasExtra("userId")==true) {
 
-                        Editor editor = preferences.edit();
-                        editor.putString("boutlineUserId", intent.getStringExtra("userId"));
-                        editor.commit();
 
 
                         if(mixpanel!=null) {
@@ -236,7 +232,7 @@ public class FacebookLogin extends Activity {
                         finish();
 
 
-                    }
+
                 }
                 else if(intent.getAction().equals("LOGINFAILED"))
                 {
