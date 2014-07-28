@@ -4,8 +4,6 @@
 
 #Tasks
 
-  ##To Be Completed
-
   ###28th August
 - [ ] Research on Azure Blob Storage for @jamesfebin
 
