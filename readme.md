@@ -2,48 +2,48 @@
 ###*Current Version 3.0*
 
 
-### Tasks
+# Tasks
 
   ##To Be Completed
 
-  #28th August
+  ###28th August
 - [ ] Research on Azure Blob Storage for @jamesfebin
 
-  #29th & 30th August
+  ###29th & 30th August
 - [ ] Sports Images Upload Setup for @jamesfebin
 - [ ] Tournament Images Upload Setup for @jamesfebin
 - [ ] Team Image upload setup for @jamesfebin
 
-  #31st July
+  ###31st July
 - [ ] Banter Details Backend Setup for @jamesfebin
 - [ ] Admin Actions Backend Setup for @jamesfebin
 - [ ] Swipable Photos for @jamesfebin
 
-  #1st & 2nd August
+  ###1st & 2nd August
 - [ ] Group Alerts Research for @jamesfebin
 - [ ] Sports followers backend setup for @jamesfebin
 - [ ] Tournament followers backend setup for @jamesfebin
 
-  #4th & 5th August
+  ###4th & 5th August
 - [ ] Offline Message Research for @jamesfebin
 - [ ] Offline Banter Creation Research for @jamesfebin
 - [ ] Implement Offline Banter Creation & Message (Backend) for @jamesfebin
 
-  #6th &7th August
+  ###6th &7th August
 - [ ] Nginx Image Reload Fix for @jamesfebin
 
-  #8th August
+  ###8th August
 - [ ] Followers implementation Android for @jamesfebin
 - [ ] Image Linking for @jamesfebin
 
-  #9th August
+  ###9th August
 - [ ] Async call to get data (List of People & Info) for @jamesfebin
 - [ ] Define Caching Rules for @jamesfebin
 - [ ] Async update cache and UI on data reception for @jamesfebin
 - [ ] Leave Group for @jamesfebin
 
 
-  #10th August
+  ###10th August
 - [ ] Settings page
 - [ ] Tweetboard userfriendly tweet addition
 - [ ] Profile Information for @jamesfebin
@@ -54,7 +54,7 @@
 - [ ] Logout , Clearing Data ,Device Id Untagging for @jamesfebin
 
 
-  #11th August
+  ###11th August
 - [ ] Notification Broadcast for @jamesfebin
 - [ ] Notification Broadcast for @jamesfebin
 - [ ] Notification Redirect for @jamesfebin
@@ -62,10 +62,10 @@
 - [ ] Piling up Notifications Instead of overwriting for @jamesfebin
 - [ ] Notification algorithm refinement for @jamesfebin
 
-  #12th August
+  ###12th August
 - [ ] Infinite Scroll for @jamesfebin
 
-  #13th August
+  ###13th August
 - [ ] Blank Slates for @jamesfebin
 - [ ] Mixpanel Calls for @jamesfebin
 
