@@ -152,7 +152,7 @@ String userId;
         redirectIntent.putExtra("conversationId", banterId);
 
         PendingIntent contentIntent = PendingIntent.getActivity(this, 0,
-                redirectIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+                redirectIntent, PendingIntent.FLAG_ONE_SHOT);
 
         //   final Intent contentIntent = new Intent(this, ChooseTournaments.class);
         // contentIntent.setAction(Intent.ACTION_MAIN);
@@ -166,7 +166,9 @@ String userId;
                         .setContentTitle(banterName)
                         .setStyle(new NotificationCompat.BigTextStyle().bigText(senderName+" : " + message ))
                         .setContentText(senderName+" : " + message )
-                        .setSound(Settings.System.DEFAULT_NOTIFICATION_URI);
+                        .setSound(Settings.System.DEFAULT_NOTIFICATION_URI)
+                    .setAutoCancel(true);
+
 
         mBuilder.setContentIntent(contentIntent);
         mNotificationManager.notify(NOTIFICATION_ID, mBuilder.build());
@@ -196,9 +198,7 @@ String userId;
             redirectIntent.putExtra("hashtag", hashtag);
 
             contentIntent = PendingIntent.getActivity(this, 0,
-                    redirectIntent,PendingIntent.FLAG_UPDATE_CURRENT);
-
-
+                    redirectIntent,PendingIntent.FLAG_ONE_SHOT);
 
 
         }
@@ -211,7 +211,8 @@ if(contentIntent!=null) {
                     .setContentTitle("Boutline Alert!")
                     .setStyle(new NotificationCompat.BigTextStyle().bigText(msg))
                     .setContentText(msg)
-                    .setSound(Settings.System.DEFAULT_NOTIFICATION_URI);
+                    .setSound(Settings.System.DEFAULT_NOTIFICATION_URI)
+                    .setAutoCancel(true);
 
     mBuilder.setContentIntent(contentIntent);
     mNotificationManager.notify(NOTIFICATION_ID, mBuilder.build());
