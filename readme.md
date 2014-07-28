@@ -1,8 +1,7 @@
 ##Boutline's Android Repo
 ###*Current Version 3.0*
 
-
-#Tasks
+  ##Tasks
 
   ###28th August
 - [ ] Research on Azure Blob Storage for @jamesfebin
