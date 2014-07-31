@@ -31,6 +31,7 @@
 	<string name="givebantername">Give your group a name:</string>
 	<string name="choosetourforbanter">Choose a tournament to banter about from the list below:</string>
 	<string name="chooseSport">Favorite Sports</string>
+    <string name="maniac">Maniac</string>
     <string name="chooseSportDesc">Follow Sports to see tournaments and get better recommendations in the future.</string>
 	<string name="chooseTournament">Live Tournaments</string>
 	<string name="noTours">Doh! The apocalypse is coming. There are no tournaments happening at this time.</string>

@@ -13,7 +13,6 @@ import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v4.content.LocalBroadcastManager;
 import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.Window;
@@ -21,7 +20,7 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.CheckBox;
-import android.widget.GridView;
+import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.SimpleCursorAdapter;
 import android.widget.TextView;
@@ -29,11 +28,8 @@ import android.widget.Toast;
 import android.content.Loader;
 import com.boutline.sports.ContentProviders.SportProvider;
 import com.boutline.sports.adapters.SportsAdapter;
-import com.boutline.sports.application.MyApplication;
 import com.boutline.sports.application.MyDDPState;
-import com.boutline.sports.database.SQLController;
 import com.boutline.sports.helpers.Mayday;
-import com.boutline.sports.jobs.CreateBanter;
 import com.boutline.sports.models.Sport;
 import com.boutline.sports.R;
 import com.keysolutions.ddpclient.android.DDPBroadcastReceiver;
@@ -42,16 +38,18 @@ import com.path.android.jobqueue.JobManager;
 
 public class ChooseSportsActivity extends Activity implements LoaderManager.LoaderCallbacks<Cursor>  {
 	
-	public String fontPath = "fonts/sharp.ttf";
-	public Typeface tf;
+
+    public String fontPath = "fonts/sharp.ttf";
+    public Typeface tf;
+    public String proxiFontPath = "fonts/proxinova.ttf";
+    public Typeface ptf;
 	public String boldFontPath = "fonts/sharpbold.ttf";
 	public Typeface btf;
 	ActionBar actionBar;
     BroadcastReceiver mReceiver;
     SimpleCursorAdapter sportAdapter;
-    GridView gridview;
+    ListView listview;
     Cursor c;
-    SQLController dbController;
     LoaderManager loadermanager;
     JobManager jobManager;
 
@@ -72,19 +70,15 @@ public class ChooseSportsActivity extends Activity implements LoaderManager.Load
 		
 		tf = Typeface.createFromAsset(getAssets(), fontPath);
 		btf = Typeface.createFromAsset(getAssets(), boldFontPath);
+        ptf = Typeface.createFromAsset(getAssets(), proxiFontPath);
 		lblChooseSport.setTypeface(btf);
 		btnSubmitSportsSelection.setTypeface(btf);
-        lblChooseSportDesc.setTypeface(tf);
+        lblChooseSportDesc.setTypeface(ptf);
 		
 		// Populate the Grid View
 
         loadermanager = getLoaderManager();
-        String[] fromFieldNames = new String[] {"name","followed"};
-        int[] toViewIDs = new int[]
-                {R.id.lblSportName,R.id.chkFollowStatus};
-        sportAdapter = new SportsAdapter(this,R.layout.item_sport,c,fromFieldNames,toViewIDs, 0);
-       final GridView gridview = (GridView) findViewById(R.id.gvSports);
-        gridview.setAdapter(sportAdapter);
+        populateListViewFromDb();
         loadermanager.initLoader(1,null,this);
 
         // Set up the animations
@@ -105,9 +99,9 @@ public class ChooseSportsActivity extends Activity implements LoaderManager.Load
                 int flag=0;
                 CheckBox cb;
 
-                for(i=0;i<gridview.getCount();i++)
+                for(i=0;i<listview.getCount();i++)
                 {
-                    cb = (CheckBox) gridview.getChildAt(i).findViewById(R.id.chkFollowStatus);
+                    cb = (CheckBox) listview.getChildAt(i).findViewById(R.id.chkFollowStatus);
                     if(cb.isChecked())
                     {
                         flag = 1;
@@ -143,13 +137,6 @@ public class ChooseSportsActivity extends Activity implements LoaderManager.Load
 					btnSubmitSportsSelection.setText("Continue");
 				}
 
-				try {
-					//TODO store sports selections in the database and update sportsCollectionUpdated
-				}
-				catch(Exception e) {
-					isSportsCollectionUpdated = false;
-				}
-
 				if(isSportsCollectionUpdated){
 					btnSubmitSportsSelection.setText("Great!");
 					Intent mainIntent = new Intent(ChooseSportsActivity.this,ChooseTournamentActivity.class);
@@ -167,15 +154,15 @@ public class ChooseSportsActivity extends Activity implements LoaderManager.Load
 	}
 
 
-	public void populateGridViewFromDb()
+	public void populateListViewFromDb()
     {
       //  c = dbController.getSportsData();
         String[] fromFieldNames = new String[] {"name","followed"};
         int[] toViewIDs = new int[]
                 {R.id.lblSportName,R.id.chkFollowStatus};
         sportAdapter = new SportsAdapter(this,R.layout.item_sport,c,fromFieldNames,toViewIDs, 0);
-         gridview = (GridView) findViewById(R.id.gvSports);
-        gridview.setAdapter(sportAdapter);
+         listview = (ListView) findViewById(R.id.lvSports);
+        listview.setAdapter(sportAdapter);
     }
 
     @Override

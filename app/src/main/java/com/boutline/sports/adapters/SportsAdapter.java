@@ -27,7 +27,9 @@ import com.path.android.jobqueue.JobManager;
 import java.util.ArrayList;
 
 public class SportsAdapter extends SimpleCursorAdapter{
-	
+
+    public String biSharpFontPath = "fonts/sharpbolditalic.ttf";
+    public Typeface bitf;
 	public String fontPath = "fonts/sharp.ttf";
 	public Typeface tf;
 	public String boldFontPath = "fonts/sharpbold.ttf";
@@ -40,6 +42,7 @@ public class SportsAdapter extends SimpleCursorAdapter{
 
     private static class ViewHolder {
         TextView lblSportName;
+        TextView lblManiac;
         TextView lblSportDescription;
         CheckBox chkFollowStatus;
         ImageView imgSport;
@@ -72,6 +75,7 @@ public class SportsAdapter extends SimpleCursorAdapter{
                 viewHolder.lblSportDescription = (TextView) convertView.findViewById(R.id.lblSportDescription);
                 viewHolder.chkFollowStatus = (CheckBox) convertView.findViewById(R.id.chkFollowStatus);
                 viewHolder.imgSport = (ImageView) convertView.findViewById(R.id.imgSport);
+                viewHolder.lblManiac = (TextView) convertView.findViewById(R.id.lblManiac);
                 viewHolder.sportContainer = (RelativeLayout) convertView.findViewById(R.id.sportContainer);
                 convertView.setTag(viewHolder);
 
@@ -81,7 +85,7 @@ public class SportsAdapter extends SimpleCursorAdapter{
 
 
             viewHolder.lblSportName.setText(c.getString(c.getColumnIndex("name")));
-            viewHolder.lblSportDescription.setText("sup");
+            viewHolder.lblSportDescription.setText("10391 FANS");
 
             if (c.getInt(c.getColumnIndex("followed")) == 1)
                 viewHolder.chkFollowStatus.setChecked(true);
@@ -94,13 +98,16 @@ public class SportsAdapter extends SimpleCursorAdapter{
             AQuery aq = new AQuery(context);
             ImageOptions options = new ImageOptions();
 
-            String image_url = "https://boutline.com/" + c.getString(c.getColumnIndex("icon"));
+            String image_url = "https://boutstorage.blob.core.windows.net/bout/sport-" + c.getString(c.getColumnIndex("icon"));
+            Log.d("picture is",image_url);
             aq.id(viewHolder.imgSport).image(image_url, options);
 
             tf = Typeface.createFromAsset(context.getAssets(), fontPath);
             btf = Typeface.createFromAsset(context.getAssets(), boldFontPath);
-            viewHolder.lblSportName.setTypeface(btf);
+            bitf = Typeface.createFromAsset(context.getAssets(), biSharpFontPath);
+            viewHolder.lblSportName.setTypeface(bitf);
             viewHolder.lblSportDescription.setTypeface(btf);
+            viewHolder.lblManiac.setTypeface(tf);
 
             final String sportId = c.getString(c.getColumnIndex("_id"));
             viewHolder.sportContainer.setOnClickListener(new View.OnClickListener() {

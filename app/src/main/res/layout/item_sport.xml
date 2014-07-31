@@ -2,7 +2,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/sportContainer"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="180dp"
+    android:background="#222222">
 
     <ImageView
         xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -11,28 +12,47 @@
         android:scaleType="centerCrop"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:padding="10dp"
         />
+
+    <RelativeLayout
+        android:id="@+id/sportmaniac"
+        android:orientation="horizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true">
 
 	    <TextView
 	        android:id="@+id/lblSportName"
 	        android:text="@string/cricket"
-            android:layout_centerHorizontal="true"
             android:layout_centerVertical="true"
+            android:textSize="28sp"
 	        android:layout_width="wrap_content"
 	        android:layout_height="wrap_content"
 	        android:textColor="@color/white"
 	        />
 
+        <TextView
+            android:id="@+id/lblManiac"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:text="@string/maniac"
+            android:paddingLeft="5dp"
+            android:textSize="28sp"
+            android:textColor="@color/white"
+            android:layout_toRightOf="@id/lblSportName"
+            />
+    </RelativeLayout>
 	    <TextView
 	        android:id="@+id/lblSportDescription"
 	        android:text="@string/dummy"
             android:layout_centerHorizontal="true"
             android:layout_centerVertical="true"
-            android:layout_below="@id/lblSportName"
+            android:layout_below="@id/sportmaniac"
 	        android:layout_width="wrap_content"
+            android:textSize="12sp"
 	        android:layout_height="wrap_content"
-            android:paddingTop="24sp"
 	        android:textColor="@color/white"
 	        />
 
@@ -43,6 +63,7 @@
         android:layout_height="wrap_content"
         android:checked="true"
         android:layout_alignParentRight="true"
+        android:paddingTop="20dp"
         android:paddingRight="10dp"/>
 
  </RelativeLayout>
