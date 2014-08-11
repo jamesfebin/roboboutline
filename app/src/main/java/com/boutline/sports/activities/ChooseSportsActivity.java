@@ -118,35 +118,6 @@ public class ChooseSportsActivity extends Activity implements LoaderManager.Load
                 {
                     Toast.makeText(getApplicationContext(),"Please choose atleast one sport to continue",Toast.LENGTH_SHORT).show();
                 }
-				String errorMessage = "Something went wrong. Try again.";
-				Boolean noSportSelected = false;
-				Boolean isSportsCollectionUpdated = true; //Change this to false later
-				btnSubmitSportsSelection.setText("Saving, Please Wait.");
-				Mayday chk = new Mayday(ChooseSportsActivity.this);
-				if(!chk.isConnectingToInternet())
-				{
-					errorMessage ="No internet connection. Try again.";
-					isSportsCollectionUpdated = false;
-					btnSubmitSportsSelection.setText("Continue");
-				}
-
-				if(noSportSelected){
-					isSportsCollectionUpdated = false;
-					errorMessage = "Select atleast one sport to continue.";
-					isSportsCollectionUpdated = false;
-					btnSubmitSportsSelection.setText("Continue");
-				}
-
-				if(isSportsCollectionUpdated){
-					btnSubmitSportsSelection.setText("Great!");
-					Intent mainIntent = new Intent(ChooseSportsActivity.this,ChooseTournamentActivity.class);
-			        startActivity(mainIntent);
-			        overridePendingTransition(R.anim.pushleftin, R.anim.pushleftout);
-				}
-				else{
-                    Toast.makeText(getApplicationContext(),errorMessage,Toast.LENGTH_SHORT).show();
-					btnSubmitSportsSelection.setText("Continue");
-				}
 			}
 
 		});

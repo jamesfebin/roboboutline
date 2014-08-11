@@ -150,6 +150,45 @@
             android:screenOrientation="portrait"
             android:theme="@android:style/Theme.Holo.Light.NoActionBar.Fullscreen" />
 
+
+
+
+        <!-- New activities come here -->
+
+        <activity
+            android:name=".activities.SignupActivity"
+            android:label=""
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Holo.Light.NoActionBar.Fullscreen" />
+        <activity
+            android:name=".activities.LoginActivity"
+            android:label=""
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Holo.Light.NoActionBar.Fullscreen" />
+        <activity
+            android:name=".activities.MPRActivity"
+            android:label=""
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Holo.Light.NoActionBar.Fullscreen" />
+        <activity
+            android:name=".activities.ForgotPasswordActivity"
+            android:label=""
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Holo.Light.NoActionBar.Fullscreen" />
+        <activity
+            android:name=".activities.CreateProfileActivity"
+            android:label=""
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Holo.Light.NoActionBar.Fullscreen" />
+
+
+
+
+
+
+
+
+
         <receiver
             android:name="com.boutline.sports.receivers.GcmBroadcastReceiver"
             android:permission="com.google.android.c2dm.permission.SEND"

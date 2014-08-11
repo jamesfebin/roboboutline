@@ -3,25 +3,45 @@
     android:id="@+id/container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#ffffff">
+    android:background="#111111">
 
+    <RelativeLayout
+        android:id="@+id/tourGuide"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:background="#111111">
 
     <TextView
         android:id="@+id/lblChooseTournament"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:text="@string/chooseTournament"
-        android:padding="15dp"
-        android:textSize="16sp"
-        android:textColor="@color/darkgray"
+        android:textColor="@color/white"
+        android:paddingTop="20dp"
+        android:textSize="28sp"
+        android:gravity="center"
         />
-
+    <TextView
+        android:id="@+id/lblChooseTourDesc"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:text="@string/chooseTourDesc"
+        android:layout_below="@id/lblChooseTournament"
+        android:paddingTop="10dp"
+        android:paddingBottom="20dp"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:textSize="14sp"
+        android:textColor="@color/white"
+        />
+    </RelativeLayout>
 
      <ListView
         android:id="@+id/lvTournaments"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/lblChooseTournament"
+        android:layout_below="@id/tourGuide"
         android:divider="@color/white"
       />
 

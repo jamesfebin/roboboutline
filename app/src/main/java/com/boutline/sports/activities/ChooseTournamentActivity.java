@@ -79,10 +79,12 @@ import java.util.ArrayList;
 
 public class ChooseTournamentActivity extends Activity implements LoaderManager.LoaderCallbacks<Cursor> {
 
-	public String fontPath = "fonts/proxinova.ttf";
-	public Typeface tf;
-	public String boldFontPath = "fonts/proxinovabold.otf";
-	public Typeface btf;
+    public String fontPath = "fonts/sharp.ttf";
+    public Typeface tf;
+    public String boldFontPath = "fonts/sharpbold.ttf";
+    public Typeface btf;
+    public String proxiFontPath = "fonts/proxinova.ttf";
+    public Typeface ptf;
 	ActionBar actionBar;
     String SENDER_ID = "265718256788";
     private final static int PLAY_SERVICES_RESOLUTION_REQUEST = 9000;
@@ -122,6 +124,7 @@ public class ChooseTournamentActivity extends Activity implements LoaderManager.
         actionBg.requestLayout();
         */
 		TextView lblChooseTournament = (TextView)findViewById(R.id.lblChooseTournament);
+        TextView lblChooseTourDesc = (TextView)findViewById(R.id.lblChooseTourDesc);
 		TextView lblBlankSlate = (TextView)findViewById(R.id.lblBlankSlate);
         RelativeLayout container = (RelativeLayout) findViewById(R.id.container);
 
@@ -134,10 +137,11 @@ public class ChooseTournamentActivity extends Activity implements LoaderManager.
         container.startAnimation(fadeinAnim);
 
         // Set up the fonts
-
         tf = Typeface.createFromAsset(getAssets(), fontPath);
+        ptf = Typeface.createFromAsset(getAssets(), proxiFontPath);
         btf = Typeface.createFromAsset(getAssets(), boldFontPath);
 		lblChooseTournament.setTypeface(btf);
+        lblChooseTourDesc.setTypeface(ptf);
 
 
         loadermanager = getLoaderManager();

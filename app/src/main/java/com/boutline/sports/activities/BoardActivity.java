@@ -95,7 +95,7 @@ public class BoardActivity extends FragmentActivity implements ActionBar.TabList
 		
 		//Set up the tabs
 
-	    String[] tabs = { "Popular", "Media", "Fan Voice" };
+	    String[] tabs = { "Popular", "Media", "Fans" };
 
         String mtId = getIntent().getExtras().getString("mtId");
         String type = getIntent().getExtras().getString("type");

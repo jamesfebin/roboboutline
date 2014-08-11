@@ -1,85 +1,80 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/container"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context="com.boutline.sports.activities.Walkthrough1"
-    tools:ignore="MergeRootFrame"
-    android:background="#ffffff">
-    <TextView
-	    android:id="@+id/hdrWalkthrough1"
-	    android:layout_width="fill_parent"
-	    android:layout_height="wrap_content"
-	    android:text="@string/board"
-	    android:textSize="20sp"
-	    android:textStyle="bold"
-	    android:textColor="#1CACFF"
-	    android:gravity="center_horizontal"
-	    android:paddingTop="15dp"></TextView>
-	<TextView
-	    android:id="@+id/lblWalkthrough1"
-	    android:layout_width="fill_parent"
-	    android:layout_height="wrap_content"
-	    android:text="@string/walkthrough1"
-	    android:layout_below="@id/hdrWalkthrough1"
-	    android:textSize="16sp"
-	    android:gravity="center_horizontal"
-	    android:padding="20dp"
-	    android:paddingBottom="10dp"></TextView>
+<?xml version="1.0" encoding="utf-8"?>
 
-	<ImageView
-	    android:id="@+id/imgWalkthrough1"
-	    android:layout_width="fill_parent" 
-	    android:layout_height="wrap_content"
-	    android:src="@drawable/walkthrough1"
-	    android:layout_below="@id/lblWalkthrough1"
-	    android:contentDescription="@string/walkthrough1"
-	    android:scaleType="centerCrop"
-	    android:padding="20dp" />
-	
-	<LinearLayout
-	    android:id="@+id/pageindicator"
-	    android:layout_width="fill_parent"
-	    android:layout_height="45dp"
-	    android:gravity="center_horizontal"
-	    android:layout_gravity="center_horizontal"
-	    android:layout_alignParentBottom="true"
-	    android:background="#05A0CE"
-	    android:orientation="horizontal"
-	    android:padding="15dp">
-	    
-		<ImageView
-		    android:id="@+id/imgActivePage"
-		    android:layout_width="20dp"
-		    android:layout_height="wrap_content"
-		    android:src="@drawable/active_page"
-		    android:contentDescription="@string/walkthrough1"
-		    android:padding="2dp"
-		     />
-		<ImageView
-		    android:id="@+id/imgInactivePage"
-		    android:layout_width="20dp"
-		    android:layout_height="wrap_content"
-		    android:src="@drawable/inactive_page"
-		    android:contentDescription="@string/walkthrough1"
-		    android:padding="2dp"
-		     />
-		<ImageView
-		    android:id="@+id/imgInactivePage2"
-		    android:layout_width="20dp"
-		    android:layout_height="wrap_content"
-		    android:src="@drawable/inactive_page"
-		    android:contentDescription="@string/walkthrough1"
-		    android:padding="2dp"
-		     />		
-	</LinearLayout>
-	<ImageView
-		    android:id="@+id/imgMouseImage"
-		    android:layout_width="35dp" 
-		    android:layout_height="wrap_content"
-		    android:src="@drawable/mousecircle"
-		    android:layout_alignParentBottom="true"
-		    android:contentDescription="@string/walkthrough1"
-		     />
-	
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/lblProfile"
+        android:text="Profile"
+        android:textColor="@color/darkgray"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        />
+
+    <ImageView
+        android:id="@+id/imgProPic"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_below="@id/lblProfile"
+        android:gravity="center"
+        android:layout_centerHorizontal="true"
+        android:src="@drawable/dummy"
+        android:layout_marginTop="30dp"
+        android:layout_marginBottom="30dp"
+        />
+
+
+    <TextView
+        android:id="@+id/lblFullname"
+        android:text="Full name"
+        android:textColor="@color/darkgray"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:layout_below="@id/imgProPic"
+        />
+
+    <EditText
+        android:id="@+id/txtUsername"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/lblFullname"
+        android:layout_marginLeft="10dp"
+        android:inputType="textNoSuggestions"
+        android:layout_marginRight="10dp"
+        />
+
+    <TextView
+        android:id="@+id/lblEmailId"
+        android:text="Email ID"
+        android:textColor="@color/darkgray"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:layout_below="@id/txtUsername"
+        />
+
+    <TextView
+        android:id="@+id/txtEmailId"
+        android:text="anand.satyan@gmail.com"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/lblEmailId"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        />
+
+    <Button
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:text="Update"
+        android:background="@color/darkgray"
+        android:textColor="@color/white"
+        android:layout_alignParentBottom="true"
+        />
+
+
+
 </RelativeLayout>

@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/lblSignup"
+        android:text="Sign up for Boutline"
+        android:textColor="@color/darkgray"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        />
+
+    <TextView
+        android:id="@+id/lblUsername"
+        android:text="Username"
+        android:textColor="@color/darkgray"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:layout_below="@id/lblSignup"
+        />
+
+    <EditText
+        android:id="@+id/txtUsername"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/lblUsername"
+        android:layout_marginLeft="10dp"
+        android:inputType="textNoSuggestions"
+        android:layout_marginRight="10dp"
+        />
+
+    <TextView
+        android:id="@+id/lblEmailId"
+        android:text="Email ID"
+        android:textColor="@color/darkgray"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:layout_below="@id/txtUsername"
+        />
+
+    <EditText
+        android:id="@+id/txtEmailId"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/lblEmailId"
+        android:inputType="textEmailAddress"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        />
+
+    <TextView
+        android:id="@+id/lblPassword"
+        android:text="Password"
+        android:textColor="@color/darkgray"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:layout_below="@id/txtEmailId"
+        />
+
+    <EditText
+        android:id="@+id/txtPassword"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/lblPassword"
+        android:layout_marginLeft="10dp"
+        android:inputType="textPassword"
+        android:layout_marginRight="10dp"
+        />
+
+    <TextView
+        android:id="@+id/lblLogin"
+        android:text="Already a member? Login here."
+        android:textColor="@color/darkgray"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:padding="30dp"
+        android:gravity="center"
+        android:layout_below="@id/txtPassword"
+        />
+
+    <Button
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:text="Sign Up"
+        android:background="@color/darkgray"
+        android:textColor="@color/white"
+        android:layout_alignParentBottom="true"
+        />
+
+
+
+</RelativeLayout>

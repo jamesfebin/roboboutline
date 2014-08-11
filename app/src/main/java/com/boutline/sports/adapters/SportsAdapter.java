@@ -34,6 +34,8 @@ public class SportsAdapter extends SimpleCursorAdapter{
 	public Typeface tf;
 	public String boldFontPath = "fonts/sharpbold.ttf";
 	public Typeface btf;
+    public String proxiFontPath = "fonts/proxinova.ttf";
+    public Typeface ptf;
     JobManager jobManager;
 
     private Context context;
@@ -94,19 +96,19 @@ public class SportsAdapter extends SimpleCursorAdapter{
 
             //Remove the following
 
-
             AQuery aq = new AQuery(context);
             ImageOptions options = new ImageOptions();
-
-            String image_url = "https://boutstorage.blob.core.windows.net/bout/sport-" + c.getString(c.getColumnIndex("icon"));
+            options.animation = AQuery.FADE_IN;
+            String image_url = "https://boutstorage.blob.core.windows.net/sports/sport-" + c.getString(c.getColumnIndex("icon"));
             Log.d("picture is",image_url);
             aq.id(viewHolder.imgSport).image(image_url, options);
 
             tf = Typeface.createFromAsset(context.getAssets(), fontPath);
+            ptf = Typeface.createFromAsset(context.getAssets(), proxiFontPath);
             btf = Typeface.createFromAsset(context.getAssets(), boldFontPath);
             bitf = Typeface.createFromAsset(context.getAssets(), biSharpFontPath);
             viewHolder.lblSportName.setTypeface(bitf);
-            viewHolder.lblSportDescription.setTypeface(btf);
+            viewHolder.lblSportDescription.setTypeface(ptf);
             viewHolder.lblManiac.setTypeface(tf);
 
             final String sportId = c.getString(c.getColumnIndex("_id"));

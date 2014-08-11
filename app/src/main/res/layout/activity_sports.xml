@@ -3,7 +3,7 @@
     android:id="@+id/container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#b4d34c">
+    android:background="#111111">
     
     <TextView
         android:id="@+id/lblChooseSport"

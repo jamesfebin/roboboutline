@@ -54,17 +54,19 @@
             android:textSize="12sp"
 	        android:layout_height="wrap_content"
 	        android:textColor="@color/white"
+            android:background="@drawable/whiteroundbtn"
 	        />
 
     <CheckBox
         android:id="@+id/chkFollowStatus"
-        style="@style/CustomCheckTheme"
+        style="@style/CustomFollowTheme"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:checked="true"
         android:layout_alignParentRight="true"
-        android:paddingTop="20dp"
-        android:paddingRight="10dp"/>
+        android:layout_alignParentBottom="true"
+        android:paddingBottom="25dp"
+        android:paddingRight="30dp"/>
 
  </RelativeLayout>
 
