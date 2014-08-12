@@ -87,7 +87,7 @@ public class MyDDPState extends DDPStateSingleton {
     @Override
     public void createDDPCLient()
     {
-        String sMeteorServer = "boutrep.cloudapp.net";
+        String sMeteorServer = "boutrep0.cloudapp.net";
         Integer sMeteorPort = 80;
         try {
             mDDP = new DDPClient(sMeteorServer, sMeteorPort);
