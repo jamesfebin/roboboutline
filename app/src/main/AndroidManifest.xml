@@ -247,6 +247,13 @@
             android:enabled="true"
             android:exported="true" >
         </provider>
+        <provider
+            android:name="com.boutline.sports.ContentProviders.BanterMessageProvider"
+            android:authorities="com.boutline.bantermessages.provider"
+            android:multiprocess="true"
+            android:enabled="true"
+            android:exported="true" >
+        </provider>
 
     </application>
 

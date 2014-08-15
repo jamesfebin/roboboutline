@@ -7,6 +7,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
+import com.boutline.sports.ContentProviders.BanterMessageProvider;
 import com.boutline.sports.ContentProviders.ConversationProvider;
 import com.boutline.sports.ContentProviders.MatchProvider;
 import com.boutline.sports.ContentProviders.MessageProvider;
@@ -16,6 +17,7 @@ import com.boutline.sports.ContentProviders.TweetProvider;
 import com.boutline.sports.application.MyApplication;
 import com.boutline.sports.jobs.Favorite;
 import com.boutline.sports.jobs.Retweet;
+import com.boutline.sports.models.BanterMessage;
 import com.boutline.sports.models.Conversation;
 import com.boutline.sports.models.Match;
 import com.boutline.sports.models.Message;
@@ -62,43 +64,8 @@ public class BoutDBHelper extends SQLiteOpenHelper {
         db.execSQL(Tweet.CreateTable);
         db.execSQL(Conversation.CREATE_TABLE);
         db.execSQL(Message.CREATE_TABLE);
+        db.execSQL(BanterMessage.CREATE_TABLE);
 
-        int i=0;
-
-        for(i=0;i<34;i++) {
-
-            ContentValues values = new ContentValues();
-           /* values.put(Match.COL_ID,i+"");
-            values.put(Match.COL_NAME,i+"");
-            values.put(Match.COL_SHORTNAME,i+"");
-            values.put(Match.COL_TEAMFIRSTID,i+"");
-            values.put(Match.COL_TEAMSECONDID, i+"");
-            values.put(Match.COL_MATCHSTARTTIME,10);
-            values.put(Match.COL_MATCHENDTIME, 3040);
-            values.put(Match.COL_HASHTAGS, i+"");
-            values.put(Match.COL_MATCHVENUE, i+"");
-            values.put(Match.COL_MATCHCITY,i+"");
-            values.put(Match.COL_PRIORITY, i+"");
-            values.put(Match.COL_TOURNAMENTID, i+"");
-            values.put(Match.COL_SPORTSID, i+"");
-
-
-
-            values.put(Tournament.COL_ID,i+"");
-            values.put(Tournament.COL_NAME, i+"");
-            values.put(Tournament.COL_FOLLOWED, i+"");
-            values.put(Tournament.COL_SportId, i+"");
-            values.put(Tournament.COL_FromDate,i+"");
-            values.put(Tournament.COL_TillDate, i+"");
-            values.put(Tournament.COL_Hashtag,i+"");
-            values.put(Tournament.COL_Priority,i+"");
-            values.put(Tournament.COL_UnixTimeStart,i);
-            values.put(Tournament.COL_UnixTimeEnd,i);
-
-            db.insert(Tournament.TABLE_NAME,null,values);
-
-*/
-        }
 
     }
 
@@ -623,4 +590,130 @@ public class BoutDBHelper extends SQLiteOpenHelper {
         mcontext.getContentResolver().notifyChange(
                 MessageProvider.URI_FILTERMESSAGES, null, false);
     }
+
+    public synchronized boolean putBanterMessage(BanterMessage banterMessage) {
+        boolean success = false;
+        int result = 0;
+        final SQLiteDatabase db = this.getWritableDatabase();
+
+
+        String matchMessageId="";
+
+        if(banterMessage.banterMessageType.matches("message"))
+            matchMessageId="m"+banterMessage.mDocId;
+        else if(banterMessage.banterMessageType.matches("tweet"))
+            matchMessageId="t"+banterMessage.mDocId;
+
+
+        Cursor cursor = db.query(BanterMessage.TABLE_NAME, new String[] { "_id" },"_id" + "=?",
+                new String[] { matchMessageId }, null, null, null, null);
+
+
+        if (cursor.getCount() > 0) {
+            // Then update
+            result += db.update(BanterMessage.TABLE_NAME, banterMessage.getContent(),
+                    BanterMessage.COL_ID + " IS ?",
+                    new String[] { matchMessageId });
+
+            Log.e("CURSR COUTN",cursor.getCount()+"");
+        }
+
+
+        if (result > 0) {
+            success = true;
+        } else {
+            // Update failed or wasn't possible, insert instead
+            final long id = db.insert(BanterMessage.TABLE_NAME, null,
+                    banterMessage.getContent());
+
+            success = true;
+        }
+
+        if(success)
+        {
+            notifyProviderOnBanterMessageChange();
+
+        }
+        return success;
+    }
+
+    public synchronized int removeMessage(final BanterMessage banterMessage) {
+        final SQLiteDatabase db = this.getWritableDatabase();
+
+        final int result = db.delete(BanterMessage.TABLE_NAME,
+                BanterMessage.COL_ID + " IS ?",
+                new String[] {  banterMessage.mDocId });
+
+        notifyProviderOnBanterMessageChange();
+        return result;
+    }
+
+    private void notifyProviderOnBanterMessageChange() {
+        mcontext.getContentResolver().notifyChange(
+                BanterMessageProvider.URI_FILTERMESSAGES, null, false);
+    }
+
+
+    public synchronized boolean putBanterMessageRetweet(String mDocId,String AccessToken,String AccessTokenSecret,Long statusId) {
+        int value;
+        final SQLiteDatabase db = this.getWritableDatabase();
+
+        Boolean status;
+        Cursor cursor = db.query(BanterMessage.TABLE_NAME, BanterMessage.FIELDS, " _id ='"+mDocId+"' AND user_retweeted=1"
+                , null, null, null, null);
+
+
+        if(cursor.getCount()==0)
+        {
+            value = 1;
+            status = true;
+            Log.e("Retweeted","0");
+        }
+        else
+        {
+            value = 0;
+            status = false;
+            Log.e("Retweeted","1");
+
+        }
+        db.execSQL("UPDATE BanterMessages SET user_retweeted="+value+" WHERE _id='"+mDocId+"'");
+
+        jobManager = MyApplication.getInstance().getJobManager();
+        jobManager.addJobInBackground(new Retweet(statusId,AccessToken,AccessTokenSecret,status));
+        notifyProviderOnBanterMessageChange();
+        return true;
+    }
+
+
+    public synchronized boolean putBanterMessageFavorite(String mDocId,String AccessToken,String AccessTokenSecret,Long statusId) {
+        int value;
+        final SQLiteDatabase db = this.getWritableDatabase();
+
+        Boolean status;
+        Cursor cursor = db.query(BanterMessage.TABLE_NAME, BanterMessage.FIELDS, " _id ='"+mDocId+"' AND user_favorited=1"
+                , null, null, null, null);
+
+
+        if(cursor.getCount()==0)
+        {
+            value = 1;
+            status = true;
+            Log.e("Favorite","0");
+        }
+        else
+        {
+            value = 0;
+            status = false;
+            Log.e("Favorite","1");
+        }
+        db.execSQL("UPDATE BanterMessages SET user_favorited="+value+" WHERE _id='"+mDocId+"'");
+
+        jobManager = MyApplication.getInstance().getJobManager();
+        jobManager.addJobInBackground(new Favorite(statusId,AccessToken,AccessTokenSecret,status));
+
+        notifyProviderOnBanterMessageChange();
+
+        return true;
+    }
+
 }

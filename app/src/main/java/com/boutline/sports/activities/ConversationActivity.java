@@ -57,6 +57,7 @@ import android.widget.SimpleCursorAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.boutline.sports.ContentProviders.BanterMessageProvider;
 import com.boutline.sports.ContentProviders.MatchProvider;
 import com.boutline.sports.ContentProviders.MessageProvider;
 import com.boutline.sports.ContentProviders.SportProvider;
@@ -65,6 +66,7 @@ import com.boutline.sports.application.MyApplication;
 import com.boutline.sports.application.MyDDPState;
 import com.boutline.sports.jobs.RequestFbUser;
 import com.boutline.sports.jobs.SendMessage;
+import com.boutline.sports.models.BanterMessage;
 import com.boutline.sports.models.Message;
 import com.boutline.sports.R;
 import com.boutline.sports.models.Sport;
@@ -276,6 +278,12 @@ public class ConversationActivity extends Activity implements LoaderManager.Load
 
                 ddp.subscribe("messages",parameters);
 
+
+                parameters[0] = "KsrzMzFd6uHckAeb5";
+                parameters[1] = 20;
+                ddp.subscribe("mobileTournamentsInfluencerTweets",parameters);
+
+
             }
 
             @Override
@@ -345,7 +353,7 @@ public class ConversationActivity extends Activity implements LoaderManager.Load
     @Override
     public Loader<Cursor> onCreateLoader(int i, Bundle bundle) {
         String conversationId = getIntent().getExtras().getString("conversationId");
-        return new CursorLoader(this, Uri.parse(MessageProvider.URI_FILTERMESSAGES+"/"+conversationId) , Message.FIELDS, null, null, null);
+        return new CursorLoader(this, Uri.parse(BanterMessageProvider.URI_FILTERMESSAGES+"/"+conversationId) , BanterMessage.FIELDS, null, null, null);
     }
 
     @Override

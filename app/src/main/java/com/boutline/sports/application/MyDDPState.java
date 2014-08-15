@@ -10,6 +10,7 @@ import com.boutline.sports.jobs.RequestFbUser;
 import com.boutline.sports.jobs.SendMessage;
 import com.boutline.sports.jobs.SendSportPreferences;
 import com.boutline.sports.jobs.SendTournamentPreferences;
+import com.boutline.sports.models.BanterMessage;
 import com.boutline.sports.models.Conversation;
 import com.boutline.sports.models.ConversationParameter;
 import com.boutline.sports.models.FacebookUserInfo;
@@ -91,11 +92,11 @@ public class MyDDPState extends DDPStateSingleton {
     @Override
     public void createDDPCLient()
     {
-       // String sMeteorServer = "boutrep0.cloudapp.net";
-        //Integer sMeteorPort = 80;
+        String sMeteorServer = "boutrep0.cloudapp.net";
+        Integer sMeteorPort = 80;
 
-        String sMeteorServer = "192.168.1.11";
-        Integer sMeteorPort = 3000;
+       // String sMeteorServer = "192.168.1.11";
+        //Integer sMeteorPort = 3000;
 
         try {
             mDDP = new DDPClient(sMeteorServer, sMeteorPort);
@@ -902,10 +903,11 @@ public class MyDDPState extends DDPStateSingleton {
             {
                 if (changetype.equals(DdpMessageType.ADDED)) {
 
-                    Log.e("Item added","TOurnaments");
+                    Log.e("Item added","Tournaments");
 
                     Tournament tournament = new Tournament(docId, getCollection(collectionName).get(docId));
                     dbHelper.getInstance(mContext).putTournament(tournament);
+
 
                 }  else if (changetype.equals(DdpMessageType.REMOVED)) {
 
@@ -949,19 +951,23 @@ public class MyDDPState extends DDPStateSingleton {
 
                     Log.e("Item added","Tweets");
 
-
-
+                    BanterMessage message = new BanterMessage(docId, getCollection(collectionName).get(docId),"tweet");
+                    dbHelper.getInstance(mContext).putBanterMessage(message);
+/*
                     Tweet tweet = new Tweet(docId, getCollection(collectionName).get(docId));
-                    dbHelper.getInstance(mContext).putTweet(tweet);
+                    dbHelper.getInstance(mContext).putTweet(tweet);*/
+
 
                 }  else if (changetype.equals(DdpMessageType.REMOVED)) {
 
 
                 } else if (changetype.equals(DdpMessageType.UPDATED)) {
-
+                    BanterMessage message = new BanterMessage(docId, getCollection(collectionName).get(docId),"tweet");
+                    dbHelper.getInstance(mContext).putBanterMessage(message);
+                    /*
                     Tweet tweet = new Tweet(docId, getCollection(collectionName).get(docId));
                     dbHelper.getInstance(mContext).putTweet(tweet);
-
+*/
                 }
 
 
@@ -997,16 +1003,25 @@ public class MyDDPState extends DDPStateSingleton {
 
                     Log.e("Item added","Messages");
 
+                    BanterMessage message = new BanterMessage(docId, getCollection(collectionName).get(docId),"message");
+                    dbHelper.getInstance(mContext).putBanterMessage(message);
+                    /*
                     Message message = new Message(docId, getCollection(collectionName).get(docId));
-                    dbHelper.getInstance(mContext).putMessage(message);
+                    dbHelper.getInstance(mContext).putMessage(message);*/
+
+
 
                 }  else if (changetype.equals(DdpMessageType.REMOVED)) {
 
 
                 } else if (changetype.equals(DdpMessageType.UPDATED)) {
+                    BanterMessage message = new BanterMessage(docId, getCollection(collectionName).get(docId),"message");
+                    dbHelper.getInstance(mContext).putBanterMessage(message);
 
+                    /*
                     Message message = new Message(docId, getCollection(collectionName).get(docId));
                     dbHelper.getInstance(mContext).putMessage(message);
+                    */
 
                 }
 

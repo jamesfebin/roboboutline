@@ -3,27 +3,25 @@ package com.boutline.sports.ContentProviders;
 import android.content.ContentProvider;
 import android.content.ContentValues;
 import android.database.Cursor;
-import android.database.CursorJoiner;
-import android.database.MergeCursor;
 import android.net.Uri;
 import android.util.Log;
 
 import com.boutline.sports.database.BoutDBHelper;
-import com.boutline.sports.models.Match;
+import com.boutline.sports.models.BanterMessage;
 import com.boutline.sports.models.Message;
 
 /**
  * Created by user on 15/07/14.
  */
-public class MessageProvider extends ContentProvider {
+public class BanterMessageProvider extends ContentProvider {
 
 
-    public static final String AUTHORITY = "com.boutline.messages.provider";
+    public static final String AUTHORITY = "com.boutline.bantermessages.provider";
     public static final String SCHEME = "content://";
 
     // URIs
-    public static final String MESSAGES = SCHEME + AUTHORITY + "/message";
-    public static final String FILTERMESSAGES = SCHEME + AUTHORITY + "/convomessages";
+    public static final String MESSAGES = SCHEME + AUTHORITY + "/bantermessage";
+    public static final String FILTERMESSAGES = SCHEME + AUTHORITY + "/banterconvomessages";
 
     public static final Uri URI_MESSAGES = Uri.parse(MESSAGES);
     public static final Uri URI_FILTERMESSAGES = Uri.parse(FILTERMESSAGES);
@@ -33,7 +31,7 @@ public class MessageProvider extends ContentProvider {
 
 
 
-    public MessageProvider()
+    public BanterMessageProvider()
     {
 
     }
@@ -53,8 +51,8 @@ public class MessageProvider extends ContentProvider {
             result = BoutDBHelper
                     .getInstance(getContext())
                     .getReadableDatabase()
-                    .query(Message.TABLE_NAME, Message.FIELDS,
-                            Message.COL_ID + " IS ?",
+                    .query(BanterMessage.TABLE_NAME, BanterMessage.FIELDS,
+                            BanterMessage.COL_ID + " IS ?",
                             new String[] { id }, null, null,
                             null, null);
             result.setNotificationUri(getContext().getContentResolver(), URI_MESSAGES);
@@ -65,8 +63,8 @@ public class MessageProvider extends ContentProvider {
             result = BoutDBHelper
                     .getInstance(getContext())
                     .getReadableDatabase()
-                    .query(Message.TABLE_NAME, Message.FIELDS, Message.COL_BANTERID+ " = '"+conversationId+"'", null, null,
-                            null, Message.COL_TIME, null);
+                    .query(BanterMessage.TABLE_NAME, BanterMessage.FIELDS, null, null, null,
+                            null, BanterMessage.COL_TIME, null);
 
             Log.e("Total cursor count",result.getCount()+"");
             result.setNotificationUri(getContext().getContentResolver(), URI_FILTERMESSAGES);
