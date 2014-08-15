@@ -16,6 +16,8 @@ import com.boutline.sports.models.FacebookUserInfo;
 import com.boutline.sports.models.Match;
 import com.boutline.sports.models.Message;
 import com.boutline.sports.models.MessageParameter;
+import com.boutline.sports.models.MeteorUser;
+import com.boutline.sports.models.Profile;
 import com.boutline.sports.models.Sport;
 
 import com.boutline.sports.models.Tournament;
@@ -24,6 +26,7 @@ import com.google.gson.Gson;
 import com.keysolutions.ddpclient.DDPListener;
 import com.keysolutions.ddpclient.DDPClient.DdpMessageField;
 import com.keysolutions.ddpclient.DDPClient.DdpMessageType;
+import com.keysolutions.ddpclient.EmailAuth;
 import com.keysolutions.ddpclient.android.DDPStateSingleton;
 
 import android.content.Context;
@@ -37,6 +40,7 @@ import android.support.v4.content.LocalBroadcastManager;
 import android.util.Log;
 
 import java.net.URISyntaxException;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.Observable;
 
@@ -87,8 +91,12 @@ public class MyDDPState extends DDPStateSingleton {
     @Override
     public void createDDPCLient()
     {
-        String sMeteorServer = "boutrep0.cloudapp.net";
-        Integer sMeteorPort = 80;
+       // String sMeteorServer = "boutrep0.cloudapp.net";
+        //Integer sMeteorPort = 80;
+
+        String sMeteorServer = "192.168.1.11";
+        Integer sMeteorPort = 3000;
+
         try {
             mDDP = new DDPClient(sMeteorServer, sMeteorPort);
 
@@ -114,6 +122,7 @@ public class MyDDPState extends DDPStateSingleton {
                     .get(DDPClient.DdpMessageField.MSG);
 
             String errormsg="";
+
             if(jsonFields.containsKey("errormsg"))
             {
                 errormsg = (String) jsonFields.get("errormsg");
@@ -467,6 +476,39 @@ public class MyDDPState extends DDPStateSingleton {
 
     }
 
+    public void getSASURL(String filename)
+    {
+
+        Object[] parameters = new Object[1];
+        parameters[0]=filename;
+
+         mDDP.call("genSASURL", parameters, new DDPListener() {
+                    @Override
+                    public void onResult(Map<String, Object> jsonFields) {
+
+                    if(jsonFields.containsKey("result"))
+                    {
+
+                        Intent broadcastIntent = new Intent();
+                        broadcastIntent.setAction("SASURL");
+                        broadcastIntent.putExtra("SASURL",
+                                jsonFields.get("result").toString());
+
+                        LocalBroadcastManager.getInstance(
+                                MyApplication.getAppContext()).sendBroadcast(
+                                broadcastIntent);
+
+
+                    }
+
+                    }
+                });
+
+
+
+    }
+
+
     public void sendMessage(final Object[] parameters)  {
 
 
@@ -529,7 +571,216 @@ public class MyDDPState extends DDPStateSingleton {
     }
 
 
+
+    public void updateProfileDetails()
+    {
+
+        Object[] methodArgs = new Object[1];
+
+
+        preferences = mContext.getSharedPreferences("boutlineData", Context.MODE_PRIVATE);
+        String fullName = preferences.getString("fullName","");
+        String ProfileImageUrl = preferences.getString("profileImageUrl","");
+
+        Profile profile = new Profile();
+        profile.name=fullName;
+        profile.profilePictureUrl = ProfileImageUrl;
+        methodArgs[0] = profile;
+
+        mDDP.call("updateUserProfileDetails", methodArgs, new DDPListener() {
+            @Override
+            public void onResult(Map<String, Object> jsonFields) {
+
+                Log.e("Profile Updated",jsonFields.toString());
+
+                if (jsonFields.containsKey("result")) {
+                    Map<String, Object> result = (Map<String, Object>) jsonFields
+                            .get(DdpMessageField.RESULT);
+                    Log.e("Profile Updated",jsonFields.toString());
+
+                }
+            }
+        });
+
+
+
+                }
+    public void createUser(final String username,final String password,final String email )
+    {
+
+        Object[] methodArgs = new Object[1];
+        Map<String,Object> options = new HashMap<String,Object>();
+
+        options.put("username",username);
+        options.put("email",email);
+        options.put("password",password);
+
+        methodArgs[0] = options;
+
+        mDDP.call("createUser", methodArgs, new DDPListener() {
+            @Override
+            public void onResult(Map<String, Object> jsonFields) {
+
+
+                if (jsonFields.containsKey("result")) {
+                    Map<String, Object> result = (Map<String, Object>) jsonFields
+                            .get(DdpMessageField.RESULT);
+
+
+
+                    String mUserId = (String) result.get("id");
+                    preferences = mContext.getSharedPreferences("boutlineData", Context.MODE_PRIVATE);
+                    SharedPreferences.Editor editor = preferences.edit();
+                    editor.putString("boutlineUserId", mUserId);
+                    editor.putString("email",username);
+                    editor.putString("password",password);
+                    editor.commit();
+
+                    mDDPState = mDDPState.LoggedIn;
+                    Intent broadcastIntent = new Intent();
+                    broadcastIntent.setAction("REGISTRATIONSUCCESS");
+                    broadcastIntent.putExtra("userId",
+                            mUserId);
+                    LocalBroadcastManager.getInstance(
+                            MyApplication.getAppContext()).sendBroadcast(
+                            broadcastIntent);
+                    Log.e("UserId",mUserId);
+
+
+                } else if (jsonFields.containsKey("error")) {
+
+
+                    Log.e("Error",jsonFields.toString());
+
+                    Intent broadcastIntent = new Intent();
+                    broadcastIntent.setAction("REGISTRATIONFAILED");
+                    broadcastIntent.putExtra("Error",
+                            jsonFields.get("error").toString());
+                    LocalBroadcastManager.getInstance(
+                            MyApplication.getAppContext()).sendBroadcast(
+                            broadcastIntent);
+
+
+                }
+
+
+
+            }
+        });
+
+
+    }
+
+    public void boutlineFirstTimeLogin(final String email, final String password)  {
+
+
+        if(email == null || password ==null)
+        {
+            return;
+        }
+
+        Object[] methodArgs = new Object[1];
+        MeteorUser user = new MeteorUser(email,password);
+        methodArgs[0] = user;
+        mDDP.call("login", methodArgs, new DDPListener() {
+            @Override
+            public void onResult(Map<String, Object> jsonFields) {
+
+                if (jsonFields.containsKey("result")) {
+                    Map<String, Object> result = (Map<String, Object>) jsonFields
+                            .get(DdpMessageField.RESULT);
+                    String mUserId = (String) result.get("id");
+                    preferences = mContext.getSharedPreferences("boutlineData", Context.MODE_PRIVATE);
+                    SharedPreferences.Editor editor = preferences.edit();
+                    editor.putString("boutlineUserId", mUserId);
+                    editor.putString("email",email);
+                    editor.putString("password",password);
+                    editor.commit();
+
+                    mDDPState = mDDPState.LoggedIn;
+                    Intent broadcastIntent = new Intent();
+                    broadcastIntent.setAction("LOGINSUCCESS");
+                    broadcastIntent.putExtra("userId",
+                            mUserId);
+                    LocalBroadcastManager.getInstance(
+                            MyApplication.getAppContext()).sendBroadcast(
+                            broadcastIntent);
+                    Log.e("UserId",mUserId);
+
+                } else if (jsonFields.containsKey("error")) {
+
+                    Intent broadcastIntent = new Intent();
+                    broadcastIntent.setAction("LOGINFAILED");
+                    broadcastIntent.putExtra("Error",
+                            "Unable to Login");
+                    LocalBroadcastManager.getInstance(
+                            MyApplication.getAppContext()).sendBroadcast(
+                            broadcastIntent);
+                }
+
+
+            }
+        });
+
+    }
     public void boutlineLogin() throws Throwable {
+
+
+        String email="";
+        String password="";
+        preferences = mContext.getSharedPreferences("boutlineData", Context.MODE_PRIVATE);
+       email = preferences.getString("email",null);
+       password = preferences.getString("password",null);
+        if(email == null || password ==null)
+        {
+            return;
+        }
+        Object[] methodArgs = new Object[1];
+        MeteorUser user = new MeteorUser(email,password);
+        methodArgs[0] = user;
+        mDDP.call("login", methodArgs, new DDPListener() {
+            @Override
+            public void onResult(Map<String, Object> jsonFields) {
+
+                if (jsonFields.containsKey("result")) {
+                    Map<String, Object> result = (Map<String, Object>) jsonFields
+                            .get(DdpMessageField.RESULT);
+                    String mUserId = (String) result.get("id");
+                    preferences = mContext.getSharedPreferences("boutlineData", Context.MODE_PRIVATE);
+                    SharedPreferences.Editor editor = preferences.edit();
+                    editor.putString("boutlineUserId", mUserId);
+                    editor.commit();
+
+                    mDDPState = mDDPState.LoggedIn;
+                    Intent broadcastIntent = new Intent();
+                    broadcastIntent.setAction("LOGINSUCCESS");
+                    broadcastIntent.putExtra("userId",
+                            mUserId);
+                    LocalBroadcastManager.getInstance(
+                            MyApplication.getAppContext()).sendBroadcast(
+                            broadcastIntent);
+                 Log.e("UserId",mUserId);
+
+                } else if (jsonFields.containsKey("error")) {
+
+                    Intent broadcastIntent = new Intent();
+                    broadcastIntent.setAction("LOGINFAILED");
+                    broadcastIntent.putExtra("Error",
+                            "Unable to Login");
+                    LocalBroadcastManager.getInstance(
+                            MyApplication.getAppContext()).sendBroadcast(
+                            broadcastIntent);
+
+                }
+
+
+
+            }
+        });
+
+    }
+
+    public void boutlineFacebookLogin() throws Throwable {
 
         FacebookUserInfo fbUser;
 
@@ -553,7 +804,7 @@ public class MyDDPState extends DDPStateSingleton {
             return;
         }
 
-            if (mDDPState != mDDPState.LoggedIn)
+        if (mDDPState != mDDPState.LoggedIn)
 
         {
 
@@ -571,10 +822,10 @@ public class MyDDPState extends DDPStateSingleton {
                                 .get(DdpMessageField.RESULT);
                         if (result.containsKey("userId")) {
 
-                           preferences = mContext.getSharedPreferences("boutlineData", Context.MODE_PRIVATE);
-                           SharedPreferences.Editor editor = preferences.edit();
-                           editor.putString("boutlineUserId", result.get("userId").toString());
-                           editor.commit();
+                            preferences = mContext.getSharedPreferences("boutlineData", Context.MODE_PRIVATE);
+                            SharedPreferences.Editor editor = preferences.edit();
+                            editor.putString("boutlineUserId", result.get("userId").toString());
+                            editor.commit();
 
                             mDDPState = mDDPState.LoggedIn;
                             Intent broadcastIntent = new Intent();
@@ -592,7 +843,7 @@ public class MyDDPState extends DDPStateSingleton {
                             LocalBroadcastManager.getInstance(
                                     MyApplication.getAppContext()).sendBroadcast(
                                     broadcastIntent);
-                           mDDPState = mDDPState.NotLoggedIn;
+                            mDDPState = mDDPState.NotLoggedIn;
                         }
 
 
@@ -608,18 +859,17 @@ public class MyDDPState extends DDPStateSingleton {
 
         else
 
-            {
-                Log.e("MyDDPState","already logged In");
-                mDDPState = mDDPState.LoggedIn;
-                Intent broadcastIntent = new Intent();
-                broadcastIntent.setAction("LOGINSUCCESS");
-                LocalBroadcastManager.getInstance(
-                        MyApplication.getAppContext()).sendBroadcast(
-                        broadcastIntent);
-            }
+        {
+            Log.e("MyDDPState","already logged In");
+            mDDPState = mDDPState.LoggedIn;
+            Intent broadcastIntent = new Intent();
+            broadcastIntent.setAction("LOGINSUCCESS");
+            LocalBroadcastManager.getInstance(
+                    MyApplication.getAppContext()).sendBroadcast(
+                    broadcastIntent);
+        }
 
     }
-
 
 
     @Override

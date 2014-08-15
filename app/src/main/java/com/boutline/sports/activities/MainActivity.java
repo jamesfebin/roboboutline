@@ -33,6 +33,7 @@ import com.boutline.sports.jobs.Connect;
 import com.boutline.sports.models.FacebookUserInfo;
 import com.google.gson.Gson;
 
+import com.keysolutions.ddpclient.DDPClient;
 import com.keysolutions.ddpclient.android.DDPBroadcastReceiver;
 import com.keysolutions.ddpclient.android.DDPStateSingleton;
 import com.mixpanel.android.mpmetrics.MixpanelAPI;
@@ -74,9 +75,9 @@ public class MainActivity extends Activity {
 
 	protected void goToWalkthrough0(){
 		  Intent mainIntent = new Intent(MainActivity.this,Walkthrough0.class);
-          startActivity(mainIntent);
-          finish();
-          overridePendingTransition(R.anim.pushupin, R.anim.pushupout);
+        //  startActivity(mainIntent);
+          //finish();
+          //overridePendingTransition(R.anim.pushupin, R.anim.pushupout);
 	}
 	
 	protected void goToChooseTournament(){
@@ -102,9 +103,6 @@ public class MainActivity extends Activity {
     protected void onResume() {
 
 
-
-
-
         super.onResume();
 
     context = getApplicationContext();
@@ -114,26 +112,46 @@ public class MainActivity extends Activity {
 
         preferences = this.getSharedPreferences("boutlineData", Context.MODE_PRIVATE);
 
-
+        final String email = preferences.getString("email",null);
+/*
         String storedFbInfoString = preferences.getString("fbUserInfo", null);
         Gson gson = new Gson();
 
        if(storedFbInfoString!=null) {
             fbUser = gson.fromJson(storedFbInfoString, FacebookUserInfo.class);
        }
+
+       */
             mReceiver = new DDPBroadcastReceiver(MyDDPState.getInstance(), this) {
             @Override
             protected void onDDPConnect(DDPStateSingleton ddp) {
                 super.onDDPConnect(ddp);
-
+/*
                 if(fbUser==null){
 
                    goToWalkthrough0();
                     finish();
 
+                }*/
+                if(email == null)
+                {
+
+
+                    Intent mainIntent = new Intent(MainActivity.this, LoginActivity.class);
+                    startActivity(mainIntent);
+                    overridePendingTransition(R.anim.pushleftin, R.anim.pushleftout);
+                    finish();
+
                 }
                 else{
-                 // Commented code are precious..
+
+                    Intent intent = new Intent(MainActivity.this,ConversationActivity.class);
+                    intent.putExtra("conversationId","Q83GjTwRCk4FNTSEJ");
+                    startActivity(intent);
+                    finish();
+
+
+                    // Commented code are precious..
                  // MyDDPState.getInstance().boutlineLogin();
                 }
 
@@ -155,7 +173,17 @@ public class MainActivity extends Activity {
                     Toast.makeText(getApplicationContext(),"GOT ACTION"+intent.getAction().toString(),Toast.LENGTH_SHORT).show();
 
                     Log.e("This is what i got", intent.getAction().toString());
+/*
+                    if(intent.getAction().equals("ddpclient.CONNECTIONSTATE"))
+                    {
 
+                        Intent mainIntent = new Intent(MainActivity.this, LoginActivity.class);
+                        startActivity(mainIntent);
+                        overridePendingTransition(R.anim.pushleftin, R.anim.pushleftout);
+                        finish();
+
+
+                    }*/
                     if (intent.getAction().equals("LOGINSUCCESS"))
                     {
 
@@ -165,12 +193,16 @@ public class MainActivity extends Activity {
                             editor.putString("boutlineUserId", intent.getStringExtra("userId"));
                             editor.commit();
 
-
+                            Intent banterIntent = new Intent(MainActivity.this,ConversationActivity.class);
+                            banterIntent.putExtra("conversationId","Q83GjTwRCk4FNTSEJ");
+                            startActivity(banterIntent);
+                            finish();
                             if(mixpanel!=null) {
                                 mixpanel.identify(intent.getStringExtra("userId"));
                                 mixpanel.track("Boutline Login Success on SplashScreen", Constants.info);
                             }
 
+                            /*
                             boolean hasChoseSport=false;
 
                             if(!hasChoseSport)
@@ -189,14 +221,14 @@ public class MainActivity extends Activity {
                                 overridePendingTransition(R.anim.pushleftin, R.anim.pushleftout);
                                 finish();
                             }
-
+*/
 
                         }
                     }
                     else if(intent.getAction().equals("LOGINFAILED"))
                     {
 
-                        Toast.makeText(getApplicationContext(),"Unable to connect to facebook",Toast.LENGTH_SHORT);
+                        Toast.makeText(getApplicationContext(), "Unable to connect to facebook", Toast.LENGTH_SHORT);
 
                         if(mixpanel!=null) {
                             mixpanel.track("Boutline Login Failed on SplashScreen", Constants.info);
@@ -207,12 +239,6 @@ public class MainActivity extends Activity {
 
                     else if(intent.getAction().equals(MyDDPState.MESSAGE_ERROR))
                     {
-
-
-                        Intent mainIntent = new Intent(MainActivity.this, ChooseSportsActivity.class);
-                        startActivity(mainIntent);
-                        overridePendingTransition(R.anim.pushleftin, R.anim.pushleftout);
-                        finish();
 
 
                         Toast.makeText(getApplicationContext(),"Internet connection not avaialable",Toast.LENGTH_SHORT).show();
@@ -249,24 +275,13 @@ public class MainActivity extends Activity {
         }
         else if(MyDDPState.getInstance().getDDPState() == DDPStateSingleton.DDPSTATE.LoggedIn)
         {
-            boolean hasChoseSport=false;
 
-            if(!hasChoseSport)
-            {
+            Intent intent = new Intent(MainActivity.this,ConversationActivity.class);
+            intent.putExtra("conversationId","Q83GjTwRCk4FNTSEJ");
+            startActivity(intent);
+            finish();
 
-                Intent mainIntent = new Intent(MainActivity.this, ChooseSportsActivity.class);
-                startActivity(mainIntent);
-                overridePendingTransition(R.anim.pushleftin, R.anim.pushleftout);
-                finish();
 
-            }
-            else {
-
-                Intent mainIntent = new Intent(MainActivity.this, ChooseTournamentActivity.class);
-                startActivity(mainIntent);
-                overridePendingTransition(R.anim.pushleftin, R.anim.pushleftout);
-                finish();
-            }
         }
 
     }

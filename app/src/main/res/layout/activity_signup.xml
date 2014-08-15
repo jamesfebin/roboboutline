@@ -23,7 +23,7 @@
         />
 
     <EditText
-        android:id="@+id/txtUsername"
+        android:id="@+id/txtSignupUsername"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/lblUsername"
@@ -39,11 +39,11 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:padding="10dp"
-        android:layout_below="@id/txtUsername"
+        android:layout_below="@id/txtSignupUsername"
         />
 
     <EditText
-        android:id="@+id/txtEmailId"
+        android:id="@+id/txtSignupEmailId"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/lblEmailId"
@@ -59,11 +59,11 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:padding="10dp"
-        android:layout_below="@id/txtEmailId"
+        android:layout_below="@id/txtSignupEmailId"
         />
 
     <EditText
-        android:id="@+id/txtPassword"
+        android:id="@+id/txtSignupPassword"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/lblPassword"
@@ -80,7 +80,7 @@
         android:layout_height="wrap_content"
         android:padding="30dp"
         android:gravity="center"
-        android:layout_below="@id/txtPassword"
+        android:layout_below="@id/txtSignupPassword"
         />
 
     <Button
@@ -90,6 +90,7 @@
         android:text="Sign Up"
         android:background="@color/darkgray"
         android:textColor="@color/white"
+        android:id="@+id/SignupBtn"
         android:layout_alignParentBottom="true"
         />
 

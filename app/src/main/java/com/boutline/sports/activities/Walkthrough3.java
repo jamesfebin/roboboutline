@@ -25,6 +25,7 @@ import android.widget.TextView;
 
 import com.boutline.sports.helpers.OnSwipeTouchListener;
 import com.boutline.sports.R;
+import com.boutline.sports.jobs.Login;
 
 public class Walkthrough3 extends Activity {
 
@@ -85,7 +86,7 @@ public class Walkthrough3 extends Activity {
 	}
 	
 	protected void goToNext(){
-		  Intent mainIntent = new Intent(Walkthrough3.this,FacebookLogin.class);
+		  Intent mainIntent = new Intent(Walkthrough3.this, LoginActivity.class);
           startActivity(mainIntent);
           finish();
           overridePendingTransition(R.anim.pushleftin, R.anim.pushleftout);

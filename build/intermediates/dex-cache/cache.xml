@@ -2,10 +2,16 @@
 <pre-dex-items>
 
     <item
-        dex="C:\Users\user\Documents\GitHub\roboboutline\app\build\intermediates\pre-dexed\debug\twitter4j-core-4.0.1-27ebb0515fbd7344149c6c5b5f254b98391b49be.jar"
-        jar="C:\Users\user\.gradle\caches\modules-2\files-2.1\org.twitter4j\twitter4j-core\4.0.1\37fd1d1eb3ed57916c9fdd1ea1f6c3afce778c7c\twitter4j-core-4.0.1.jar"
+        dex="/Users/user/Documents/Development-Tools/ADT/sdk/extras/google/BoutlineSports/app/build/intermediates/pre-dexed/debug/classes-d6b9bd27be96142358e2317e4c071078603b160c.jar"
+        jar="/Users/user/Documents/Development-Tools/ADT/sdk/extras/google/BoutlineSports/build/intermediates/exploded-aar/com.microsoft.azure.android/azure-storage-android/0.3.0/classes.jar"
         jumboMode="false"
         revision="19.1.0"
-        sha1="37fd1d1eb3ed57916c9fdd1ea1f6c3afce778c7c"/>
+        sha1="54f6a352be15008378739b1512b82e28819d81f9"/>
+    <item
+        dex="/Users/user/Documents/Development-Tools/ADT/sdk/extras/google/BoutlineSports/app/build/intermediates/pre-dexed/debug/image-chooser-library-1.3.0-3bd60b961caffb895cbe54f2af82494dd8b7d39d.jar"
+        jar="/Users/user/Documents/Development-Tools/ADT/sdk/extras/google/BoutlineSports/app/libs/image-chooser-library-1.3.0.jar"
+        jumboMode="false"
+        revision="19.1.0"
+        sha1="8d00d404704876b2ecbfbdfad79dfabd4b7d4cdf"/>
 
 </pre-dex-items>

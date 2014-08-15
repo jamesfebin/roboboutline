@@ -95,18 +95,19 @@ public class ConversationActivity extends Activity implements LoaderManager.Load
     BroadcastReceiver mReceiver;
     ListView listView;
     JobManager jobManager;
-    private UiLifecycleHelper uiHelper;
+  //  private UiLifecycleHelper uiHelper;
     SharedPreferences mSharedPreferences;
 
+    /*
     @Override
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
         uiHelper.onSaveInstanceState(outState);
-    }
+    }*/
     @Override
     public void onDestroy() {
         super.onDestroy();
-        uiHelper.onDestroy();
+       // uiHelper.onDestroy();
         mSharedPreferences = this.getSharedPreferences("boutlineData",
                 Context.MODE_PRIVATE);
 
@@ -134,8 +135,8 @@ public class ConversationActivity extends Activity implements LoaderManager.Load
 		populateListViewFromdb();
         loadermanager.initLoader(1,null,this);
 
-        uiHelper = new UiLifecycleHelper(this, callback);
-        uiHelper.onCreate(savedInstanceState);
+     //   uiHelper = new UiLifecycleHelper(this, callback);
+       // uiHelper.onCreate(savedInstanceState);
 
         txtCompose.addTextChangedListener(new TextWatcher() {
             @Override
@@ -191,7 +192,7 @@ public class ConversationActivity extends Activity implements LoaderManager.Load
 
 
     }
-
+/*
 
     private void onSessionStateChange(Session session, SessionState state, Exception exception) {
 
@@ -219,7 +220,7 @@ public class ConversationActivity extends Activity implements LoaderManager.Load
             onSessionStateChange(session, state, exception);
         }
     }
-
+*/
 
         @Override
     protected void onResume() {
@@ -232,7 +233,7 @@ public class ConversationActivity extends Activity implements LoaderManager.Load
             editor.putString("currentScreen","banter");
             editor.putString("banterId",getIntent().getExtras().getString("conversationId"));
             editor.commit();
-
+/* Needed when facebook is integrated
         Session session = Session.getActiveSession();
         if (session != null &&
                 (session.isOpened() || session.isClosed()) ) {
@@ -256,7 +257,7 @@ public class ConversationActivity extends Activity implements LoaderManager.Load
             }
 
 
-
+*/
     mReceiver = new DDPBroadcastReceiver(MyDDPState.getInstance(), this) {
 
             @Override
@@ -329,7 +330,7 @@ public class ConversationActivity extends Activity implements LoaderManager.Load
             LocalBroadcastManager.getInstance(this).unregisterReceiver(mReceiver);
             mReceiver = null;
         }
-        uiHelper.onPause();
+     //   uiHelper.onPause();
 
 
     }
@@ -359,7 +360,7 @@ public class ConversationActivity extends Activity implements LoaderManager.Load
     }
 
     private void sendRequestDialog() {
-
+/*
         Session session = Session.getActiveSession();
 
         if(session.isOpened()) {
@@ -404,6 +405,8 @@ public class ConversationActivity extends Activity implements LoaderManager.Load
             WebDialog webDialog = builder.build();
             webDialog.show();
         }
+
+        */
     }
 
 

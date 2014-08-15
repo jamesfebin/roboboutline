@@ -36,12 +36,12 @@
 
 
     <EditText
-        android:id="@+id/txtPassword"
+        android:id="@+id/profileFullName"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/imgProPic"
         android:layout_marginLeft="10dp"
-        android:inputType="textPassword"
+        android:inputType="text"
         android:hint="Enter your name here"
         android:gravity="center"
         android:layout_marginRight="10dp"

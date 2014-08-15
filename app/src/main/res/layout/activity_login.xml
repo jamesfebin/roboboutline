@@ -83,6 +83,7 @@
         android:background="@color/darkgray"
         android:textColor="@color/white"
         android:layout_alignParentBottom="true"
+        android:id="@+id/LoginBtn"
         />
 
 
