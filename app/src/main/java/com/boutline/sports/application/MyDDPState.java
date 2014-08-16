@@ -951,23 +951,21 @@ public class MyDDPState extends DDPStateSingleton {
 
                     Log.e("Item added","Tweets");
 
-                    BanterMessage message = new BanterMessage(docId, getCollection(collectionName).get(docId),"tweet");
-                    dbHelper.getInstance(mContext).putBanterMessage(message);
-/*
+                   /* BanterMessage message = new BanterMessage(docId, getCollection(collectionName).get(docId),"tweet");
+                    dbHelper.getInstance(mContext).putBanterMessage(message);*/
                     Tweet tweet = new Tweet(docId, getCollection(collectionName).get(docId));
-                    dbHelper.getInstance(mContext).putTweet(tweet);*/
+                    dbHelper.getInstance(mContext).putTweet(tweet);
 
 
                 }  else if (changetype.equals(DdpMessageType.REMOVED)) {
 
 
                 } else if (changetype.equals(DdpMessageType.UPDATED)) {
-                    BanterMessage message = new BanterMessage(docId, getCollection(collectionName).get(docId),"tweet");
+                   /* BanterMessage message = new BanterMessage(docId, getCollection(collectionName).get(docId),"tweet");
                     dbHelper.getInstance(mContext).putBanterMessage(message);
-                    /*
+             */
                     Tweet tweet = new Tweet(docId, getCollection(collectionName).get(docId));
                     dbHelper.getInstance(mContext).putTweet(tweet);
-*/
                 }
 
 
@@ -1002,12 +1000,12 @@ public class MyDDPState extends DDPStateSingleton {
                 if (changetype.equals(DdpMessageType.ADDED)) {
 
                     Log.e("Item added","Messages");
-
+/*
                     BanterMessage message = new BanterMessage(docId, getCollection(collectionName).get(docId),"message");
                     dbHelper.getInstance(mContext).putBanterMessage(message);
-                    /*
+                 */
                     Message message = new Message(docId, getCollection(collectionName).get(docId));
-                    dbHelper.getInstance(mContext).putMessage(message);*/
+                    dbHelper.getInstance(mContext).putMessage(message);
 
 
 
@@ -1015,13 +1013,11 @@ public class MyDDPState extends DDPStateSingleton {
 
 
                 } else if (changetype.equals(DdpMessageType.UPDATED)) {
-                    BanterMessage message = new BanterMessage(docId, getCollection(collectionName).get(docId),"message");
+                   /* BanterMessage message = new BanterMessage(docId, getCollection(collectionName).get(docId),"message");
                     dbHelper.getInstance(mContext).putBanterMessage(message);
-
-                    /*
+*/
                     Message message = new Message(docId, getCollection(collectionName).get(docId));
                     dbHelper.getInstance(mContext).putMessage(message);
-                    */
 
                 }
 

@@ -12,7 +12,7 @@ public class Tweet {
 
     // These fields can be anything you want.
     public  static final String COL_ID = "_id";
-    public static final String COL_Unixtimenow = "unixtimenow";
+    public static final String COL_Unixtimenow = "time";
     public static final String COL_StatusId= "status_id";
     public static final String COL_MTID = "mtId";
     public static final String COL_UserHandle= "user_handle";

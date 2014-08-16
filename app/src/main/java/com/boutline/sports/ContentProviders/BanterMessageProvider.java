@@ -9,6 +9,7 @@ import android.util.Log;
 import com.boutline.sports.database.BoutDBHelper;
 import com.boutline.sports.models.BanterMessage;
 import com.boutline.sports.models.Message;
+import com.boutline.sports.models.Tweet;
 
 /**
  * Created by user on 15/07/14.
@@ -59,15 +60,24 @@ public class BanterMessageProvider extends ContentProvider {
         }
         else if (uri.toString().startsWith(MESSAGESFILTER)) {
 
-            String conversationId = uri.getLastPathSegment();
+            String[] parameters = uri.getLastPathSegment().split(",");
+            String conversationId = parameters[0];
+            String mtId = parameters[1];
+
+
             result = BoutDBHelper
                     .getInstance(getContext())
                     .getReadableDatabase()
-                    .query(BanterMessage.TABLE_NAME, BanterMessage.FIELDS, null, null, null,
-                            null, BanterMessage.COL_TIME, null);
+                    .rawQuery("SELECT _id,name,message,banterId,userPicUrl,sender,time,Null as status_id,Null as mtId,Null as user_handle,Null as user_profile_image,Null as tweet,Null as retweeted,Null as user_twitter_id,Null as has_image ,Null as type,Null as user_full_name,Null as media_url, Null as user_retweeted,Null as user_favorited FROM " + Message.TABLE_NAME+ " WHERE banterId = '"+conversationId +"'  UNION SELECT _id,Null as name,Null as message,Null as banterId,Null as userPicUrl,Null as sender,time,status_id,mtId,user_handle,user_profile_image,tweet,retweeted,user_twitter_id,has_image,type,user_full_name,media_url,user_retweeted,user_favorited FROM " + Tweet.TABLE_NAME + " WHERE "+ Tweet.COL_MTID + " = '"+mtId+"' ORDER BY time",null);
 
-            Log.e("Total cursor count",result.getCount()+"");
+
+
+             Log.e("Total cursor count",result.getCount()+"");
+
+
             result.setNotificationUri(getContext().getContentResolver(), URI_FILTERMESSAGES);
+
+
 
         }
 

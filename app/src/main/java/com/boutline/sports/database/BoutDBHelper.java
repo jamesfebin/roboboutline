@@ -421,6 +421,8 @@ public class BoutDBHelper extends SQLiteOpenHelper {
         jobManager = MyApplication.getInstance().getJobManager();
         jobManager.addJobInBackground(new Retweet(statusId,AccessToken,AccessTokenSecret,status));
         notifyProviderOnTweetChange("");
+        notifyProviderOnBanterMessageChange();
+
         return true;
     }
 
@@ -452,6 +454,7 @@ public class BoutDBHelper extends SQLiteOpenHelper {
         jobManager.addJobInBackground(new Favorite(statusId,AccessToken,AccessTokenSecret,status));
 
         notifyProviderOnTweetChange("");
+        notifyProviderOnBanterMessageChange();
 
         return true;
     }
@@ -466,6 +469,7 @@ public class BoutDBHelper extends SQLiteOpenHelper {
                 new String[] { tweet.mDocId });
 
         notifyProviderOnTweetChange(tweet.type);
+        notifyProviderOnBanterMessageChange();
 
         return result;
     }
@@ -570,6 +574,8 @@ public class BoutDBHelper extends SQLiteOpenHelper {
         if(success)
         {
             notifyProviderOnMessageChange();
+            notifyProviderOnBanterMessageChange();
+
 
         }
         return success;
@@ -583,6 +589,8 @@ public class BoutDBHelper extends SQLiteOpenHelper {
                 new String[] { message.mDocId });
 
         notifyProviderOnMessageChange();
+        notifyProviderOnBanterMessageChange();
+
         return result;
     }
 
@@ -591,62 +599,7 @@ public class BoutDBHelper extends SQLiteOpenHelper {
                 MessageProvider.URI_FILTERMESSAGES, null, false);
     }
 
-    public synchronized boolean putBanterMessage(BanterMessage banterMessage) {
-        boolean success = false;
-        int result = 0;
-        final SQLiteDatabase db = this.getWritableDatabase();
 
-
-        String matchMessageId="";
-
-        if(banterMessage.banterMessageType.matches("message"))
-            matchMessageId="m"+banterMessage.mDocId;
-        else if(banterMessage.banterMessageType.matches("tweet"))
-            matchMessageId="t"+banterMessage.mDocId;
-
-
-        Cursor cursor = db.query(BanterMessage.TABLE_NAME, new String[] { "_id" },"_id" + "=?",
-                new String[] { matchMessageId }, null, null, null, null);
-
-
-        if (cursor.getCount() > 0) {
-            // Then update
-            result += db.update(BanterMessage.TABLE_NAME, banterMessage.getContent(),
-                    BanterMessage.COL_ID + " IS ?",
-                    new String[] { matchMessageId });
-
-            Log.e("CURSR COUTN",cursor.getCount()+"");
-        }
-
-
-        if (result > 0) {
-            success = true;
-        } else {
-            // Update failed or wasn't possible, insert instead
-            final long id = db.insert(BanterMessage.TABLE_NAME, null,
-                    banterMessage.getContent());
-
-            success = true;
-        }
-
-        if(success)
-        {
-            notifyProviderOnBanterMessageChange();
-
-        }
-        return success;
-    }
-
-    public synchronized int removeMessage(final BanterMessage banterMessage) {
-        final SQLiteDatabase db = this.getWritableDatabase();
-
-        final int result = db.delete(BanterMessage.TABLE_NAME,
-                BanterMessage.COL_ID + " IS ?",
-                new String[] {  banterMessage.mDocId });
-
-        notifyProviderOnBanterMessageChange();
-        return result;
-    }
 
     private void notifyProviderOnBanterMessageChange() {
         mcontext.getContentResolver().notifyChange(
@@ -654,66 +607,6 @@ public class BoutDBHelper extends SQLiteOpenHelper {
     }
 
 
-    public synchronized boolean putBanterMessageRetweet(String mDocId,String AccessToken,String AccessTokenSecret,Long statusId) {
-        int value;
-        final SQLiteDatabase db = this.getWritableDatabase();
 
-        Boolean status;
-        Cursor cursor = db.query(BanterMessage.TABLE_NAME, BanterMessage.FIELDS, " _id ='"+mDocId+"' AND user_retweeted=1"
-                , null, null, null, null);
-
-
-        if(cursor.getCount()==0)
-        {
-            value = 1;
-            status = true;
-            Log.e("Retweeted","0");
-        }
-        else
-        {
-            value = 0;
-            status = false;
-            Log.e("Retweeted","1");
-
-        }
-        db.execSQL("UPDATE BanterMessages SET user_retweeted="+value+" WHERE _id='"+mDocId+"'");
-
-        jobManager = MyApplication.getInstance().getJobManager();
-        jobManager.addJobInBackground(new Retweet(statusId,AccessToken,AccessTokenSecret,status));
-        notifyProviderOnBanterMessageChange();
-        return true;
-    }
-
-
-    public synchronized boolean putBanterMessageFavorite(String mDocId,String AccessToken,String AccessTokenSecret,Long statusId) {
-        int value;
-        final SQLiteDatabase db = this.getWritableDatabase();
-
-        Boolean status;
-        Cursor cursor = db.query(BanterMessage.TABLE_NAME, BanterMessage.FIELDS, " _id ='"+mDocId+"' AND user_favorited=1"
-                , null, null, null, null);
-
-
-        if(cursor.getCount()==0)
-        {
-            value = 1;
-            status = true;
-            Log.e("Favorite","0");
-        }
-        else
-        {
-            value = 0;
-            status = false;
-            Log.e("Favorite","1");
-        }
-        db.execSQL("UPDATE BanterMessages SET user_favorited="+value+" WHERE _id='"+mDocId+"'");
-
-        jobManager = MyApplication.getInstance().getJobManager();
-        jobManager.addJobInBackground(new Favorite(statusId,AccessToken,AccessTokenSecret,status));
-
-        notifyProviderOnBanterMessageChange();
-
-        return true;
-    }
 
 }

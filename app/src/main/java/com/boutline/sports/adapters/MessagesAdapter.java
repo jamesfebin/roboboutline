@@ -83,9 +83,6 @@ public class MessagesAdapter extends SimpleCursorAdapter {
             tf = Typeface.createFromAsset(context.getAssets(), fontPath);
             btf = Typeface.createFromAsset(context.getAssets(), boldFontPath);
 
-            String cursorUnixtime = c.getString(c.getColumnIndex(Message.COL_TIME));
-            String cursorDate = timeformatter.formatUnixtime(cursorUnixtime,"dd MMM");
-
             // Get the data item for this position
 
 
@@ -99,7 +96,14 @@ public class MessagesAdapter extends SimpleCursorAdapter {
                 viewHolder = new ViewHolder();
                 LayoutInflater inflater = LayoutInflater.from(context);
 
-                if(c.getString(c.getColumnIndex(BanterMessage.COL_BanterMessageType)).matches("message")) {
+                Log.e("Message",c.getString(c.getColumnIndex(Message.COL_MESSAGE))+"");
+
+                if(c.getType(c.getColumnIndex(Message.COL_MESSAGE))!=0) {
+
+                    String cursorUnixtime = c.getString(c.getColumnIndex(Message.COL_TIME));
+                    Log.e("Unixtime",cursorUnixtime);
+                    String cursorDate = timeformatter.formatUnixtime(cursorUnixtime,"dd MMM");
+
                     if (c.getString(c.getColumnIndex(Message.COL_SENDERID)).matches(botId) == true) {
                         convertView = inflater.inflate(R.layout.item_botmessage, parent, false);
                     } else if (c.getString(c.getColumnIndex(Message.COL_SENDERID)).matches(currentUserId) == false) {
@@ -160,7 +164,7 @@ public class MessagesAdapter extends SimpleCursorAdapter {
                         }
                     }
                 }
-                else if(c.getString(c.getColumnIndex(BanterMessage.COL_BanterMessageType)).matches("tweet")) {
+                else if(c.getType(c.getColumnIndex(Tweet.COL_Tweet))!=0) {
 
                     Log.e("Tweet ConvertView","ConverView");
                     convertView = inflater.inflate(R.layout.item_tweet, parent, false);
@@ -182,7 +186,11 @@ public class MessagesAdapter extends SimpleCursorAdapter {
                 viewHolder = (ViewHolder) convertView.getTag();
                 LayoutInflater inflater = LayoutInflater.from(context);
 
-                if(c.getString(c.getColumnIndex(BanterMessage.COL_BanterMessageType)).matches("message")) {
+                if(c.getType(c.getColumnIndex(Message.COL_MESSAGE))!=0) {
+
+                    String cursorUnixtime = c.getString(c.getColumnIndex(Message.COL_TIME));
+                    String cursorDate = timeformatter.formatUnixtime(cursorUnixtime,"dd MMM");
+
 
                     if (c.getString(c.getColumnIndex(Message.COL_SENDERID)).matches(botId) == true) {
                         convertView = inflater.inflate(R.layout.item_botmessage, parent, false);
@@ -242,7 +250,7 @@ public class MessagesAdapter extends SimpleCursorAdapter {
                         }
                     }
                 }
-                else if(c.getString(c.getColumnIndex(BanterMessage.COL_BanterMessageType)).matches("tweet")) {
+                else if(c.getType(c.getColumnIndex(Tweet.COL_Tweet))!=0) {
 
                     convertView = inflater.inflate(R.layout.item_tweet, parent, false);
                     viewHolder.tweetContainer = (RelativeLayout) convertView.findViewById(R.id.tweetContainer);
@@ -263,7 +271,11 @@ public class MessagesAdapter extends SimpleCursorAdapter {
             }
 
             // Populate the data into the template view using the data object
-            if(c.getString(c.getColumnIndex(BanterMessage.COL_BanterMessageType)).matches("message")) {
+            if(c.getType(c.getColumnIndex(Message.COL_MESSAGE))!=0) {
+
+                String cursorUnixtime = c.getString(c.getColumnIndex(Message.COL_TIME));
+                String cursorDate = timeformatter.formatUnixtime(cursorUnixtime,"dd MMM");
+
 
                 if (c.getString(c.getColumnIndex(Message.COL_SENDERID)).matches(botId) == true) {
 
@@ -279,7 +291,7 @@ public class MessagesAdapter extends SimpleCursorAdapter {
 
                 // Return the completed view to render on screen
             }
-            else if(c.getString(c.getColumnIndex(BanterMessage.COL_BanterMessageType)).matches("tweet")) {
+            else if(c.getType(c.getColumnIndex(Tweet.COL_Tweet))!=0) {
 
                 final String mDocId = c.getString(c.getColumnIndex("_id"));
                 // Populate the data into the template view using the data object
@@ -405,13 +417,13 @@ public class MessagesAdapter extends SimpleCursorAdapter {
     public void retweet(String statusId,String mDocId)
     {
         Long tweet_status_id = Long.parseLong(statusId);
-        dbHelper.getInstance(context).putBanterMessageRetweet(mDocId,mayday.getTwitterAccessToken(),mayday.getTwitterAccessTokenSecret(),tweet_status_id);
+        dbHelper.getInstance(context).putRetweet(mDocId,mayday.getTwitterAccessToken(),mayday.getTwitterAccessTokenSecret(),tweet_status_id);
     }
 
     public void favortite(String statusId,String mDocId)
     {
         Long tweet_status_id = Long.parseLong(statusId);
-        dbHelper.getInstance(context).putBanterMessageRetweet(mDocId, mayday.getTwitterAccessToken(), mayday.getTwitterAccessTokenSecret(),tweet_status_id);
+        dbHelper.getInstance(context).putFavorite(mDocId, mayday.getTwitterAccessToken(), mayday.getTwitterAccessTokenSecret(),tweet_status_id);
 
     }
 

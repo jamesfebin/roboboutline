@@ -353,7 +353,7 @@ public class ConversationActivity extends Activity implements LoaderManager.Load
     @Override
     public Loader<Cursor> onCreateLoader(int i, Bundle bundle) {
         String conversationId = getIntent().getExtras().getString("conversationId");
-        return new CursorLoader(this, Uri.parse(BanterMessageProvider.URI_FILTERMESSAGES+"/"+conversationId) , BanterMessage.FIELDS, null, null, null);
+        return new CursorLoader(this, Uri.parse(BanterMessageProvider.URI_FILTERMESSAGES+"/"+conversationId+","+"KsrzMzFd6uHckAeb5") , BanterMessage.FIELDS, null, null, null);
     }
 
     @Override
