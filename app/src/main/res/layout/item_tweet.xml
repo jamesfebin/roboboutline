@@ -2,9 +2,14 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/tweetContainer"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:padding="15dp"
-    android:background="#ffffff">
+    android:layout_height="wrap_content">
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:padding="15dp"
+        android:background="@drawable/card">
 
     <ImageView
         android:id="@+id/imgPropic"
@@ -13,6 +18,8 @@
          android:layout_width="50dp"
         android:layout_height="50dp"
         android:paddingRight="10dp"
+        android:paddingLeft="5dp"
+        android:contentDescription="@string/dummy"
         />
 
     <RelativeLayout
@@ -27,6 +34,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="#1c1c1f"
+            android:textSize="14sp"
             />
 
         <TextView
@@ -36,6 +44,7 @@
             android:layout_height="wrap_content"
             android:textColor="#999999"
             android:paddingLeft="5dp"
+            android:textSize="13sp"
             android:layout_toRightOf="@id/lblTweetUsername"
             />
         <TextView
@@ -44,9 +53,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="#9BA4A9"
-            android:textSize="16sp"
-            android:paddingTop="10dp"
-            android:paddingBottom="10dp"
+            android:textSize="12sp"
+            android:paddingTop="5dp"
+            android:paddingBottom="5dp"
             android:layout_alignParentRight="true"
             />
 
@@ -58,51 +67,52 @@
         android:textColor="#9BA4A9"
         android:paddingTop="10dp"
         android:paddingBottom="10dp"
-        android:textSize="18sp"
+        android:textSize="14sp"
         android:layout_below="@id/lblTweetUsername"
         />
+        <LinearLayout
+            android:id="@+id/buttonGroup"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingTop="8dp"
+            android:paddingBottom="8dp"
+            android:layout_below="@id/lblTweetMessage" >
+
+            <ImageButton
+                android:contentDescription="@string/dummy"
+                android:id="@+id/reply"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/reply"
+                android:layout_weight="1"
+                android:background="#ffffff">
+            </ImageButton>
+
+            <ImageButton
+                android:contentDescription="@string/dummy"
+                android:id="@+id/retweet"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/retweet"
+                android:background="#ffffff"
+                android:layout_weight="1"
+                >
+            </ImageButton>
+
+            <ImageButton
+                android:contentDescription="@string/dummy"
+                android:id="@+id/favourite"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/favorite"
+                android:background="#ffffff"
+                android:layout_weight="1">
+            </ImageButton>
+        </LinearLayout>
 
     </RelativeLayout>
-    <LinearLayout
-        android:id="@+id/buttonGroup"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:paddingTop="15dp"
-        android:paddingBottom="15dp"
-        android:layout_below="@id/tweeterDetails" >
 
-        <ImageButton
-            android:contentDescription="@string/dummy"
-            android:id="@+id/reply"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/reply"
-            android:layout_weight="1"
-            android:background="#ffffff">
-        </ImageButton>
-
-        <ImageButton
-            android:contentDescription="@string/dummy"
-            android:id="@+id/retweet"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/retweet"
-            android:background="#ffffff"
-            android:layout_weight="1"
-            >
-        </ImageButton>
-
-        <ImageButton
-            android:contentDescription="@string/dummy"
-            android:id="@+id/favourite"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/favorite"
-            android:background="#ffffff"
-            android:layout_weight="1">
-        </ImageButton>
-    </LinearLayout>
 
     <ImageView
         android:contentDescription="@string/dummy"
@@ -110,8 +120,8 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:src="@drawable/imgplaceholder"
-        android:layout_below="@id/buttonGroup"
+        android:layout_below="@id/tweeterDetails"
         />
-
+    </RelativeLayout>
 </RelativeLayout>
 

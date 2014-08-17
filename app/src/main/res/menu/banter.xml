@@ -8,14 +8,9 @@
         android:showAsAction="never"
         android:title="@string/action_settings"/>
     <item
-        android:id="@+id/board"
-        android:icon="@drawable/ic_board"
+        android:id="@+id/profile"
+        android:icon="@drawable/profile"
         android:showAsAction="ifRoom"
-        android:title="@string/action_settings"/>
-    <item
-        android:id="@+id/newconvo"
-        android:icon="@drawable/ic_newconvo"
-        android:showAsAction="ifRoom"
-        android:title="@string/action_settings"/>
+        android:title="@string/dummy"/>
 
 </menu>
