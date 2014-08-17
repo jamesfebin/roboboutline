@@ -28,9 +28,9 @@ import com.boutline.sports.helpers.OnSwipeTouchListener;
 
 public class ForgotPasswordActivity extends Activity {
 
-    public String fontPath = "fonts/sharp.ttf";
+    public String fontPath = "fonts/proxinova.otf";
     public Typeface tf;
-    public String boldFontPath = "fonts/sharpsemibold.ttf";
+    public String boldFontPath = "fonts/proxinovabold.otf";
     public Typeface btf;
 
     @Override

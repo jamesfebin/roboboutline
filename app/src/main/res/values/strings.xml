@@ -54,4 +54,5 @@
     <string name="entername">Enter your name here</string>
     <string name="alreadysigned">Already a member? Sign in here.</string>
     <string name="giveidentity">Tell us a bit about you</string>
+    <string name="forgotpwdguide">Your password will be emailed to the email id you used to sign up for boutline.</string>
 </resources>
