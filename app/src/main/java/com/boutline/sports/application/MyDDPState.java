@@ -4,6 +4,7 @@ import com.boutline.sports.database.BoutDBHelper;
 import com.boutline.sports.database.SQLController;
 import com.boutline.sports.jobs.Connect;
 import com.boutline.sports.jobs.CreateBanter;
+import com.boutline.sports.jobs.ImageUpload;
 import com.boutline.sports.jobs.Login;
 import com.boutline.sports.jobs.ProcessFbRequests;
 import com.boutline.sports.jobs.RequestFbUser;
@@ -92,11 +93,11 @@ public class MyDDPState extends DDPStateSingleton {
     @Override
     public void createDDPCLient()
     {
-        String sMeteorServer = "boutrep0.cloudapp.net";
-       Integer sMeteorPort = 80;
+      //  String sMeteorServer = "boutrep0.cloudapp.net";
+       //Integer sMeteorPort = 80;
 
-       // String sMeteorServer = "192.168.1.11";
-        //Integer sMeteorPort = 3000;
+        String sMeteorServer = "192.168.1.3";
+        Integer sMeteorPort = 3000;
 
         try {
 
@@ -462,7 +463,6 @@ public class MyDDPState extends DDPStateSingleton {
 
                 } else {
 
-                    //This has a purpose.. Don't delete
                   jobManager = MyApplication.getInstance().getJobManager();
                   jobManager.addJobInBackground(new CreateBanter(parameters));
 
@@ -477,6 +477,40 @@ public class MyDDPState extends DDPStateSingleton {
 
 
     }
+
+
+    public void getSASURLBackground(final String filename, final String filepath)
+    {
+        Object[] parameters = new Object[1];
+        parameters[0]=filename;
+
+        mDDP.call("genSASURL", parameters, new DDPListener() {
+            @Override
+            public void onResult(Map<String, Object> jsonFields) {
+
+                if(jsonFields.containsKey("result"))
+                {
+
+                   jobManager = MyApplication.getInstance().getJobManager();
+                   jobManager.addJobInBackground(new ImageUpload(jsonFields.get("result").toString(),filepath));
+
+                    preferences = mContext.getSharedPreferences("boutlineData", Context.MODE_PRIVATE);
+
+                    String[] imageUrlArray = jsonFields.get("result").toString().split("\\?");
+                    String imageUrl = imageUrlArray[0];
+
+                    SharedPreferences.Editor edit = preferences.edit();
+                    edit.putString("profileImageUrl",imageUrl);
+                    edit.commit();
+
+                }
+
+            }
+        });
+
+
+    }
+
 
     public void getSASURL(String filename)
     {
@@ -510,6 +544,66 @@ public class MyDDPState extends DDPStateSingleton {
 
     }
 
+    public void forgotPassword(String email) {
+
+        Object[] parameters = new Object[1];
+        Map<String, Object> options = new HashMap<String, Object>();
+        parameters[0] = options;
+        options.put("email", email);
+
+        mDDP.call("resetUserPassword", parameters, new DDPListener() {
+
+
+
+            @Override
+            public void onResult(Map<String, Object> resultFields) {
+
+
+                if(resultFields.containsKey("result"))
+                {
+                    if(resultFields.get("result").toString().matches("success"))
+                    {
+
+                        Intent broadcastIntent = new Intent();
+                        broadcastIntent.setAction("EMAILSEND");
+                        broadcastIntent.putExtra("Error",
+                                "Email Id Doesn't Exist");
+                        LocalBroadcastManager.getInstance(
+                                MyApplication.getAppContext()).sendBroadcast(
+                                broadcastIntent);
+
+                    }
+                    else
+                    {
+                        Intent broadcastIntent = new Intent();
+                        broadcastIntent.setAction("EMAILFAILED");
+                        broadcastIntent.putExtra("Error",
+                                "Email Id Doesn't Exist");
+                        LocalBroadcastManager.getInstance(
+                                MyApplication.getAppContext()).sendBroadcast(
+                                broadcastIntent);
+
+
+                    }
+                }
+                else
+                {
+
+                    Intent broadcastIntent = new Intent();
+                    broadcastIntent.setAction("EMAILFAILED");
+                    broadcastIntent.putExtra("Error",
+                            "Internet connection not available");
+                    LocalBroadcastManager.getInstance(
+                            MyApplication.getAppContext()).sendBroadcast(
+                            broadcastIntent);
+
+
+                }
+                Log.e("FORGOT PASSWORD",resultFields.toString());
+            }
+
+        });
+    }
 
     public void sendMessage(final Object[] parameters)  {
 
@@ -593,12 +687,8 @@ public class MyDDPState extends DDPStateSingleton {
             @Override
             public void onResult(Map<String, Object> jsonFields) {
 
-                Log.e("Profile Updated",jsonFields.toString());
 
                 if (jsonFields.containsKey("result")) {
-                    Map<String, Object> result = (Map<String, Object>) jsonFields
-                            .get(DdpMessageField.RESULT);
-                    Log.e("Profile Updated",jsonFields.toString());
 
                 }
             }
@@ -652,12 +742,21 @@ public class MyDDPState extends DDPStateSingleton {
                 } else if (jsonFields.containsKey("error")) {
 
 
-                    Log.e("Error",jsonFields.toString());
+
+                    String error = jsonFields.get("error").toString();
+
+                    String[] ErrorArray = error.split(",");
+
+                    if(ErrorArray.length>=1)
+                    {
+                        error = ErrorArray[1];
+                        error=error.replace("reason=","");
+                    }
 
                     Intent broadcastIntent = new Intent();
                     broadcastIntent.setAction("REGISTRATIONFAILED");
                     broadcastIntent.putExtra("Error",
-                            jsonFields.get("error").toString());
+                            error);
                     LocalBroadcastManager.getInstance(
                             MyApplication.getAppContext()).sendBroadcast(
                             broadcastIntent);

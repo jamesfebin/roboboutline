@@ -41,6 +41,7 @@ import com.kbeanie.imagechooser.api.ChosenImage;
 import com.kbeanie.imagechooser.api.ImageChooserListener;
 import com.kbeanie.imagechooser.api.ImageChooserManager;
 import com.keysolutions.ddpclient.android.DDPBroadcastReceiver;
+import com.keysolutions.ddpclient.android.DDPStateSingleton;
 import com.path.android.jobqueue.JobManager;
 
 
@@ -94,6 +95,19 @@ public class CreateProfileActivity extends Activity implements ImageChooserListe
         continueButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
+                if(MyDDPState.getInstance().mDDPState== DDPStateSingleton.DDPSTATE.Closed)
+                {
+
+                    Toast.makeText(getApplicationContext(),"Internet connection not available",Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                if(profileNameEditText.getText().toString().matches("")==true)
+                {
+                    Toast.makeText(getApplicationContext(),"Please enter your name",Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
                 SharedPreferences.Editor edit = preferences.edit();
                 edit.putString("fullName",profileNameEditText.getText().toString());
                 edit.commit();
@@ -127,7 +141,6 @@ public class CreateProfileActivity extends Activity implements ImageChooserListe
         imageChooserManager.setImageChooserListener(this);
         try {
             String  filePath = imageChooserManager.choose();
-
         } catch (IllegalArgumentException e) {
             e.printStackTrace();
         } catch (Exception e) {
@@ -219,7 +232,6 @@ public class CreateProfileActivity extends Activity implements ImageChooserListe
                     proPic.setImageURI(Uri.parse(new File(chosenImage.getFileThumbnail()).toString()));
                     path = chosenImage.getFilePathOriginal();
                     preferences = getApplicationContext().getSharedPreferences("boutlineData", Context.MODE_PRIVATE);
-
                     String filename = preferences.getString("boutlineUserId", "");
                     filename=filename+".png";
                     MyDDPState.getInstance().getSASURL(filename);

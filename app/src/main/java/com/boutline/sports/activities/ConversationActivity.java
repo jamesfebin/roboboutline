@@ -77,6 +77,7 @@ import com.facebook.FacebookOperationCanceledException;
 import com.facebook.Session;
 import com.facebook.SessionState;
 
+import com.facebook.Settings;
 import com.facebook.UiLifecycleHelper;
 import com.facebook.widget.WebDialog;
 import com.keysolutions.ddpclient.android.DDPBroadcastReceiver;
@@ -179,18 +180,18 @@ public class ConversationActivity extends Activity implements LoaderManager.Load
             @Override
             public void onClick(View view) {
 
-                if (txtCompose.getText().toString().matches("invite") == true) {
+               /* if (txtCompose.getText().toString().matches("invite") == true) {
                     sendRequestDialog();
-                } else if (txtCompose.getText().toString().matches("") == false) {
+                } else */if (txtCompose.getText().toString().matches("") == false) {
 
 
                     if(txtCompose.getText().toString().matches("settings"))
                     {
 
-                        Intent intent = new Intent(ConversationActivity.this,CreateProfileActivity.class);
+                        Intent intent = new Intent(ConversationActivity.this,SettingsActivity.class);
                         intent.putExtra("from","conversations");
                         startActivity(intent);
-                       return;
+                        return;
 
                     }
 

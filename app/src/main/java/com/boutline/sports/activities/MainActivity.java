@@ -144,6 +144,15 @@ public class MainActivity extends Activity {
 
                 }
                 else{
+                    if(!checkIfProfileUpdated())
+                    {
+                        Intent intent = new Intent(MainActivity.this,CreateProfileActivity.class);
+                        startActivity(intent);
+                        finish();
+
+                        return;
+
+                    }
 
                     Intent intent = new Intent(MainActivity.this,ConversationActivity.class);
                     intent.putExtra("conversationId","Q83GjTwRCk4FNTSEJ");
@@ -189,6 +198,15 @@ public class MainActivity extends Activity {
 
                         if(intent.hasExtra("userId")==true) {
 
+                            if(!checkIfProfileUpdated())
+                            {
+                                Intent profileUpdateintent = new Intent(MainActivity.this,CreateProfileActivity.class);
+                                startActivity(profileUpdateintent);
+                                finish();
+
+                                return;
+
+                            }
                             Editor editor = preferences.edit();
                             editor.putString("boutlineUserId", intent.getStringExtra("userId"));
                             editor.commit();
@@ -239,6 +257,28 @@ public class MainActivity extends Activity {
 
                     else if(intent.getAction().equals(MyDDPState.MESSAGE_ERROR))
                     {
+
+
+                        preferences = getApplicationContext().getSharedPreferences("boutlineData", Context.MODE_PRIVATE);
+
+                        String userId = preferences.getString("boutlineUserId",null);
+
+                        if(userId!=null) {
+                            if(!checkIfProfileUpdated())
+                            {
+                                Intent profileUpdateintent = new Intent(MainActivity.this,CreateProfileActivity.class);
+                                startActivity(profileUpdateintent);
+                                finish();
+
+                                return;
+
+                            }
+                            Intent banterIntent = new Intent(MainActivity.this,ConversationActivity.class);
+                            banterIntent.putExtra("conversationId","Q83GjTwRCk4FNTSEJ");
+                            startActivity(banterIntent);
+                            finish();
+
+                        }
 
 
                         Toast.makeText(getApplicationContext(),"Internet connection not avaialable",Toast.LENGTH_SHORT).show();
@@ -297,6 +337,26 @@ public class MainActivity extends Activity {
             LocalBroadcastManager.getInstance(this).unregisterReceiver(mReceiver);
             mReceiver = null;
         }
+    }
+
+    public boolean checkIfProfileUpdated()
+    {
+        preferences = this.getSharedPreferences("boutlineData", Context.MODE_PRIVATE);
+
+      String fullname =   preferences.getString("fullName",null);
+
+        if(fullname==null)
+        {
+
+            return false;
+
+        }
+        else
+        {
+            return true;
+        }
+
+
     }
 
 

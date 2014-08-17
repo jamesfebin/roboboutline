@@ -12,6 +12,7 @@ import android.support.v4.content.LocalBroadcastManager;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.androidquery.callback.BitmapAjaxCallback;
 import com.boutline.sports.R;
 import com.boutline.sports.activities.ChooseSportsActivity;
 import com.boutline.sports.activities.ChooseTournamentActivity;
@@ -101,6 +102,9 @@ public class MyApplication extends Application {
     @Override
     public void onLowMemory() {
         super.onLowMemory();
+
+        BitmapAjaxCallback.clearCache();
+
     }
 
     /**

@@ -143,7 +143,6 @@ public class SignupActivity extends Activity {
 
             @Override
             public void onReceive(Context context, Intent intent) {
-                super.onReceive(context, intent);
                 Bundle bundle = intent.getExtras();
                 if(intent.getAction().equals("REGISTRATIONSUCCESS")) {
                     if(progress!=null)
