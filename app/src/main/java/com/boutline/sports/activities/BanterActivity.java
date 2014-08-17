@@ -289,16 +289,11 @@ public class BanterActivity extends Activity implements LoaderManager.LoaderCall
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 	 switch (item.getItemId()) {
-	       case R.id.board:
-	         Intent boardIntent = new Intent(BanterActivity.this, BoardActivity.class);
+	       case R.id.profile:
+	         Intent boardIntent = new Intent(BanterActivity.this, SettingsActivity.class);
 		     startActivity(boardIntent);
 			 overridePendingTransition(R.anim.pushrightin, R.anim.pushrightout);
 		     return true;
-	       case R.id.newconvo:
-		     Intent newconvoIntent = new Intent(BanterActivity.this, NewBanterActivity.class);
-			 startActivity(newconvoIntent);
-			 overridePendingTransition(R.anim.pushupin, R.anim.pushupout);
-			 return true;
 		   default:
 		     return super.onOptionsItemSelected(item);
 		  }
