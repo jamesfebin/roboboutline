@@ -105,6 +105,11 @@ public class CreateProfileActivity extends Activity implements ImageChooserListe
                 edit.putString("fullName",profileNameEditText.getText().toString());
                 edit.commit();
                 jobManager.addJobInBackground(new updateUserProfile());
+
+                if(getIntent().hasExtra("from"))
+                {
+                    finish();
+                }
                 Intent intent = new Intent(CreateProfileActivity.this,ConversationActivity.class);
                 intent.putExtra("conversationId","Q83GjTwRCk4FNTSEJ");
                 startActivity(intent);

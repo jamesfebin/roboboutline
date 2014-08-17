@@ -387,7 +387,7 @@ public class BoutDBHelper extends SQLiteOpenHelper {
         if(success)
         {
             notifyProviderOnTweetChange(tweet.type);
-
+            notifyProviderOnBanterMessageChange();
         }
         return success;
     }
@@ -426,6 +426,12 @@ public class BoutDBHelper extends SQLiteOpenHelper {
         return true;
     }
 
+    public void putCachedMessage(Message message)
+    { 
+
+
+
+    }
 
     public synchronized boolean putFavorite(String mDocId,String AccessToken,String AccessTokenSecret,Long statusId) {
         int value;
@@ -544,10 +550,11 @@ public class BoutDBHelper extends SQLiteOpenHelper {
                 ConversationProvider.URI_CONVERSATIONS, null, false);
     }
 
-    public synchronized boolean putMessage(Message message) {
+    public synchronized boolean putMessage(Message message,String uId) {
         boolean success = false;
         int result = 0;
         final SQLiteDatabase db = this.getWritableDatabase();
+
 
         Cursor cursor = db.query(Message.TABLE_NAME, new String[] { "_id" },"_id" + "=?",
                 new String[] { message.mDocId }, null, null, null, null);
@@ -559,6 +566,22 @@ public class BoutDBHelper extends SQLiteOpenHelper {
                     Message.COL_ID + " IS ?",
                     new String[] { message.mDocId });
         }
+
+
+        // Check if it's a cached message , Then Update it
+
+        if(uId.matches("")==false) {
+            cursor = db.query(Message.TABLE_NAME, new String[]{"_id"}, "_id" + "=?",
+                    new String[]{uId}, null, null, null, null);
+
+            if (cursor.getCount() > 0) {
+                // Then update
+                result += db.update(Message.TABLE_NAME, message.getContent(),
+                        Message.COL_ID + " IS ?",
+                        new String[]{uId});
+            }
+        }
+
 
 
         if (result > 0) {

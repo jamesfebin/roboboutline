@@ -119,7 +119,7 @@ public class TweetsAdapter extends SimpleCursorAdapter {
            final String image_url = c.getString(c.getColumnIndex(Tweet.COL_ProfileImage));
            options.round = 35;
 
-           aq.id(viewHolder.imgProfile).image(image_url, options);
+           aq.id(viewHolder.imgProfile).image(image_url, true,true,200,0);
 
            // Set up the fonts
 

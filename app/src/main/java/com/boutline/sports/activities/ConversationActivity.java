@@ -64,9 +64,11 @@ import com.boutline.sports.ContentProviders.SportProvider;
 import com.boutline.sports.adapters.MessagesAdapter;
 import com.boutline.sports.application.MyApplication;
 import com.boutline.sports.application.MyDDPState;
+import com.boutline.sports.database.BoutDBHelper;
 import com.boutline.sports.jobs.RequestFbUser;
 import com.boutline.sports.jobs.SendMessage;
 import com.boutline.sports.models.BanterMessage;
+import com.boutline.sports.models.Conversation;
 import com.boutline.sports.models.Message;
 import com.boutline.sports.R;
 import com.boutline.sports.models.Sport;
@@ -83,6 +85,9 @@ import com.path.android.jobqueue.JobManager;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.UUID;
 
 public class ConversationActivity extends Activity implements LoaderManager.LoaderCallbacks<Cursor>{
 
@@ -99,6 +104,8 @@ public class ConversationActivity extends Activity implements LoaderManager.Load
     JobManager jobManager;
   //  private UiLifecycleHelper uiHelper;
     SharedPreferences mSharedPreferences;
+    BoutDBHelper dbHelper;
+
 
     /*
     @Override
@@ -162,6 +169,11 @@ public class ConversationActivity extends Activity implements LoaderManager.Load
             }
         });
 
+        mSharedPreferences = this.getSharedPreferences("boutlineData", Context.MODE_PRIVATE);
+        final String userPicUrl = mSharedPreferences.getString("profileImageUrl","");
+        final String senderName = mSharedPreferences.getString("fullName","");
+        final String senderId = mSharedPreferences.getString("boutlineUserId","");
+        final long unixTime = System.currentTimeMillis() / 1000L;
         jobManager = MyApplication.getInstance().getJobManager();
         sendMessage.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -170,11 +182,47 @@ public class ConversationActivity extends Activity implements LoaderManager.Load
                 if (txtCompose.getText().toString().matches("invite") == true) {
                     sendRequestDialog();
                 } else if (txtCompose.getText().toString().matches("") == false) {
-                    Object[] parameters = new Object[2];
+
+
+                    if(txtCompose.getText().toString().matches("settings"))
+                    {
+
+                        Intent intent = new Intent(ConversationActivity.this,CreateProfileActivity.class);
+                        intent.putExtra("from","conversations");
+                        startActivity(intent);
+                       return;
+
+                    }
+
+
+                    UUID uniqueKey = UUID.randomUUID();
+
+                    String mDocId = uniqueKey.toString();
+
+                    Object[] parameters = new Object[3];
                     parameters[0] = getIntent().getExtras().getString("conversationId");
                     parameters[1] = txtCompose.getText().toString();
+                    parameters[2] = mDocId;
                     jobManager.addJobInBackground(new SendMessage(parameters));
+
+
+                    Map<String,Object> fields = new HashMap<String, Object>();
+                    fields.put("name",senderName);
+                    fields.put("message",txtCompose.getText().toString());
+                    fields.put("banterId",getIntent().getExtras().getString("conversationId"));
+                    fields.put("userPicUrl",userPicUrl);
+                    fields.put("sender",senderId);
+                    fields.put("time",unixTime);
+
+                    Message message = new Message(mDocId,fields);
                     txtCompose.setText("");
+
+
+                    dbHelper.getInstance(getApplicationContext()).putMessage(message,"");
+
+
+
+
                 }
             }
         });

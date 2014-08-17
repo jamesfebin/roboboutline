@@ -98,9 +98,9 @@ public class ComposeTweetActivity extends Activity {
         if(mayday.hasTwitterCredentials()) {
             SharedPreferences preferences = this.getSharedPreferences("boutlineData", Context.MODE_PRIVATE);
 
-            String userHandle = preferences.getString("userHandle",null);
-            String fullName = preferences.getString("fullName",null);
-            String profileImageUrl = preferences.getString("profileImageUrl",null);
+            String userHandle = preferences.getString("userHandle","");
+            String fullName = preferences.getString("twitterFullName","");
+            String profileImageUrl = preferences.getString("twitterProfileImageUrl","");
 
 
             if(userHandle!= null && fullName !=null && profileImageUrl!=null) {

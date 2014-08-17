@@ -7,4 +7,5 @@ public class MessageParameter {
 
     public String message;
     public String banterId;
+    public String uId;
 }

@@ -93,12 +93,13 @@ public class MyDDPState extends DDPStateSingleton {
     public void createDDPCLient()
     {
         String sMeteorServer = "boutrep0.cloudapp.net";
-        Integer sMeteorPort = 80;
+       Integer sMeteorPort = 80;
 
        // String sMeteorServer = "192.168.1.11";
         //Integer sMeteorPort = 3000;
 
         try {
+
             mDDP = new DDPClient(sMeteorServer, sMeteorPort);
 
         } catch (URISyntaxException e) {
@@ -429,8 +430,8 @@ public class MyDDPState extends DDPStateSingleton {
 
         editor.putLong("twitterId",twitterId);
         editor.putString("userHandle",userHandle);
-        editor.putString("profileImageUrl",profileImageUrl);
-        editor.putString("fullName",fullName);
+        editor.putString("twitterProfileImageUrl",profileImageUrl);
+        editor.putString("twitterFullName",fullName);
         editor.commit();
 
 
@@ -517,7 +518,7 @@ public class MyDDPState extends DDPStateSingleton {
         MessageParameter message = new MessageParameter();
         message.banterId = parameters[0].toString();
         message.message=parameters[1].toString();
-
+        message.uId = parameters[2].toString();
 
 
         Object[] messageParameters = new Object[1];
@@ -1000,12 +1001,22 @@ public class MyDDPState extends DDPStateSingleton {
                 if (changetype.equals(DdpMessageType.ADDED)) {
 
                     Log.e("Item added","Messages");
+
+
 /*
                     BanterMessage message = new BanterMessage(docId, getCollection(collectionName).get(docId),"message");
                     dbHelper.getInstance(mContext).putBanterMessage(message);
                  */
                     Message message = new Message(docId, getCollection(collectionName).get(docId));
-                    dbHelper.getInstance(mContext).putMessage(message);
+                    Map<String,Object> messageMap;
+                    messageMap=getCollection(collectionName).get(docId);
+                    String uId="";
+                    if(messageMap.containsKey("uId"))
+                    {
+                        uId = messageMap.get("uId").toString();
+
+                    }
+                    dbHelper.getInstance(mContext).putMessage(message,uId);
 
 
 
@@ -1016,8 +1027,16 @@ public class MyDDPState extends DDPStateSingleton {
                    /* BanterMessage message = new BanterMessage(docId, getCollection(collectionName).get(docId),"message");
                     dbHelper.getInstance(mContext).putBanterMessage(message);
 */
+                    Map<String,Object> messageMap;
+                    messageMap=getCollection(collectionName).get(docId);
+                    String uId="";
+                    if(messageMap.containsKey("uId"))
+                    {
+                        uId = messageMap.get("uId").toString();
+
+                    }
                     Message message = new Message(docId, getCollection(collectionName).get(docId));
-                    dbHelper.getInstance(mContext).putMessage(message);
+                    dbHelper.getInstance(mContext).putMessage(message,uId);
 
                 }
 
