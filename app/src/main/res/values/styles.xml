@@ -52,7 +52,6 @@
         <item name="android:dropDownSelector">@drawable/selectable_background_bostyle</item>
     </style>
 
-
     <style name="ProgressBar.Bostyle" parent="@android:style/Widget.Holo.Light.ProgressBar.Horizontal">
         <item name="android:progressDrawable">@drawable/progress_horizontal_bostyle</item>
     </style>
@@ -82,7 +81,6 @@
     </style>
 
     <style name="SmoothProgressBar" parent="android:Widget.ProgressBar.Horizontal">
-        <item name="spb_colors">@array/pocket_bar_colors</item>
         <item name="spb_sections_count">@integer/spb_default_sections_count</item>
         <item name="spb_speed">@string/spb_default_speed</item>
         <item name="spb_stroke_width">@dimen/spb_default_stroke_width</item>

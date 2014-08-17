@@ -23,31 +23,21 @@ import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v4.content.LocalBroadcastManager;
 import android.view.View;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
-import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageView;
-import android.widget.RelativeLayout;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 import com.keysolutions.ddpclient.android.DDPBroadcastReceiver;
 
 import com.boutline.sports.R;
-import com.boutline.sports.application.MyApplication;
 import com.boutline.sports.application.MyDDPState;
-import com.boutline.sports.helpers.OnSwipeTouchListener;
-import android.content.BroadcastReceiver;
-import com.path.android.jobqueue.Job;
-import com.path.android.jobqueue.JobManager;
 
 public class SignupActivity extends Activity {
 
-    public String fontPath = "fonts/sharp.ttf";
+    public String fontPath = "fonts/proxinova.ttf";
     public Typeface tf;
-    public String boldFontPath = "fonts/sharpsemibold.ttf";
+    public String boldFontPath = "fonts/proxinovabold.otf";
     public Typeface btf;
-
     private ProgressDialog progress = null;
     BroadcastReceiver mReceiver = null;
 
@@ -55,38 +45,40 @@ public class SignupActivity extends Activity {
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signup);
-        //Set up fonts
 
-        tf = Typeface.createFromAsset(getAssets(), fontPath);
-        btf = Typeface.createFromAsset(getAssets(), boldFontPath);
-      //  getActionBar().hide();
-
+        //Set up the controls
         TextView login = (TextView) findViewById(R.id.lblLogin);
-
+        TextView boutline = (TextView) findViewById(R.id.boutline);
+        TextView lblSignup = (TextView) findViewById(R.id.lblSignup);
         final EditText usernameEditText = (EditText) findViewById(R.id.txtSignupUsername);
         final EditText passwordEditText = (EditText) findViewById(R.id.txtSignupPassword);
         final EditText emailEditText = (EditText) findViewById(R.id.txtSignupEmailId);
+        ImageButton signup = (ImageButton) findViewById(R.id.SignupBtn);
         progress = new ProgressDialog(this);
 
-
+        //Set up fonts
+        tf = Typeface.createFromAsset(getAssets(), fontPath);
+        btf = Typeface.createFromAsset(getAssets(), boldFontPath);
+        login.setTypeface(tf);
+        usernameEditText.setTypeface(tf);
+        passwordEditText.setTypeface(tf);
+        emailEditText.setTypeface(tf);
+        boutline.setTypeface(btf);
+        lblSignup.setTypeface(tf);
 
         usernameEditText.setText("jamesfebin");
         passwordEditText.setText("fbnonae()");
         emailEditText.setText("jamesfebin@gmail.com");
-        Button signup = (Button) findViewById(R.id.SignupBtn);
 
         login.setOnClickListener( new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
                 Intent intent = new Intent(SignupActivity.this,LoginActivity.class);
                 startActivity(intent);
                 finish();
-
+                overridePendingTransition(R.anim.fadein, R.anim.fadeout);
             }
         });
-
-
 
         signup.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -96,45 +88,32 @@ public class SignupActivity extends Activity {
            String password = passwordEditText.getText().toString();
            String email = emailEditText.getText().toString();
 
-
                 if(username.length()==0)
                 {
-
                     Toast.makeText(getApplicationContext(),"Please input your username",Toast.LENGTH_SHORT).show();
-
                 }
                 else if(password.length()==0)
                 {
-
                     Toast.makeText(getApplicationContext(),"Please input password",Toast.LENGTH_SHORT).show();
-
                 }
                 else if(username.contains(" "))
                 {
-
                     Toast.makeText(getApplicationContext(),"Username cannot contains spaces",Toast.LENGTH_SHORT).show();
-
-
                 }
                 else if(email.contains(" "))
                 {
-
                     Toast.makeText(getApplicationContext(),"Email Id cannot contains spaces",Toast.LENGTH_SHORT).show();
-
                 }
                 else if(password.length()<8)
                 {
-
                     Toast.makeText(getApplicationContext(),"Password must be a minimum of 8 characters",Toast.LENGTH_SHORT).show();
                 }
                 else if(email.length()==0)
                 {
-
                     Toast.makeText(getApplicationContext(),"Please input email",Toast.LENGTH_SHORT).show();
                 }
-                else if(email.contains("@")==false||email.contains(".")==false)
+                else if(!email.contains("@")||!email.contains("."))
                 {
-
                     Toast.makeText(getApplicationContext(),"Please input valid email",Toast.LENGTH_SHORT).show();
                 }
                 else
@@ -143,12 +122,8 @@ public class SignupActivity extends Activity {
                     progress.show();
                     MyDDPState.getInstance().createUser(username, password, email);
                 }
-
             }
         });
-
-
-
     }
 
     @Override
@@ -156,7 +131,6 @@ public class SignupActivity extends Activity {
         super.onPause();
 
         if (mReceiver != null) {
-
             LocalBroadcastManager.getInstance(this).unregisterReceiver(mReceiver);
             mReceiver = null;
         }
@@ -165,28 +139,21 @@ public class SignupActivity extends Activity {
     @Override
     protected void onResume() {
         super.onResume();
-
-
-
         mReceiver = new DDPBroadcastReceiver(MyDDPState.getInstance(), this) {
 
             @Override
             public void onReceive(Context context, Intent intent) {
                 super.onReceive(context, intent);
-
                 Bundle bundle = intent.getExtras();
-
                 if(intent.getAction().equals("REGISTRATIONSUCCESS")) {
-
                     if(progress!=null)
                     {
                         progress.dismiss();
                     }
-
                     Intent profileIntent = new Intent(SignupActivity.this,CreateProfileActivity.class);
                     startActivity(profileIntent);
                     finish();
-
+                    overridePendingTransition(R.anim.fadein, R.anim.fadeout);
                 }
                 else if(intent.getAction().equals("REGISTRATIONFAILED"))
                 {
@@ -194,11 +161,8 @@ public class SignupActivity extends Activity {
                     {
                         progress.dismiss();
                     }
-
                     Toast.makeText(getApplicationContext(),intent.getExtras().getString("Error"),Toast.LENGTH_SHORT).show();
-
                 }
-
             }
         };
 

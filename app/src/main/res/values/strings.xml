@@ -44,4 +44,14 @@
     <string name="welcomemessage">You are now a part of an elite community of sports fans. Here you can learn about, connect with and stay updated about your favorite sports and their fans. </string>
     <string name="lblLiveMatches">Live Matches</string>
     <string name="lblUpcomingMatches">Upcoming Matches</string>
+    <string name="newmember">New Member? Sign up here.</string>
+    <string name="forgotpassword">Problems Signing in?</string>
+    <string name="password">Password</string>
+    <string name="username">Username</string>
+    <string name="emailid">Email ID</string>
+    <string name="login">Login to begin</string>
+    <string name="signup">Sign up for awesomeness</string>
+    <string name="entername">Enter your name here</string>
+    <string name="alreadysigned">Already a member? Sign in here.</string>
+    <string name="giveidentity">Tell us a bit about you</string>
 </resources>

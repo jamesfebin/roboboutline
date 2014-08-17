@@ -3,30 +3,12 @@
     <color name="white">#ffffff</color>
     <color name="darkgray">#303133</color>
     <color name="semidarkgray">#393D3C</color>
-    <color name="lightgray">#E6E6E6</color>
+    <color name="lightgray">#ECECEC</color>
     <color name="green">#76C70A</color>
-    <color name="blue">#59c7ff</color>
+    <color name="blue">#2d99ea</color>
     <color name="black">#3C3C3C</color>
-     <integer-array name="pocket_bar_colors">
-        <item>@color/pocket_color_1</item>
-        <item>@color/pocket_color_1</item>
-        <item>@color/pocket_color_1</item>
-        <item>@color/pocket_color_1</item>
-        <item>@color/pocket_color_2</item>
-        <item>@color/pocket_color_2</item>
-        <item>@color/pocket_color_2</item>
-        <item>@color/pocket_color_2</item>
-        <item>@color/pocket_color_3</item>
-        <item>@color/pocket_color_3</item>
-        <item>@color/pocket_color_3</item>
-        <item>@color/pocket_color_3</item>
-        <item>@color/pocket_color_4</item>
-        <item>@color/pocket_color_4</item>
-        <item>@color/pocket_color_4</item>
-        <item>@color/pocket_color_4</item>
-    </integer-array>    
-    <color name="pocket_color_1">#85edb9</color>
-    <color name="pocket_color_2">#34bdb7</color>
-    <color name="pocket_color_3">#ee4458</color>
-    <color name="pocket_color_4">#fcb74d</color>
+    <color name="turq">#85edb9</color>
+    <color name="darkturq">#34bdb7</color>
+    <color name="red">#BF3D37</color>
+    <color name="orange">#fcb74d</color>
 </resources>

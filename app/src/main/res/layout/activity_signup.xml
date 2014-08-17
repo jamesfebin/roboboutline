@@ -1,99 +1,133 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent" android:layout_height="match_parent">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/lightgray">
 
-    <TextView
-        android:id="@+id/lblSignup"
-        android:text="Sign up for Boutline"
-        android:textColor="@color/darkgray"
+    <RelativeLayout
+        android:id="@+id/header"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:padding="10dp"
-        />
-
-    <TextView
-        android:id="@+id/lblUsername"
-        android:text="Username"
-        android:textColor="@color/darkgray"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:padding="10dp"
-        android:layout_below="@id/lblSignup"
-        />
+        android:background="@color/white"
+        >
+        <ImageView
+            android:id="@+id/logo"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:contentDescription="@string/app_name"
+            android:src="@drawable/bobotsmall"
+            android:scaleType="centerCrop"
+            android:layout_marginTop="10dp"/>
+        <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@id/logo">
+            <TextView
+                android:id="@+id/boutline"
+                android:text="@string/app_name"
+                android:textColor="@color/darkgray"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="10dp"
+                android:paddingLeft="10dp"
+                android:textSize="20sp"
+                />
+            <TextView
+                android:id="@+id/lblSignup"
+                android:text="@string/signup"
+                android:textColor="@color/darkgray"
+                android:layout_below="@id/boutline"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:paddingBottom="10dp"
+                android:paddingLeft="10dp"
+                />
+        </RelativeLayout>
+    </RelativeLayout>
 
     <EditText
         android:id="@+id/txtSignupUsername"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/lblUsername"
+        android:layout_below="@id/header"
         android:layout_marginLeft="10dp"
         android:inputType="textNoSuggestions"
+        android:hint="@string/username"
         android:layout_marginRight="10dp"
+        android:padding="25dp"
+        android:background="@drawable/edittext_style"
+        android:layout_marginTop="5dp"
         />
 
-    <TextView
-        android:id="@+id/lblEmailId"
-        android:text="Email ID"
-        android:textColor="@color/darkgray"
+    <View
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:padding="10dp"
+        android:layout_height="1dp"
         android:layout_below="@id/txtSignupUsername"
-        />
-
-    <EditText
-        android:id="@+id/txtSignupEmailId"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/lblEmailId"
-        android:inputType="textEmailAddress"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        />
-
-    <TextView
-        android:id="@+id/lblPassword"
-        android:text="Password"
-        android:textColor="@color/darkgray"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:padding="10dp"
-        android:layout_below="@id/txtSignupEmailId"
-        />
+        android:background="#dcdcdc"/>
 
     <EditText
         android:id="@+id/txtSignupPassword"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/lblPassword"
+        android:layout_below="@id/txtSignupUsername"
         android:layout_marginLeft="10dp"
         android:inputType="textPassword"
+        android:hint="@string/password"
         android:layout_marginRight="10dp"
+        android:padding="25dp"
+        android:background="@drawable/edittext_style"
+        android:layout_marginTop="5dp"
         />
+
+    <View
+        android:layout_width="fill_parent"
+        android:layout_height="1dp"
+        android:layout_below="@id/txtSignupPassword"
+        android:background="#dcdcdc"/>
+
+    <EditText
+        android:id="@+id/txtSignupEmailId"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/txtSignupPassword"
+        android:layout_marginLeft="10dp"
+        android:inputType="textEmailAddress"
+        android:hint="@string/emailid"
+        android:layout_marginRight="10dp"
+        android:padding="25dp"
+        android:background="@drawable/edittext_style"
+        android:layout_marginTop="5dp"
+        />
+
+    <View
+        android:layout_width="fill_parent"
+        android:layout_height="1dp"
+        android:layout_below="@id/txtSignupEmailId"
+        android:background="#dcdcdc"/>
+
 
     <TextView
         android:id="@+id/lblLogin"
-        android:text="Already a member? Login here."
+        android:text="@string/alreadysigned"
         android:textColor="@color/darkgray"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:padding="30dp"
         android:gravity="center"
-        android:layout_below="@id/txtSignupPassword"
+        android:layout_below="@id/txtSignupEmailId"
         />
 
-    <Button
+    <ImageButton
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:padding="10dp"
-        android:text="Sign Up"
-        android:background="@color/darkgray"
-        android:textColor="@color/white"
-        android:id="@+id/SignupBtn"
+        android:background="@color/red"
         android:layout_alignParentBottom="true"
+        android:id="@+id/SignupBtn"
+        android:contentDescription="@string/dummy"
+        android:src="@drawable/go"
         />
-
-
 
 </RelativeLayout>

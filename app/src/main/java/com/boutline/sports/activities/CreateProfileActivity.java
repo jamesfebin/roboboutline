@@ -15,29 +15,20 @@ package com.boutline.sports.activities;
 
 import android.app.Activity;
 import android.content.BroadcastReceiver;
-import android.content.ContentUris;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
-import android.database.Cursor;
 import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.AsyncTask;
-import android.os.Build;
 import android.os.Bundle;
-
-import android.provider.MediaStore;
-import android.support.v4.content.CursorLoader;
 import android.support.v4.content.LocalBroadcastManager;
 import android.util.Log;
 import android.view.View;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
-import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -63,9 +54,9 @@ import java.net.URL;
 
 public class CreateProfileActivity extends Activity implements ImageChooserListener{
 
-    public String fontPath = "fonts/sharp.ttf";
+    public String fontPath = "fonts/proxinova.ttf";
     public Typeface tf;
-    public String boldFontPath = "fonts/sharpsemibold.ttf";
+    public String boldFontPath = "fonts/proxinovabold.otf";
     public Typeface btf;
     private static final int SELECT_PHOTO = 100;
     ImageView proPic;
@@ -84,20 +75,22 @@ public class CreateProfileActivity extends Activity implements ImageChooserListe
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_createprofile);
-        //Set up fonts
 
+        preferences = getApplicationContext().getSharedPreferences("boutlineData", Context.MODE_PRIVATE);
+        proPic = (ImageView) findViewById(R.id.imgProPic);
+        final EditText profileNameEditText = (EditText) findViewById(R.id.profileFullName);
+        ImageButton continueButton = (ImageButton) findViewById(R.id.btnContinue);
+        TextView lblProfile = (TextView)findViewById(R.id.lblProfile);
+        TextView lblProfilePic = (TextView)findViewById(R.id.lblProfilePic);
+
+        //Set up fonts
         tf = Typeface.createFromAsset(getAssets(), fontPath);
         btf = Typeface.createFromAsset(getAssets(), boldFontPath);
-       // getActionBar().hide();
-        preferences = getApplicationContext().getSharedPreferences("boutlineData", Context.MODE_PRIVATE);
-
-         proPic = (ImageView) findViewById(R.id.imgProPic);
-
-        final EditText profileNameEditText = (EditText) findViewById(R.id.profileFullName);
-
         jobManager = MyApplication.getInstance().getJobManager();
+        profileNameEditText.setTypeface(tf);
+        lblProfile.setTypeface(btf);
+        lblProfilePic.setTypeface(tf);
 
-        Button continueButton = (Button) findViewById(R.id.btnContinue);
         continueButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -105,7 +98,6 @@ public class CreateProfileActivity extends Activity implements ImageChooserListe
                 edit.putString("fullName",profileNameEditText.getText().toString());
                 edit.commit();
                 jobManager.addJobInBackground(new updateUserProfile());
-
                 if(getIntent().hasExtra("from"))
                 {
                     finish();
@@ -120,7 +112,6 @@ public class CreateProfileActivity extends Activity implements ImageChooserListe
         proPic.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
                 chooseImage();
             }
         });
@@ -130,7 +121,6 @@ public class CreateProfileActivity extends Activity implements ImageChooserListe
     }
 
     private void chooseImage() {
-
         chooserType = ChooserType.REQUEST_PICK_PICTURE;
         imageChooserManager = new ImageChooserManager(CreateProfileActivity.this,
                 ChooserType.REQUEST_PICK_PICTURE, "myfolder", true);
@@ -148,32 +138,23 @@ public class CreateProfileActivity extends Activity implements ImageChooserListe
     @Override
     protected void onResume() {
         super.onResume();
-
         mReceiver = new DDPBroadcastReceiver(MyDDPState.getInstance(), this) {
-
 
             @Override
             public void onReceive(Context context, Intent intent) {
 
                 if(intent.getAction().equals("SASURL"))
                 {
-
                     Log.e("SASURL",intent.getExtras().getString("SASURL"));
-
                     String[] imageUrlArray = intent.getExtras().getString("SASURL").split("\\?");
-
                     String imageUrl = imageUrlArray[0];
                     SharedPreferences.Editor edit = preferences.edit();
                     edit.putString("profileImageUrl",imageUrl);
                     edit.commit();
-
                     (new ImageUploaderTask(intent.getExtras().getString("SASURL"),path)).execute();
-
                 }
-
             }
         };
-
         LocalBroadcastManager.getInstance(this).registerReceiver(mReceiver,
                 new IntentFilter("SASURL"));
     }
@@ -198,7 +179,6 @@ public class CreateProfileActivity extends Activity implements ImageChooserListe
             if (savedInstanceState.containsKey("chooser_type")) {
                 chooserType = savedInstanceState.getInt("chooser_type");
             }
-
             if (savedInstanceState.containsKey("media_path")) {
                 filePath = savedInstanceState.getString("media_path");
             }
@@ -218,7 +198,6 @@ public class CreateProfileActivity extends Activity implements ImageChooserListe
         }
     }
 
-
     @Override
     protected void onPause() {
         super.onPause();
@@ -228,8 +207,6 @@ public class CreateProfileActivity extends Activity implements ImageChooserListe
             mReceiver = null;
         }
     }
-
-
 
     @Override
     public void onImageChosen(final ChosenImage chosenImage) {
@@ -265,27 +242,18 @@ public class CreateProfileActivity extends Activity implements ImageChooserListe
         });
     }
 
-
-
-
-
     class ImageUploaderTask extends AsyncTask<Void, Void, Boolean> {
-        private String mUrl;
-
-        private String path;
-        public ImageUploaderTask(String url,String imagePath) {
-        mUrl = url;
-        path = imagePath;
-
+            private String mUrl;
+            private String path;
+            public ImageUploaderTask(String url,String imagePath) {
+            mUrl = url;
+            path = imagePath;
         }
-
 
         @Override
         protected Boolean doInBackground(Void... params) {
             try {
-
-
-               FileInputStream fis = new FileInputStream(path);
+                FileInputStream fis = new FileInputStream(path);
                 int bytesRead = 0;
                 ByteArrayOutputStream bos = new ByteArrayOutputStream();
                 byte[] b = new byte[1024];
@@ -293,6 +261,7 @@ public class CreateProfileActivity extends Activity implements ImageChooserListe
                     bos.write(b, 0, bytesRead);
                 }
                 byte[] bytes = bos.toByteArray();
+
                 // Post our image data (byte array) to the server
                 URL url = new URL(mUrl);
                 HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
@@ -301,6 +270,7 @@ public class CreateProfileActivity extends Activity implements ImageChooserListe
                 urlConnection.addRequestProperty("x-ms-blob-type", "BlockBlob");
                 urlConnection.addRequestProperty("Content-Type", "image/png");
                 urlConnection.setRequestProperty("Content-Length", "" + bytes.length);
+
                 // Write image data to server
                 DataOutputStream wr = new DataOutputStream(urlConnection.getOutputStream());
                 wr.write(bytes);
@@ -310,7 +280,7 @@ public class CreateProfileActivity extends Activity implements ImageChooserListe
                 //If we successfully uploaded, return true
                 if (response == 201
                         && urlConnection.getResponseMessage().equals("Created")) {
-                    Log.e("Succes","success"+urlConnection.getResponseMessage());
+                    Log.e("Success","success"+urlConnection.getResponseMessage());
 
                     return true;
                 }
@@ -324,7 +294,4 @@ public class CreateProfileActivity extends Activity implements ImageChooserListe
             return false;
         }
     }
-
-
-
 }

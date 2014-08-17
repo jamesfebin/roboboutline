@@ -1,15 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent" android:layout_height="match_parent">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/lightgray">
 
     <TextView
         android:id="@+id/lblProfile"
-        android:text="Profile"
-        android:textColor="@color/darkgray"
+        android:text="@string/giveidentity"
+        android:textColor="@color/red"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:padding="10dp"
+        android:padding="20dp"
+        android:gravity="center"
+        android:background="#FFFFFF"
         />
 
     <ImageView
@@ -19,40 +23,52 @@
         android:layout_below="@id/lblProfile"
         android:gravity="center"
         android:layout_centerHorizontal="true"
-        android:src="@drawable/dummy"
-        android:layout_marginTop="30dp"
-        android:layout_marginBottom="30dp"
+        android:src="@drawable/anon"
+        android:scaleType="centerCrop"
+        android:layout_marginTop="25dp"
+        android:layout_marginBottom="25dp"
         />
 
 
-    <TextView
-        android:id="@+id/lblFullname"
-        android:text="Full name"
-        android:textColor="@color/darkgray"
+    <View
+        android:id="@+id/div1"
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:padding="10dp"
+        android:layout_height="1dp"
         android:layout_below="@id/imgProPic"
-        />
+        android:background="#dcdcdc"
+        android:layout_marginTop="20dp"/>
 
     <EditText
-        android:id="@+id/txtUsername"
+        android:id="@+id/profileFullName"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/lblFullname"
+        android:layout_below="@id/div1"
         android:layout_marginLeft="10dp"
-        android:inputType="textNoSuggestions"
+        android:inputType="text"
+        android:hint="@string/entername"
         android:layout_marginRight="10dp"
+        android:padding="25dp"
+        android:background="@drawable/edittext_style"
+        android:layout_marginTop="5dp"
         />
 
-    <TextView
-        android:id="@+id/lblEmailId"
-        android:text="Email ID"
-        android:textColor="@color/darkgray"
+    <View
+        android:id="@+id/div2"
+        android:layout_width="fill_parent"
+        android:layout_height="1dp"
+        android:layout_below="@id/profileFullName"
+        android:background="#dcdcdc"/>
+
+    <ImageButton
+        android:id="@+id/btnUpdate"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:padding="10dp"
-        android:layout_below="@id/txtUsername"
+        android:text="Update"
+        android:background="@color/red"
+        android:textColor="@color/white"
+        android:layout_alignParentBottom="true"
+        android:src="@drawable/go"
         />
 
     <TextView
@@ -60,19 +76,12 @@
         android:text="anand.satyan@gmail.com"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/lblEmailId"
+        android:layout_above="@id/btnUpdate"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
-        />
-
-    <Button
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:padding="10dp"
-        android:text="Update"
-        android:background="@color/darkgray"
-        android:textColor="@color/white"
-        android:layout_alignParentBottom="true"
+        android:gravity="center"
+        android:padding="15dp"
+        android:textColor="@color/red"
         />
 
 

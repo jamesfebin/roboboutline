@@ -17,6 +17,7 @@ import android.app.Activity;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.view.animation.Animation;
+import android.widget.TextView;
 
 import com.boutline.sports.R;
 
@@ -34,11 +35,18 @@ public class SettingsActivity extends Activity {
 		// Set up UI
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_settings);
-		
+
+        TextView txtEmailId = (TextView)findViewById(R.id.txtEmailId);
+        TextView profileFullName = (TextView)findViewById(R.id.profileFullName);
+        TextView lblProfile = (TextView)findViewById(R.id.lblProfile);
+
 		//Set up fonts		
 		
 		tf = Typeface.createFromAsset(getAssets(), fontPath);
 		btf = Typeface.createFromAsset(getAssets(), boldFontPath);
+        txtEmailId.setTypeface(btf);
+        profileFullName.setTypeface(btf);
+        lblProfile.setTypeface(btf);
 
 	}
 

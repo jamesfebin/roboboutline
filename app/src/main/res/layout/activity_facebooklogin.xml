@@ -77,7 +77,6 @@
 	    android:indeterminate="true"
 	    android:layout_alignParentTop="true"
 	    app:spb_sections_count="4"
-	    app:spb_colors="@array/pocket_bar_colors"
 	    app:spb_speed="2.0"
 	    app:spb_stroke_width="4dp"
 	    app:spb_stroke_separator_length="4dp"
