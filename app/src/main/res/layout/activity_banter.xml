@@ -25,6 +25,7 @@
          android:layout_height="wrap_content"
          android:layout_below="@id/hdrConversations"
          android:stackFromBottom="true"
+
          />
     
  </RelativeLayout>
