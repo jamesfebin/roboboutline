@@ -114,7 +114,7 @@ public class MessagesAdapter extends SimpleCursorAdapter {
                         ImageOptions options = new ImageOptions();
                         String image_url = c.getString(c.getColumnIndex(Message.COL_USERPICURL));
                         options.round = 50;
-                        aq.id(viewHolder.imgProPic).image(image_url, options);
+                        aq.id(viewHolder.imgProPic).image(image_url, true,true,200,0);
                         viewHolder.lblSenderName = (TextView) convertView.findViewById(R.id.lblSenderName);
                         viewHolder.lblMessageTime = (TextView) convertView.findViewById(R.id.lblMessageTime);
                         viewHolder.lblConjunction = (TextView) convertView.findViewById(R.id.lblConjunction);
