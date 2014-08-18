@@ -28,6 +28,7 @@
             android:layout_margin="5dp"
             android:layout_weight="1"
             android:textSize="14sp"
+            android:imeOptions="actionSend"
             android:clickable="false"
             android:background="@drawable/chattb"
             android:hint="@string/whatshappening"

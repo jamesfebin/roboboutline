@@ -17,6 +17,7 @@ import android.widget.TextView;
 
 import com.androidquery.AQuery;
 import com.androidquery.callback.ImageOptions;
+import com.androidquery.util.AQUtility;
 import com.boutline.sports.activities.ComposeTweetActivity;
 import com.boutline.sports.database.BoutDBHelper;
 import com.boutline.sports.helpers.FormateTime;
@@ -112,9 +113,13 @@ public class MessagesAdapter extends SimpleCursorAdapter {
                         viewHolder.imgProPic = (ImageView) convertView.findViewById(R.id.messageProPicLeft);
                         AQuery aq = new AQuery(context);
                         ImageOptions options = new ImageOptions();
-                        String image_url = c.getString(c.getColumnIndex(Message.COL_USERPICURL));
                         options.round = 50;
-                        aq.id(viewHolder.imgProPic).image(image_url, true,true,50,0);
+                        options.memCache=true;
+                        options.fileCache=true;
+                        options.targetWidth=200;
+
+                        String image_url = c.getString(c.getColumnIndex(Message.COL_USERPICURL));
+                        aq.id(viewHolder.imgProPic).image(image_url,options);
                         viewHolder.lblSenderName = (TextView) convertView.findViewById(R.id.lblSenderName);
                         viewHolder.lblMessageTime = (TextView) convertView.findViewById(R.id.lblMessageTime);
                         viewHolder.lblConjunction = (TextView) convertView.findViewById(R.id.lblConjunction);
@@ -143,8 +148,12 @@ public class MessagesAdapter extends SimpleCursorAdapter {
                         AQuery aq = new AQuery(context);
                         ImageOptions options = new ImageOptions();
                         options.round = 50;
+                        options.memCache=true;
+                        options.fileCache=true;
+                        options.targetWidth=200;
+
                         String image_url = c.getString(c.getColumnIndex(Message.COL_USERPICURL));
-                        aq.id(viewHolder.imgProPic).image(image_url, true,true,50,0);
+                        aq.id(viewHolder.imgProPic).image(image_url,options);
                         viewHolder.lblSenderName = (TextView) convertView.findViewById(R.id.lblSenderName);
                         viewHolder.lblMessageTime = (TextView) convertView.findViewById(R.id.lblMessageTime);
                         viewHolder.lblConjunction = (TextView) convertView.findViewById(R.id.lblConjunction);
@@ -200,9 +209,14 @@ public class MessagesAdapter extends SimpleCursorAdapter {
                         viewHolder.imgProPic = (ImageView) convertView.findViewById(R.id.messageProPicLeft);
                         AQuery aq = new AQuery(context);
                         ImageOptions options = new ImageOptions();
-                        String image_url = c.getString(c.getColumnIndex(Message.COL_USERPICURL));
                         options.round = 50;
-                        aq.id(viewHolder.imgProPic).image(image_url, true,true,50,0);
+                        options.memCache=true;
+                        options.fileCache=true;
+                        options.targetWidth=200;
+
+                        String image_url = c.getString(c.getColumnIndex(Message.COL_USERPICURL));
+                        aq.id(viewHolder.imgProPic).image(image_url,options);
+
                         viewHolder.lblSenderName = (TextView) convertView.findViewById(R.id.lblSenderName);
                         viewHolder.lblMessageTime = (TextView) convertView.findViewById(R.id.lblMessageTime);
                         viewHolder.lblConjunction = (TextView) convertView.findViewById(R.id.lblConjunction);
@@ -229,8 +243,12 @@ public class MessagesAdapter extends SimpleCursorAdapter {
                         AQuery aq = new AQuery(context);
                         ImageOptions options = new ImageOptions();
                         options.round = 50;
+                        options.memCache=true;
+                        options.fileCache=true;
+                        options.targetWidth=200;
+
                         String image_url = c.getString(c.getColumnIndex(Message.COL_USERPICURL));
-                        aq.id(viewHolder.imgProPic).image(image_url, true,true,50,0);
+                        aq.id(viewHolder.imgProPic).image(image_url,options);
                         viewHolder.lblSenderName = (TextView) convertView.findViewById(R.id.lblSenderName);
                         viewHolder.lblMessageTime = (TextView) convertView.findViewById(R.id.lblMessageTime);
                         viewHolder.lblConjunction = (TextView) convertView.findViewById(R.id.lblConjunction);
@@ -309,7 +327,6 @@ public class MessagesAdapter extends SimpleCursorAdapter {
                 final String status_id = c.getString(c.getColumnIndex(Tweet.COL_StatusId));
                 final String image_url = c.getString(c.getColumnIndex(Tweet.COL_ProfileImage));
                 options.round = 35;
-
                 aq.id(viewHolder.imgProfile).image(image_url, options);
 
                 // Set up the fonts

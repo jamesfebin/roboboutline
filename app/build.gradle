@@ -47,5 +47,4 @@ dependencies {
     compile 'com.path:android-priority-jobqueue:1.1.2@jar'
     compile 'com.microsoft.azure.android:azure-storage-android:0.3.0@aar'
     compile files('libs/image-chooser-library-1.3.0.jar')
-    compile 'org.imgscalr:imgscalr-lib:4.2@jar'
 }

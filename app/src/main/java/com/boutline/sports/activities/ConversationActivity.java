@@ -2,6 +2,7 @@ package com.boutline.sports.activities;
 
 import android.app.Activity;
 import android.app.LoaderManager;
+import android.app.ProgressDialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.CursorLoader;
@@ -58,6 +59,7 @@ public class ConversationActivity extends Activity implements LoaderManager.Load
     //  private UiLifecycleHelper uiHelper;
     SharedPreferences mSharedPreferences;
     BoutDBHelper dbHelper;
+    ProgressDialog progress;
 
     /*
     @Override
@@ -88,6 +90,7 @@ public class ConversationActivity extends Activity implements LoaderManager.Load
         ImageButton sendMessage = (ImageButton) findViewById(R.id.btnCompose);
 		txtCompose.setTypeface(tf);
         jobManager = MyApplication.getInstance().getJobManager();
+        progress = new ProgressDialog(this);
 
 		// Populate the List View
         loadermanager = getLoaderManager();
@@ -318,6 +321,7 @@ public class ConversationActivity extends Activity implements LoaderManager.Load
     @Override
     public void onLoadFinished(Loader<Cursor> cursorLoader, Cursor cursor) {
         messageAdapter.swapCursor(cursor);
+        listView.setSelection(messageAdapter.getCount()-1);
     }
 
     @Override
