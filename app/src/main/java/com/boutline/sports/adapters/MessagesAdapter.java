@@ -117,6 +117,7 @@ public class MessagesAdapter extends SimpleCursorAdapter {
                         options.memCache=true;
                         options.fileCache=true;
                         options.targetWidth=200;
+                        options.fallback = R.drawable.anon;
 
                         String image_url = c.getString(c.getColumnIndex(Message.COL_USERPICURL));
                         aq.id(viewHolder.imgProPic).image(image_url,options);
@@ -151,6 +152,7 @@ public class MessagesAdapter extends SimpleCursorAdapter {
                         options.memCache=true;
                         options.fileCache=true;
                         options.targetWidth=200;
+                        options.fallback = R.drawable.anon;
 
                         String image_url = c.getString(c.getColumnIndex(Message.COL_USERPICURL));
                         aq.id(viewHolder.imgProPic).image(image_url,options);
@@ -213,6 +215,7 @@ public class MessagesAdapter extends SimpleCursorAdapter {
                         options.memCache=true;
                         options.fileCache=true;
                         options.targetWidth=200;
+                        options.fallback = R.drawable.anon;
 
                         String image_url = c.getString(c.getColumnIndex(Message.COL_USERPICURL));
                         aq.id(viewHolder.imgProPic).image(image_url,options);
@@ -246,6 +249,7 @@ public class MessagesAdapter extends SimpleCursorAdapter {
                         options.memCache=true;
                         options.fileCache=true;
                         options.targetWidth=200;
+                        options.fallback = R.drawable.anon;
 
                         String image_url = c.getString(c.getColumnIndex(Message.COL_USERPICURL));
                         aq.id(viewHolder.imgProPic).image(image_url,options);
