@@ -27,6 +27,7 @@
         android:scaleType="centerCrop"
         android:layout_marginTop="25dp"
         android:layout_marginBottom="25dp"
+        android:contentDescription="@string/dummy"
         />
 
 
@@ -64,16 +65,35 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:padding="10dp"
-        android:text="Update"
+        android:contentDescription="@string/dummy"
         android:background="@color/red"
-        android:textColor="@color/white"
         android:layout_alignParentBottom="true"
         android:src="@drawable/go"
         />
 
     <TextView
+        android:id="@+id/lblLogout"
+        android:text="@string/logoutbtn"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/div2"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:gravity="center"
+        android:padding="15dp"
+        android:textColor="@color/red"
+        />
+
+    <View
+        android:id="@+id/div3"
+        android:layout_width="fill_parent"
+        android:layout_height="1dp"
+        android:layout_below="@id/lblLogout"
+        android:background="#dcdcdc"/>
+
+    <TextView
         android:id="@+id/txtEmailId"
-        android:text="anand.satyan@gmail.com"
+        android:text="@string/dummy"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_above="@id/btnUpdate"

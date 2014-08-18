@@ -68,10 +68,11 @@ public class SettingsActivity extends Activity implements ImageChooserListener {
 		setContentView(R.layout.activity_settings);
 
         TextView txtEmailId = (TextView)findViewById(R.id.txtEmailId);
+        TextView lblLogout = (TextView)findViewById(R.id.lblLogout);
         TextView profileFullName = (TextView)findViewById(R.id.profileFullName);
         TextView lblProfile = (TextView)findViewById(R.id.lblProfile);
-    final    EditText profileNameEditText = (EditText) findViewById(R.id.profileFullName);
-         proPic = (ImageView) findViewById(R.id.imgProPic);
+        final EditText profileNameEditText = (EditText) findViewById(R.id.profileFullName);
+        proPic = (ImageView) findViewById(R.id.imgProPic);
         Go = (ImageButton) findViewById(R.id.btnUpdate);
 
 		//Set up fonts		
@@ -81,9 +82,9 @@ public class SettingsActivity extends Activity implements ImageChooserListener {
         txtEmailId.setTypeface(btf);
         profileFullName.setTypeface(btf);
         lblProfile.setTypeface(btf);
+        lblLogout.setTypeface(tf);
 
         preferences = this.getSharedPreferences("boutlineData", Context.MODE_PRIVATE);
-
         String profileImageUrl = preferences.getString("profileImageUrl","");
 
         if(profileImageUrl!="")
@@ -91,53 +92,45 @@ public class SettingsActivity extends Activity implements ImageChooserListener {
             AQuery aq = new AQuery(getApplicationContext());
             ImageOptions options = new ImageOptions();
             aq.id(proPic).image(profileImageUrl, true, true, 200, 0);
-
         }
-
 
         String fullname = preferences.getString("fullName","");
         String email = preferences.getString("email","");
-
         profileFullName.setText(fullname);
         txtEmailId.setText(email);
 
-proPic.setOnClickListener(new View.OnClickListener() {
-    @Override
-    public void onClick(View view) {
+        proPic.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                chooseImage();
+            }
+        });
 
-        chooseImage();
-    }
-});
+        lblLogout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+               logout();
 
+            }
+        });
 
         Go.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
                 if(profileNameEditText.getText().toString().matches("")==true)
                 {
                     Toast.makeText(getApplicationContext(),"Please enter your name",Toast.LENGTH_SHORT).show();
                     return;
                 }
-
                 SharedPreferences.Editor edit = preferences.edit();
                 edit.putString("fullName",profileNameEditText.getText().toString());
                 edit.commit();
                 jobManager = MyApplication.getInstance().getJobManager();
                 jobManager.addJobInBackground(new updateUserProfile());
-
                 finish();
-
             }
         });
-
-
-
-
-
-
     }
-
 
     private void chooseImage() {
 
@@ -153,8 +146,6 @@ proPic.setOnClickListener(new View.OnClickListener() {
             e.printStackTrace();
         }
     }
-
-
 
     private void reinitializeImageChooser() {
         imageChooserManager = new ImageChooserManager(this, chooserType,
@@ -203,15 +194,13 @@ proPic.setOnClickListener(new View.OnClickListener() {
             public void run() {
                 if (chosenImage != null) {
                     final long unixTime = System.currentTimeMillis() / 1000L;
-
                     proPic.setImageURI(Uri.parse(new File(chosenImage.getFileThumbnail()).toString()));
-                   String path = chosenImage.getFilePathOriginal();
+                    String path = chosenImage.getFilePathOriginal();
                     preferences = getApplicationContext().getSharedPreferences("boutlineData", Context.MODE_PRIVATE);
                     String filename = preferences.getString("boutlineUserId", "");
                     filename=filename+unixTime+".png";
                     jobManager = MyApplication.getInstance().getJobManager();
                     jobManager.addJobInBackground(new GetSASURL(filename,path));
-
                 }
             }
         });
@@ -243,8 +232,10 @@ proPic.setOnClickListener(new View.OnClickListener() {
         SharedPreferences.Editor editor = preferences.edit();
         editor.clear();
         editor.commit();
-
         getApplicationContext().deleteDatabase("boutdb");
-
+        Intent intent = new Intent(SettingsActivity.this,LoginActivity.class);
+        startActivity(intent);
+        finish();
+        overridePendingTransition(R.anim.fadein, R.anim.fadeout);
     }
 }

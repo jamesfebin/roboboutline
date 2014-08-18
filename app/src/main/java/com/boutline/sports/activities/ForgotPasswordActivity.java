@@ -23,19 +23,12 @@ import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v4.content.LocalBroadcastManager;
 import android.view.View;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
-import android.widget.ImageView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.boutline.sports.R;
 import com.boutline.sports.application.MyDDPState;
-import com.boutline.sports.helpers.OnSwipeTouchListener;
 import com.keysolutions.ddpclient.android.DDPBroadcastReceiver;
 import com.keysolutions.ddpclient.android.DDPStateSingleton;
 
@@ -48,20 +41,20 @@ public class ForgotPasswordActivity extends Activity {
     BroadcastReceiver mReceiver;
     private ProgressDialog progress = null;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_forgotpassword);
-        //Set up fonts
-
-        tf = Typeface.createFromAsset(getAssets(), fontPath);
-        btf = Typeface.createFromAsset(getAssets(), boldFontPath);
-
         ImageButton go  = (ImageButton) findViewById(R.id.btnUpdate);
         final EditText forgotPasswordEditText = (EditText) findViewById(R.id.txtEmailId);
-        progress = new ProgressDialog(this);
+        TextView lblForgotPassword = (TextView)findViewById(R.id.lblForgotPassword);
+        TextView forgotpwdguide = (TextView)findViewById(R.id.forgotpwdguide);
 
+        //set up fonts
+        forgotPasswordEditText.setTypeface(tf);
+        forgotpwdguide.setTypeface(tf);
+        lblForgotPassword.setTypeface(btf);
+        progress = new ProgressDialog(this);
         go.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -72,7 +65,7 @@ public class ForgotPasswordActivity extends Activity {
                     Toast.makeText(getApplicationContext(),"Internet connection not available",Toast.LENGTH_SHORT).show();
                     return;
                 }
-                if(forgotPasswordEditText.getText().toString().matches("")==false)
+                if(!forgotPasswordEditText.getText().toString().matches(""))
                 {
 
                   if(forgotPasswordEditText.getText().toString().contains("@")&&forgotPasswordEditText.getText().toString().contains(".")) {

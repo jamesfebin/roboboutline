@@ -1,0 +1,41 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/container"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/lightgray">
+
+    <TextView
+        android:id="@+id/lblChooseFavTeam"
+        android:text="@string/favteam"
+        android:textColor="@color/red"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:padding="20dp"
+        android:gravity="center"
+        android:background="#FFFFFF"
+        />
+
+    <ListView
+        android:id="@+id/lvTeams"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/lblChooseFavTeam"
+        android:divider="#ffffff"
+        android:paddingBottom="50dp"
+        android:clipToPadding="false"
+        />
+
+    <ImageButton
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:background="@color/red"
+        android:layout_alignParentBottom="true"
+        android:id="@+id/btnContinue"
+        android:contentDescription="@string/dummy"
+        android:src="@drawable/go"
+        />
+
+</RelativeLayout>
+
+

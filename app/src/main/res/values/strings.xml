@@ -6,6 +6,7 @@
     <string name="schedule">Schedule</string>
     <string name="APP_ID">449682818488626</string>
     <string name="fbLogin">LOGIN WITH FACEBOOK</string>
+    <string name="logoutbtn">Logout from Boutline</string>
     <string name="walkthrough1">See what people are saying about the game. Be the first to know when something\'s going viral.</string>
 	<string name="walkthrough2">You will never again be the loser at the water cooler. Get the fastest notifications when a game gets interesting. </string>
     <string name="walkthrough3">Your sports. Your gang. Banter with your friends about your favorite team or players.</string>
@@ -46,6 +47,7 @@
     <string name="lblUpcomingMatches">Upcoming Matches</string>
     <string name="newmember">New Member? Sign up here.</string>
     <string name="forgotpassword">Problems Signing in?</string>
+    <string name="favteam">Which is your favorite team?</string>
     <string name="password">Password</string>
     <string name="username">Username</string>
     <string name="emailid">Email ID</string>

@@ -1,0 +1,57 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/matchContainer"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="horizontal"
+    android:padding="10dp">
+
+
+    <ImageView
+        android:id="@+id/imgTeam"
+        android:src="@drawable/dummy"
+        android:scaleType="centerCrop"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:padding="5dp"
+        android:contentDescription="@string/dummy"
+        />
+
+    <LinearLayout
+			android:id="@+id/teamDetails"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:orientation="vertical"
+	        android:gravity="center_vertical"
+	        android:layout_centerInParent="true">
+	     
+		    <TextView
+		        android:id="@+id/lblTeamName"
+		        android:text="@string/dummy"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:textColor="#343D42"
+		        />
+		    
+		    <TextView
+		        android:id="@+id/lblTournamentName"
+		        android:text="@string/dummy"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:textColor="#9AA3A8"
+		        />
+
+	    </LinearLayout>
+
+    <CheckBox
+        android:id="@+id/chkFollowStatus"
+        style="@style/CustomFollowTheme"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:checked="true"
+        android:layout_alignParentRight="true"
+        android:paddingTop="25dp"
+        android:layout_marginTop="15dp"
+        android:paddingRight="30dp"/>
+
+ </RelativeLayout>
+
