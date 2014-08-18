@@ -267,6 +267,8 @@ public class CreateProfileActivity extends Activity implements ImageChooserListe
         protected Boolean doInBackground(Void... params) {
             try {
                 FileInputStream fis = new FileInputStream(path);
+
+
                 int bytesRead = 0;
                 ByteArrayOutputStream bos = new ByteArrayOutputStream();
                 byte[] b = new byte[1024];
