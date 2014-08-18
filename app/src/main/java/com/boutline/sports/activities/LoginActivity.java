@@ -88,6 +88,14 @@ public class LoginActivity extends Activity {
                 }
             }
         });
+        problems.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                Intent intent = new Intent(LoginActivity.this,ForgotPasswordActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 
 
@@ -118,10 +126,10 @@ public class LoginActivity extends Activity {
                             mixpanel.track("Boutline Login Success on LoginScreen", Constants.info);
                         }
 
-                        Intent banterIntent = new Intent(LoginActivity.this,ConversationActivity.class);
-                        banterIntent.putExtra("conversationId","Q83GjTwRCk4FNTSEJ");
+                        Intent banterIntent = new Intent(LoginActivity.this,CreateProfileActivity.class);
                         startActivity(banterIntent);
                         overridePendingTransition(R.anim.fadein, R.anim.fadeout);
+                        finish();
                     }
                 }
                 else if(intent.getAction().equals("LOGINFAILED"))

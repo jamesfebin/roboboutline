@@ -12,6 +12,7 @@ import android.support.v4.content.LocalBroadcastManager;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.androidquery.callback.BitmapAjaxCallback;
 import com.boutline.sports.R;
 import com.boutline.sports.activities.ChooseSportsActivity;
 import com.boutline.sports.activities.ChooseTournamentActivity;
@@ -81,12 +82,12 @@ public class MyApplication extends Application {
 
                     @Override
                     public void e(Throwable t, String text, Object... args) {
-                        Log.e(TAG, String.format(text, args), t);
+                        Log.d(TAG, String.format(text, args), t);
                     }
 
                     @Override
                     public void e(String text, Object... args) {
-                        Log.e(TAG, String.format(text, args));
+                        Log.d(TAG, String.format(text, args));
                     }
                 })
                 .minConsumerCount(1)//always keep at least one consumer alive
@@ -101,6 +102,9 @@ public class MyApplication extends Application {
     @Override
     public void onLowMemory() {
         super.onLowMemory();
+
+        BitmapAjaxCallback.clearCache();
+
     }
 
     /**
