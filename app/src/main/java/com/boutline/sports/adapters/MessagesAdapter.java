@@ -96,12 +96,12 @@ public class MessagesAdapter extends SimpleCursorAdapter {
                 viewHolder = new ViewHolder();
                 LayoutInflater inflater = LayoutInflater.from(context);
 
-                Log.e("Message",c.getString(c.getColumnIndex(Message.COL_MESSAGE))+"");
+                Log.d("Message",c.getString(c.getColumnIndex(Message.COL_MESSAGE))+"");
 
                 if(c.getType(c.getColumnIndex(Message.COL_MESSAGE))!=0) {
 
                     String cursorUnixtime = c.getString(c.getColumnIndex(Message.COL_TIME));
-                    Log.e("Unixtime",cursorUnixtime);
+                    Log.d("Unixtime",cursorUnixtime);
                     String cursorDate = timeformatter.formatUnixtime(cursorUnixtime,"dd MMM");
 
                     if (c.getString(c.getColumnIndex(Message.COL_SENDERID)).matches(botId) == true) {
@@ -114,7 +114,7 @@ public class MessagesAdapter extends SimpleCursorAdapter {
                         ImageOptions options = new ImageOptions();
                         String image_url = c.getString(c.getColumnIndex(Message.COL_USERPICURL));
                         options.round = 50;
-                        aq.id(viewHolder.imgProPic).image(image_url, true,true,200,0);
+                        aq.id(viewHolder.imgProPic).image(image_url, true,true,50,0);
                         viewHolder.lblSenderName = (TextView) convertView.findViewById(R.id.lblSenderName);
                         viewHolder.lblMessageTime = (TextView) convertView.findViewById(R.id.lblMessageTime);
                         viewHolder.lblConjunction = (TextView) convertView.findViewById(R.id.lblConjunction);
@@ -144,7 +144,7 @@ public class MessagesAdapter extends SimpleCursorAdapter {
                         ImageOptions options = new ImageOptions();
                         options.round = 50;
                         String image_url = c.getString(c.getColumnIndex(Message.COL_USERPICURL));
-                        aq.id(viewHolder.imgProPic).image(image_url, options);
+                        aq.id(viewHolder.imgProPic).image(image_url, true,true,50,0);
                         viewHolder.lblSenderName = (TextView) convertView.findViewById(R.id.lblSenderName);
                         viewHolder.lblMessageTime = (TextView) convertView.findViewById(R.id.lblMessageTime);
                         viewHolder.lblConjunction = (TextView) convertView.findViewById(R.id.lblConjunction);
@@ -166,7 +166,7 @@ public class MessagesAdapter extends SimpleCursorAdapter {
                 }
                 else if(c.getType(c.getColumnIndex(Tweet.COL_Tweet))!=0) {
 
-                    Log.e("Tweet ConvertView","ConverView");
+                    Log.d("Tweet ConvertView","ConverView");
                     convertView = inflater.inflate(R.layout.item_tweet, parent, false);
                     viewHolder.tweetContainer = (RelativeLayout) convertView.findViewById(R.id.tweetContainer);
                     viewHolder.lblTweetUsername = (TextView) convertView.findViewById(R.id.lblTweetUsername);
@@ -202,7 +202,7 @@ public class MessagesAdapter extends SimpleCursorAdapter {
                         ImageOptions options = new ImageOptions();
                         String image_url = c.getString(c.getColumnIndex(Message.COL_USERPICURL));
                         options.round = 50;
-                        aq.id(viewHolder.imgProPic).image(image_url, options);
+                        aq.id(viewHolder.imgProPic).image(image_url, true,true,50,0);
                         viewHolder.lblSenderName = (TextView) convertView.findViewById(R.id.lblSenderName);
                         viewHolder.lblMessageTime = (TextView) convertView.findViewById(R.id.lblMessageTime);
                         viewHolder.lblConjunction = (TextView) convertView.findViewById(R.id.lblConjunction);
@@ -230,7 +230,7 @@ public class MessagesAdapter extends SimpleCursorAdapter {
                         ImageOptions options = new ImageOptions();
                         options.round = 50;
                         String image_url = c.getString(c.getColumnIndex(Message.COL_USERPICURL));
-                        aq.id(viewHolder.imgProPic).image(image_url, options);
+                        aq.id(viewHolder.imgProPic).image(image_url, true,true,50,0);
                         viewHolder.lblSenderName = (TextView) convertView.findViewById(R.id.lblSenderName);
                         viewHolder.lblMessageTime = (TextView) convertView.findViewById(R.id.lblMessageTime);
                         viewHolder.lblConjunction = (TextView) convertView.findViewById(R.id.lblConjunction);
@@ -282,6 +282,7 @@ public class MessagesAdapter extends SimpleCursorAdapter {
                 } else if (c.getString(c.getColumnIndex(Message.COL_SENDERID)).matches(currentUserId) == false) {
                     viewHolder.lblSenderName.setText(c.getString(c.getColumnIndex(Message.COL_SENDERNAME)));
                     viewHolder.lblMessageTime.setText(timeformatter.formatUnixtime(c.getString(c.getColumnIndex(Message.COL_TIME)), "hh:mm a"));
+                    viewHolder.lblMessage.setText(c.getString(c.getColumnIndex(Message.COL_MESSAGE)));
                     viewHolder.lblMessage.setText(c.getString(c.getColumnIndex(Message.COL_MESSAGE)));
                 } else if (c.getString(c.getColumnIndex(Message.COL_SENDERID)).matches(currentUserId) == true) {
                     viewHolder.lblSenderName.setText(c.getString(c.getColumnIndex(Message.COL_SENDERNAME)));
@@ -352,7 +353,7 @@ public class MessagesAdapter extends SimpleCursorAdapter {
 
                     String  tweet_image_url = c.getString(c.getColumnIndex("media_url"));
 
-                    aq.id(viewHolder.imgTweetImage).image(tweet_image_url, options);
+                    aq.id(viewHolder.imgTweetImage).image(tweet_image_url, true,true,300,0);
 
 
                 }

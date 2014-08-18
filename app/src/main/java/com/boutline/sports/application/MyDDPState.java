@@ -104,7 +104,7 @@ public class MyDDPState extends DDPStateSingleton {
             mDDP = new DDPClient(sMeteorServer, sMeteorPort);
 
         } catch (URISyntaxException e) {
-            Log.e(TAG, "Invalid Websocket URL connecting to " + sMeteorServer
+            Log.d(TAG, "Invalid Websocket URL connecting to " + sMeteorServer
                     + ":" + sMeteorPort);
         }
         getDDP().addObserver(this);
@@ -140,7 +140,7 @@ public class MyDDPState extends DDPStateSingleton {
                 if(errormsg.contains("Unknown websocket error (exception in callback?"))
                 {
                     mDDPState = DDPSTATE.Closed;
-                 Log.e("MSG", msg.toString());
+                 Log.d("MSG", msg.toString());
                     reconnect();
 
                 }
@@ -150,7 +150,7 @@ public class MyDDPState extends DDPStateSingleton {
 
             } else if (msgtype.equals(DdpMessageType.CONNECTED)) {
 
-                Log.e("Conencted","Its connected");
+                Log.d("Conencted","Its connected");
                 mDDPState = DDPSTATE.Connected;
 
 
@@ -163,7 +163,7 @@ public class MyDDPState extends DDPStateSingleton {
             else if(msgtype.equals(DdpMessageType.CLOSED))
             {
                 mDDPState = DDPSTATE.Closed;
-                Log.e("Connection Closed","connection closed");
+                Log.d("Connection Closed","connection closed");
                 broadcastDDPError("Connection closed");
 
                 reconnect();
@@ -233,15 +233,15 @@ public class MyDDPState extends DDPStateSingleton {
             @Override
             public void onResult(Map<String, Object> resultFields) {
 
-                Log.e("RESPONSE", resultFields.toString());
+                Log.d("RESPONSE", resultFields.toString());
                 super.onResult(resultFields);
                 if (resultFields.containsKey("result")) {
 
 
                     String response = resultFields.get("result").toString();
 
-                    Log.e("Respnse", response.toString());
-                    Log.e("Sport Preferences", response);
+                    Log.d("Respnse", response.toString());
+                    Log.d("Sport Preferences", response);
 
                     if (response.matches("added") || response.matches("removed")) {
 
@@ -287,7 +287,7 @@ public class MyDDPState extends DDPStateSingleton {
             @Override
             public void onResult(Map<String, Object> resultFields) {
 
-                Log.e("RESPONSE", resultFields.toString());
+                Log.d("RESPONSE", resultFields.toString());
                 super.onResult(resultFields);
                 if (resultFields.containsKey("result")) {
 
@@ -337,7 +337,7 @@ public class MyDDPState extends DDPStateSingleton {
             @Override
             public void onResult(Map<String, Object> resultFields) {
 
-                Log.e("RESPONSE", resultFields.toString());
+                Log.d("RESPONSE", resultFields.toString());
                 super.onResult(resultFields);
                 if (resultFields.containsKey("result")) {
 
@@ -386,7 +386,7 @@ public class MyDDPState extends DDPStateSingleton {
             @Override
             public void onResult(Map<String, Object> resultFields) {
 
-                Log.e("RESPONSE", resultFields.toString());
+                Log.d("RESPONSE", resultFields.toString());
                 super.onResult(resultFields);
                 if (resultFields.containsKey("result")) {
 
@@ -455,7 +455,7 @@ public class MyDDPState extends DDPStateSingleton {
             @Override
             public void onResult(Map<String, Object> resultFields) {
 
-                Log.e("RESPONSE", resultFields.toString());
+                Log.d("RESPONSE", resultFields.toString());
                // super.onResult(resultFields);
                 if (resultFields.containsKey("result")) {
 
@@ -599,7 +599,7 @@ public class MyDDPState extends DDPStateSingleton {
 
 
                 }
-                Log.e("FORGOT PASSWORD",resultFields.toString());
+                Log.d("FORGOT PASSWORD",resultFields.toString());
             }
 
         });
@@ -626,14 +626,14 @@ public class MyDDPState extends DDPStateSingleton {
                 @Override
                 public void onResult (Map<String, Object> resultFields){
 
-                Log.e("RESPONSE", resultFields.toString());
+                Log.d("RESPONSE", resultFields.toString());
                 super.onResult(resultFields);
                 if (resultFields.containsKey("result")) {
 
 
                     String response = resultFields.get("result").toString();
 
-                    Log.e("Respnse", response.toString());
+                    Log.d("Respnse", response.toString());
 
                     if (response.matches("Message was inserted") == true) {
 
@@ -736,7 +736,7 @@ public class MyDDPState extends DDPStateSingleton {
                     LocalBroadcastManager.getInstance(
                             MyApplication.getAppContext()).sendBroadcast(
                             broadcastIntent);
-                    Log.e("UserId",mUserId);
+                    Log.d("UserId",mUserId);
 
 
                 } else if (jsonFields.containsKey("error")) {
@@ -806,7 +806,7 @@ public class MyDDPState extends DDPStateSingleton {
                     LocalBroadcastManager.getInstance(
                             MyApplication.getAppContext()).sendBroadcast(
                             broadcastIntent);
-                    Log.e("UserId",mUserId);
+                    Log.d("UserId",mUserId);
 
                 } else if (jsonFields.containsKey("error")) {
 
@@ -860,7 +860,7 @@ public class MyDDPState extends DDPStateSingleton {
                     LocalBroadcastManager.getInstance(
                             MyApplication.getAppContext()).sendBroadcast(
                             broadcastIntent);
-                 Log.e("UserId",mUserId);
+                 Log.d("UserId",mUserId);
 
                 } else if (jsonFields.containsKey("error")) {
 
@@ -901,7 +901,7 @@ public class MyDDPState extends DDPStateSingleton {
         else
         {
 
-            Log.e("It's null","Null");
+            Log.d("It's null","Null");
             return;
         }
 
@@ -961,7 +961,7 @@ public class MyDDPState extends DDPStateSingleton {
         else
 
         {
-            Log.e("MyDDPState","already logged In");
+            Log.d("MyDDPState","already logged In");
             mDDPState = mDDPState.LoggedIn;
             Intent broadcastIntent = new Intent();
             broadcastIntent.setAction("LOGINSUCCESS");
@@ -1003,7 +1003,7 @@ public class MyDDPState extends DDPStateSingleton {
             {
                 if (changetype.equals(DdpMessageType.ADDED)) {
 
-                    Log.e("Item added","Tournaments");
+                    Log.d("Item added","Tournaments");
 
                     Tournament tournament = new Tournament(docId, getCollection(collectionName).get(docId));
                     dbHelper.getInstance(mContext).putTournament(tournament);
@@ -1027,7 +1027,7 @@ public class MyDDPState extends DDPStateSingleton {
 
                 if (changetype.equals(DdpMessageType.ADDED)) {
 
-                    Log.e("Item added","Matches");
+                    Log.d("Item added","Matches");
 
                     Match match = new Match(docId, getCollection(collectionName).get(docId));
                     dbHelper.getInstance(mContext).putMatch(match);
@@ -1049,7 +1049,7 @@ public class MyDDPState extends DDPStateSingleton {
 
                 if (changetype.equals(DdpMessageType.ADDED)) {
 
-                    Log.e("Item added","Tweets");
+                    Log.d("Item added","Tweets");
 
                    /* BanterMessage message = new BanterMessage(docId, getCollection(collectionName).get(docId),"tweet");
                     dbHelper.getInstance(mContext).putBanterMessage(message);*/
@@ -1077,7 +1077,7 @@ public class MyDDPState extends DDPStateSingleton {
 
                 if (changetype.equals(DdpMessageType.ADDED)) {
 
-                    Log.e("Item added","Conversations");
+                    Log.d("Item added","Conversations");
 
                     Conversation conversation = new Conversation(docId, getCollection(collectionName).get(docId));
                     dbHelper.getInstance(mContext).putConversation(conversation);
@@ -1099,7 +1099,7 @@ public class MyDDPState extends DDPStateSingleton {
 
                 if (changetype.equals(DdpMessageType.ADDED)) {
 
-                    Log.e("Item added","Messages");
+                    Log.d("Item added","Messages");
 
 
 /*

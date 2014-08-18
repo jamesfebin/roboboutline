@@ -74,7 +74,6 @@ String userId;
                 Log.i("Notification Recieved", extras.toString());
 
                 String type=extras.getString("type",null);
-
                 if(type.matches("banter"))
                 {
 
@@ -101,8 +100,8 @@ String userId;
                     String banterName = extras.getString("banterName",null);
                     String message = extras.getString("msg",null);
                     String time = extras.getString("time",null);
-
-                    sendBanterNotification(senderId,senderName,senderPic,banterId,banterName,message,time);
+                    // Disabling notifications
+                   // sendBanterNotification(senderId,senderName,senderPic,banterId,banterName,message,time);
                 }
 
                 if(type.matches("match"))
@@ -111,7 +110,7 @@ String userId;
                     if(mSharedPreferences.getBoolean("spike", true))
                     {
 
-                        sendNotification(extras.getString("msg", null),extras.getString("matchId",null),extras.getString("hashtag",null));
+                        // sendNotification(extras.getString("msg", null),extras.getString("matchId",null),extras.getString("hashtag",null));
                         Log.i(TAG, "Received: " + extras.toString());
                     }
                 }

@@ -82,12 +82,12 @@ public class MyApplication extends Application {
 
                     @Override
                     public void e(Throwable t, String text, Object... args) {
-                        Log.e(TAG, String.format(text, args), t);
+                        Log.d(TAG, String.format(text, args), t);
                     }
 
                     @Override
                     public void e(String text, Object... args) {
-                        Log.e(TAG, String.format(text, args));
+                        Log.d(TAG, String.format(text, args));
                     }
                 })
                 .minConsumerCount(1)//always keep at least one consumer alive

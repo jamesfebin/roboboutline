@@ -2,16 +2,10 @@
 <pre-dex-items>
 
     <item
-        dex="C:\Users\user\Documents\GitHub\roboboutline\app\build\intermediates\pre-dexed\debug\classes-e8ed089b110407a6dcd91c6c3f822f50225fbbc8.jar"
-        jar="C:\Users\user\Documents\GitHub\roboboutline\build\intermediates\exploded-aar\com.microsoft.azure.android\azure-storage-android\0.3.0\classes.jar"
+        dex="/Users/user/Documents/Development-Tools/ADT/sdk/extras/google/BoutlineSports/app/build/intermediates/pre-dexed/debug/imgscalr-lib-4.2-e1dfa36568935cb36a28a31a787c646991e4540b.jar"
+        jar="/Users/user/.gradle/caches/modules-2/files-2.1/org.imgscalr/imgscalr-lib/4.2/e2838f7119361511ef7d54fe0d502bf07f3325eb/imgscalr-lib-4.2.jar"
         jumboMode="false"
         revision="19.1.0"
-        sha1="54f6a352be15008378739b1512b82e28819d81f9"/>
-    <item
-        dex="C:\Users\user\Documents\GitHub\roboboutline\app\build\intermediates\pre-dexed\debug\image-chooser-library-1.3.0-ba1e80cf2a26dc071df059d5b602029f9eceb4f6.jar"
-        jar="C:\Users\user\Documents\GitHub\roboboutline\app\libs\image-chooser-library-1.3.0.jar"
-        jumboMode="false"
-        revision="19.1.0"
-        sha1="8d00d404704876b2ecbfbdfad79dfabd4b7d4cdf"/>
+        sha1="e2838f7119361511ef7d54fe0d502bf07f3325eb"/>
 
 </pre-dex-items>

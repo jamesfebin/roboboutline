@@ -141,6 +141,7 @@ public class MainActivity extends Activity {
                     startActivity(mainIntent);
                     overridePendingTransition(R.anim.pushleftin, R.anim.pushleftout);
                     finish();
+                    return;
 
                 }
                 else{
@@ -153,6 +154,7 @@ public class MainActivity extends Activity {
                         return;
 
                     }
+
 
                     Intent intent = new Intent(MainActivity.this,ConversationActivity.class);
                     intent.putExtra("conversationId","Q83GjTwRCk4FNTSEJ");
@@ -179,9 +181,7 @@ public class MainActivity extends Activity {
 
                     Bundle bundle = intent.getExtras();
 
-                    Toast.makeText(getApplicationContext(),"GOT ACTION"+intent.getAction().toString(),Toast.LENGTH_SHORT).show();
 
-                    Log.e("This is what i got", intent.getAction().toString());
 /*
                     if(intent.getAction().equals("ddpclient.CONNECTIONSTATE"))
                     {

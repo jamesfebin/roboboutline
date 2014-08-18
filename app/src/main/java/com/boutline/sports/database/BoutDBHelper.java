@@ -118,7 +118,7 @@ public class BoutDBHelper extends SQLiteOpenHelper {
         final SQLiteDatabase db = this.getWritableDatabase();
 
 
-        Log.e("DBPATH",db.getPath().toString());
+        Log.d("DBPATH",db.getPath().toString());
         Cursor cursor = db.query(Sport.TABLE_NAME, new String[] { "_id" },"_id" + "=?",
                 new String[] { sport.mDocId }, null, null, null, null);
 
@@ -386,7 +386,7 @@ public class BoutDBHelper extends SQLiteOpenHelper {
 
         if(success)
         {
-            notifyProviderOnTweetChange(tweet.type);
+           notifyProviderOnTweetChange(tweet.type);
             notifyProviderOnBanterMessageChange();
         }
         return success;
@@ -407,13 +407,13 @@ public class BoutDBHelper extends SQLiteOpenHelper {
         {
             value = 1;
             status = true;
-            Log.e("Retweeted","0");
+            Log.d("Retweeted","0");
         }
         else
         {
             value = 0;
             status = false;
-            Log.e("Retweeted","1");
+            Log.d("Retweeted","1");
 
         }
         db.execSQL("UPDATE Tweets SET user_retweeted="+value+" WHERE _id='"+mDocId+"'");
@@ -446,13 +446,13 @@ public class BoutDBHelper extends SQLiteOpenHelper {
         {
             value = 1;
             status = true;
-            Log.e("Favorite","0");
+            Log.d("Favorite","0");
         }
         else
         {
             value = 0;
             status = false;
-            Log.e("Favorite","1");
+            Log.d("Favorite","1");
         }
         db.execSQL("UPDATE Tweets SET user_favorited="+value+" WHERE _id='"+mDocId+"'");
 
@@ -584,6 +584,7 @@ public class BoutDBHelper extends SQLiteOpenHelper {
 
 
 
+
         if (result > 0) {
             success = true;
         } else {
@@ -593,6 +594,60 @@ public class BoutDBHelper extends SQLiteOpenHelper {
 
             success = true;
         }
+
+        // Update messages if profile picture of a user changed
+
+
+        cursor = db.query(Message.TABLE_NAME,Message.FIELDS,Message.COL_SENDERID +  "='"+message.fields.get(Message.COL_SENDERID)
+                                                                                  + "' ORDER BY time DESC LIMIT 1",null,null, null, null, null);
+        String lastProfileUrl="";
+        String lastName = "";
+
+        if(cursor.getCount()>0)
+
+        {
+            cursor.moveToFirst();
+             lastProfileUrl = cursor.getString(cursor.getColumnIndex(Message.COL_USERPICURL));
+             lastName = cursor.getString(cursor.getColumnIndex(Message.COL_SENDERNAME));
+
+            Log.d("Last Message is ",cursor.getString(cursor.getColumnIndex(Message.COL_MESSAGE)));
+
+
+        }
+
+        if(lastProfileUrl!="") {
+            cursor = db.query(Message.TABLE_NAME, Message.FIELDS, Message.COL_SENDERID + "='" + message.fields.get(Message.COL_SENDERID) + "' AND "
+                    + Message.COL_USERPICURL + "!='" + lastProfileUrl + "'" ,
+                    null, null, null, null, null);
+
+            Log.d("Cursor Count Profile", "" + cursor.getCount());
+            if (cursor.getCount() > 0) {
+                while (cursor.moveToNext()) {
+
+                    db.execSQL("UPDATE "+Message.TABLE_NAME + " SET "+Message.COL_USERPICURL + " ='" + lastProfileUrl + "' WHERE "+Message.COL_ID +"='"+ cursor.getString(cursor.getColumnIndex(Message.COL_ID))+"'");
+
+                }
+            }
+        }
+
+        if(lastName!="")
+        {
+            cursor = db.query(Message.TABLE_NAME, Message.FIELDS, Message.COL_SENDERID + "='" + message.fields.get(Message.COL_SENDERID) + "' AND "
+                            + Message.COL_SENDERNAME + "!='" + lastName + "'" ,
+                    null, null, null, null, null);
+
+            Log.d("Cursor Count Profile", "" + cursor.getCount());
+            if (cursor.getCount() > 0) {
+                while (cursor.moveToNext()) {
+
+                    db.execSQL("UPDATE "+Message.TABLE_NAME + " SET "+Message.COL_SENDERNAME + " ='" + lastName + "' WHERE "+Message.COL_ID +"='"+ cursor.getString(cursor.getColumnIndex(Message.COL_ID))+"'");
+
+                }
+            }
+
+
+        }
+
 
         if(success)
         {

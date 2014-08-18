@@ -158,7 +158,7 @@ public class CreateProfileActivity extends Activity implements ImageChooserListe
 
                 if(intent.getAction().equals("SASURL"))
                 {
-                    Log.e("SASURL",intent.getExtras().getString("SASURL"));
+                    Log.d("SASURL",intent.getExtras().getString("SASURL"));
                     String[] imageUrlArray = intent.getExtras().getString("SASURL").split("\\?");
                     String imageUrl = imageUrlArray[0];
                     SharedPreferences.Editor edit = preferences.edit();
@@ -229,11 +229,12 @@ public class CreateProfileActivity extends Activity implements ImageChooserListe
             public void run() {
                 if (chosenImage != null) {
 
+                    final long unixTime = System.currentTimeMillis() / 1000L;
                     proPic.setImageURI(Uri.parse(new File(chosenImage.getFileThumbnail()).toString()));
                     path = chosenImage.getFilePathOriginal();
                     preferences = getApplicationContext().getSharedPreferences("boutlineData", Context.MODE_PRIVATE);
                     String filename = preferences.getString("boutlineUserId", "");
-                    filename=filename+".png";
+                    filename=filename+unixTime+".png";
                     MyDDPState.getInstance().getSASURL(filename);
 
                 }
@@ -292,16 +293,16 @@ public class CreateProfileActivity extends Activity implements ImageChooserListe
                 //If we successfully uploaded, return true
                 if (response == 201
                         && urlConnection.getResponseMessage().equals("Created")) {
-                    Log.e("Success","success"+urlConnection.getResponseMessage());
+                    Log.d("Success","success"+urlConnection.getResponseMessage());
 
                     return true;
                 }
                 else
                 {
-                    Log.e("Failed","failed"+urlConnection.getResponseMessage());
+                    Log.d("Failed","failed"+urlConnection.getResponseMessage());
                 }
             } catch (Exception ex) {
-                Log.e("IMAGE UPLOAD", ex.getMessage());
+                Log.d("IMAGE UPLOAD", ex.getMessage());
             }
             return false;
         }

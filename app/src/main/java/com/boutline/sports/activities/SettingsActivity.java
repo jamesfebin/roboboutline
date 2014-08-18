@@ -34,6 +34,7 @@ import com.boutline.sports.R;
 import com.boutline.sports.application.MyApplication;
 import com.boutline.sports.application.MyDDPState;
 import com.boutline.sports.jobs.GetSASURL;
+import com.boutline.sports.jobs.updateUserProfile;
 import com.boutline.sports.models.Message;
 import com.kbeanie.imagechooser.api.ChooserType;
 import com.kbeanie.imagechooser.api.ChosenImage;
@@ -122,6 +123,9 @@ proPic.setOnClickListener(new View.OnClickListener() {
                 SharedPreferences.Editor edit = preferences.edit();
                 edit.putString("fullName",profileNameEditText.getText().toString());
                 edit.commit();
+                jobManager = MyApplication.getInstance().getJobManager();
+                jobManager.addJobInBackground(new updateUserProfile());
+
                 finish();
 
             }
@@ -198,12 +202,13 @@ proPic.setOnClickListener(new View.OnClickListener() {
             @Override
             public void run() {
                 if (chosenImage != null) {
+                    final long unixTime = System.currentTimeMillis() / 1000L;
 
                     proPic.setImageURI(Uri.parse(new File(chosenImage.getFileThumbnail()).toString()));
                    String path = chosenImage.getFilePathOriginal();
                     preferences = getApplicationContext().getSharedPreferences("boutlineData", Context.MODE_PRIVATE);
                     String filename = preferences.getString("boutlineUserId", "");
-                    filename=filename+".png";
+                    filename=filename+unixTime+".png";
                     jobManager = MyApplication.getInstance().getJobManager();
                     jobManager.addJobInBackground(new GetSASURL(filename,path));
 

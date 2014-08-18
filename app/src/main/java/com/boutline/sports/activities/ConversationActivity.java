@@ -17,6 +17,8 @@ import android.support.v4.content.LocalBroadcastManager;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -91,7 +93,11 @@ public class ConversationActivity extends Activity implements LoaderManager.Load
         loadermanager = getLoaderManager();
 		populateListViewFromdb();
         loadermanager.initLoader(1,null,this);
+        if(MyDDPState.getInstance().getDDPState() == DDPStateSingleton.DDPSTATE.Closed)
+        {
+            Toast.makeText(getApplicationContext(), "Internet connection not available", Toast.LENGTH_SHORT).show();
 
+        }
         //   uiHelper = new UiLifecycleHelper(this, callback);
         // uiHelper.onCreate(savedInstanceState);
 
@@ -222,7 +228,7 @@ public class ConversationActivity extends Activity implements LoaderManager.Load
             @Override
             protected void onDDPConnect(DDPStateSingleton ddp) {
                 super.onDDPConnect(ddp);
-                Log.e("ConversationId", getIntent().getExtras().getString("conversationId"));
+                Log.d("ConversationId", getIntent().getExtras().getString("conversationId"));
                 Object[] parameters = new Object[2];
                 parameters[0] = getIntent().getExtras().getString("conversationId");
                 parameters[1] = 20;
@@ -244,10 +250,12 @@ public class ConversationActivity extends Activity implements LoaderManager.Load
                 Bundle bundle = intent.getExtras();
                 if(intent.getAction().equals(MyDDPState.MESSAGE_ERROR))
                 {
-                    Toast.makeText(getApplicationContext(), "Internet connection not avaialable", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), "Internet connection not available", Toast.LENGTH_SHORT).show();
                 }
             }
         };
+
+
 
         LocalBroadcastManager.getInstance(this).registerReceiver(mReceiver,
                 new IntentFilter(MyDDPState.MESSAGE_ERROR));
@@ -256,6 +264,26 @@ public class ConversationActivity extends Activity implements LoaderManager.Load
                 new IntentFilter(MyDDPState.MESSAGE_CONNECTION));
         if (MyDDPState.getInstance().getState() == MyDDPState.DDPSTATE.Closed) {
             //    Toast.makeText(getApplicationContext(),"Internet connection not avaialable",Toast.LENGTH_SHORT);
+        }
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.banter, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.profile:
+                Intent intent = new Intent(ConversationActivity.this, SettingsActivity.class);
+                intent.putExtra("from","conversations");
+                startActivity(intent);
+                overridePendingTransition(R.anim.pushrightin, R.anim.pushrightout);
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
         }
     }
 
@@ -278,7 +306,6 @@ public class ConversationActivity extends Activity implements LoaderManager.Load
     @Override
 	public void onBackPressed() {
 		super.onBackPressed();
-		finish();
 		overridePendingTransition(R.anim.pushrightin, R.anim.pushrightout);
 	}
 
@@ -318,7 +345,7 @@ public class ConversationActivity extends Activity implements LoaderManager.Load
                         }
                     } else {
                         final String requestId = values.getString("request");
-                        Log.e("Rewuests", "This is the request ID" + requestId);
+                        Log.d("Rewuests", "This is the request ID" + requestId);
                         if (requestId != null) {
                             Toast.makeText(ConversationActivity.this, "Request sent", Toast.LENGTH_SHORT).show();
                             Object[] parameters = new Object[2];
