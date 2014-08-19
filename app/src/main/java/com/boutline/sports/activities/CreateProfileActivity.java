@@ -33,6 +33,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.boutline.sports.R;
+import com.boutline.sports.application.Constants;
 import com.boutline.sports.application.MyApplication;
 import com.boutline.sports.application.MyDDPState;
 import com.boutline.sports.jobs.updateUserProfile;
@@ -42,6 +43,7 @@ import com.kbeanie.imagechooser.api.ImageChooserListener;
 import com.kbeanie.imagechooser.api.ImageChooserManager;
 import com.keysolutions.ddpclient.android.DDPBroadcastReceiver;
 import com.keysolutions.ddpclient.android.DDPStateSingleton;
+import com.mixpanel.android.mpmetrics.MixpanelAPI;
 import com.path.android.jobqueue.JobManager;
 
 
@@ -72,10 +74,23 @@ public class CreateProfileActivity extends Activity implements ImageChooserListe
     private String filePath;
     JobManager jobManager;
 
+public MixpanelAPI mixpanel=null;
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+
+        if(mixpanel!=null)
+        {
+            mixpanel.flush();
+        }
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_createprofile);
+        mixpanel= MixpanelAPI.getInstance(getApplicationContext(), Constants.MIXPANEL_TOKEN);
 
         preferences = getApplicationContext().getSharedPreferences("boutlineData", Context.MODE_PRIVATE);
         proPic = (ImageView) findViewById(R.id.imgProPic);
@@ -83,6 +98,13 @@ public class CreateProfileActivity extends Activity implements ImageChooserListe
         ImageButton continueButton = (ImageButton) findViewById(R.id.btnContinue);
         TextView lblProfile = (TextView)findViewById(R.id.lblProfile);
         TextView lblProfilePic = (TextView)findViewById(R.id.lblProfilePic);
+
+        preferences = this.getSharedPreferences("boutlineData",
+                Context.MODE_PRIVATE);
+        String userId = preferences.getString("boutlineUserId","");
+
+        mixpanel.identify(userId);
+        mixpanel.track("User on Create Profile Activity",Constants.info);
 
         //Set up fonts
         tf = Typeface.createFromAsset(getAssets(), fontPath);
@@ -100,6 +122,7 @@ public class CreateProfileActivity extends Activity implements ImageChooserListe
                 {
 
                     Toast.makeText(getApplicationContext(),"Internet connection not available",Toast.LENGTH_SHORT).show();
+
                     return;
                 }
                 if(profileNameEditText.getText().toString().matches("")==true)

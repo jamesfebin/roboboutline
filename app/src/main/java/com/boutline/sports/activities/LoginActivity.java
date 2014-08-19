@@ -98,6 +98,15 @@ public class LoginActivity extends Activity {
         });
     }
 
+    @Override
+    protected void onDestroy() {
+
+        if(mixpanel!=null)
+            mixpanel.flush();
+        super.onDestroy();
+
+    }
+
 
     @Override
     protected void onResume() {

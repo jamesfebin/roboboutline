@@ -3,6 +3,7 @@ package com.boutline.sports.adapters;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.graphics.Typeface;
 import android.view.LayoutInflater;
@@ -13,8 +14,10 @@ import android.widget.SimpleCursorAdapter;
 import android.widget.TextView;
 
 import com.boutline.sports.activities.ConversationActivity;
+import com.boutline.sports.application.Constants;
 import com.boutline.sports.models.Conversation;
 import com.boutline.sports.R;
+import com.mixpanel.android.mpmetrics.MixpanelAPI;
 
 import java.util.ArrayList;
 
@@ -24,12 +27,16 @@ public class ConversationsAdapter extends SimpleCursorAdapter {
     public Typeface tf;
     public String boldFontPath = "fonts/proxinovabold.otf";
     public Typeface btf;
-
+public MixpanelAPI mixpanel = null;
+    SharedPreferences preferences;
     Context context;
 
     public ConversationsAdapter(Context context, int layout, Cursor c, String[] from, int[] to, int flags) {
         super(context, layout, c, from, to, flags);
         this.context = context;
+
+
+
     }
     // View lookup cache
 
@@ -38,6 +45,7 @@ public class ConversationsAdapter extends SimpleCursorAdapter {
         TextView lblConversationTopic;
         TextView lblLastMessage;
     }
+
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {

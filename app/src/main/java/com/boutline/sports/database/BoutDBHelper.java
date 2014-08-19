@@ -672,6 +672,15 @@ public class BoutDBHelper extends SQLiteOpenHelper {
         return result;
     }
 
+
+    public void clearTables()
+    {
+
+        final SQLiteDatabase db = this.getWritableDatabase();
+        db.execSQL("DELETE FROM "+Message.TABLE_NAME);
+        db.execSQL("DELETE FROM "+Tweet.TABLE_NAME);
+
+    }
     private void notifyProviderOnMessageChange() {
         mcontext.getContentResolver().notifyChange(
                 MessageProvider.URI_FILTERMESSAGES, null, false);

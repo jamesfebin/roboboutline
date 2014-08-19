@@ -24,7 +24,9 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.boutline.sports.R;
+import com.boutline.sports.application.Constants;
 import com.boutline.sports.helpers.OnSwipeTouchListener;
+import com.mixpanel.android.mpmetrics.MixpanelAPI;
 
 public class MPRActivity extends Activity {
 

@@ -19,6 +19,7 @@ import com.androidquery.AQuery;
 import com.androidquery.callback.ImageOptions;
 import com.androidquery.util.AQUtility;
 import com.boutline.sports.activities.ComposeTweetActivity;
+import com.boutline.sports.application.Constants;
 import com.boutline.sports.database.BoutDBHelper;
 import com.boutline.sports.helpers.FormateTime;
 import com.boutline.sports.helpers.Mayday;
@@ -26,6 +27,7 @@ import com.boutline.sports.models.BanterMessage;
 import com.boutline.sports.models.Message;
 import com.boutline.sports.R;
 import com.boutline.sports.models.Tweet;
+import com.mixpanel.android.mpmetrics.MixpanelAPI;
 
 import java.util.ArrayList;
 
@@ -40,12 +42,19 @@ public class MessagesAdapter extends SimpleCursorAdapter {
     Context context;
     BoutDBHelper dbHelper;
     Mayday mayday;
+    public MixpanelAPI mixpanel = null;
+
 
     String lastDate = "";
     public MessagesAdapter(Context context, int layout, Cursor c, String[] from, int[] to, int flags) {
         super(context, layout, c, from, to, flags);
         this.context = context;
         mayday = new Mayday(context);
+        mixpanel= MixpanelAPI.getInstance(context, Constants.MIXPANEL_TOKEN);
+        preferences = context.getSharedPreferences("boutlineData",
+                Context.MODE_PRIVATE);
+        String userId = preferences.getString("boutlineUserId","");
+        mixpanel.identify(userId);
 
     }
 
@@ -386,6 +395,7 @@ public class MessagesAdapter extends SimpleCursorAdapter {
                     public void onClick(View view) {
 
                         if (mayday.hasTwitterCredentials()) {
+                            mixpanel.track("Status Favorited",Constants.info);
 
                             favortite(status_id, mDocId);
 
@@ -403,6 +413,8 @@ public class MessagesAdapter extends SimpleCursorAdapter {
 
 
                         if (mayday.hasTwitterCredentials()) {
+                            if(mixpanel!=null)
+                                mixpanel.track("Status Retweeted",Constants.info);
 
                             retweet(status_id, mDocId);
 
@@ -417,6 +429,8 @@ public class MessagesAdapter extends SimpleCursorAdapter {
                 viewHolder.reply.setOnClickListener(new View.OnClickListener(){
                     @Override
                     public void onClick(View view) {
+                        if(mixpanel!=null)
+                        mixpanel.track("Status Replied",Constants.info);
 
                         Intent intent = new Intent(context, ComposeTweetActivity.class);
 
@@ -438,12 +452,16 @@ public class MessagesAdapter extends SimpleCursorAdapter {
 
     public void retweet(String statusId,String mDocId)
     {
+
+
         Long tweet_status_id = Long.parseLong(statusId);
         dbHelper.getInstance(context).putRetweet(mDocId,mayday.getTwitterAccessToken(),mayday.getTwitterAccessTokenSecret(),tweet_status_id);
     }
 
     public void favortite(String statusId,String mDocId)
     {
+
+
         Long tweet_status_id = Long.parseLong(statusId);
         dbHelper.getInstance(context).putFavorite(mDocId, mayday.getTwitterAccessToken(), mayday.getTwitterAccessTokenSecret(),tweet_status_id);
 
