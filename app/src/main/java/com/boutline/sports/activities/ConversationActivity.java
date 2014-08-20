@@ -28,6 +28,7 @@ import android.widget.Toast;
 
 import com.boutline.sports.ContentProviders.BanterMessageProvider;
 import com.boutline.sports.adapters.MessagesAdapter;
+import com.boutline.sports.application.Constants;
 import com.boutline.sports.application.MyApplication;
 import com.boutline.sports.application.MyDDPState;
 import com.boutline.sports.database.BoutDBHelper;
@@ -38,6 +39,7 @@ import com.boutline.sports.R;
 
 import com.keysolutions.ddpclient.android.DDPBroadcastReceiver;
 import com.keysolutions.ddpclient.android.DDPStateSingleton;
+import com.mixpanel.android.mpmetrics.MixpanelAPI;
 import com.path.android.jobqueue.JobManager;
 import java.util.HashMap;
 import java.util.Map;
@@ -60,6 +62,7 @@ public class ConversationActivity extends Activity implements LoaderManager.Load
     SharedPreferences mSharedPreferences;
     BoutDBHelper dbHelper;
     ProgressDialog progress;
+    public MixpanelAPI mixpanel = null;
 
     /*
     @Override
@@ -78,6 +81,11 @@ public class ConversationActivity extends Activity implements LoaderManager.Load
         editor.putString("currentScreen","");
         editor.putString("banterId","");
         editor.commit();
+
+        if(mixpanel!=null)
+        {
+            mixpanel.flush();
+        }
     }
 
     @Override
@@ -91,8 +99,15 @@ public class ConversationActivity extends Activity implements LoaderManager.Load
 		txtCompose.setTypeface(tf);
         jobManager = MyApplication.getInstance().getJobManager();
         progress = new ProgressDialog(this);
+        mixpanel= MixpanelAPI.getInstance(getApplicationContext(), Constants.MIXPANEL_TOKEN);
 
-		// Populate the List View
+        mSharedPreferences = this.getSharedPreferences("boutlineData",
+                Context.MODE_PRIVATE);
+        String userId = mSharedPreferences.getString("boutlineUserId","");
+
+        mixpanel.identify(userId);
+        mixpanel.track("User on Muli Purpose Room",Constants.info);
+        // Populate the List View
         loadermanager = getLoaderManager();
 		populateListViewFromdb();
         loadermanager.initLoader(1,null,this);
@@ -146,6 +161,9 @@ public class ConversationActivity extends Activity implements LoaderManager.Load
                         return;
 
                 }
+
+                    mixpanel.track("User send a message",Constants.info);
+
                     UUID uniqueKey = UUID.randomUUID();
                     String mDocId = uniqueKey.toString();
                     Object[] parameters = new Object[3];

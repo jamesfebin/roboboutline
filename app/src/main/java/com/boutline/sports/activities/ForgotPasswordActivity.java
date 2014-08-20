@@ -28,9 +28,11 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 import com.boutline.sports.R;
+import com.boutline.sports.application.Constants;
 import com.boutline.sports.application.MyDDPState;
 import com.keysolutions.ddpclient.android.DDPBroadcastReceiver;
 import com.keysolutions.ddpclient.android.DDPStateSingleton;
+import com.mixpanel.android.mpmetrics.MixpanelAPI;
 
 public class ForgotPasswordActivity extends Activity {
 
@@ -40,6 +42,7 @@ public class ForgotPasswordActivity extends Activity {
     public Typeface btf;
     BroadcastReceiver mReceiver;
     private ProgressDialog progress = null;
+    public MixpanelAPI mixpanel=null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,6 +52,7 @@ public class ForgotPasswordActivity extends Activity {
         final EditText forgotPasswordEditText = (EditText) findViewById(R.id.txtEmailId);
         TextView lblForgotPassword = (TextView)findViewById(R.id.lblForgotPassword);
         TextView forgotpwdguide = (TextView)findViewById(R.id.forgotpwdguide);
+        mixpanel= MixpanelAPI.getInstance(getApplicationContext(), Constants.MIXPANEL_TOKEN);
 
         //set up fonts
         forgotPasswordEditText.setTypeface(tf);
@@ -63,6 +67,7 @@ public class ForgotPasswordActivity extends Activity {
                 if(MyDDPState.getInstance().mDDPState== DDPStateSingleton.DDPSTATE.Closed)
                 {
                     Toast.makeText(getApplicationContext(),"Internet connection not available",Toast.LENGTH_SHORT).show();
+                    MyDDPState.getInstance().connectIfNeeded();
                     return;
                 }
                 if(!forgotPasswordEditText.getText().toString().matches(""))
@@ -109,6 +114,10 @@ public class ForgotPasswordActivity extends Activity {
                         progress.dismiss();
                     }
 
+                    if(mixpanel!=null)
+                    {
+                        mixpanel.track("Reset Password, Email Send",Constants.info);
+                    }
                     Toast.makeText(getApplicationContext(),"Password reset instructions has been send to your email",Toast.LENGTH_SHORT).show();
                 }
                 else if(intent.getAction().equals("EMAILFAILED"))
@@ -116,6 +125,10 @@ public class ForgotPasswordActivity extends Activity {
                     if(progress!=null)
                     {
                         progress.dismiss();
+                    }
+                    if(mixpanel!=null)
+                    {
+                        mixpanel.track("Reset Password , Email Address Doesn't Exist ",Constants.info);
                     }
                     Toast.makeText(getApplicationContext(),intent.getExtras().getString("Error"),Toast.LENGTH_SHORT).show();
                 }
@@ -126,6 +139,16 @@ public class ForgotPasswordActivity extends Activity {
                 new IntentFilter("EMAILSEND"));
         LocalBroadcastManager.getInstance(this).registerReceiver(mReceiver,
                 new IntentFilter("EMAILFAILED"));
+    }
+
+
+    @Override
+    protected void onDestroy() {
+
+        if(mixpanel!=null)
+            mixpanel.flush();
+        super.onDestroy();
+
     }
 
 

@@ -33,6 +33,7 @@ import com.androidquery.callback.ImageOptions;
 import com.boutline.sports.R;
 import com.boutline.sports.application.MyApplication;
 import com.boutline.sports.application.MyDDPState;
+import com.boutline.sports.database.BoutDBHelper;
 import com.boutline.sports.jobs.GetSASURL;
 import com.boutline.sports.jobs.updateUserProfile;
 import com.boutline.sports.models.Message;
@@ -59,6 +60,7 @@ public class SettingsActivity extends Activity implements ImageChooserListener {
     ImageView proPic;
     ImageButton Go;
 
+    BoutDBHelper dbHelper;
 
     @Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -232,7 +234,8 @@ public class SettingsActivity extends Activity implements ImageChooserListener {
         SharedPreferences.Editor editor = preferences.edit();
         editor.clear();
         editor.commit();
-        getApplicationContext().deleteDatabase("boutdb");
+        dbHelper.getInstance(getApplicationContext()).clearTables();
+        MyDDPState.getInstance().disconnect();
         Intent intent = new Intent(SettingsActivity.this,LoginActivity.class);
         startActivity(intent);
         finish();
