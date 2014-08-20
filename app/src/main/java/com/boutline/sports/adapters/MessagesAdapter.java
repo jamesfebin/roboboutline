@@ -116,7 +116,7 @@ public class MessagesAdapter extends SimpleCursorAdapter {
                         options.round = 50;
                         options.memCache=true;
                         options.fileCache=true;
-                        options.targetWidth=200;
+                        options.targetWidth=50;
                         options.fallback = R.drawable.anon;
 
                         String image_url = c.getString(c.getColumnIndex(Message.COL_USERPICURL));
@@ -151,7 +151,7 @@ public class MessagesAdapter extends SimpleCursorAdapter {
                         options.round = 50;
                         options.memCache=true;
                         options.fileCache=true;
-                        options.targetWidth=200;
+                        options.targetWidth=50;
                         options.fallback = R.drawable.anon;
 
                         String image_url = c.getString(c.getColumnIndex(Message.COL_USERPICURL));
@@ -286,8 +286,6 @@ public class MessagesAdapter extends SimpleCursorAdapter {
                     viewHolder.favorite = (ImageView) convertView.findViewById(R.id.favourite);
                     viewHolder.reply = (ImageView) convertView.findViewById(R.id.reply);
                     convertView.setTag(viewHolder);
-
-
                 }
 
             }
@@ -297,7 +295,6 @@ public class MessagesAdapter extends SimpleCursorAdapter {
 
                 String cursorUnixtime = c.getString(c.getColumnIndex(Message.COL_TIME));
                 String cursorDate = timeformatter.formatUnixtime(cursorUnixtime,"dd MMM");
-
 
                 if (c.getString(c.getColumnIndex(Message.COL_SENDERID)).matches(botId) == true) {
 
@@ -366,17 +363,10 @@ public class MessagesAdapter extends SimpleCursorAdapter {
                 if (media_url.matches("")) {
                     viewHolder.imgTweetImage.setVisibility(View.GONE);
                 } else {
-
-
                     viewHolder.imgTweetImage.setVisibility(View.VISIBLE);
-
                     options = new ImageOptions();
-
                     String  tweet_image_url = c.getString(c.getColumnIndex("media_url"));
-
-                    aq.id(viewHolder.imgTweetImage).image(tweet_image_url, true,true,300,0);
-
-
+                    aq.id(viewHolder.imgTweetImage).image(tweet_image_url, true,true,500,0);
                 }
 
 

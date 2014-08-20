@@ -10,7 +10,6 @@
         <item name="android:actionModeBackground">@drawable/cab_background_top_bostyle</item>
         <item name="android:actionModeSplitBackground">@drawable/cab_background_bottom_bostyle</item>
         <item name="android:actionModeCloseButtonStyle">@style/ActionButton.CloseMode.Bostyle</item>
-        <item name="android:windowContentOverlay">@null</item>
         <item name="android:actionMenuTextColor">@color/white</item>
         <item name="android:actionBarTabTextStyle">@style/ActionBarTabTextStyle.TabTextTheme</item>
     </style>
@@ -74,7 +73,7 @@
     <style name="TwoWayView">
         <item name="android:orientation">vertical</item>
     </style>
-    
+
     <!--  Smooth Progress Bar -->
     <style name="Theme.SmoothProgressBarDefaults" parent="android:Theme">
         <item name="spbStyle">@style/SmoothProgressBar</item>
@@ -92,14 +91,14 @@
         <item name="spb_generate_background_with_colors">false</item>
         <item name="spb_gradients">false</item>
     </style>
-    
+
     <!-- Custom Follow Toggle Buttons -->
-    <style name="CustomFollowTheme" parent="@android:style/Widget.CompoundButton.CheckBox">  
-    	<item name="android:button">@drawable/followbtn_style</item>  
+    <style name="CustomFollowTheme" parent="@android:style/Widget.CompoundButton.CheckBox">
+    	<item name="android:button">@drawable/followbtn_style</item>
 	</style>
     <!-- Custom checkbox style -->
     <style name="CustomCheckTheme" parent="@android:style/Widget.CompoundButton.CheckBox">
         <item name="android:button">@drawable/checkbtn_style</item>
     </style>
-    
+
    </resources>

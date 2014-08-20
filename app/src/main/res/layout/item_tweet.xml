@@ -7,7 +7,7 @@
     <RelativeLayout
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="5dp"
+        android:layout_margin="10dp"
         android:padding="15dp"
         android:background="@drawable/card">
 
@@ -15,10 +15,10 @@
         android:id="@+id/imgPropic"
         android:src="@drawable/dummy"
         android:scaleType="centerCrop"
-         android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:paddingRight="10dp"
-        android:paddingLeft="5dp"
+         android:layout_width="45dp"
+        android:layout_height="45dp"
+        android:paddingRight="15dp"
+        android:paddingLeft="15dp"
         android:contentDescription="@string/dummy"
         />
 
@@ -26,7 +26,8 @@
         android:id="@+id/tweeterDetails"
         android:layout_toRightOf="@id/imgPropic"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:paddingLeft="10dp">
 
         <TextView
             android:id="@+id/lblTweetUsername"
@@ -44,7 +45,7 @@
             android:layout_height="wrap_content"
             android:textColor="#999999"
             android:paddingLeft="5dp"
-            android:textSize="13sp"
+            android:textSize="14sp"
             android:layout_toRightOf="@id/lblTweetUsername"
             />
         <TextView
@@ -67,7 +68,7 @@
         android:textColor="#9BA4A9"
         android:paddingTop="10dp"
         android:paddingBottom="10dp"
-        android:textSize="14sp"
+        android:textSize="15sp"
         android:layout_below="@id/lblTweetUsername"
         />
         <LinearLayout
@@ -75,8 +76,6 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:paddingTop="8dp"
-            android:paddingBottom="8dp"
             android:layout_below="@id/lblTweetMessage" >
 
             <ImageButton

@@ -30,7 +30,6 @@
         android:label="@string/app_name"
         android:logo="@drawable/ic_launcher"
         android:theme="@style/Theme.Bostyle" >
-
         <activity
             android:name=".activities.MainActivity"
             android:label="@string/app_name" >
@@ -38,6 +37,7 @@
                 <action android:name="android.intent.action.MAIN" />
                 <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
                 <action android:name="android.net.wifi.WIFI_STATE_CHANGED" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -78,7 +78,7 @@
         <activity
             android:name=".activities.BoardActivity"
             android:label=""
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".activities.BanterActivity"
             android:label=""
@@ -119,40 +119,34 @@
             android:label=""
             android:screenOrientation="portrait"
             android:theme="@android:style/Theme.Holo.Light.NoActionBar.Fullscreen" />
-
         <activity
             android:name=".activities.TwitterLogin"
             android:label=""
             android:screenOrientation="portrait"
             android:theme="@android:style/Theme.Holo.Light.NoActionBar.Fullscreen" >
-
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
+
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
 
-                <data android:scheme="oauth" android:host="t4jsample"/>
-
+                <data
+                    android:host="t4jsample"
+                    android:scheme="oauth" />
             </intent-filter>
-            </activity>
-
+        </activity>
         <activity
             android:name=".activities.NotificationRedirect"
+            android:exported="true"
             android:label="@string/app_name"
             android:screenOrientation="portrait"
-            android:theme="@android:style/Theme.Holo.Light.NoActionBar.Fullscreen"
-            android:exported="true"
-            >
-
-            </activity>
+            android:theme="@android:style/Theme.Holo.Light.NoActionBar.Fullscreen" >
+        </activity>
         <activity
             android:name=".activities.TwitterWebViewLogin"
             android:label=""
             android:screenOrientation="portrait"
             android:theme="@android:style/Theme.Holo.Light.NoActionBar.Fullscreen" />
-
-
-
 
         <!-- New activities come here -->
 
@@ -183,70 +177,66 @@
             android:theme="@android:style/Theme.Holo.Light.NoActionBar.Fullscreen" />
 
         <receiver
-            android:name="com.boutline.sports.receivers.GcmBroadcastReceiver"
+            android:name=".receivers.GcmBroadcastReceiver"
             android:permission="com.google.android.c2dm.permission.SEND"
             android:process=":remote" >
             <intent-filter>
                 <action android:name="com.google.android.c2dm.intent.RECEIVE" />
+
                 <category android:name="com.boutline.sports.gcm" />
             </intent-filter>
         </receiver>
 
-        <service android:name="com.boutline.sports.services.GCMIntentService" />
-
-
+        <service android:name=".services.GCMIntentService" />
 
         <provider
-            android:name="com.boutline.sports.ContentProviders.SportProvider"
+            android:name=".ContentProviders.SportProvider"
             android:authorities="com.boutline.sports.provider"
-            android:multiprocess="true"
             android:enabled="true"
-            android:exported="false" >
+            android:exported="false"
+            android:multiprocess="true" >
         </provider>
         <provider
-            android:name="com.boutline.sports.ContentProviders.TournamentProvider"
+            android:name=".ContentProviders.TournamentProvider"
             android:authorities="com.boutline.tournaments.provider"
-            android:multiprocess="true"
             android:enabled="true"
-            android:exported="false" >
+            android:exported="false"
+            android:multiprocess="true" >
         </provider>
         <provider
-            android:name="com.boutline.sports.ContentProviders.MatchProvider"
+            android:name=".ContentProviders.MatchProvider"
             android:authorities="com.boutline.matches.provider"
-            android:multiprocess="true"
             android:enabled="true"
-            android:exported="false" >
+            android:exported="false"
+            android:multiprocess="true" >
         </provider>
-
         <provider
-        android:name="com.boutline.sports.ContentProviders.TweetProvider"
-        android:authorities="com.boutline.tweets.provider"
-        android:multiprocess="true"
-        android:enabled="true"
-        android:exported="false" >
-    </provider>
+            android:name=".ContentProviders.TweetProvider"
+            android:authorities="com.boutline.tweets.provider"
+            android:enabled="true"
+            android:exported="false"
+            android:multiprocess="true" >
+        </provider>
         <provider
-            android:name="com.boutline.sports.ContentProviders.ConversationProvider"
+            android:name=".ContentProviders.ConversationProvider"
             android:authorities="com.boutline.conversations.provider"
-            android:multiprocess="true"
             android:enabled="true"
-            android:exported="false" >
+            android:exported="false"
+            android:multiprocess="true" >
         </provider>
         <provider
-            android:name="com.boutline.sports.ContentProviders.MessageProvider"
+            android:name=".ContentProviders.MessageProvider"
             android:authorities="com.boutline.messages.provider"
-            android:multiprocess="true"
             android:enabled="true"
-            android:exported="false" >
+            android:exported="false"
+            android:multiprocess="true" >
         </provider>
         <provider
-            android:name="com.boutline.sports.ContentProviders.BanterMessageProvider"
+            android:name=".ContentProviders.BanterMessageProvider"
             android:authorities="com.boutline.bantermessages.provider"
-            android:multiprocess="true"
             android:enabled="true"
-            android:exported="false" >
+            android:exported="false"
+            android:multiprocess="true" >
         </provider>
-
     </application>
-
 </manifest>

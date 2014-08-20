@@ -23,7 +23,7 @@
         <attr name="spb_generate_background_with_colors" format="boolean"/>
         <attr name="spb_gradients" format="boolean"/>
     </declare-styleable>
-    
+
     <declare-styleable name="TwoWayView">
 
         <!-- Imported from View -->

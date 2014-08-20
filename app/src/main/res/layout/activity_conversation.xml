@@ -2,7 +2,8 @@
     android:id="@+id/container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/lightgray">
+    android:background="@color/lightgray"
+    android:focusableInTouchMode="true">
 
      <ListView
          android:id="@+id/lvMessages"
@@ -13,28 +14,32 @@
          android:clipToPadding="false"
          />
 
-    <LinearLayout
+     <LinearLayout
         android:id="@+id/composeLink"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:orientation="horizontal"
-        android:background="#FFFFFF">
+        android:background="@drawable/topborder">
 
         <EditText
             android:id="@+id/txtCompose"
             android:layout_width="0dip"
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
-            android:padding="10dp"
+            android:paddingTop="10dp"
+            android:paddingLeft="15dp"
+            android:paddingBottom="10dp"
+            android:paddingRight="15dp"
             android:layout_margin="5dp"
             android:layout_weight="1"
             android:textSize="14sp"
             android:imeOptions="actionSend"
             android:clickable="false"
-            android:background="@drawable/chattb"
+            android:background="@drawable/txtchatmessage"
             android:hint="@string/whatshappening"
             />
+
         <ImageButton
             android:id="@+id/btnCompose"
             android:layout_width="wrap_content"
@@ -45,6 +50,7 @@
             android:scaleType="center"
             android:background="@null"
             android:src="@drawable/send"
+            android:contentDescription="@string/dummy"
             />
     </LinearLayout>
     
