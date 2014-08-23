@@ -123,7 +123,7 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:padding="10dp"
-        android:background="@color/red"
+        android:background="@color/blue"
         android:layout_alignParentBottom="true"
         android:id="@+id/SignupBtn"
         android:contentDescription="@string/dummy"
