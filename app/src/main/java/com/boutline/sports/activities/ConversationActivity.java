@@ -37,6 +37,7 @@ import com.boutline.sports.models.BanterMessage;
 import com.boutline.sports.models.Message;
 import com.boutline.sports.R;
 
+import com.boutline.sports.models.Query;
 import com.keysolutions.ddpclient.android.DDPBroadcastReceiver;
 import com.keysolutions.ddpclient.android.DDPStateSingleton;
 import com.mixpanel.android.mpmetrics.MixpanelAPI;
@@ -178,6 +179,7 @@ public class ConversationActivity extends Activity implements LoaderManager.Load
                     fields.put("userPicUrl",userPicUrl);
                     fields.put("sender",senderId);
                     fields.put("time",unixTime);
+                    processBotQuery(txtCompose.getText().toString());
                     Message message = new Message(mDocId,fields);
                     txtCompose.setText("");
                     dbHelper.getInstance(getApplicationContext()).putMessage(message,"");
@@ -249,6 +251,9 @@ public class ConversationActivity extends Activity implements LoaderManager.Load
             @Override
             protected void onDDPConnect(DDPStateSingleton ddp) {
                 super.onDDPConnect(ddp);
+
+
+
                 Log.d("ConversationId", getIntent().getExtras().getString("conversationId"));
                 Object[] parameters = new Object[2];
                 parameters[0] = getIntent().getExtras().getString("conversationId");
@@ -256,9 +261,13 @@ public class ConversationActivity extends Activity implements LoaderManager.Load
                 //jobManager = MyApplication.getInstance().getJobManager();
                 //jobManager.addJobInBackground(new Subscribe(ddp,"messages",parameters));
                 ddp.subscribe("messages",parameters);
+
                 parameters[0] = "KsrzMzFd6uHckAeb5";
                 parameters[1] = 20;
                 ddp.subscribe("mobileTournamentsInfluencerTweets",parameters);
+
+
+
             }
 
             @Override
@@ -285,6 +294,38 @@ public class ConversationActivity extends Activity implements LoaderManager.Load
                 new IntentFilter(MyDDPState.MESSAGE_CONNECTION));
         if (MyDDPState.getInstance().getState() == MyDDPState.DDPSTATE.Closed) {
             //    Toast.makeText(getApplicationContext(),"Internet connection not avaialable",Toast.LENGTH_SHORT);
+        }
+    }
+
+
+    public void processBotQuery(String query)
+    {
+
+        try {
+
+            query = query.replaceAll("//'s", "");
+            query = query.replaceAll("[^a-zA-Z0-9 ]", "");
+            query = query.toLowerCase();
+        String result = dbHelper.getInstance(getApplicationContext()).findQuery(query);
+
+        if(result!=null)
+        {
+
+            String[] QueryResult =   result.split(";");
+            String query_id = QueryResult[0];
+            String parameterQuery = QueryResult[1];
+            Log.e("CALLING ","CALLED");
+            dbHelper.getInstance(getApplicationContext()).sendStructuredQuery(query_id,parameterQuery);
+
+        }
+
+
+
+
+            }
+        catch (Exception E)
+        {
+            E.printStackTrace();
         }
     }
 

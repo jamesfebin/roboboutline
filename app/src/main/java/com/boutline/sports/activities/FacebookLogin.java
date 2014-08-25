@@ -495,6 +495,7 @@ public class FacebookLogin extends Activity {
         editor.putString("fbUserInfo",json);
         editor.commit();
 
+
         jobManager.addJobInBackground(new Login());
 
 

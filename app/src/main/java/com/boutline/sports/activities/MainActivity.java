@@ -126,6 +126,11 @@ public class MainActivity extends Activity {
             @Override
             protected void onDDPConnect(DDPStateSingleton ddp) {
                 super.onDDPConnect(ddp);
+                Object[] parameters = new Object[1];
+                parameters[0] = 100;
+
+                ddp.subscribe("queriesData",parameters);
+                ddp.subscribe("mobileTeamsData",parameters);
 /*
                 if(fbUser==null){
 

@@ -2,10 +2,22 @@
 <pre-dex-items>
 
     <item
-        dex="/Users/user/Documents/Development-Tools/ADT/sdk/extras/google/BoutlineSports/app/build/intermediates/pre-dexed/debug/imgscalr-lib-4.2-e1dfa36568935cb36a28a31a787c646991e4540b.jar"
-        jar="/Users/user/.gradle/caches/modules-2/files-2.1/org.imgscalr/imgscalr-lib/4.2/e2838f7119361511ef7d54fe0d502bf07f3325eb/imgscalr-lib-4.2.jar"
+        dex="/Users/user/Documents/Development-Tools/ADT/sdk/extras/google/BoutlineSports/app/build/intermediates/pre-dexed/debug/jackson-databind-2.1.2-0f0b2584701f310955e985fa12e5f204c890b0fb.jar"
+        jar="/Users/user/.gradle/caches/modules-2/files-2.1/com.fasterxml.jackson.core/jackson-databind/2.1.2/e9c672d2d60c966772c6271d5a61614a4259274a/jackson-databind-2.1.2.jar"
         jumboMode="false"
         revision="19.1.0"
-        sha1="e2838f7119361511ef7d54fe0d502bf07f3325eb"/>
+        sha1="e9c672d2d60c966772c6271d5a61614a4259274a"/>
+    <item
+        dex="/Users/user/Documents/Development-Tools/ADT/sdk/extras/google/BoutlineSports/app/build/intermediates/pre-dexed/debug/jackson-core-2.1.1-13624239fd5df7eb8b1b4a6a053fe031978f3e7e.jar"
+        jar="/Users/user/.gradle/caches/modules-2/files-2.1/com.fasterxml.jackson.core/jackson-core/2.1.1/82ad1c5f92f6dcc6291f5c46ebacb975eaa844de/jackson-core-2.1.1.jar"
+        jumboMode="false"
+        revision="19.1.0"
+        sha1="82ad1c5f92f6dcc6291f5c46ebacb975eaa844de"/>
+    <item
+        dex="/Users/user/Documents/Development-Tools/ADT/sdk/extras/google/BoutlineSports/app/build/intermediates/pre-dexed/debug/jackson-annotations-2.1.1-480cc544640bb9da89a31a73c93521f0c625c302.jar"
+        jar="/Users/user/.gradle/caches/modules-2/files-2.1/com.fasterxml.jackson.core/jackson-annotations/2.1.1/b01cc83e745fc4425a3968fafbf8e5b8254a6dd/jackson-annotations-2.1.1.jar"
+        jumboMode="false"
+        revision="19.1.0"
+        sha1="0b01cc83e745fc4425a3968fafbf8e5b8254a6dd"/>
 
 </pre-dex-items>
