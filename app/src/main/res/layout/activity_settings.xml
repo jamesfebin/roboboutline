@@ -8,7 +8,7 @@
     <TextView
         android:id="@+id/lblProfile"
         android:text="@string/giveidentity"
-        android:textColor="@color/red"
+        android:textColor="@color/blue"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:padding="20dp"
@@ -66,7 +66,7 @@
         android:layout_height="wrap_content"
         android:padding="10dp"
         android:contentDescription="@string/dummy"
-        android:background="@color/red"
+        android:background="@color/blue"
         android:layout_alignParentBottom="true"
         android:src="@drawable/go"
         />
@@ -81,7 +81,7 @@
         android:layout_marginRight="10dp"
         android:gravity="center"
         android:padding="15dp"
-        android:textColor="@color/red"
+        android:textColor="@color/blue"
         />
 
     <View
@@ -101,7 +101,7 @@
         android:layout_marginRight="10dp"
         android:gravity="center"
         android:padding="15dp"
-        android:textColor="@color/red"
+        android:textColor="@color/blue"
         />
 
 

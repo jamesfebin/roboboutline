@@ -9,7 +9,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.SimpleCursorAdapter;
@@ -17,19 +18,15 @@ import android.widget.TextView;
 
 import com.androidquery.AQuery;
 import com.androidquery.callback.ImageOptions;
-import com.androidquery.util.AQUtility;
 import com.boutline.sports.activities.ComposeTweetActivity;
 import com.boutline.sports.application.Constants;
 import com.boutline.sports.database.BoutDBHelper;
 import com.boutline.sports.helpers.FormateTime;
 import com.boutline.sports.helpers.Mayday;
-import com.boutline.sports.models.BanterMessage;
 import com.boutline.sports.models.Message;
 import com.boutline.sports.R;
 import com.boutline.sports.models.Tweet;
 import com.mixpanel.android.mpmetrics.MixpanelAPI;
-
-import java.util.ArrayList;
 
 public class MessagesAdapter extends SimpleCursorAdapter {
 
@@ -43,6 +40,7 @@ public class MessagesAdapter extends SimpleCursorAdapter {
     BoutDBHelper dbHelper;
     Mayday mayday;
     public MixpanelAPI mixpanel = null;
+    private int lastPosition = -1;
 
 
     String lastDate = "";
@@ -84,10 +82,9 @@ public class MessagesAdapter extends SimpleCursorAdapter {
         //Set up fonts
 
         preferences = context.getSharedPreferences("boutlineData", Context.MODE_PRIVATE);
-        String currentUserId = preferences.getString("boutlineUserId", null);
 
+        String currentUserId = preferences.getString("boutlineUserId",null);
         FormateTime timeformatter = new FormateTime();
-
         Cursor c = getCursor();
 
         if (c.moveToPosition(position)) {
@@ -99,11 +96,9 @@ public class MessagesAdapter extends SimpleCursorAdapter {
 
             String botId = "bouty";
 
-            // Check if an existing view is being reused, otherwise inflate the view
 
             ViewHolder viewHolder; // view lookup cache stored in tag
             if (convertView == null) {
-
                 viewHolder = new ViewHolder();
                 LayoutInflater inflater = LayoutInflater.from(context);
 
@@ -115,10 +110,9 @@ public class MessagesAdapter extends SimpleCursorAdapter {
                     Log.d("Unixtime", cursorUnixtime);
                     String cursorDate = timeformatter.formatUnixtime(cursorUnixtime, "dd MMM");
 
-                    if (c.getString(c.getColumnIndex(Message.COL_SENDERID)).matches(botId) == true) {
+                    if (c.getString(c.getColumnIndex(Message.COL_SENDERID)).matches(botId)) {
                         convertView = inflater.inflate(R.layout.item_botmessage, parent, false);
-                    } else if (c.getString(c.getColumnIndex(Message.COL_SENDERID)).matches(currentUserId) == false) {
-
+                    } else if (!c.getString(c.getColumnIndex(Message.COL_SENDERID)).matches(currentUserId)) {
                         convertView = inflater.inflate(R.layout.item_leftmessage, parent, false);
                         viewHolder.imgProPic = (ImageView) convertView.findViewById(R.id.messageProPicLeft);
                         AQuery aq = new AQuery(context);
@@ -137,22 +131,16 @@ public class MessagesAdapter extends SimpleCursorAdapter {
                         convertView.setTag(viewHolder);
 
                         // Assign the fonts
-
                         viewHolder.lblSenderName.setTypeface(tf);
                         viewHolder.lblMessageTime.setTypeface(tf);
                         viewHolder.lblConjunction.setTypeface(tf);
-
-
                         viewHolder.lblMessage = (TextView) convertView.findViewById(R.id.lblMessage);
                         viewHolder.lblMessage.setTypeface(btf);
-
-                        if (cursorDate.matches(lastDate) == false) {
+                        if (!cursorDate.matches(lastDate)) {
                             // Add to the view
                             lastDate = cursorDate;
                         }
-
-
-                    } else if (c.getString(c.getColumnIndex(Message.COL_SENDERID)).matches(currentUserId) == true) {
+                    } else if (c.getString(c.getColumnIndex(Message.COL_SENDERID)).matches(currentUserId)) {
                         convertView = inflater.inflate(R.layout.item_rightmessage, parent, false);
                         viewHolder.imgProPic = (ImageView) convertView.findViewById(R.id.messageProPicRight);
 
@@ -186,7 +174,8 @@ public class MessagesAdapter extends SimpleCursorAdapter {
                     }
                 } else if (c.getType(c.getColumnIndex(Tweet.COL_Tweet)) != 0) {
 
-                    Log.d("Tweet ConvertView", "ConverView");
+
+                    Log.d("Tweet ConvertView","ConvertView");
                     convertView = inflater.inflate(R.layout.item_tweet, parent, false);
                     viewHolder.tweetContainer = (RelativeLayout) convertView.findViewById(R.id.tweetContainer);
                     viewHolder.lblTweetUsername = (TextView) convertView.findViewById(R.id.lblTweetUsername);
@@ -199,7 +188,6 @@ public class MessagesAdapter extends SimpleCursorAdapter {
                     viewHolder.favorite = (ImageView) convertView.findViewById(R.id.favourite);
                     viewHolder.reply = (ImageView) convertView.findViewById(R.id.reply);
                     convertView.setTag(viewHolder);
-
                 }
 
             } else {
@@ -212,9 +200,9 @@ public class MessagesAdapter extends SimpleCursorAdapter {
                     String cursorDate = timeformatter.formatUnixtime(cursorUnixtime, "dd MMM");
 
 
-                    if (c.getString(c.getColumnIndex(Message.COL_SENDERID)).matches(botId) == true) {
+                    if (c.getString(c.getColumnIndex(Message.COL_SENDERID)).matches(botId)) {
                         convertView = inflater.inflate(R.layout.item_botmessage, parent, false);
-                    } else if (c.getString(c.getColumnIndex(Message.COL_SENDERID)).matches(currentUserId) == false) {
+                    } else if (!c.getString(c.getColumnIndex(Message.COL_SENDERID)).matches(currentUserId)) {
 
                         convertView = inflater.inflate(R.layout.item_leftmessage, parent, false);
                         viewHolder.imgProPic = (ImageView) convertView.findViewById(R.id.messageProPicLeft);
@@ -243,12 +231,12 @@ public class MessagesAdapter extends SimpleCursorAdapter {
 
                         viewHolder.lblMessage = (TextView) convertView.findViewById(R.id.lblMessage);
                         viewHolder.lblMessage.setTypeface(btf);
-                        if (cursorDate.matches(lastDate) == false) {
+                        if (!cursorDate.matches(lastDate)) {
                             // Add to the view
                             lastDate = cursorDate;
                         }
 
-                    } else if (c.getString(c.getColumnIndex(Message.COL_SENDERID)).matches(currentUserId) == true) {
+                    } else if (c.getString(c.getColumnIndex(Message.COL_SENDERID)).matches(currentUserId)) {
                         convertView = inflater.inflate(R.layout.item_rightmessage, parent, false);
                         viewHolder.imgProPic = (ImageView) convertView.findViewById(R.id.messageProPicRight);
 
@@ -275,7 +263,7 @@ public class MessagesAdapter extends SimpleCursorAdapter {
                         viewHolder.lblMessage = (TextView) convertView.findViewById(R.id.lblMessage);
                         viewHolder.lblMessage.setTypeface(btf);
 
-                        if (cursorDate.matches(lastDate) == false) {
+                        if (!cursorDate.matches(lastDate)) {
                             // Add to the view
                             lastDate = cursorDate;
                         }
@@ -304,14 +292,14 @@ public class MessagesAdapter extends SimpleCursorAdapter {
                 String cursorUnixtime = c.getString(c.getColumnIndex(Message.COL_TIME));
                 String cursorDate = timeformatter.formatUnixtime(cursorUnixtime, "dd MMM");
 
-                if (c.getString(c.getColumnIndex(Message.COL_SENDERID)).matches(botId) == true) {
+                if (c.getString(c.getColumnIndex(Message.COL_SENDERID)).matches(botId)) {
 
-                } else if (c.getString(c.getColumnIndex(Message.COL_SENDERID)).matches(currentUserId) == false) {
+                } else if (!c.getString(c.getColumnIndex(Message.COL_SENDERID)).matches(currentUserId)) {
                     viewHolder.lblSenderName.setText(c.getString(c.getColumnIndex(Message.COL_SENDERNAME)));
                     viewHolder.lblMessageTime.setText(timeformatter.formatUnixtime(c.getString(c.getColumnIndex(Message.COL_TIME)), "hh:mm a"));
                     viewHolder.lblMessage.setText(c.getString(c.getColumnIndex(Message.COL_MESSAGE)));
                     viewHolder.lblMessage.setText(c.getString(c.getColumnIndex(Message.COL_MESSAGE)));
-                } else if (c.getString(c.getColumnIndex(Message.COL_SENDERID)).matches(currentUserId) == true) {
+                } else if (c.getString(c.getColumnIndex(Message.COL_SENDERID)).matches(currentUserId)) {
                     viewHolder.lblSenderName.setText(c.getString(c.getColumnIndex(Message.COL_SENDERNAME)));
                     viewHolder.lblMessageTime.setText(timeformatter.formatUnixtime(c.getString(c.getColumnIndex(Message.COL_TIME)), "hh:mm a"));
                     viewHolder.lblMessage.setText(c.getString(c.getColumnIndex(Message.COL_MESSAGE)));
@@ -428,6 +416,7 @@ public class MessagesAdapter extends SimpleCursorAdapter {
                 });
             }
         }
+
         return convertView;
     }
 
