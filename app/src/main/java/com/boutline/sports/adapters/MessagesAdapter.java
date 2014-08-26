@@ -29,12 +29,12 @@ import com.boutline.sports.models.Tweet;
 import com.mixpanel.android.mpmetrics.MixpanelAPI;
 
 public class MessagesAdapter extends SimpleCursorAdapter {
-    
 
-	public String fontPath = "fonts/proxinova.ttf";
-	public Typeface tf;
-	public String boldFontPath = "fonts/proxinovabold.otf";
-	public Typeface btf;
+
+    public String fontPath = "fonts/proxinova.ttf";
+    public Typeface tf;
+    public String boldFontPath = "fonts/proxinovabold.otf";
+    public Typeface btf;
     SharedPreferences preferences;
     Context context;
     BoutDBHelper dbHelper;
@@ -44,14 +44,15 @@ public class MessagesAdapter extends SimpleCursorAdapter {
 
 
     String lastDate = "";
+
     public MessagesAdapter(Context context, int layout, Cursor c, String[] from, int[] to, int flags) {
         super(context, layout, c, from, to, flags);
         this.context = context;
         mayday = new Mayday(context);
-        mixpanel= MixpanelAPI.getInstance(context, Constants.MIXPANEL_TOKEN);
+        mixpanel = MixpanelAPI.getInstance(context, Constants.MIXPANEL_TOKEN);
         preferences = context.getSharedPreferences("boutlineData",
                 Context.MODE_PRIVATE);
-        String userId = preferences.getString("boutlineUserId","");
+        String userId = preferences.getString("boutlineUserId", "");
         mixpanel.identify(userId);
 
     }
@@ -78,29 +79,37 @@ public class MessagesAdapter extends SimpleCursorAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-    	//Set up fonts
+        //Set up fonts
 
         preferences = context.getSharedPreferences("boutlineData", Context.MODE_PRIVATE);
+
         String currentUserId = preferences.getString("boutlineUserId",null);
         FormateTime timeformatter = new FormateTime();
         Cursor c = getCursor();
-        if(c.moveToPosition(position)) {
+
+        if (c.moveToPosition(position)) {
             tf = Typeface.createFromAsset(context.getAssets(), fontPath);
             btf = Typeface.createFromAsset(context.getAssets(), boldFontPath);
 
-           // Get the data item for this position
-           String botId = "bouty";
+            // Get the data item for this position
 
-           // Check if an existing view is being reused, otherwise inflate the view
+
+            String botId = "bouty";
+
+
             ViewHolder viewHolder; // view lookup cache stored in tag
             if (convertView == null) {
                 viewHolder = new ViewHolder();
                 LayoutInflater inflater = LayoutInflater.from(context);
-                Log.d("Message",c.getString(c.getColumnIndex(Message.COL_MESSAGE))+"");
-                if(c.getType(c.getColumnIndex(Message.COL_MESSAGE))!=0) {
+
+                Log.d("Message", c.getString(c.getColumnIndex(Message.COL_MESSAGE)) + "");
+
+                if (c.getType(c.getColumnIndex(Message.COL_MESSAGE)) != 0) {
+
                     String cursorUnixtime = c.getString(c.getColumnIndex(Message.COL_TIME));
-                    Log.d("Unixtime",cursorUnixtime);
-                    String cursorDate = timeformatter.formatUnixtime(cursorUnixtime,"dd MMM");
+                    Log.d("Unixtime", cursorUnixtime);
+                    String cursorDate = timeformatter.formatUnixtime(cursorUnixtime, "dd MMM");
+
                     if (c.getString(c.getColumnIndex(Message.COL_SENDERID)).matches(botId)) {
                         convertView = inflater.inflate(R.layout.item_botmessage, parent, false);
                     } else if (!c.getString(c.getColumnIndex(Message.COL_SENDERID)).matches(currentUserId)) {
@@ -109,13 +118,13 @@ public class MessagesAdapter extends SimpleCursorAdapter {
                         AQuery aq = new AQuery(context);
                         ImageOptions options = new ImageOptions();
                         options.round = 50;
-                        options.memCache=true;
-                        options.fileCache=true;
-                        options.targetWidth=50;
+                        options.memCache = true;
+                        options.fileCache = true;
+                        options.targetWidth = 50;
                         options.fallback = R.drawable.anon;
 
                         String image_url = c.getString(c.getColumnIndex(Message.COL_USERPICURL));
-                        aq.id(viewHolder.imgProPic).image(image_url,options);
+                        aq.id(viewHolder.imgProPic).image(image_url, options);
                         viewHolder.lblSenderName = (TextView) convertView.findViewById(R.id.lblSenderName);
                         viewHolder.lblMessageTime = (TextView) convertView.findViewById(R.id.lblMessageTime);
                         viewHolder.lblConjunction = (TextView) convertView.findViewById(R.id.lblConjunction);
@@ -138,13 +147,13 @@ public class MessagesAdapter extends SimpleCursorAdapter {
                         AQuery aq = new AQuery(context);
                         ImageOptions options = new ImageOptions();
                         options.round = 50;
-                        options.memCache=true;
-                        options.fileCache=true;
-                        options.targetWidth=50;
+                        options.memCache = true;
+                        options.fileCache = true;
+                        options.targetWidth = 50;
                         options.fallback = R.drawable.anon;
 
                         String image_url = c.getString(c.getColumnIndex(Message.COL_USERPICURL));
-                        aq.id(viewHolder.imgProPic).image(image_url,options);
+                        aq.id(viewHolder.imgProPic).image(image_url, options);
                         viewHolder.lblSenderName = (TextView) convertView.findViewById(R.id.lblSenderName);
                         viewHolder.lblMessageTime = (TextView) convertView.findViewById(R.id.lblMessageTime);
                         viewHolder.lblConjunction = (TextView) convertView.findViewById(R.id.lblConjunction);
@@ -163,8 +172,8 @@ public class MessagesAdapter extends SimpleCursorAdapter {
                             lastDate = cursorDate;
                         }
                     }
-                }
-                else if(c.getType(c.getColumnIndex(Tweet.COL_Tweet))!=0) {
+                } else if (c.getType(c.getColumnIndex(Tweet.COL_Tweet)) != 0) {
+
 
                     Log.d("Tweet ConvertView","ConvertView");
                     convertView = inflater.inflate(R.layout.item_tweet, parent, false);
@@ -185,10 +194,10 @@ public class MessagesAdapter extends SimpleCursorAdapter {
                 viewHolder = (ViewHolder) convertView.getTag();
                 LayoutInflater inflater = LayoutInflater.from(context);
 
-                if(c.getType(c.getColumnIndex(Message.COL_MESSAGE))!=0) {
+                if (c.getType(c.getColumnIndex(Message.COL_MESSAGE)) != 0) {
 
                     String cursorUnixtime = c.getString(c.getColumnIndex(Message.COL_TIME));
-                    String cursorDate = timeformatter.formatUnixtime(cursorUnixtime,"dd MMM");
+                    String cursorDate = timeformatter.formatUnixtime(cursorUnixtime, "dd MMM");
 
 
                     if (c.getString(c.getColumnIndex(Message.COL_SENDERID)).matches(botId)) {
@@ -200,13 +209,13 @@ public class MessagesAdapter extends SimpleCursorAdapter {
                         AQuery aq = new AQuery(context);
                         ImageOptions options = new ImageOptions();
                         options.round = 50;
-                        options.memCache=true;
-                        options.fileCache=true;
-                        options.targetWidth=200;
+                        options.memCache = true;
+                        options.fileCache = true;
+                        options.targetWidth = 200;
                         options.fallback = R.drawable.anon;
 
                         String image_url = c.getString(c.getColumnIndex(Message.COL_USERPICURL));
-                        aq.id(viewHolder.imgProPic).image(image_url,options);
+                        aq.id(viewHolder.imgProPic).image(image_url, options);
 
                         viewHolder.lblSenderName = (TextView) convertView.findViewById(R.id.lblSenderName);
                         viewHolder.lblMessageTime = (TextView) convertView.findViewById(R.id.lblMessageTime);
@@ -234,13 +243,13 @@ public class MessagesAdapter extends SimpleCursorAdapter {
                         AQuery aq = new AQuery(context);
                         ImageOptions options = new ImageOptions();
                         options.round = 50;
-                        options.memCache=true;
-                        options.fileCache=true;
-                        options.targetWidth=200;
+                        options.memCache = true;
+                        options.fileCache = true;
+                        options.targetWidth = 200;
                         options.fallback = R.drawable.anon;
 
                         String image_url = c.getString(c.getColumnIndex(Message.COL_USERPICURL));
-                        aq.id(viewHolder.imgProPic).image(image_url,options);
+                        aq.id(viewHolder.imgProPic).image(image_url, options);
                         viewHolder.lblSenderName = (TextView) convertView.findViewById(R.id.lblSenderName);
                         viewHolder.lblMessageTime = (TextView) convertView.findViewById(R.id.lblMessageTime);
                         viewHolder.lblConjunction = (TextView) convertView.findViewById(R.id.lblConjunction);
@@ -259,8 +268,7 @@ public class MessagesAdapter extends SimpleCursorAdapter {
                             lastDate = cursorDate;
                         }
                     }
-                }
-                else if(c.getType(c.getColumnIndex(Tweet.COL_Tweet))!=0) {
+                } else if (c.getType(c.getColumnIndex(Tweet.COL_Tweet)) != 0) {
 
                     convertView = inflater.inflate(R.layout.item_tweet, parent, false);
                     viewHolder.tweetContainer = (RelativeLayout) convertView.findViewById(R.id.tweetContainer);
@@ -279,10 +287,10 @@ public class MessagesAdapter extends SimpleCursorAdapter {
             }
 
             // Populate the data into the template view using the data object
-            if(c.getType(c.getColumnIndex(Message.COL_MESSAGE))!=0) {
+            if (c.getType(c.getColumnIndex(Message.COL_MESSAGE)) != 0) {
 
                 String cursorUnixtime = c.getString(c.getColumnIndex(Message.COL_TIME));
-                String cursorDate = timeformatter.formatUnixtime(cursorUnixtime,"dd MMM");
+                String cursorDate = timeformatter.formatUnixtime(cursorUnixtime, "dd MMM");
 
                 if (c.getString(c.getColumnIndex(Message.COL_SENDERID)).matches(botId)) {
 
@@ -298,8 +306,7 @@ public class MessagesAdapter extends SimpleCursorAdapter {
                 }
 
                 // Return the completed view to render on screen
-            }
-            else if(c.getType(c.getColumnIndex(Tweet.COL_Tweet))!=0) {
+            } else if (c.getType(c.getColumnIndex(Tweet.COL_Tweet)) != 0) {
 
                 final String mDocId = c.getString(c.getColumnIndex("_id"));
                 // Populate the data into the template view using the data object
@@ -327,36 +334,29 @@ public class MessagesAdapter extends SimpleCursorAdapter {
                 viewHolder.lblTweetTime.setTypeface(tf);
                 viewHolder.lblTweetMessage.setTypeface(tf);
 
-                if(c.getInt(c.getColumnIndex("user_retweeted"))==1)
-                {
+                if (c.getInt(c.getColumnIndex("user_retweeted")) == 1) {
                     viewHolder.retweet.setImageResource(R.drawable.retweeted);
 
-                }
-                else
-                {
+                } else {
                     viewHolder.retweet.setImageResource(R.drawable.retweet);
 
                 }
-                if(c.getInt(c.getColumnIndex("user_favorited"))==1)
-                {
+                if (c.getInt(c.getColumnIndex("user_favorited")) == 1) {
                     viewHolder.favorite.setImageResource(R.drawable.favorited);
-                }
-                else
-                {
+                } else {
                     viewHolder.favorite.setImageResource(R.drawable.favorite);
                 }
 
-                final String media_url=c.getString(c.getColumnIndex("media_url"));
+                final String media_url = c.getString(c.getColumnIndex("media_url"));
 
                 if (media_url.matches("")) {
                     viewHolder.imgTweetImage.setVisibility(View.GONE);
                 } else {
                     viewHolder.imgTweetImage.setVisibility(View.VISIBLE);
                     options = new ImageOptions();
-                    String  tweet_image_url = c.getString(c.getColumnIndex("media_url"));
-                    aq.id(viewHolder.imgTweetImage).image(tweet_image_url, true,true,500,0);
+                    String tweet_image_url = c.getString(c.getColumnIndex("media_url"));
+                    aq.id(viewHolder.imgTweetImage).image(tweet_image_url, true, true, 500, 0);
                 }
-
 
 
                 viewHolder.favorite.setOnClickListener(new View.OnClickListener() {
@@ -364,7 +364,7 @@ public class MessagesAdapter extends SimpleCursorAdapter {
                     public void onClick(View view) {
 
                         if (mayday.hasTwitterCredentials()) {
-                            mixpanel.track("Status Favorited",Constants.info);
+                            mixpanel.track("Status Favorited", Constants.info);
 
                             favortite(status_id, mDocId);
 
@@ -382,8 +382,8 @@ public class MessagesAdapter extends SimpleCursorAdapter {
 
 
                         if (mayday.hasTwitterCredentials()) {
-                            if(mixpanel!=null)
-                                mixpanel.track("Status Retweeted",Constants.info);
+                            if (mixpanel != null)
+                                mixpanel.track("Status Retweeted", Constants.info);
 
                             retweet(status_id, mDocId);
 
@@ -395,20 +395,20 @@ public class MessagesAdapter extends SimpleCursorAdapter {
                 });
 
 
-                viewHolder.reply.setOnClickListener(new View.OnClickListener(){
+                viewHolder.reply.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        if(mixpanel!=null)
-                        mixpanel.track("Status Replied",Constants.info);
+                        if (mixpanel != null)
+                            mixpanel.track("Status Replied", Constants.info);
 
                         Intent intent = new Intent(context, ComposeTweetActivity.class);
 
-                        intent.putExtra("replyToTweetStatusId",status_id);
-                        intent.putExtra("replyToUserProPicUrl",image_url);
-                        intent.putExtra("replyToUserFullname",userFullname);
-                        intent.putExtra("replyToUserHandle",userHanlde);
-                        intent.putExtra("replyToTweet",tweet);
-                        intent.putExtra("replyToTweetImage",media_url);
+                        intent.putExtra("replyToTweetStatusId", status_id);
+                        intent.putExtra("replyToUserProPicUrl", image_url);
+                        intent.putExtra("replyToUserFullname", userFullname);
+                        intent.putExtra("replyToUserHandle", userHanlde);
+                        intent.putExtra("replyToTweet", tweet);
+                        intent.putExtra("replyToTweetImage", media_url);
                         context.startActivity(intent);
 
 
@@ -418,27 +418,24 @@ public class MessagesAdapter extends SimpleCursorAdapter {
         }
 
         return convertView;
-   }
+    }
 
-    public void retweet(String statusId,String mDocId)
-    {
+    public void retweet(String statusId, String mDocId) {
 
 
         Long tweet_status_id = Long.parseLong(statusId);
-        dbHelper.getInstance(context).putRetweet(mDocId,mayday.getTwitterAccessToken(),mayday.getTwitterAccessTokenSecret(),tweet_status_id);
+        dbHelper.getInstance(context).putRetweet(mDocId, mayday.getTwitterAccessToken(), mayday.getTwitterAccessTokenSecret(), tweet_status_id);
     }
 
-    public void favortite(String statusId,String mDocId)
-    {
+    public void favortite(String statusId, String mDocId) {
 
 
         Long tweet_status_id = Long.parseLong(statusId);
-        dbHelper.getInstance(context).putFavorite(mDocId, mayday.getTwitterAccessToken(), mayday.getTwitterAccessTokenSecret(),tweet_status_id);
+        dbHelper.getInstance(context).putFavorite(mDocId, mayday.getTwitterAccessToken(), mayday.getTwitterAccessTokenSecret(), tweet_status_id);
 
     }
 
-    public void reply(String statusId,String handle, String message)
-    {
+    public void reply(String statusId, String handle, String message) {
 
     }
 }

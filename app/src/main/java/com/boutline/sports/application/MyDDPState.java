@@ -2,6 +2,7 @@ package com.boutline.sports.application;
 
 import com.boutline.sports.database.BoutDBHelper;
 import com.boutline.sports.database.SQLController;
+import com.boutline.sports.helpers.FormateTime;
 import com.boutline.sports.jobs.Connect;
 import com.boutline.sports.jobs.CreateBanter;
 import com.boutline.sports.jobs.ImageUpload;
@@ -20,8 +21,10 @@ import com.boutline.sports.models.Message;
 import com.boutline.sports.models.MessageParameter;
 import com.boutline.sports.models.MeteorUser;
 import com.boutline.sports.models.Profile;
+import com.boutline.sports.models.Query;
 import com.boutline.sports.models.Sport;
 
+import com.boutline.sports.models.Team;
 import com.boutline.sports.models.Tournament;
 import com.boutline.sports.models.Tweet;
 import com.google.gson.Gson;
@@ -45,6 +48,8 @@ import java.net.URISyntaxException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Observable;
+import java.util.UUID;
+import java.util.regex.Pattern;
 
 import de.greenrobot.event.EventBus;
 
@@ -93,11 +98,11 @@ public class MyDDPState extends DDPStateSingleton {
     @Override
     public void createDDPCLient()
     {
-       String sMeteorServer = "boutrep0.cloudapp.net";
-       Integer sMeteorPort = 80;
+      // String sMeteorServer = "boutrep0.cloudapp.net";
+       //Integer sMeteorPort = 80;
 
-       // String sMeteorServer = "192.168.1.3";
-        //Integer sMeteorPort = 3000;
+      String sMeteorServer = "192.168.1.5";
+      Integer sMeteorPort = 3000;
 
         try {
 
@@ -181,6 +186,84 @@ public class MyDDPState extends DDPStateSingleton {
 
     }
 
+
+    public void BoutQuery(String methodName,Object[] parameters)
+    {
+
+        Log.e("I was called","called");
+
+        mDDP.call(methodName, parameters, new DDPListener() {
+
+
+            @Override
+            public void onResult(Map<String, Object> resultFields) {
+
+                Log.d("RESPONSE", resultFields.toString());
+                super.onResult(resultFields);
+                if (resultFields.containsKey("result")) {
+
+
+                String response = resultFields.get("result").toString();
+
+                Log.e("Response from BoutBot is",response);
+
+
+                        while (response.contains("convertUnixtime(") == true) {
+                            if (response.contains("convertUnixtime(")) {
+                                String[] words = response.split(Pattern.quote("convertUnixtime("));
+                                if(words.length>1) {
+                                    words[1] = words[1].replace(")", "");
+                                    words[1] = words[1].replaceAll("[^0-9]","");
+                                    Log.e("unxitime", words[1]);
+                                    FormateTime formateTime = new FormateTime();
+                                    String formattedTime = formateTime.formatUnixtime(words[1], "dd MMM yyyy, hh:mm a");
+                                    response = response.replace("convertUnixtime(" + words[1] + ")", formattedTime);
+                                    Log.e("RESPONSE", response);
+                                }
+                            }
+                        }
+
+                    if(response.contains("\"type\":\"reminder\""))
+                    {
+                        response = "Sure , i will remind you";
+                    }
+
+
+                    UUID uniqueKey = UUID.randomUUID();
+                    String mDocId = "bot"+uniqueKey.toString();
+                    final long unixTime = (System.currentTimeMillis() / 1000L);
+
+                    Map<String,Object> fields = new HashMap<String, Object>();
+                    fields.put("name","Bout Bot");
+                    fields.put("message",response);
+                    fields.put("banterId","Q83GjTwRCk4FNTSEJ");
+                    fields.put("userPicUrl","http://i1294.photobucket.com/albums/b615/jamesfebin/pasted_image_at_2014_08_21_03_42_pm_zps1a09f96b.png");
+                    fields.put("sender","BotId");
+                    fields.put("time",unixTime);
+                    Message message = new Message(mDocId,fields);
+                    dbHelper.getInstance(mContext).putMessage(message,"");
+
+
+                    Object[] parameters = new Object[3];
+                    parameters[0] = "Q83GjTwRCk4FNTSEJ";
+                    parameters[1] = response;
+                    parameters[2] = mDocId;
+                    jobManager.addJobInBackground(new SendMessage(parameters));
+
+
+                }
+
+
+            }
+
+
+        });
+
+
+
+
+
+    }
 
     public DDPSTATE getDDPState()
     {
@@ -980,7 +1063,49 @@ public class MyDDPState extends DDPStateSingleton {
 
 
         try {
-            if (collectionName.equals("sports")) {
+
+            if(collectionName.equals("teams"))
+            {
+                if (changetype.equals(DdpMessageType.ADDED)) {
+
+                    Team team = new Team(docId,getCollection(collectionName).get(docId));
+
+
+                    dbHelper.getInstance(mContext).putTeam(team);
+
+                } else if (changetype.equals(DdpMessageType.REMOVED)) {
+
+
+                } else if (changetype.equals(DdpMessageType.UPDATED)) {
+
+                    Team team = new Team(docId,getCollection(collectionName).get(docId));
+                    dbHelper.getInstance(mContext).putTeam(team);
+
+                }
+
+            }
+
+            else if(collectionName.equals("queries")){
+
+
+                if (changetype.equals(DdpMessageType.ADDED)) {
+
+                    Query query = new Query(docId,getCollection(collectionName).get(docId));
+
+
+                    dbHelper.getInstance(mContext).putQuery(query);
+
+                } else if (changetype.equals(DdpMessageType.REMOVED)) {
+
+
+                } else if (changetype.equals(DdpMessageType.UPDATED)) {
+
+                    Query query = new Query(docId,getCollection(collectionName).get(docId));
+                    dbHelper.getInstance(mContext).putQuery(query);
+
+                }
+            }
+            else if (collectionName.equals("sports")) {
 
                 if (changetype.equals(DdpMessageType.ADDED)) {
 
