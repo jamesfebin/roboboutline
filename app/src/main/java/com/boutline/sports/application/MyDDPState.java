@@ -98,11 +98,11 @@ public class MyDDPState extends DDPStateSingleton {
     @Override
     public void createDDPCLient()
     {
-       //String sMeteorServer = "boutrep0.cloudapp.net";
+      // String sMeteorServer = "boutrep0.cloudapp.net";
        //Integer sMeteorPort = 80;
 
-       String sMeteorServer = "192.168.1.5";
-        Integer sMeteorPort = 3000;
+      String sMeteorServer = "192.168.1.5";
+      Integer sMeteorPort = 3000;
 
         try {
 
@@ -231,7 +231,8 @@ public class MyDDPState extends DDPStateSingleton {
 
                     UUID uniqueKey = UUID.randomUUID();
                     String mDocId = "bot"+uniqueKey.toString();
-                    final long unixTime = System.currentTimeMillis() / 1000L;
+                    final long unixTime = (System.currentTimeMillis() / 1000L);
+
                     Map<String,Object> fields = new HashMap<String, Object>();
                     fields.put("name","Bout Bot");
                     fields.put("message",response);
@@ -241,6 +242,14 @@ public class MyDDPState extends DDPStateSingleton {
                     fields.put("time",unixTime);
                     Message message = new Message(mDocId,fields);
                     dbHelper.getInstance(mContext).putMessage(message,"");
+
+
+                    Object[] parameters = new Object[3];
+                    parameters[0] = "Q83GjTwRCk4FNTSEJ";
+                    parameters[1] = response;
+                    parameters[2] = mDocId;
+                    jobManager.addJobInBackground(new SendMessage(parameters));
+
 
                 }
 

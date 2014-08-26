@@ -312,11 +312,12 @@ public class ConversationActivity extends Activity implements LoaderManager.Load
         {
 
             String[] QueryResult =   result.split(";");
-            String query_id = QueryResult[0];
-            String parameterQuery = QueryResult[1];
-            Log.e("CALLING ","CALLED");
-            dbHelper.getInstance(getApplicationContext()).sendStructuredQuery(query_id,parameterQuery);
-
+            if(QueryResult.length>1) {
+                String query_id = QueryResult[0];
+                String parameterQuery = QueryResult[1];
+                Log.e("CALLING ", "CALLED");
+                dbHelper.getInstance(getApplicationContext()).sendStructuredQuery(query_id, parameterQuery);
+            }
         }
 
 
