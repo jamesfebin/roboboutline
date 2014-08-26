@@ -65,7 +65,7 @@
         android:id="@+id/lblWalkthrough0"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:text="@string/welcomemessage"
+        android:text="@string/walkthrough0"
         android:layout_above="@id/swiper"
         android:textSize="16sp"
         android:gravity="center_horizontal"
@@ -78,10 +78,10 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_above="@id/lblWalkthrough0"
-        android:text="@string/sayhello"
+        android:text="@string/meetbo"
         android:textSize="24sp"
         android:textStyle="bold"
-        android:textColor="#111111"
+        android:textColor="@color/blue"
         android:gravity="center_horizontal"
         android:paddingTop="15dp"/>
 
@@ -96,14 +96,11 @@
         android:layout_above="@id/hdrWalkthrough0">
         <ImageView
             android:id="@+id/imgWalkthrough0"
-            android:layout_width="wrap_content"
+            android:layout_width="230dp"
             android:layout_height="wrap_content"
-            android:src="@drawable/grayscalelogo"
+            android:src="@drawable/bluebot"
             android:contentDescription="@string/app_name"
-            android:scaleType="centerCrop"/>
+            android:scaleType="centerInside"/>
     </LinearLayout>
-
-
-
 
 </RelativeLayout>

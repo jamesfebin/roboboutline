@@ -135,9 +135,7 @@ public class MainActivity extends Activity {
                 }*/
                 if(email == null)
                 {
-
-
-                    Intent mainIntent = new Intent(MainActivity.this, LoginActivity.class);
+                    Intent mainIntent = new Intent(MainActivity.this, Walkthrough0.class);
                     startActivity(mainIntent);
                     overridePendingTransition(R.anim.pushleftin, R.anim.pushleftout);
                     finish();

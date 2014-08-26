@@ -130,6 +130,8 @@ public class SettingsActivity extends Activity implements ImageChooserListener {
                 jobManager = MyApplication.getInstance().getJobManager();
                 jobManager.addJobInBackground(new updateUserProfile());
                 finish();
+                overridePendingTransition(R.anim.pushrightin, R.anim.pushrightout);
+
             }
         });
     }

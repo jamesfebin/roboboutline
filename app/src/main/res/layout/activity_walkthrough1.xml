@@ -65,17 +65,17 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_above="@id/lblWalkthrough1"
-        android:text="@string/board"
+        android:text="@string/theoracle"
         android:textSize="24sp"
         android:textStyle="bold"
-        android:textColor="#111111"
+        android:textColor="@color/blue"
         android:gravity="center_horizontal"
         android:paddingTop="15dp"/>
     <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:background="#CCCCCC"
+        android:background="@drawable/ab_solid_bostyle"
         android:layout_above="@id/hdrWalkthrough1">
         <ImageView
             android:id="@+id/imgWalkthrough1"

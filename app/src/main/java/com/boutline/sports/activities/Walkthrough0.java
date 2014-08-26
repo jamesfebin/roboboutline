@@ -28,9 +28,9 @@ import com.boutline.sports.helpers.OnSwipeTouchListener;
 
 public class Walkthrough0 extends Activity {
 
-	public String fontPath = "fonts/sharp.ttf";
+	public String fontPath = "fonts/proxinova.ttf";
 	public Typeface tf;
-	public String boldFontPath = "fonts/sharpsemibold.ttf";
+	public String boldFontPath = "fonts/proxinovabold.otf";
 	public Typeface btf;
 	
 	@Override
@@ -58,12 +58,10 @@ public class Walkthrough0 extends Activity {
 
         // Animations
 
-
-        Animation walkthroughAnim = AnimationUtils.loadAnimation(this, R.anim.fadein);
-        walkthroughAnim.setDuration(1000);
-        walkthroughAnim.setRepeatCount(1);
-        walkthroughAnim.setRepeatMode(1);
+        Animation walkthroughAnim = AnimationUtils.loadAnimation(this, R.anim.hovering);
+        walkthroughAnim.setZAdjustment(1);
         imgWalkthrough0.startAnimation(walkthroughAnim);
+
 
         Animation walkthroughAnim2 = AnimationUtils.loadAnimation(this, R.anim.fadein);
         walkthroughAnim2.setDuration(500);

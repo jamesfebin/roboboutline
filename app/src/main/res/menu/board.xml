@@ -15,11 +15,11 @@
         android:id="@+id/banter"
         android:icon="@drawable/ic_banter"
         android:showAsAction="ifRoom"
-        android:title="@string/banter"/>
+        android:title="@string/dummy"/>
      <item
         android:id="@+id/playpause"
         android:icon="@drawable/ic_pause"
         android:showAsAction="ifRoom"
-        android:title="@string/board"/>
+        android:title="@string/dummy"/>
 
 </menu>
