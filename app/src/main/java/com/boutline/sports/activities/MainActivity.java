@@ -67,6 +67,11 @@ public class MainActivity extends Activity {
 		mProgressBar.setVisibility(View.VISIBLE);
 		mProgressBar.progressiveStart();
 		getActionBar().hide();
+        ImageView bobotsmall = (ImageView) findViewById(R.id.bobotsmall);
+
+        Animation walkthroughAnim = AnimationUtils.loadAnimation(this, R.anim.hovering);
+        walkthroughAnim.setZAdjustment(1);
+        bobotsmall.startAnimation(walkthroughAnim);
 
     }
 

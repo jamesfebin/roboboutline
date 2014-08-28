@@ -5,9 +5,10 @@
     android:layout_height="match_parent"
     tools:context="com.boutline.sports.activities.MainActivity"
     tools:ignore="MergeRootFrame"
-    android:background="@color/white">
+    android:background="@drawable/citybg">
 
     <ImageView
+        android:id="@+id/bobotsmall"
         android:layout_width="96dp"
         android:layout_height="96dp"
         android:layout_centerHorizontal="true"

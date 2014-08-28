@@ -66,7 +66,7 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_above="@id/lblWalkthrough2"
-        android:text="@string/inbeta"
+        android:text="@string/yourwingman"
         android:textSize="24sp"
         android:textStyle="bold"
         android:textColor="@color/blue"
@@ -76,18 +76,18 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:background="@drawable/ab_solid_bostyle"
-        android:layout_above="@id/hdrWalkthrough2">
+        android:background="@color/white"
+        android:layout_alignParentTop="true"
+        android:padding="25dp">
         <ImageView
             android:id="@+id/imgWalkthrough2"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:src="@drawable/iframe"
+            android:src="@drawable/walkthrough3"
             android:contentDescription="@string/walkthrough2"
-            android:scaleType="centerCrop"
-            android:paddingRight="50dp"
-            android:paddingTop="50dp"
-            android:paddingLeft="50dp"/>
+            android:scaleType="centerInside"
+            android:paddingRight="30dp"
+            android:paddingLeft="30dp"/>
     </LinearLayout>
 
 

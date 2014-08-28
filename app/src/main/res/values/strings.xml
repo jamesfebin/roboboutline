@@ -9,11 +9,11 @@
     <string name="logoutbtn">Logout from Boutline</string>
     <string name="walkthrough0">Your sports assistant who answers all your questions and keeps you updated about the world of sports.</string>
     <string name="walkthrough1">Bo knows everything about sports and keeps track of your friends\' and your interests. You can talk to him like you talk to a friend.</string>
-    <string name="walkthrough2">You can ask him questions related to the English Premier League\'s schedule. Go ahead to see how helpful he can be. </string>
+    <string name="walkthrough2">You can talk to Bo like you chat with your friends. In beta, You can ask him questions related to the EPL\'s schedule.  </string>
     <string name="walkthrough3">Don\'t forget to give suggestions and feedback. To give feedback, all you need to do is shake your phone.</string>
     <string name="meetbo">Meet Bo</string>
     <string name="theoracle">The Oracle</string>
-    <string name="inbeta">In Beta</string>
+    <string name="yourwingman">Your Wingman</string>
     <string name="talktous">Talk to us</string>
     <string name="football">Football</string>
     <string name="footballSubber">World Cup, EPL, Champions League etc.</string>

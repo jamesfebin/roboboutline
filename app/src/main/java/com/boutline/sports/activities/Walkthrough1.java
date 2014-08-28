@@ -63,7 +63,7 @@ public class Walkthrough1 extends Activity implements OnTouchListener {
 		// Animations
 
         ImageView imgWalkthrough1 = (ImageView) findViewById(R.id.imgWalkthrough1);
-        Animation walkthroughAnim = AnimationUtils.loadAnimation(this, R.anim.walkthroughanim);
+        Animation walkthroughAnim = AnimationUtils.loadAnimation(this, R.anim.fadein);
         walkthroughAnim.setDuration(1000);
         walkthroughAnim.setRepeatCount(1);
         walkthroughAnim.setRepeatMode(1);

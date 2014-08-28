@@ -10,14 +10,19 @@ import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v4.content.LocalBroadcastManager;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.boutline.sports.R;
 import com.boutline.sports.application.Constants;
 import com.boutline.sports.application.MyDDPState;
+import com.boutline.sports.helpers.OnSwipeTouchListener;
 import com.keysolutions.ddpclient.android.DDPBroadcastReceiver;
 import com.mixpanel.android.mpmetrics.MixpanelAPI;
 import com.path.android.jobqueue.JobManager;
@@ -48,6 +53,8 @@ public class LoginActivity extends Activity {
         TextView signup = (TextView) findViewById(R.id.lblSignup);
         TextView login = (TextView) findViewById(R.id.lblLogin);
         TextView problems = (TextView) findViewById(R.id.problems);
+        ImageView logo = (ImageView) findViewById(R.id.logo);
+        RelativeLayout container = (RelativeLayout) findViewById(R.id.container);
 
         //Set up fonts
         tf = Typeface.createFromAsset(getAssets(), fontPath);
@@ -58,6 +65,19 @@ public class LoginActivity extends Activity {
         problems.setTypeface(tf);
         login.setTypeface(tf);
         boutline.setTypeface(btf);
+
+        Animation walkthroughAnim = AnimationUtils.loadAnimation(this, R.anim.hovering);
+        walkthroughAnim.setZAdjustment(1);
+        logo.startAnimation(walkthroughAnim);
+
+        container.setOnTouchListener(new OnSwipeTouchListener(LoginActivity.this) {
+            @Override
+            public void onSwipeLeft() {  }
+            @Override
+            public void onSwipeRight() {
+                goToPrev();
+            }
+        });
 
         signup.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -100,11 +120,16 @@ public class LoginActivity extends Activity {
 
     @Override
     protected void onDestroy() {
-
         if(mixpanel!=null)
             mixpanel.flush();
         super.onDestroy();
+    }
 
+    protected void goToPrev(){
+        Intent mainIntent = new Intent(LoginActivity.this,Walkthrough3.class);
+        startActivity(mainIntent);
+        finish();
+        overridePendingTransition(R.anim.pushrightin, R.anim.pushrightout);
     }
 
 

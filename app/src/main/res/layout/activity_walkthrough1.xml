@@ -75,18 +75,16 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:background="@drawable/ab_solid_bostyle"
-        android:layout_above="@id/hdrWalkthrough1">
+        android:background="@color/white"
+        android:layout_alignParentTop="true"
+        android:paddingTop="45dp">
         <ImageView
             android:id="@+id/imgWalkthrough1"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:src="@drawable/iframe"
+            android:src="@drawable/wtoracle"
             android:contentDescription="@string/walkthrough1"
-            android:scaleType="centerCrop"
-            android:paddingRight="50dp"
-            android:paddingTop="50dp"
-            android:paddingLeft="50dp"/>
+            android:scaleType="centerInside"/>
     </LinearLayout>
 
 

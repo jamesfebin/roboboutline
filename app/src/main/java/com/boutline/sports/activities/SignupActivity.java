@@ -23,8 +23,11 @@ import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v4.content.LocalBroadcastManager;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 import com.keysolutions.ddpclient.android.DDPBroadcastReceiver;
@@ -54,6 +57,7 @@ public class SignupActivity extends Activity {
         final EditText passwordEditText = (EditText) findViewById(R.id.txtSignupPassword);
         final EditText emailEditText = (EditText) findViewById(R.id.txtSignupEmailId);
         ImageButton signup = (ImageButton) findViewById(R.id.SignupBtn);
+        ImageView logo = (ImageView) findViewById(R.id.logo);
         progress = new ProgressDialog(this);
 
         //Set up fonts
@@ -69,6 +73,10 @@ public class SignupActivity extends Activity {
         usernameEditText.setText("jamesfebin");
         passwordEditText.setText("fbnonae()");
         emailEditText.setText("jamesfebin@gmail.com");
+
+        Animation walkthroughAnim = AnimationUtils.loadAnimation(this, R.anim.hovering);
+        walkthroughAnim.setZAdjustment(1);
+        logo.startAnimation(walkthroughAnim);
 
         login.setOnClickListener( new View.OnClickListener() {
             @Override
