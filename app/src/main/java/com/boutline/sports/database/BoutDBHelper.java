@@ -642,13 +642,15 @@ public class BoutDBHelper extends SQLiteOpenHelper {
                     String tag_raw = tags_array[i];
                     String[] key_value = tag_raw.split("=");
 
-                    String key = key_value[0];
-                    String tag = key_value[1];
-                    key = key.replaceAll(" ", "");
-                    if (key.matches("name")) {
+                    if(key_value.length>1) {
+                        String key = key_value[0];
+                        String tag = key_value[1];
+                        key = key.replaceAll(" ", "");
+                        if (key.matches("name")) {
 
-                        db.execSQL("INSERT INTO TAGS (name,query_id ) VALUES (\"" + tag + "\",\"" + query.mDocId + "\")");
+                            db.execSQL("INSERT INTO TAGS (name,query_id ) VALUES (\"" + tag + "\",\"" + query.mDocId + "\")");
 
+                        }
                     }
 
                 }
@@ -847,13 +849,15 @@ public class BoutDBHelper extends SQLiteOpenHelper {
         return result;
     }
 
-    public void sendStructuredQuery(String query_id,String parameters_raw)
+    public void sendStructuredQuery(String query_id,String parameters_raw,String originalQuery)
     {
 
     try {
 
         ArrayList<String> parameterList = new ArrayList<String>();
         HashMap<String,String> arguments = new HashMap<String,String>();
+
+        arguments.put("originalQuery","originalQuery");
         String methodName = "";
         final SQLiteDatabase db = this.getWritableDatabase();
         Cursor c = db.rawQuery("SELECT * FROM Parameters WHERE query_id=\""+query_id+"\"",null);

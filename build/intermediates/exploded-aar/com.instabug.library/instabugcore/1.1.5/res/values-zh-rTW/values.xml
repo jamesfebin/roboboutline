@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- From: file:/Users/anawara/Development/Workspaces/InstabugAndroidStudio/Instabug/instabugcore/src/main/res/values-zh-rTW/strings.xml -->
+    <eat-comment />
+
+    <string-array name="report_options">
+        <item>報告問題</item>
+        <item>傳送意見</item>
+    </string-array>
+
+    <string name="bottommessage">意見功能技術提供：Instabug</string>
+    <string name="bugheader">報告問題</string>
+    <string name="cancelbutton">取消</string>
+    <string name="commentplaceholder">在這裡輸入您的意見⋯</string>
+    <string name="edgeswipestartalerttext">自邊緣撥動以傳送回饋意見</string>
+    <string name="emailplaceholder">輸入您的電子郵件位址⋯</string>
+    <string name="feedbackheader">傳送意見</string>
+    <string name="feedbacksentalerttext">謝謝您協助我們改善 InstabugApp！</string>
+    <string name="feedbacksentalerttitle">已傳送回饋意見</string>
+    <string name="invalidcommentalerttext">請輸入有效的評論意見</string>
+    <string name="invalidcommentalerttitle">無效的評論意見</string>
+    <string name="invalidemailalerttext">請輸入有效的電子郵件地址</string>
+    <string name="invalidemailalerttitle">無效的ˋ電子郵件地址</string>
+    <string name="pleasewait">請稍候</string>
+    <string name="screenshotstartalerttext">擷取螢幕畫面以傳送回饋意見</string>
+    <string name="shakestartalerttext">搖一搖以傳送回饋意見</string>
+    <string name="submitbutton">傳送</string>
+    <string name="tutorialalerttext">畫在螢幕擷取畫面然後添加文字</string>
+    <string name="twofingerswipestartalerttext">以兩隻手指撥動以傳送回饋意見</string>
+
+</resources>

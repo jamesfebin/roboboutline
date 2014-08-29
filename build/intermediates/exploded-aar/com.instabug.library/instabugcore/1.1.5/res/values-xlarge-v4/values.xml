@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- From: file:/Users/anawara/Development/Workspaces/InstabugAndroidStudio/Instabug/instabugcore/src/main/res/values-xlarge/values.xml -->
+    <eat-comment />
+
+    <bool name="isTablet">true</bool>
+
+</resources>

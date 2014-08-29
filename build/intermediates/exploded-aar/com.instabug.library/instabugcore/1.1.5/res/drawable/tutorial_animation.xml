@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<animation-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:drawable="@drawable/tutorial_1" android:duration="50"/>
+    <item android:drawable="@drawable/tutorial_2" android:duration="50"/>
+    <item android:drawable="@drawable/tutorial_3" android:duration="50"/>
+    <item android:drawable="@drawable/tutorial_4" android:duration="50"/>
+    <item android:drawable="@drawable/tutorial_5" android:duration="50"/>
+    <item android:drawable="@drawable/tutorial_6" android:duration="50"/>
+    <item android:drawable="@drawable/tutorial_7" android:duration="50"/>
+    <item android:drawable="@drawable/tutorial_8" android:duration="50"/>
+    <item android:drawable="@drawable/tutorial_9" android:duration="50"/>
+    <item android:drawable="@drawable/tutorial_10" android:duration="50"/>
+    <item android:drawable="@drawable/tutorial_11" android:duration="50"/>
+    <item android:drawable="@drawable/tutorial_12" android:duration="50"/>
+    <item android:drawable="@drawable/tutorial_13" android:duration="50"/>
+    <item android:drawable="@drawable/tutorial_14" android:duration="50"/>
+    <item android:drawable="@drawable/tutorial_15" android:duration="50"/>
+    <item android:drawable="@drawable/tutorial_16" android:duration="50"/>
+    <item android:drawable="@drawable/tutorial_17" android:duration="50"/>
+    <item android:drawable="@drawable/tutorial_18" android:duration="50"/>
+    <item android:drawable="@drawable/tutorial_19" android:duration="50"/>
+    <item android:drawable="@drawable/tutorial_20" android:duration="50"/>
+    <item android:drawable="@drawable/tutorial_21" android:duration="50"/>
+    <item android:drawable="@drawable/tutorial_22" android:duration="50"/>
+    <item android:drawable="@drawable/tutorial_23" android:duration="50"/>
+    <item android:drawable="@drawable/tutorial_1" android:duration="50"/>
+    <item android:drawable="@drawable/tutorial_1" android:duration="50"/>
+    <item android:drawable="@drawable/tutorial_1" android:duration="50"/>
+    <item android:drawable="@drawable/tutorial_1" android:duration="50"/>
+    <item android:drawable="@drawable/tutorial_1" android:duration="50"/>
+    <item android:drawable="@drawable/tutorial_1" android:duration="50"/>
+    <item android:drawable="@drawable/tutorial_1" android:duration="50"/>
+    <item android:drawable="@drawable/tutorial_1" android:duration="50"/>
+    <item android:drawable="@drawable/tutorial_1" android:duration="50"/>
+    <item android:drawable="@drawable/tutorial_1" android:duration="50"/>
+</animation-list><!-- From: file:/Users/anawara/Development/Workspaces/InstabugAndroidStudio/Instabug/instabugcore/src/main/res/drawable/tutorial_animation.xml -->

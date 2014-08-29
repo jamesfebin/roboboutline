@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- From: file:/Users/anawara/Development/Workspaces/InstabugAndroidStudio/Instabug/instabugcore/src/main/res/values-tr/strings.xml -->
+    <eat-comment />
+
+    <string-array name="report_options">
+        <item>Bir sorunu rapor</item>
+        <item>Geri Bildirim Gönder</item>
+    </string-array>
+
+    <string name="bottommessage">Instabug tarafından sağlanan geri bildirim</string>
+    <string name="bugheader">Bir sorunu rapor</string>
+    <string name="cancelbutton">İptal</string>
+    <string name="commentplaceholder">Geri bildiriminizi buraya yazın...</string>
+    <string name="edgeswipestartalerttext">Geri bildirim göndermek için kenardan çekin</string>
+    <string name="emailplaceholder">E-postanızı girin...</string>
+    <string name="feedbackheader">Geri Bildirim Gönder</string>
+    <string name="feedbacksentalerttext">InstabugApp\'ın geliştirilmesindeki yardımınız için teşekkür ederiz!</string>
+    <string name="feedbacksentalerttitle">Geri Bildirim Gönderildi</string>
+    <string name="invalidcommentalerttext">Lütfen geçerli bir yorum girin</string>
+    <string name="invalidcommentalerttitle">Geçersiz Yorum</string>
+    <string name="invalidemailalerttext">Lütfen geçerli bir e-posta girin</string>
+    <string name="invalidemailalerttitle">Geçersiz E-posta</string>
+    <string name="pleasewait">Lütfen bekleyiniz</string>
+    <string name="screenshotstartalerttext">Geri bildirim göndermek için ekran görüntüsü alın</string>
+    <string name="shakestartalerttext">Geri bildirim göndermek için sallayın</string>
+    <string name="submitbutton">Gönder</string>
+    <string name="tutorialalerttext">Ekran görüntüsünü çekin, ardından metin ekleyin</string>
+    <string name="twofingerswipestartalerttext">Geri bildirim göndermek için iki parmağınızla çekin</string>
+
+</resources>

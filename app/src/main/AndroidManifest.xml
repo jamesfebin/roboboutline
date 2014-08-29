@@ -10,6 +10,9 @@
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
+    <uses-permission android:name="com.android.alarm.permission.SET_ALARM"/>
+
 
     <permission
         android:name="com.boutline.gcm.permission.C2D_MESSAGE"
@@ -30,6 +33,18 @@
         android:label="@string/app_name"
         android:logo="@drawable/ic_launcher"
         android:theme="@style/Theme.Bostyle" >
+        <activity android:name="com.instabug.wrapper.impl.v14.InstabugAnnotationActivity"
+            android:windowSoftInputMode="adjustPan"
+            />
+        <service android:name="com.instabug.library.network.UploadCacheService"/>
+        <receiver android:name="com.instabug.library.network.InstabugNetworkReceiver">
+            <intent-filter>
+                <action android:name="android.net.conn.CONNECTIVITY_CHANGE"/>
+            </intent-filter>
+        </receiver>
+        <meta-data android:name="com.instabug.DevelopmentAppToken" android:value="6dd2eb925125ffc9f6da1a400d8e3344"/>
+        <meta-data android:name="com.instabug.ProductionMode" android:value="false"/>
+
         <activity
             android:name=".activities.MainActivity"
             android:label="@string/app_name" >
@@ -186,6 +201,7 @@
                 <category android:name="com.boutline.sports.gcm" />
             </intent-filter>
         </receiver>
+        <receiver android:name=".receivers.AlarmReciever" />
 
         <service android:name=".services.GCMIntentService" />
 

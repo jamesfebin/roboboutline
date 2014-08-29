@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- From: file:/Users/anawara/Development/Workspaces/InstabugAndroidStudio/Instabug/instabugcore/src/main/res/values-zh-rCN/strings.xml -->
+    <eat-comment />
+
+    <string-array name="report_options">
+        <item>报告问题</item>
+        <item>发送反馈</item>
+    </string-array>
+
+    <string name="bottommessage">由 Instabug 提供支持的反馈</string>
+    <string name="bugheader">报告问题</string>
+    <string name="cancelbutton">取消</string>
+    <string name="commentplaceholder">在这里输入您的反馈......</string>
+    <string name="edgeswipestartalerttext">从边缘向内滑动发送反馈</string>
+    <string name="emailplaceholder">输入您的电子邮件地址......</string>
+    <string name="feedbackheader">发送反馈</string>
+    <string name="feedbacksentalerttext">感谢您帮助我们改进 InstabugApp 应用！</string>
+    <string name="feedbacksentalerttitle">反馈已发送</string>
+    <string name="invalidcommentalerttext">请输入有效的评论</string>
+    <string name="invalidcommentalerttitle">无效评论</string>
+    <string name="invalidemailalerttext">请输入有效的电子邮件地址</string>
+    <string name="invalidemailalerttitle">电子邮件地址无效</string>
+    <string name="pleasewait">请稍候</string>
+    <string name="screenshotstartalerttext">截屏发送反馈</string>
+    <string name="shakestartalerttext">摇动手机发送反馈</string>
+    <string name="submitbutton">发送</string>
+    <string name="tutorialalerttext">在截屏上画画，然后添加文字</string>
+    <string name="twofingerswipestartalerttext">滑动两个手指发送反馈</string>
+
+</resources>

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- From: file:/Users/anawara/Development/Workspaces/InstabugAndroidStudio/Instabug/instabugcore/src/main/res/values-sl/strings.xml -->
+    <eat-comment />
+
+    <string-array name="report_options">
+        <item>Sporoči hrošča</item>
+        <item>Pošlji povratno inf.</item>
+    </string-array>
+
+    <string name="bottommessage">Povratne inf. omogočene s strani Instabug</string>
+    <string name="bugheader">Sporoči hrošča</string>
+    <string name="cancelbutton">Prekliči</string>
+    <string name="commentplaceholder">Vnesite povratno informacijo...</string>
+    <string name="edgeswipestartalerttext">Potegni z roba, da pošlješ povratno informacijo</string>
+    <string name="emailplaceholder">Vnesite vaš email...</string>
+    <string name="feedbackheader">Pošlji povratno inf.</string>
+    <string name="feedbacksentalerttext">Hvala ker nam pomagate pri izboljšanju InstabugApp!</string>
+    <string name="feedbacksentalerttitle">Povratna informacija poslana</string>
+    <string name="invalidcommentalerttext">Prosimo vnesite veljaven komentar</string>
+    <string name="invalidcommentalerttitle">Neveljaven komentar</string>
+    <string name="invalidemailalerttext">Prosimo vnesite veljavem email</string>
+    <string name="invalidemailalerttitle">Napačen email</string>
+    <string name="okbutton">OK</string>
+    <string name="pleasewait">Prosimo, počakajte trenutek</string>
+    <string name="screenshotstartalerttext">Naredi posnetek zaslona, da pošlješ povratno informacijo</string>
+    <string name="shakestartalerttext">Stresite, da pošljete povratno informacijo</string>
+    <string name="submitbutton">Pošlji</string>
+    <string name="tutorialalerttext">Riši po zaslonu, nato dodaj tekst</string>
+    <string name="twofingerswipestartalerttext">Potegni z dvema prstoma, da pošlješ povratno informacijo</string>
+
+</resources>

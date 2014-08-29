@@ -1,7 +1,9 @@
 package com.boutline.sports.activities;
 
 import android.app.Activity;
+import android.app.AlarmManager;
 import android.app.LoaderManager;
+import android.app.PendingIntent;
 import android.app.ProgressDialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -15,6 +17,7 @@ import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.content.LocalBroadcastManager;
+import android.support.v4.content.WakefulBroadcastReceiver;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
@@ -38,10 +41,13 @@ import com.boutline.sports.models.Message;
 import com.boutline.sports.R;
 
 import com.boutline.sports.models.Query;
+import com.boutline.sports.receivers.GcmBroadcastReceiver;
 import com.keysolutions.ddpclient.android.DDPBroadcastReceiver;
 import com.keysolutions.ddpclient.android.DDPStateSingleton;
 import com.mixpanel.android.mpmetrics.MixpanelAPI;
 import com.path.android.jobqueue.JobManager;
+
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
@@ -64,6 +70,7 @@ public class ConversationActivity extends Activity implements LoaderManager.Load
     BoutDBHelper dbHelper;
     ProgressDialog progress;
     public MixpanelAPI mixpanel = null;
+    private PendingIntent pendingIntent;
 
     /*
     @Override
@@ -91,7 +98,12 @@ public class ConversationActivity extends Activity implements LoaderManager.Load
 
     @Override
 	protected void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
+
+
+
+
+
+        super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_conversation);
         tf = Typeface.createFromAsset(getAssets(), fontPath);
         btf = Typeface.createFromAsset(getAssets(), boldFontPath);
@@ -142,7 +154,7 @@ public class ConversationActivity extends Activity implements LoaderManager.Load
         final String userPicUrl = mSharedPreferences.getString("profileImageUrl","");
         final String senderName = mSharedPreferences.getString("fullName","");
         final String senderId = mSharedPreferences.getString("boutlineUserId","");
-        final long unixTime = System.currentTimeMillis() / 1000L;
+         long unixTime = System.currentTimeMillis() / 1000L;
         jobManager = MyApplication.getInstance().getJobManager();
         sendMessage.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -171,13 +183,14 @@ public class ConversationActivity extends Activity implements LoaderManager.Load
                     parameters[0] = getIntent().getExtras().getString("conversationId");
                     parameters[1] = txtCompose.getText().toString();
                     parameters[2] = mDocId;
-                    jobManager.addJobInBackground(new SendMessage(parameters));
+                   // jobManager.addJobInBackground(new SendMessage(parameters));
                     Map<String,Object> fields = new HashMap<String, Object>();
                     fields.put("name",senderName);
                     fields.put("message",txtCompose.getText().toString());
                     fields.put("banterId",getIntent().getExtras().getString("conversationId"));
                     fields.put("userPicUrl",userPicUrl);
                     fields.put("sender",senderId);
+                    long unixTime = System.currentTimeMillis() / 1000L;
                     fields.put("time",unixTime);
                     processBotQuery(txtCompose.getText().toString());
                     Message message = new Message(mDocId,fields);
@@ -252,16 +265,16 @@ public class ConversationActivity extends Activity implements LoaderManager.Load
             protected void onDDPConnect(DDPStateSingleton ddp) {
                 super.onDDPConnect(ddp);
 
-
-
-                Log.d("ConversationId", getIntent().getExtras().getString("conversationId"));
                 Object[] parameters = new Object[2];
+
+            /*
+                Log.d("ConversationId", getIntent().getExtras().getString("conversationId"));
                 parameters[0] = getIntent().getExtras().getString("conversationId");
                 parameters[1] = 20;
                 //jobManager = MyApplication.getInstance().getJobManager();
                 //jobManager.addJobInBackground(new Subscribe(ddp,"messages",parameters));
                 ddp.subscribe("messages",parameters);
-
+*/
                 parameters[0] = "KsrzMzFd6uHckAeb5";
                 parameters[1] = 20;
                 ddp.subscribe("mobileTournamentsInfluencerTweets",parameters);
@@ -302,7 +315,7 @@ public class ConversationActivity extends Activity implements LoaderManager.Load
     {
 
         try {
-
+         String originalQuery = query;
             query = query.replaceAll("//'s", "");
             query = query.replaceAll("[^a-zA-Z0-9 ]", "");
             query = query.toLowerCase();
@@ -316,7 +329,7 @@ public class ConversationActivity extends Activity implements LoaderManager.Load
                 String query_id = QueryResult[0];
                 String parameterQuery = QueryResult[1];
                 Log.e("CALLING ", "CALLED");
-                dbHelper.getInstance(getApplicationContext()).sendStructuredQuery(query_id, parameterQuery);
+                dbHelper.getInstance(getApplicationContext()).sendStructuredQuery(query_id, parameterQuery,originalQuery);
             }
         }
 

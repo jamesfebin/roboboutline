@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/invoke_instabug_menu_item"
+        android:title="@string/feedbackheader"
+        android:showAsAction="never"/>
+</menu><!-- From: file:/Users/anawara/Development/Workspaces/InstabugAndroidStudio/Instabug/instabugsupport/src/main/res/menu-v14/instabug_support_activity_menu.xml -->

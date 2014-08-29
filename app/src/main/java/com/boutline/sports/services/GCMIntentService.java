@@ -34,6 +34,7 @@ String userId;
     public GCMIntentService() {
 
         super("GcmIntentService");
+        Log.e("YEAA", "RECIEVED");
 
     }
 
@@ -49,6 +50,8 @@ String userId;
 
         String messageType = gcm.getMessageType(intent);
 
+
+        Log.e("YEAA", "RECIEVED");
 
         if (!extras.isEmpty()) {  // has effect of unparcelling Bundle
 	            /*

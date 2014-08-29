@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- From: file:/Users/anawara/Development/Workspaces/InstabugAndroidStudio/Instabug/instabugcore/src/main/res/values-ru/strings.xml -->
+    <eat-comment />
+
+    <string-array name="report_options">
+        <item>Сообщить о проблеме</item>
+        <item>Отправить отзыв</item>
+    </string-array>
+
+    <string name="bottommessage">Поддержка отзывов: Instabug</string>
+    <string name="bugheader">Сообщить о проблеме</string>
+    <string name="cancelbutton">Отмена</string>
+    <string name="commentplaceholder">Введите текст отзыва...</string>
+    <string name="edgeswipestartalerttext">Проведите от края, чтобы отправить отзыв</string>
+    <string name="emailplaceholder">Введите свой эл. адрес...</string>
+    <string name="feedbackheader">Отправить отзыв</string>
+    <string name="feedbacksentalerttext">Спасибо, что помогаете нам улучшить InstabugApp!</string>
+    <string name="feedbacksentalerttitle">Отзыв отправлен</string>
+    <string name="invalidcommentalerttext">Введите допустимый комментарий</string>
+    <string name="invalidcommentalerttitle">Недопустимый комментарий</string>
+    <string name="invalidemailalerttext">Введите действительный эл. адрес</string>
+    <string name="invalidemailalerttitle">Недействительный эл. адрес</string>
+    <string name="pleasewait">Пожалуйста, подождите несколько секунд</string>
+    <string name="screenshotstartalerttext">Сделайте снимок экрана, чтобы отправить отзыв</string>
+    <string name="shakestartalerttext">Встряхните телефон, чтобы отправить отзыв</string>
+    <string name="submitbutton">Отправить</string>
+    <string name="tutorialalerttext">Отметьте проблему на снимке экрана и добавьте текст</string>
+    <string name="twofingerswipestartalerttext">Проведите двумя пальцами, чтобы отправить отзыв</string>
+
+</resources>

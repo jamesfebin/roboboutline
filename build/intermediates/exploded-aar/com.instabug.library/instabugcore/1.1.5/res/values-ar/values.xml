@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- From: file:/Users/anawara/Development/Workspaces/InstabugAndroidStudio/Instabug/instabugcore/src/main/res/values-ar/strings.xml -->
+    <eat-comment />
+
+    <string-array name="report_options">
+        <item>أبلغ عن مشكلة</item>
+        <item>أرسل ملاحظاتك</item>
+    </string-array>
+
+    <string name="bottommessage">Instabug خاصية الاقتراحات مقدمة من</string>
+    <string name="cancelbutton">إلغاء</string>
+    <string name="commentplaceholder">...اكتب ملاحظاتك هنا</string>
+    <string name="edgeswipestartalerttext">إمسح من الجانب لإرسال تعليقك</string>
+    <string name="emailplaceholder">...أدخل بريدك الإلكتروني</string>
+    <string name="feedbackheader">أرسل ملاحظاتك</string>
+    <string name="feedbacksentalerttext">شكرا لكم لمساعدتنا على تحسين InstabugApp!</string>
+    <string name="feedbacksentalerttitle">تم إرسال التعليق</string>
+    <string name="invalidcommentalerttext">الرجاء إدخال تعليق صحيح</string>
+    <string name="invalidcommentalerttitle">تعليق غير صحيح</string>
+    <string name="invalidemailalerttext">الرجاء إدخال بريد إلكتروني صحيح لاتاحة الفرصة لنا لنعود اليكم</string>
+    <string name="invalidemailalerttitle">بريد إلكتروني غير صحيح</string>
+    <string name="pleasewait">من فضلك انتظر لحظة</string>
+    <string name="screenshotstartalerttext">خذ صورة لإرسال تعليقك</string>
+    <string name="shakestartalerttext">هز الجهاز لإرسال تعليقك</string>
+    <string name="submitbutton">إرسال</string>
+    <string name="tutorialalerttext">ارسم على الشاشة لتسليط الضوء عليها أو أضف نص</string>
+    <string name="twofingerswipestartalerttext">إمسح اصبعين لإرسال تعليقك</string>
+
+</resources>

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- From: file:/Users/anawara/Development/Workspaces/InstabugAndroidStudio/Instabug/instabugcore/src/main/res/values-de/strings.xml -->
+    <eat-comment />
+
+    <string-array name="report_options">
+        <item>Ein Problem melden</item>
+        <item>Feedback senden</item>
+    </string-array>
+
+    <string name="bottommessage">Feedback mit unterstützung von Instabug</string>
+    <string name="bugheader">Ein Problem melden</string>
+    <string name="cancelbutton">Abbrechen</string>
+    <string name="commentplaceholder">Geben Sie hier Ihr Feedback ein...</string>
+    <string name="edgeswipestartalerttext">Ab Ecke streichen um Feedback zu senden</string>
+    <string name="emailplaceholder">Geben Sie Ihre E-Mail-Adresse ein...</string>
+    <string name="feedbackheader">Feedback senden</string>
+    <string name="feedbacksentalerttext">Vielen Dank, dass Sie uns helfen, die InstabugApp zu verbessern!</string>
+    <string name="feedbacksentalerttitle">Feedback gesendet</string>
+    <string name="invalidcommentalerttext">Bitte geben Sie einen gültigen Kommentar ein</string>
+    <string name="invalidcommentalerttitle">Ungültiger Kommentar</string>
+    <string name="invalidemailalerttext">Bitte geben Sie eine gültige E-Mail-Adresse ein</string>
+    <string name="invalidemailalerttitle">Ungültige E-Mail-Adresse</string>
+    <string name="pleasewait">Even geduld aub</string>
+    <string name="screenshotstartalerttext">Screenshot aufnehmen um Feedback zu senden</string>
+    <string name="shakestartalerttext">Schütteln um Feedback zu senden</string>
+    <string name="submitbutton">Senden</string>
+    <string name="tutorialalerttext">Ziehen Sie auf dem Screenshot, fügen Sie dann Text hinzu</string>
+    <string name="twofingerswipestartalerttext">Mit zwei Fingern streichen um Feedback zu senden</string>
+
+</resources>

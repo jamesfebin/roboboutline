@@ -20,6 +20,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.content.LocalBroadcastManager;
 import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
 
 import com.boutline.sports.application.Constants;
@@ -33,6 +34,7 @@ import com.boutline.sports.jobs.Connect;
 import com.boutline.sports.models.FacebookUserInfo;
 import com.google.gson.Gson;
 
+import com.instabug.library.util.TouchEventDispatcher;
 import com.keysolutions.ddpclient.DDPClient;
 import com.keysolutions.ddpclient.android.DDPBroadcastReceiver;
 import com.keysolutions.ddpclient.android.DDPStateSingleton;
@@ -55,6 +57,8 @@ public class MainActivity extends Activity {
     JobManager jobManager;
     private Context context;
 
+    private TouchEventDispatcher dispatcher = new TouchEventDispatcher();
+
     @Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -70,6 +74,11 @@ public class MainActivity extends Activity {
 
     }
 
+    @Override
+    public boolean dispatchTouchEvent(MotionEvent ev) {
+        dispatcher.dispatchTouchEvent(this,ev);
+        return super.dispatchTouchEvent(ev);
+    }
 
 
 
@@ -286,7 +295,7 @@ public class MainActivity extends Activity {
                         }
 
 
-                        Toast.makeText(getApplicationContext(),"Internet connection not avaialable",Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getApplicationContext(),"Internet connection not available",Toast.LENGTH_SHORT).show();
 
                     }
                 }

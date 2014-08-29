@@ -27,6 +27,8 @@ import com.boutline.sports.models.Sport;
 import com.boutline.sports.models.Team;
 import com.boutline.sports.models.Tournament;
 import com.boutline.sports.models.Tweet;
+import com.boutline.sports.receivers.AlarmReciever;
+import com.boutline.sports.receivers.GcmBroadcastReceiver;
 import com.google.gson.Gson;
 import com.keysolutions.ddpclient.DDPListener;
 import com.keysolutions.ddpclient.DDPClient.DdpMessageField;
@@ -34,6 +36,9 @@ import com.keysolutions.ddpclient.DDPClient.DdpMessageType;
 import com.keysolutions.ddpclient.EmailAuth;
 import com.keysolutions.ddpclient.android.DDPStateSingleton;
 
+import android.app.AlarmManager;
+import android.app.PendingIntent;
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import com.keysolutions.ddpclient.DDPClient;
 import com.path.android.jobqueue.JobManager;
@@ -42,9 +47,11 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.sqlite.SQLiteDatabase;
 import android.support.v4.content.LocalBroadcastManager;
+import android.support.v4.content.WakefulBroadcastReceiver;
 import android.util.Log;
 
 import java.net.URISyntaxException;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Observable;
@@ -71,6 +78,7 @@ public class MyDDPState extends DDPStateSingleton {
     SharedPreferences preferences;
     JobManager jobManager;
 
+    private PendingIntent pendingIntent;
 
     private MyDDPState(Context context) {
         // Constructor hidden because this is a singleton
@@ -98,11 +106,11 @@ public class MyDDPState extends DDPStateSingleton {
     @Override
     public void createDDPCLient()
     {
-      // String sMeteorServer = "boutrep0.cloudapp.net";
-       //Integer sMeteorPort = 80;
+     // String sMeteorServer = "boutrep0.cloudapp.net";
+      // Integer sMeteorPort = 80;
 
-      String sMeteorServer = "192.168.1.5";
-      Integer sMeteorPort = 3000;
+    String sMeteorServer = "192.168.1.5";
+     Integer sMeteorPort = 3000;
 
         try {
 
@@ -233,6 +241,25 @@ public class MyDDPState extends DDPStateSingleton {
                     String mDocId = "bot"+uniqueKey.toString();
                     final long unixTime = (System.currentTimeMillis() / 1000L);
 
+                    Calendar calendar = Calendar.getInstance();
+
+
+                    calendar.set(Calendar.MONTH, 29);
+                    calendar.set(Calendar.YEAR, 2014);
+                    calendar.set(Calendar.DAY_OF_MONTH, 8);
+                    calendar.set(Calendar.HOUR_OF_DAY, 10);
+                    calendar.set(Calendar.MINUTE, 10);
+                    calendar.set(Calendar.SECOND, 0);
+                    calendar.set(Calendar.AM_PM,Calendar.AM);
+
+
+                    Intent myIntent = new Intent(mContext, AlarmReciever.class);
+                    myIntent.putExtra("SHEDULED","true");
+                    pendingIntent = PendingIntent.getBroadcast(mContext, 0, myIntent,0);
+
+                    AlarmManager alarmManager = (AlarmManager)mContext.getSystemService(mContext.ALARM_SERVICE);
+                    alarmManager.set(AlarmManager.RTC_WAKEUP,calendar.getTimeInMillis(), pendingIntent);
+
                     Map<String,Object> fields = new HashMap<String, Object>();
                     fields.put("name","Bout Bot");
                     fields.put("message",response);
@@ -244,11 +271,6 @@ public class MyDDPState extends DDPStateSingleton {
                     dbHelper.getInstance(mContext).putMessage(message,"");
 
 
-                    Object[] parameters = new Object[3];
-                    parameters[0] = "Q83GjTwRCk4FNTSEJ";
-                    parameters[1] = response;
-                    parameters[2] = mDocId;
-                    jobManager.addJobInBackground(new SendMessage(parameters));
 
 
                 }
@@ -385,6 +407,7 @@ public class MyDDPState extends DDPStateSingleton {
 
 
                     } else {
+
 
                     }
 

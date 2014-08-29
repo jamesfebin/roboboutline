@@ -22,6 +22,8 @@ android {
 
 repositories {
     mavenCentral()
+    maven { url 'http://archiva.instabug.com/repository/release' }
+
 }
 
 
@@ -50,4 +52,6 @@ dependencies {
     compile 'com.fasterxml.jackson.core:jackson-databind:2.1.2@jar'
     compile 'com.fasterxml.jackson.core:jackson-core:2.1.1@jar'
     compile 'com.fasterxml.jackson.core:jackson-annotations:2.1.1@jar'
+    compile 'com.instabug.library:instabugsupport:1.1.5'
+
 }

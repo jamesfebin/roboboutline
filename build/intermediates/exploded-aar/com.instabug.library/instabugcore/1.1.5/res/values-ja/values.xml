@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- From: file:/Users/anawara/Development/Workspaces/InstabugAndroidStudio/Instabug/instabugcore/src/main/res/values-ja/strings.xml -->
+    <eat-comment />
+
+    <string-array name="report_options">
+        <item>問題を報告する</item>
+        <item>フィードバックを送信</item>
+    </string-array>
+
+    <string name="bottommessage">Instabug によるフィードバック</string>
+    <string name="bugheader">問題を報告する</string>
+    <string name="cancelbutton">キャンセル</string>
+    <string name="commentplaceholder">フィードバックをここに入力...</string>
+    <string name="edgeswipestartalerttext">端からスワイプしてフィードバックを送ります</string>
+    <string name="emailplaceholder">E メールを入力...</string>
+    <string name="feedbackheader">フィードバックを送信</string>
+    <string name="feedbacksentalerttext">InstabugApp の向上にご協力いただき、ありがとうございます!</string>
+    <string name="feedbacksentalerttitle">フィードバックは送信されました</string>
+    <string name="invalidcommentalerttext">有用なコメントを入力してください</string>
+    <string name="invalidcommentalerttitle">コメントが無効 コメントが無効です</string>
+    <string name="invalidemailalerttext">有効なメールアドレスを入力してください</string>
+    <string name="invalidemailalerttitle">無効なメール</string>
+    <string name="pleasewait">ちょっと待ってください</string>
+    <string name="screenshotstartalerttext">スクリーンショットを撮ってフィードバックをお送りください</string>
+    <string name="shakestartalerttext">シェイクしてフィードバックを送信</string>
+    <string name="submitbutton">送信</string>
+    <string name="tutorialalerttext">スクリーンショットに描画してテキストを加えます</string>
+    <string name="twofingerswipestartalerttext">2本の指でスワイプして、フィードバックを送ります</string>
+
+</resources>

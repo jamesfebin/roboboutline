@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- From: file:/Users/anawara/Development/Workspaces/InstabugAndroidStudio/Instabug/instabugcore/src/main/res/values-pl/strings.xml -->
+    <eat-comment />
+
+    <string-array name="report_options">
+        <item>Zgłoś błąd</item>
+        <item>Wyślij opinię</item>
+    </string-array>
+
+    <string name="bottommessage">Opinie są obsługiwane przez Instabug</string>
+    <string name="bugheader">Zgłoś błąd</string>
+    <string name="cancelbutton">Anuluj</string>
+    <string name="commentplaceholder">Wpisz swoją opinię...</string>
+    <string name="edgeswipestartalerttext">Przesuń palcem od krawędzi aby wysłać opinię</string>
+    <string name="emailplaceholder">Wpisz swój adres e-mail...</string>
+    <string name="feedbackheader">Wyślij opinię</string>
+    <string name="feedbacksentalerttext">Dziękujemy za pomoc przy ulepszaniu InstabugApp!</string>
+    <string name="feedbacksentalerttitle">Opinia wysłana</string>
+    <string name="invalidcommentalerttext">Wpisz poprawny komentarz</string>
+    <string name="invalidcommentalerttitle">Niepoprawny komentarz</string>
+    <string name="invalidemailalerttext">Wpisz poprawny adres e-mail</string>
+    <string name="invalidemailalerttitle">Niepoprawny adres e-mail</string>
+    <string name="pleasewait">Proszę czekać</string>
+    <string name="screenshotstartalerttext">Zrób zrzut ekranu aby wysłać opinię</string>
+    <string name="shakestartalerttext">Potrząśnij aby wysłać opinię</string>
+    <string name="submitbutton">Wyślij</string>
+    <string name="tutorialalerttext">Narysuj na obrazku, a potem dodaj tekst</string>
+    <string name="twofingerswipestartalerttext">Przesuń dwoma palcami aby wysłać opinię</string>
+
+</resources>

@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- From: file:/Users/anawara/Development/Workspaces/InstabugAndroidStudio/Instabug/instabugcore/src/main/res/values/strings.xml -->
+    <eat-comment />
+
+    <string-array name="report_options">
+        <item>Report a bug</item>
+        <item>Send feedback</item>
+    </string-array>
+    <!-- From: file:/Users/anawara/Development/Workspaces/InstabugAndroidStudio/Instabug/instabugcore/src/main/res/values/values.xml -->
+    <eat-comment />
+
+    <bool name="isTablet">false</bool>
+    <!-- From: file:/Users/anawara/Development/Workspaces/InstabugAndroidStudio/Instabug/instabugcore/src/main/res/values/color.xml -->
+    <eat-comment />
+
+    <color name="ig_blue">#006AA1</color>
+    <color name="ig_gray">#E5E5E5</color>
+    <color name="ig_green">#5CC500</color>
+    <color name="ig_orange">#F77A00</color>
+    <color name="ig_red">#ED3A3A</color>
+    <color name="ig_yellow">#F1B600</color>
+    <color name="initial">@color/ig_blue</color>
+    <color name="transparent_color">#00000000</color>
+    <!-- From: file:/Users/anawara/Development/Workspaces/InstabugAndroidStudio/Instabug/instabugcore/src/main/res/values/slidinglayer-attrs.xml -->
+    <eat-comment />
+
+    <declare-styleable name="SlidingLayer">
+        <attr name="isShadowDrawable" format="boolean" />
+        <attr name="closeOnTapEnabled" format="boolean" />
+        <attr name="openOnTapEnabled" format="boolean" />
+        <attr name="offsetWidth" format="dimension" />
+        <attr name="stickTo" format="enum">
+            <enum name="auto" value="0" />
+            <enum name="right" value="-1" />
+            <enum name="left" value="-2" />
+            <enum name="middle" value="-3" />
+            <enum name="top" value="-4" />
+            <enum name="bottom" value="-5" />
+        </attr>
+    </declare-styleable>
+    <!-- From: file:/Users/anawara/Development/Workspaces/InstabugAndroidStudio/Instabug/instabugcore/src/main/res/values/dimens.xml -->
+    <eat-comment />
+
+    <dimen name="activity_horizontal_margin">16dp</dimen>
+    <dimen name="activity_vertical_margin">16dp</dimen>
+    <!-- From: file:/Users/anawara/Development/Workspaces/InstabugAndroidStudio/Instabug/instabugcore/src/main/res/values/strings.xml -->
+    <eat-comment />
+
+    <string name="app_name">Instabug</string>
+    <string name="bottommessage">Feedback Powered by Instabug</string>
+    <string name="cancelbutton">Cancel</string>
+    <string name="commentplaceholder">Enter your feedback...</string>
+    <string name="edgeswipestartalerttext">Swipe from edge to send feedback</string>
+    <string name="emailplaceholder">Enter your Email...</string>
+    <string name="feedbackheader">Send feedback</string>
+    <string name="feedbacksentalerttext">Thank you for helping us improve InstabugApp!</string>
+    <string name="feedbacksentalerttitle">Feedback Sent</string>
+    <string name="invalidcommentalerttext">Please enter a valid comment</string>
+    <string name="invalidcommentalerttitle">Invalid Comment</string>
+    <string name="invalidemailalerttext">Please enter a valid email</string>
+    <string name="invalidemailalerttitle">Invalid Email</string>
+    <string name="pleasewait">Please wait a moment</string>
+    <string name="screenshotstartalerttext">Take a screenshot to send feedback</string>
+    <string name="shakestartalerttext">Shake to send feedback</string>
+    <string name="submitbutton">Send</string>
+    <string name="tutorialalerttext">Draw on screenshot then add text</string>
+    <string name="twofingerswipestartalerttext">Swipe two fingers to send feedback</string>
+    <!-- From: file:/Users/anawara/Development/Workspaces/InstabugAndroidStudio/Instabug/instabugcore/src/main/res/values/themes.xml -->
+    <eat-comment />
+
+    <style name="InstabugBorderlessDialog" parent="android:Theme.Holo.Light">
+        <item name="android:windowFrame">@null</item>
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:windowAnimationStyle">@android:style/Animation.Dialog</item>
+        <item name="android:windowBackground">@color/transparent_color</item>
+        <item name="android:windowSoftInputMode">stateUnspecified|adjustPan</item>
+        <item name="android:colorBackgroundCacheHint">@null</item>
+    </style>
+
+</resources>

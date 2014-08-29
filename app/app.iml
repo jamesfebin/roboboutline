@@ -61,27 +61,31 @@
     </content>
     <orderEntry type="jdk" jdkName="Android API 19 Platform" jdkType="Android SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="library" exported="" name="Java-WebSocket-1.3.0" level="project" />
     <orderEntry type="library" exported="" name="jackson-core-2.1.1" level="project" />
-    <orderEntry type="library" exported="" name="gson-2.2.4" level="project" />
-    <orderEntry type="library" exported="" name="srp6a-1.4.1" level="project" />
     <orderEntry type="library" exported="" name="android-priority-jobqueue-1.1.2" level="project" />
-    <orderEntry type="library" exported="" name="android-ddp-client-0.5.7.6" level="project" />
     <orderEntry type="library" exported="" name="twitter4j-core-4.0.1" level="project" />
-    <orderEntry type="library" exported="" name="java-ddp-client-0.5.7.6" level="project" />
-    <orderEntry type="library" exported="" name="support-v4-19.1.0" level="project" />
     <orderEntry type="library" exported="" name="android-query-full.0.26.7" level="project" />
     <orderEntry type="library" exported="" name="azure-storage-android-0.3.0" level="project" />
     <orderEntry type="library" exported="" name="org.slf4j.log4j12-1.7.2" level="project" />
-    <orderEntry type="library" exported="" name="bolts" level="project" />
-    <orderEntry type="library" exported="" name="image-chooser-library-1.3.0" level="project" />
-    <orderEntry type="library" exported="" name="jackson-databind-2.1.2" level="project" />
     <orderEntry type="library" exported="" name="slf4j-simple-1.7.7" level="project" />
-    <orderEntry type="library" exported="" name="slf4j-api-1.7.7" level="project" />
     <orderEntry type="library" exported="" name="eventbus-2.2.0" level="project" />
     <orderEntry type="library" exported="" name="jackson-annotations-2.1.1" level="project" />
+    <orderEntry type="library" exported="" name="instabugcore-1.1.5" level="project" />
+    <orderEntry type="library" exported="" name="Java-WebSocket-1.3.0" level="project" />
+    <orderEntry type="library" exported="" name="srp6a-1.4.1" level="project" />
+    <orderEntry type="library" exported="" name="gson-2.2.4" level="project" />
+    <orderEntry type="library" exported="" name="appcompat-v7-19.1.0" level="project" />
+    <orderEntry type="library" exported="" name="java-ddp-client-0.5.7.6" level="project" />
+    <orderEntry type="library" exported="" name="android-ddp-client-0.5.7.6" level="project" />
+    <orderEntry type="library" exported="" name="support-v4-19.1.0" level="project" />
+    <orderEntry type="library" exported="" name="library-1.0.6" level="project" />
+    <orderEntry type="library" exported="" name="jackson-databind-2.1.2" level="project" />
+    <orderEntry type="library" exported="" name="image-chooser-library-1.3.0" level="project" />
+    <orderEntry type="library" exported="" name="bolts" level="project" />
+    <orderEntry type="library" exported="" name="slf4j-api-1.7.7" level="project" />
     <orderEntry type="library" exported="" name="mixpanel-android-4.2.1" level="project" />
     <orderEntry type="library" exported="" name="roundedimageview-1.3.0" level="project" />
+    <orderEntry type="library" exported="" name="instabugsupport-1.1.5" level="project" />
     <orderEntry type="library" exported="" name="google-play-services" level="project" />
     <orderEntry type="module" module-name="facebook" exported="" />
   </component>

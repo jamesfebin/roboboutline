@@ -2,11 +2,23 @@
 <pre-dex-items>
 
     <item
+        dex="/Users/user/Documents/Development-Tools/ADT/sdk/extras/google/BoutlineSports/app/build/intermediates/pre-dexed/debug/classes-b947f7e2537295c375a838da056a5373fff2c62b.jar"
+        jar="/Users/user/Documents/Development-Tools/ADT/sdk/extras/google/BoutlineSports/build/intermediates/exploded-aar/com.android.support/appcompat-v7/19.1.0/classes.jar"
+        jumboMode="false"
+        revision="19.1.0"
+        sha1="3499ceba05ca1f6037c6a2fad73df8f636224a28"/>
+    <item
         dex="/Users/user/Documents/Development-Tools/ADT/sdk/extras/google/BoutlineSports/app/build/intermediates/pre-dexed/debug/jackson-databind-2.1.2-0f0b2584701f310955e985fa12e5f204c890b0fb.jar"
         jar="/Users/user/.gradle/caches/modules-2/files-2.1/com.fasterxml.jackson.core/jackson-databind/2.1.2/e9c672d2d60c966772c6271d5a61614a4259274a/jackson-databind-2.1.2.jar"
         jumboMode="false"
         revision="19.1.0"
         sha1="e9c672d2d60c966772c6271d5a61614a4259274a"/>
+    <item
+        dex="/Users/user/Documents/Development-Tools/ADT/sdk/extras/google/BoutlineSports/app/build/intermediates/pre-dexed/debug/library-1.0.6-1c8161085bede29511a7bcf8b24ad77cec46e592.jar"
+        jar="/Users/user/.gradle/caches/modules-2/files-2.1/com.mcxiaoke.volley/library/1.0.6/f4566c0fd6a9ff2c152768f28360b7523ef2dfb9/library-1.0.6.jar"
+        jumboMode="false"
+        revision="19.1.0"
+        sha1="f4566c0fd6a9ff2c152768f28360b7523ef2dfb9"/>
     <item
         dex="/Users/user/Documents/Development-Tools/ADT/sdk/extras/google/BoutlineSports/app/build/intermediates/pre-dexed/debug/jackson-core-2.1.1-13624239fd5df7eb8b1b4a6a053fe031978f3e7e.jar"
         jar="/Users/user/.gradle/caches/modules-2/files-2.1/com.fasterxml.jackson.core/jackson-core/2.1.1/82ad1c5f92f6dcc6291f5c46ebacb975eaa844de/jackson-core-2.1.1.jar"
@@ -14,10 +26,28 @@
         revision="19.1.0"
         sha1="82ad1c5f92f6dcc6291f5c46ebacb975eaa844de"/>
     <item
+        dex="/Users/user/Documents/Development-Tools/ADT/sdk/extras/google/BoutlineSports/app/build/intermediates/pre-dexed/debug/classes-793dd0e8d1cd5b5c30d12d32e1fd9bd9a4a0dfc1.jar"
+        jar="/Users/user/Documents/Development-Tools/ADT/sdk/extras/google/BoutlineSports/build/intermediates/exploded-aar/com.instabug.library/instabugcore/1.1.5/classes.jar"
+        jumboMode="false"
+        revision="19.1.0"
+        sha1="71dcf401aa39bd00043a8dc086af88bdcb940eed"/>
+    <item
         dex="/Users/user/Documents/Development-Tools/ADT/sdk/extras/google/BoutlineSports/app/build/intermediates/pre-dexed/debug/jackson-annotations-2.1.1-480cc544640bb9da89a31a73c93521f0c625c302.jar"
         jar="/Users/user/.gradle/caches/modules-2/files-2.1/com.fasterxml.jackson.core/jackson-annotations/2.1.1/b01cc83e745fc4425a3968fafbf8e5b8254a6dd/jackson-annotations-2.1.1.jar"
         jumboMode="false"
         revision="19.1.0"
         sha1="0b01cc83e745fc4425a3968fafbf8e5b8254a6dd"/>
+    <item
+        dex="/Users/user/Documents/Development-Tools/ADT/sdk/extras/google/BoutlineSports/app/build/intermediates/pre-dexed/debug/classes-d8517a4593ae149c78e6487f33efb111f8623320.jar"
+        jar="/Users/user/Documents/Development-Tools/ADT/sdk/extras/google/BoutlineSports/build/intermediates/exploded-aar/com.instabug.library/instabugsupport/1.1.5/classes.jar"
+        jumboMode="false"
+        revision="19.1.0"
+        sha1="5cffed01beee1860d2b36d998186f4bb739dc703"/>
+    <item
+        dex="/Users/user/Documents/Development-Tools/ADT/sdk/extras/google/BoutlineSports/app/build/intermediates/pre-dexed/debug/khandroid-httpclient-4.2.3-2f309257520cbe86ecb030ddf9388a374f74604e.jar"
+        jar="/Users/user/Documents/Development-Tools/ADT/sdk/extras/google/BoutlineSports/build/intermediates/exploded-aar/com.instabug.library/instabugcore/1.1.5/libs/khandroid-httpclient-4.2.3.jar"
+        jumboMode="false"
+        revision="19.1.0"
+        sha1="833efd491363b9391340d073bff8d95c85ff7733"/>
 
 </pre-dex-items>

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- From: file:/Users/anawara/Development/Workspaces/InstabugAndroidStudio/Instabug/instabugcore/src/main/res/values-pt-rBR/strings.xml -->
+    <eat-comment />
+
+    <string-array name="report_options">
+        <item>Comunicar um problema</item>
+        <item>Enviar Comentários</item>
+    </string-array>
+
+    <string name="bottommessage">Comentários alimentados pelo Instabug</string>
+    <string name="bugheader">Comunicar um problema</string>
+    <string name="cancelbutton">Cancelar</string>
+    <string name="commentplaceholder">Digite seus comentários aqui...</string>
+    <string name="edgeswipestartalerttext">Passe o dedo desde a borda para enviar comentários</string>
+    <string name="emailplaceholder">Coloque seu e-mail...</string>
+    <string name="feedbackheader">Enviar Comentários</string>
+    <string name="feedbacksentalerttext">Obrigado por nos ajudar a melhorar o InstabugApp!</string>
+    <string name="feedbacksentalerttitle">Comentário enviado</string>
+    <string name="invalidcommentalerttext">Digite um comentário válido</string>
+    <string name="invalidcommentalerttitle">Comentário inválido</string>
+    <string name="invalidemailalerttext">Digite um e-mail válido</string>
+    <string name="invalidemailalerttitle">E-mail inválido</string>
+    <string name="pleasewait">Por favor, aguarde um momento</string>
+    <string name="screenshotstartalerttext">Faça uma captura de tela para enviar comentários</string>
+    <string name="shakestartalerttext">Agite para enviar comentários</string>
+    <string name="submitbutton">Enviar</string>
+    <string name="tutorialalerttext">Destaque a captura de tela e adicione texto</string>
+    <string name="twofingerswipestartalerttext">Passe dois dedos para enviar comentários</string>
+
+</resources>

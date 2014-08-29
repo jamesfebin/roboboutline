@@ -23,6 +23,8 @@ import com.path.android.jobqueue.JobManager;
 import com.path.android.jobqueue.log.CustomLogger;
 import com.path.android.jobqueue.config.Configuration;
 //import android.content.res.Configuration;
+import com.instabug.library.Instabug;
+import com.instabug.wrapper.impl.v14.InstabugAnnotationActivity;
 
 
 /**
@@ -54,7 +56,10 @@ public class MyApplication extends Application {
         initSingletons();
         configureJobManager();
         instance = this;
-
+        Instabug.initialize(this)
+                .setAnnotationActivityClass(InstabugAnnotationActivity.class)
+                .setShowIntroDialog(false)
+                .setEnableOverflowMenuItem(true);
 
     }
 /*

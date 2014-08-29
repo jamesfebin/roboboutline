@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- From: file:/Users/anawara/Development/Workspaces/InstabugAndroidStudio/Instabug/instabugsupport/src/main/res/values/attr.xml -->
+    <eat-comment />
+
+    <attr name="instabugBottomActionIconsColor" format="color" />
+    <attr name="instabugBottomBarColor" format="color" />
+    <attr name="instabugDoneButtonColor" format="color" />
+    <!-- From: file:/Users/anawara/Development/Workspaces/InstabugAndroidStudio/Instabug/instabugsupport/src/main/res/values/color.xml -->
+    <eat-comment />
+
+    <color name="ig_blue">#006AA1</color>
+    <color name="ig_gray">#E5E5E5</color>
+    <color name="ig_green">#5CC500</color>
+    <color name="ig_orange">#F77A00</color>
+    <color name="ig_red">#ED3A3A</color>
+    <color name="ig_yellow">#F1B600</color>
+    <color name="initial">@color/ig_blue</color>
+    <!-- From: file:/Users/anawara/Development/Workspaces/InstabugAndroidStudio/Instabug/instabugsupport/src/main/res/values/strings.xml -->
+    <eat-comment />
+
+    <string name="app_name">InstabugSupport</string>
+    <!-- From: file:/Users/anawara/Development/Workspaces/InstabugAndroidStudio/Instabug/instabugsupport/src/main/res/values/styles.xml -->
+    <eat-comment />
+
+    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <!-- Customize your theme here. -->
+    </style>
+
+    <style name="InstabugBottomBar" parent="Theme.Base.Light">
+        <item name="android:background">#909090</item>
+    </style>
+
+    <style name="Theme.AppCompat.InstabugBottomBar" parent="Theme.AppCompat">
+        <item name="android:background">#909090</item>
+    </style>
+
+</resources>
