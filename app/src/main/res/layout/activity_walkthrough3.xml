@@ -65,27 +65,28 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_above="@id/lblWalkthrough3"
-        android:text="@string/banter"
+        android:text="@string/talktous"
         android:textSize="24sp"
         android:textStyle="bold"
-        android:textColor="#111111"
+        android:textColor="@color/blue"
         android:gravity="center_horizontal"
         android:paddingTop="15dp"/>
     <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:background="#CCCCCC"
-        android:layout_above="@id/hdrWalkthrough3">
+        android:background="@color/white"
+        android:layout_alignParentTop="true">
         <ImageView
             android:id="@+id/imgWalkthrough3"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:src="@drawable/iframe"
+            android:src="@drawable/wtfeedback"
             android:contentDescription="@string/walkthrough3"
             android:scaleType="centerCrop"
-            android:paddingRight="50dp"
-            android:paddingTop="50dp"
-            android:paddingLeft="50dp"/>
+            android:paddingTop="30dp"
+            android:paddingRight="20dp"
+            android:gravity="top"
+            android:paddingLeft="20dp"/>
     </LinearLayout>
 </RelativeLayout>

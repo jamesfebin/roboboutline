@@ -10,14 +10,19 @@ import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v4.content.LocalBroadcastManager;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.boutline.sports.R;
 import com.boutline.sports.application.Constants;
 import com.boutline.sports.application.MyDDPState;
+import com.boutline.sports.helpers.OnSwipeTouchListener;
 import com.keysolutions.ddpclient.android.DDPBroadcastReceiver;
 import com.mixpanel.android.mpmetrics.MixpanelAPI;
 import com.path.android.jobqueue.JobManager;
@@ -48,6 +53,8 @@ public class LoginActivity extends Activity {
         TextView signup = (TextView) findViewById(R.id.lblSignup);
         TextView login = (TextView) findViewById(R.id.lblLogin);
         TextView problems = (TextView) findViewById(R.id.problems);
+        ImageView logo = (ImageView) findViewById(R.id.logo);
+        RelativeLayout container = (RelativeLayout) findViewById(R.id.container);
 
         //Set up fonts
         tf = Typeface.createFromAsset(getAssets(), fontPath);
@@ -58,6 +65,19 @@ public class LoginActivity extends Activity {
         problems.setTypeface(tf);
         login.setTypeface(tf);
         boutline.setTypeface(btf);
+
+        Animation walkthroughAnim = AnimationUtils.loadAnimation(this, R.anim.hovering);
+        walkthroughAnim.setZAdjustment(1);
+        logo.startAnimation(walkthroughAnim);
+
+        container.setOnTouchListener(new OnSwipeTouchListener(LoginActivity.this) {
+            @Override
+            public void onSwipeLeft() {  }
+            @Override
+            public void onSwipeRight() {
+                goToPrev();
+            }
+        });
 
         signup.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -76,11 +96,11 @@ public class LoginActivity extends Activity {
 
                 if(email.equals(""))
                 {
-                    Toast.makeText(getApplicationContext(),"Enter Email Id",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(),"Enter your email id",Toast.LENGTH_SHORT).show();
                 }
                 else if(password.equals(""))
                 {
-                    Toast.makeText(getApplicationContext(),"Enter password",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(),"Enter a password",Toast.LENGTH_SHORT).show();
                 }
                 else
                 {
@@ -91,22 +111,26 @@ public class LoginActivity extends Activity {
         problems.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
                 Intent intent = new Intent(LoginActivity.this,ForgotPasswordActivity.class);
                 startActivity(intent);
+                overridePendingTransition(R.anim.pushleftin, R.anim.pushleftout);
             }
         });
     }
 
     @Override
     protected void onDestroy() {
-
         if(mixpanel!=null)
             mixpanel.flush();
         super.onDestroy();
-
     }
 
+    protected void goToPrev(){
+        Intent mainIntent = new Intent(LoginActivity.this,Walkthrough3.class);
+        startActivity(mainIntent);
+        finish();
+        overridePendingTransition(R.anim.pushrightin, R.anim.pushrightout);
+    }
 
     @Override
     protected void onResume() {
@@ -125,7 +149,7 @@ public class LoginActivity extends Activity {
 
                 if (intent.getAction().equals("LOGINSUCCESS"))
                 {
-                    if(intent.hasExtra("userId")==true) {
+                    if(intent.hasExtra("userId")) {
 
                         SharedPreferences.Editor editor = preferences.edit();
                         editor.putString("boutlineUserId", intent.getStringExtra("userId"));
@@ -137,7 +161,7 @@ public class LoginActivity extends Activity {
 
                         Intent banterIntent = new Intent(LoginActivity.this,CreateProfileActivity.class);
                         startActivity(banterIntent);
-                        overridePendingTransition(R.anim.fadein, R.anim.fadeout);
+                        overridePendingTransition(R.anim.pushleftin, R.anim.pushleftout);
                         finish();
                     }
                 }
@@ -175,5 +199,11 @@ public class LoginActivity extends Activity {
             LocalBroadcastManager.getInstance(this).unregisterReceiver(mReceiver);
             mReceiver = null;
         }
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        goToPrev();
     }
 }

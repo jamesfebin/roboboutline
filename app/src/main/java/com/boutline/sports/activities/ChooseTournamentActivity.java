@@ -391,7 +391,7 @@ public class ChooseTournamentActivity extends Activity implements LoaderManager.
 		        overridePendingTransition(R.anim.pushleftin, R.anim.pushleftout);
 		        return true;
 		    case R.id.settings:
-		       	Intent settingsIntent = new Intent(ChooseTournamentActivity.this, DummyDesignActivity.class);
+		       	Intent settingsIntent = new Intent(ChooseTournamentActivity.this, SettingsActivity.class);
 		        startActivity(settingsIntent);
 		        overridePendingTransition(R.anim.pushleftin, R.anim.pushleftout);
 		        return true;

@@ -71,6 +71,11 @@ public class MainActivity extends Activity {
 		mProgressBar.setVisibility(View.VISIBLE);
 		mProgressBar.progressiveStart();
 		getActionBar().hide();
+        ImageView bobotsmall = (ImageView) findViewById(R.id.bobotsmall);
+
+        Animation walkthroughAnim = AnimationUtils.loadAnimation(this, R.anim.hovering);
+        walkthroughAnim.setZAdjustment(1);
+        bobotsmall.startAnimation(walkthroughAnim);
 
     }
 
@@ -149,9 +154,7 @@ public class MainActivity extends Activity {
                 }*/
                 if(email == null)
                 {
-
-
-                    Intent mainIntent = new Intent(MainActivity.this, LoginActivity.class);
+                    Intent mainIntent = new Intent(MainActivity.this, Walkthrough0.class);
                     startActivity(mainIntent);
                     overridePendingTransition(R.anim.pushleftin, R.anim.pushleftout);
                     finish();

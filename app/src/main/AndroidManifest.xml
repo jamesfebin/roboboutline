@@ -19,11 +19,7 @@
         android:protectionLevel="signature" />
 
     <uses-permission android:name="com.boutline.gcm.permission.C2D_MESSAGE" />
-
-    <!-- This app has permission to register and receive data message. -->
     <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
-
-    <!-- Permission to vibrate -->
     <uses-permission android:name="android.permission.VIBRATE" />
 
     <application
@@ -61,10 +57,6 @@
             android:name="com.facebook.sdk.ApplicationId"
             android:value="@string/APP_ID" />
 
-        <activity
-            android:name=".activities.DummyDesignActivity"
-            android:label=""
-            android:screenOrientation="portrait" />
         <activity
             android:name=".activities.Walkthrough0"
             android:label=""
@@ -172,11 +164,6 @@
             android:theme="@android:style/Theme.Holo.Light.NoActionBar.Fullscreen" />
         <activity
             android:name=".activities.LoginActivity"
-            android:label=""
-            android:screenOrientation="portrait"
-            android:theme="@android:style/Theme.Holo.Light.NoActionBar.Fullscreen" />
-        <activity
-            android:name=".activities.MPRActivity"
             android:label=""
             android:screenOrientation="portrait"
             android:theme="@android:style/Theme.Holo.Light.NoActionBar.Fullscreen" />
