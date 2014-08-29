@@ -1,16 +1,3 @@
-/**
- * Tests:
- *  Activity slides in from the right -
- *  Ensure activity loads within 3 seconds -
- *  ActionBar does not exist - 
- *  Activity in fullscreen mode 
- *  slide to next should be animated and shown -
- *  Back button closes the app -
- *  Take a screenshot of the activity with and without drawer  
- *  Fonts are defined and assigned -
- *  swiping left should bring next wtactivity2 from right -
- */
-
 package com.boutline.sports.activities;
 
 import android.app.Activity;
@@ -61,14 +48,10 @@ public class CreateProfileActivity extends Activity implements ImageChooserListe
     public Typeface tf;
     public String boldFontPath = "fonts/proxinovabold.otf";
     public Typeface btf;
-    private static final int SELECT_PHOTO = 100;
     ImageView proPic;
     String path;
-    private Uri mImageUri;
     SharedPreferences preferences;
     private BroadcastReceiver mReceiver = null;
-    Uri selectedImage;
-    InputStream inpStream;
     private ImageChooserManager imageChooserManager;
     private int chooserType;
     private String filePath;
@@ -143,6 +126,7 @@ public MixpanelAPI mixpanel=null;
                 intent.putExtra("conversationId","Q83GjTwRCk4FNTSEJ");
                 startActivity(intent);
                 finish();
+                overridePendingTransition(R.anim.pushleftin, R.anim.pushleftout);
             }
         });
 

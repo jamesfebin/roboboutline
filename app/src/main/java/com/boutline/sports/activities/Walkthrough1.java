@@ -114,7 +114,7 @@ public class Walkthrough1 extends Activity implements OnTouchListener {
 	@Override
 	public void onBackPressed() {
 		super.onBackPressed();
-		finish();
+		goToPrev();
 		overridePendingTransition(R.anim.pushrightin, R.anim.pushrightout);
 	}
 }

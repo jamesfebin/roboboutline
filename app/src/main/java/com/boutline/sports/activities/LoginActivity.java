@@ -96,11 +96,11 @@ public class LoginActivity extends Activity {
 
                 if(email.equals(""))
                 {
-                    Toast.makeText(getApplicationContext(),"Enter Email Id",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(),"Enter your email id",Toast.LENGTH_SHORT).show();
                 }
                 else if(password.equals(""))
                 {
-                    Toast.makeText(getApplicationContext(),"Enter password",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(),"Enter a password",Toast.LENGTH_SHORT).show();
                 }
                 else
                 {
@@ -111,9 +111,9 @@ public class LoginActivity extends Activity {
         problems.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
                 Intent intent = new Intent(LoginActivity.this,ForgotPasswordActivity.class);
                 startActivity(intent);
+                overridePendingTransition(R.anim.pushleftin, R.anim.pushleftout);
             }
         });
     }
@@ -132,7 +132,6 @@ public class LoginActivity extends Activity {
         overridePendingTransition(R.anim.pushrightin, R.anim.pushrightout);
     }
 
-
     @Override
     protected void onResume() {
         super.onResume();
@@ -150,7 +149,7 @@ public class LoginActivity extends Activity {
 
                 if (intent.getAction().equals("LOGINSUCCESS"))
                 {
-                    if(intent.hasExtra("userId")==true) {
+                    if(intent.hasExtra("userId")) {
 
                         SharedPreferences.Editor editor = preferences.edit();
                         editor.putString("boutlineUserId", intent.getStringExtra("userId"));
@@ -162,7 +161,7 @@ public class LoginActivity extends Activity {
 
                         Intent banterIntent = new Intent(LoginActivity.this,CreateProfileActivity.class);
                         startActivity(banterIntent);
-                        overridePendingTransition(R.anim.fadein, R.anim.fadeout);
+                        overridePendingTransition(R.anim.pushleftin, R.anim.pushleftout);
                         finish();
                     }
                 }
@@ -200,5 +199,11 @@ public class LoginActivity extends Activity {
             LocalBroadcastManager.getInstance(this).unregisterReceiver(mReceiver);
             mReceiver = null;
         }
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        goToPrev();
     }
 }

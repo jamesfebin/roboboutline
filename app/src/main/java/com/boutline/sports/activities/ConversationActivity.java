@@ -24,6 +24,7 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.boutline.sports.ContentProviders.BanterMessageProvider;
@@ -32,12 +33,11 @@ import com.boutline.sports.application.Constants;
 import com.boutline.sports.application.MyApplication;
 import com.boutline.sports.application.MyDDPState;
 import com.boutline.sports.database.BoutDBHelper;
+import com.boutline.sports.helpers.OnSwipeTouchListener;
 import com.boutline.sports.jobs.SendMessage;
 import com.boutline.sports.models.BanterMessage;
 import com.boutline.sports.models.Message;
 import com.boutline.sports.R;
-
-import com.boutline.sports.models.Query;
 import com.keysolutions.ddpclient.android.DDPBroadcastReceiver;
 import com.keysolutions.ddpclient.android.DDPStateSingleton;
 import com.mixpanel.android.mpmetrics.MixpanelAPI;
@@ -97,6 +97,7 @@ public class ConversationActivity extends Activity implements LoaderManager.Load
         btf = Typeface.createFromAsset(getAssets(), boldFontPath);
         final EditText txtCompose = (EditText) findViewById(R.id.txtCompose);
         ImageButton sendMessage = (ImageButton) findViewById(R.id.btnCompose);
+        RelativeLayout container = (RelativeLayout) findViewById(R.id.container);
 		txtCompose.setTypeface(tf);
         jobManager = MyApplication.getInstance().getJobManager();
         progress = new ProgressDialog(this);
@@ -118,7 +119,7 @@ public class ConversationActivity extends Activity implements LoaderManager.Load
 
         }
         //   uiHelper = new UiLifecycleHelper(this, callback);
-        // uiHelper.onCreate(savedInstanceState);
+        //   uiHelper.onCreate(savedInstanceState);
 
         txtCompose.addTextChangedListener(new TextWatcher() {
             @Override
@@ -150,21 +151,17 @@ public class ConversationActivity extends Activity implements LoaderManager.Load
 
                /* if (txtCompose.getText().toString().matches("invite") == true) {
                     sendRequestDialog();
-                } else */if (txtCompose.getText().toString().matches("") == false) {
-
+                } else */if (!txtCompose.getText().toString().matches("")) {
 
                     if(txtCompose.getText().toString().matches("settings"))
                     {
-
                         Intent intent = new Intent(ConversationActivity.this,SettingsActivity.class);
                         intent.putExtra("from","conversations");
                         startActivity(intent);
                         return;
-
-                }
+                    }
 
                     mixpanel.track("User send a message",Constants.info);
-
                     UUID uniqueKey = UUID.randomUUID();
                     String mDocId = uniqueKey.toString();
                     Object[] parameters = new Object[3];
@@ -319,16 +316,14 @@ public class ConversationActivity extends Activity implements LoaderManager.Load
                 dbHelper.getInstance(getApplicationContext()).sendStructuredQuery(query_id, parameterQuery);
             }
         }
-
-
-
-
             }
         catch (Exception E)
         {
             E.printStackTrace();
         }
     }
+
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -343,7 +338,7 @@ public class ConversationActivity extends Activity implements LoaderManager.Load
                 Intent intent = new Intent(ConversationActivity.this, SettingsActivity.class);
                 intent.putExtra("from","conversations");
                 startActivity(intent);
-                overridePendingTransition(R.anim.pushrightin, R.anim.pushrightout);
+                overridePendingTransition(R.anim.pushleftin, R.anim.pushleftout);
                 return true;
             default:
                 return super.onOptionsItemSelected(item);

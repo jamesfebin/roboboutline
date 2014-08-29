@@ -69,11 +69,11 @@ public class SignupActivity extends Activity {
         emailEditText.setTypeface(tf);
         boutline.setTypeface(btf);
         lblSignup.setTypeface(tf);
-
+        /*
         usernameEditText.setText("jamesfebin");
         passwordEditText.setText("fbnonae()");
         emailEditText.setText("jamesfebin@gmail.com");
-
+        */
         Animation walkthroughAnim = AnimationUtils.loadAnimation(this, R.anim.hovering);
         walkthroughAnim.setZAdjustment(1);
         logo.startAnimation(walkthroughAnim);
@@ -177,5 +177,15 @@ public class SignupActivity extends Activity {
                 new IntentFilter("REGISTRATIONSUCCESS"));
         LocalBroadcastManager.getInstance(this).registerReceiver(mReceiver,
                 new IntentFilter("REGISTRATIONFAILED"));
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        Intent mainIntent = new Intent(SignupActivity.this,LoginActivity.class);
+        startActivity(mainIntent);
+        finish();
+        overridePendingTransition(R.anim.fadein, R.anim.fadeout);
+
     }
 }

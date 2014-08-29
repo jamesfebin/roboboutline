@@ -55,6 +55,8 @@ public class ForgotPasswordActivity extends Activity {
         mixpanel= MixpanelAPI.getInstance(getApplicationContext(), Constants.MIXPANEL_TOKEN);
 
         //set up fonts
+        tf = Typeface.createFromAsset(getAssets(), fontPath);
+        btf = Typeface.createFromAsset(getAssets(), boldFontPath);
         forgotPasswordEditText.setTypeface(tf);
         forgotpwdguide.setTypeface(tf);
         lblForgotPassword.setTypeface(btf);
@@ -151,5 +153,10 @@ public class ForgotPasswordActivity extends Activity {
 
     }
 
-
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        finish();
+        overridePendingTransition(R.anim.pushrightin, R.anim.pushrightout);
+    }
 }
